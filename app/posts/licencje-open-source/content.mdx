@@ -1,0 +1,90 @@
+export const meta = {
+  title: "Licencje Open Source – przegląd oraz omówienie",
+  short: "Krótkie omówienie najpopularniejszych licencji Open Source",
+  date: "2020-04-05",
+  categories: ["FrontOps"],
+};
+
+# {meta.title}
+
+Projekty Open Source zyskują coraz większość popularność w dzisiejszych czasach.
+Decydując się na rozpoczęcie własnego otwartego projektu (bądź przekazując już istniejący komercyjny produkt w ręce społeczności programistów) jedną
+z decyzji którą będziemy musieli podjąć jest rodzaj licencji. Licencje w projekcie Open Source może wydawać się dość mało istotną sprawą – w końcu upubliczniamy
+nasz kod, jednak warto wiedzieć jakich licencji możemy używać i co możemy dzięki nim zyskać.
+Jest to również przydatna wiedza w przypadku gdy chcemy z takiegoż projektu skorzystać i nie chcemy narazić się jego twórcy.
+
+## OSI
+
+Jeszcze słowem wstępu dodam, iż jednostką odpowiedzialną za definiowanie licencji dla projektów Open Source jest [Open Source Initiative (OSI)](https://opensource.org/).
+OSI jest organizacją działającą od 1998 roku której celem jest popularyzowanie otwartych projektów oraz definiowanie jakie kryteria muszą być spełnione
+przez projekt, aby ten został uznany za projekt Open Source.
+
+Jeżeli ktoś jest ogromnym miłośnikiem tej idei oraz czuje potrzebę popularyzowana tego typu projektów – już za jedyne 40$ rocznie możemy stać
+się pełnoprawnymi członkami w/w organizacji. Więcej informacji można znaleźć pod [tym linkiem](https://opensource.org/members).
+
+## Licencje
+
+Omówimy sobie dzisiaj pięć najbardziej popularnych licencji:
+
+- GNU General Public License (GPLv3)
+- GNU General Public License (GPLv2)
+- Apache 2.0
+- Berkeley Software Distribution (BSD)
+- MIT
+
+## GNU General Public License (GPLv3)
+
+Licencja GPLv3 jest najbardziej restrykcyjną z omawianych dzisiaj licencji. Chroni ona w znacznym stopniu autora oprogramowania i narzuca sporo ograniczeń na osoby chcące z tego kodu skorzystać.
+
+Największe ograniczenia:
+
+- każdy projekt korzystający z dowolnego innego projektu z licencją GPLv3 musi być otwarty i dostępny publicznie,
+- każdy nowy projekt bazujący na programie objętym licencją GPL musi również być wydany w oparciu o tą licencję,
+- wszelkie zmiany dokonane w kodzie źródłowym muszą zostać udokumentowane,
+- jeżeli użyliśmy naszego własnego opatentowanego dzieła podczas tworzenia oprogramowania wydanego pod licencją GPLv3, automatycznie dajemy prawo do korzystania z tego dzieła użytkownikom oprogramowania.
+
+Licencja GPLv2 od GPLv3 różni się jedynie zapisem dotyczącym praw patentowych. Punkt ten został dodany w wersji trzeciej,
+aby uniemożliwić organizacjom pobieranie opłat za użytkowanie ich patentów (było to związane z kontrowersyjnym porozumieniem [Microsoftu oraz firmy Novell](https://en.wikipedia.org/wiki/Novell#Agreement_with_Microsoft)).
+
+Popularnymi projektami korzystającymi z GPLv3 jest Bash, GIMP. Przykładem produktu wydanego pod licencją GPLv2 jest Linux.
+
+## Apache License 2.0
+
+Nieco bardziej otwartą na użytkownika jest licencja Apache 2.0. Jej główne założenia to:
+
+- kod źródłowy aplikacji korzystającej z projektów wydanych pod tą licencją nie musi otwarty,
+- modyfikacje projektów mogą zostać wydane pod dowolną wybraną przez nas licencją,
+- wszelkie zmiany dokonane w kodzie źródłowym projektu muszą zostać udokumentowane,
+- prawa patentowe zostają takie same jak w przypadku GPLv3,
+- wyraźnie zakazuje ona używania nazw handlowych znalezionych w projekcie.
+
+Android, Swift oraz Apache (a jakże) – wszystkie te projekty są wydane wraz z licencją Apache 2.0
+
+## Berkeley Software Distribution (BSD)
+
+BSD daje nam jeszcze więcej swobody niż Apache 2.0. W tym przypadku musimy pamiętać o następujących rzeczach:
+
+- kod źródłowy aplikacji korzystającej z projektów wydanych pod tą licencją nie musi otwarty,
+- modyfikacje projektów mogą zostać wydane pod dowolną wybraną przez nas licencją,
+- wszelkie zmiany dokonane w kodzie źródłowym projektu mogą, ale nie muszą zostać udokumentowane,
+- BSD nie zawiera wyraźnego stanowiska w sprawie wykorzystania patentów,
+- licencja oraz wzmianka copyright musi zostać umieszczona w dokumentacji skompilowanej już wersji kodu źródłowego,
+- nazwiska autorów oraz osób wspierających rozwój projektu (nie wiem jak inaczej przetłumaczyć contributors ) pod licencją BSD nie mogą zostać użyte bez ich zgody.
+
+Przykłady projektów z licencją BSD – Go, Pure.css, Sentry, FreeBSD.
+
+## MIT
+
+Licencja która cieszy wszystkich użytkowników otwartych projektów – jest najmniej rygorystyczną i jednocześnie obecnie najpopularniejszą licencją w świecie Open Source.
+
+Główne założenia:
+
+- kod źródłowy aplikacji korzystającej z projektów wydanych pod tą licencją nie musi otwarty,
+- modyfikacje projektów mogą zostać wydane pod dowolną wybraną przez nas licencją,
+- wszelkie zmiany dokonane w kodzie źródłowym projektu mogą, ale nie muszą zostać udokumentowane,
+- brak praw patentowych.
+
+Angular.js, jQuery, Rails, Bootstrap oraz React – to tylko nieliczne przykłady projektów wydanych pod licencją MIT.
+
+Mam nadzieję, że z tą wiedzą już dużo łatwiej będzie każdemu przeglądać repozytoria projektów Open Source i jednak od czasu do czasu zwracać uwagę na sekcję License.
+Licencje Open Source mimo, iż wydają się mało istotne, mogą przynieść nam sporo problemów z prawem.

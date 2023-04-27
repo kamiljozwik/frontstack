@@ -1,0 +1,20 @@
+@import "styles/reset.scss";
+@import "styles/base.scss";
+
+:root {
+  --color-primary: red;
+  --color-secondary: blue;
+}
+
+html {
+  color-scheme: dark;
+  color: white;
+  font-size: 18px;
+}
+
+html,
+body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

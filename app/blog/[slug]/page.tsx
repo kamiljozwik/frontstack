@@ -1,5 +1,7 @@
-import { getPostsMeta } from "@/app/utils/blog";
 import dynamic from "next/dynamic";
+import { getPostsMeta } from "@/app/utils/blog";
+
+import styles from "./blopost.module.scss";
 
 export async function generateStaticParams() {
   return getPostsMeta().map(({ slug }) => ({
@@ -17,9 +19,13 @@ const PostPage = ({ params }: { params: { slug: string } }) => {
     : () => <p>Nie mogliśmy znaleźć tego posta</p>;
 
   return (
-    <div>
-      <div>Single Post Page</div>
-      <PostContent />
+    <div className={styles.root}>
+      <main className={styles.main}>
+        <PostContent />
+      </main>
+      <section className={styles.side}>
+        <h2>Podobne posty</h2>
+      </section>
     </div>
   );
 };

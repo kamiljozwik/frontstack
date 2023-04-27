@@ -1,0 +1,17 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postsList {
+  width: 60vw;
+}
+
+.side {
+  width: 30vw;
+}

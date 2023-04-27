@@ -3,7 +3,7 @@ import path from "path";
 
 const postsDirectory = path.join(process.cwd(), "app", "posts");
 
-export type PostMeta = { date: string; title: string };
+export type PostMeta = { date: string; title: string; slug: string };
 
 export function getPostsMeta() {
   const fileNames = fs.readdirSync(postsDirectory);
@@ -11,7 +11,7 @@ export function getPostsMeta() {
   const postsMeta = fileNames.map((fileName) => {
     const slug = fileName.replace(/\.mdx$/, "");
 
-    const meta = require(`../posts/${fileName}`).meta as PostMeta;
+    const meta = require(`../posts/${fileName}`).meta as Omit<PostMeta, "slug">;
 
     return {
       slug,

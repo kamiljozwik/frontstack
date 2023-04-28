@@ -2,19 +2,27 @@
 @import "styles/base.scss";
 
 :root {
-  --color-primary: red;
-  --color-secondary: blue;
+  --color-text: #f9f5ee;
+  --color-background: #121c28;
+
+  --color-primary: #ef5350;
+  --color-secondary: #002d4e;
+
+  --color-links: #68abe5;
+  --color-headers: #fce746;
+  --color-strong: #f2ebb2;
+
+  --color-grey: #3b3b3b;
 }
 
 html {
-  color-scheme: dark;
-  color: white;
   font-size: 18px;
 }
 
-html,
 body {
+  color: var(--color-text);
+  background-color: var(--color-background);
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
 }

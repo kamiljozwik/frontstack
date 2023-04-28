@@ -8,12 +8,12 @@ type PostLinkProps = {
 
 export const PostLink = ({ post }: PostLinkProps) => {
   return (
-    <li className={styles.root}>
+    <div className={styles.root}>
+      <time dateTime={post.date}>{post.date}</time>
       <Link href={`/blog/${post.slug}`}>
         <h3>{post.title}</h3>
       </Link>
-      <time dateTime={post.date}>{post.date}</time>
-      <button>Przejdź do artykulu</button>
-    </li>
+      <p>{post.short}</p>
+    </div>
   );
 };

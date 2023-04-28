@@ -6,6 +6,11 @@
 .main {
   display: flex;
   justify-content: space-between;
+  h2 {
+    color: var(--color-headers);
+    font-weight: 400;
+    font-size: 1.17rem;
+  }
 }
 
 .postsList {

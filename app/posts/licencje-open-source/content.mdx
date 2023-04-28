@@ -1,16 +1,17 @@
+import { Table } from "./table";
+
 export const meta = {
   title: "Licencje Open Source – przegląd oraz omówienie",
-  short: "Krótkie omówienie najpopularniejszych licencji Open Source",
-  date: "2020-04-05",
-  categories: ["FrontOps"],
+  short:
+    "Zastanawiałeś się kiedyś, jakie licencje Open Source są dostępne i jakie mają zastosowania? Poznaj najpopularniejsze licencje, takie jak GPLv3, GPLv2, Apache 2.0, BSD i MIT. Odkryj ich kluczowe cechy, ograniczenia i różnice, aby świadomie korzystać z projektów Open Source i uniknąć problemów prawnych.",
+  date: "2023-04-28",
+  tags: ["FrontOps"],
 };
 
-# {meta.title}
-
 Projekty Open Source zyskują coraz większość popularność w dzisiejszych czasach.
-Decydując się na rozpoczęcie własnego otwartego projektu (bądź przekazując już istniejący komercyjny produkt w ręce społeczności programistów) jedną
-z decyzji którą będziemy musieli podjąć jest rodzaj licencji. Licencje w projekcie Open Source może wydawać się dość mało istotną sprawą – w końcu upubliczniamy
-nasz kod, jednak warto wiedzieć jakich licencji możemy używać i co możemy dzięki nim zyskać.
+Decydując się na rozpoczęcie własnego otwartego projektu (bądź przekazując już istniejący komercyjny produkt w ręce społeczności programistów) jedną z decyzji
+którą będziemy musieli podjąć jest rodzaj licencji.
+Licencje w projekcie Open Source może wydawać się dość mało istotną sprawą – w końcu upubliczniamy nasz kod, jednak warto wiedzieć jakich licencji możemy używać i co możemy dzięki nim zyskać.
 Jest to również przydatna wiedza w przypadku gdy chcemy z takiegoż projektu skorzystać i nie chcemy narazić się jego twórcy.
 
 ## OSI
@@ -43,7 +44,7 @@ Największe ograniczenia:
 - wszelkie zmiany dokonane w kodzie źródłowym muszą zostać udokumentowane,
 - jeżeli użyliśmy naszego własnego opatentowanego dzieła podczas tworzenia oprogramowania wydanego pod licencją GPLv3, automatycznie dajemy prawo do korzystania z tego dzieła użytkownikom oprogramowania.
 
-Licencja GPLv2 od GPLv3 różni się jedynie zapisem dotyczącym praw patentowych. Punkt ten został dodany w wersji trzeciej,
+Licencja **GPLv2** od **GPLv3** różni się jedynie zapisem dotyczącym praw patentowych. Punkt ten został dodany w wersji trzeciej,
 aby uniemożliwić organizacjom pobieranie opłat za użytkowanie ich patentów (było to związane z kontrowersyjnym porozumieniem [Microsoftu oraz firmy Novell](https://en.wikipedia.org/wiki/Novell#Agreement_with_Microsoft)).
 
 Popularnymi projektami korzystającymi z GPLv3 jest Bash, GIMP. Przykładem produktu wydanego pod licencją GPLv2 jest Linux.
@@ -88,3 +89,35 @@ Angular.js, jQuery, Rails, Bootstrap oraz React – to tylko nieliczne przykład
 
 Mam nadzieję, że z tą wiedzą już dużo łatwiej będzie każdemu przeglądać repozytoria projektów Open Source i jednak od czasu do czasu zwracać uwagę na sekcję License.
 Licencje Open Source mimo, iż wydają się mało istotne, mogą przynieść nam sporo problemów z prawem.
+
+## Porównanie licencji i wybór odpowiedniej dla Twojego projektu
+
+Wybór odpowiedniej licencji dla Twojego projektu może być kluczowy, ponieważ wpływa na sposób, w jaki inni mogą korzystać z Twojego kodu.
+Istotne jest, aby dobrze zrozumieć różnice między licencjami oraz ich ograniczenia.
+
+Oto porównanie najpopularniejszych licencji open source:
+
+<Table />
+
+Przed podjęciem decyzji o wyborze licencji dla swojego projektu, zastanów się, jakie są Twoje cele, jak chcesz, aby inni korzystali z Twojego kodu,
+a także jakie są Twoje wymagania dotyczące dokumentacji i praw patentowych.
+Pamiętaj, że zawsze możesz zmienić licencję w przyszłości, ale może to być trudniejsze, jeśli Twój projekt zdobędzie dużą liczbę współtwórców lub użytkowników.
+
+## Wnioski
+
+Licencje Open Source są istotnym elementem świata otwartego oprogramowania. Wybór odpowiedniej licencji dla Twojego projektu może mieć znaczenie zarówno dla Ciebie,
+jako autora, jak i dla innych programistów, którzy chcą korzystać z Twojego kodu.
+Mam nadzieję, że ten artykuł pomoże Ci lepiej zrozumieć różne rodzaje licencji Open Source oraz jak je wykorzystać w praktyce.
+Pamiętaj, że odpowiednia licencja może zapewnić Ci kontrolę nad tym, jak Twój kod jest wykorzystywany, jednocześnie umożliwiając rozwój i współpracę z innymi programistami.
+Warto więc poświęcić chwilę, aby dokładnie rozważyć swoje opcje, zanim zdecydujesz się na konkretną licencję.
+
+## Inne licencje Open Source
+
+Omówiliśmy pięć najbardziej popularnych licencji Open Source, ale istnieje wiele innych, które warto poznać. Niektóre z nich to:
+
+- **GNU Lesser General Public License (LGPL)**: Jest to licencja podobna do GPL, ale mniej restrykcyjna. Pozwala na łączenie kodu objętego licencją LGPL z kodem objętym innymi licencjami, bez konieczności ujawnienia całego kodu źródłowego. LGPL jest często używana dla bibliotek, które mają być wykorzystywane przez różne projekty.
+- **Mozilla Public License (MPL)**: Jest to licencja, która oferuje równowagę między GPL a licencjami typu BSD/MIT. Wymaga udostępnienia zmodyfikowanego kodu źródłowego, ale pozwala na łączenie kodu objętego licencją MPL z kodem objętym innymi licencjami.
+- **Eclipse Public License (EPL)**: EPL jest licencją, która pozwala na otwarte udostępnienie kodu, ale jednocześnie chroni prawa autorskie i prawa własności intelektualnej. EPL pozwala na łączenie kodu objętego licencją EPL z kodem objętym innymi licencjami, ale wymaga udostępnienia zmodyfikowanego kodu źródłowego.
+- **Creative Commons (CC)**: Creative Commons to organizacja non-profit, która oferuje zestaw licencji umożliwiających twórcom udostępnianie swoich dzieł. Licencje Creative Commons są często stosowane w przypadku treści, takich jak zdjęcia, filmy, muzyka czy teksty, ale mogą być również stosowane do kodu źródłowego.
+
+Zawsze warto sprawdzić, czy istnieje licencja, która lepiej pasuje do Twojego projektu. Pamiętaj, że wybór licencji może wpłynąć na dalszy rozwój Twojego projektu i jego atrakcyjność dla innych programistów. Niezależnie od tego, którą licencję wybierzesz, kluczowe jest przestrzeganie jej zasad i zrozumienie, jak wpływa ona na prawa autorskie, prawa własności intelektualnej oraz sposób, w jaki Twój kod może być wykorzystywany przez innych.

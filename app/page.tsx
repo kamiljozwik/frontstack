@@ -11,19 +11,16 @@ export default function Home() {
       <Hero />
       <main className={styles.main}>
         <section className={styles.postsList}>
-          <h2>Najnowsze wpisy</h2>
-          <ul>
+          <h2>NAJNOWSZE WPISY</h2>
+          <div>
             {allPosts.map((post) => (
               <PostLink key={post.slug} post={post} />
             ))}
-          </ul>
+          </div>
         </section>
         <div className={styles.side}>
           <section>
-            <h2>Kategorie</h2>
-          </section>
-          <section>
-            <h2>Popularne</h2>
+            <h2>KATEGORIE</h2>
           </section>
         </div>
       </main>

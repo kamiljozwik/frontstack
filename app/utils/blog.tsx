@@ -3,7 +3,13 @@ import path from "path";
 
 const postsDirectory = path.join(process.cwd(), "app", "posts");
 
-export type PostMeta = { date: string; title: string; slug: string };
+export type PostMeta = {
+  title: string;
+  short: string;
+  date: string;
+  tags: string[];
+  slug: string;
+};
 
 export function getPostsMeta() {
   const folderNames = fs.readdirSync(postsDirectory);

@@ -4,20 +4,25 @@ p {
 
 ul {
   margin-bottom: 24px;
+  li {
+    padding: 4px 0;
+  }
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-links);
   text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 button {
   cursor: pointer;
   background: none;
   border: none;
+}
+
+small,
+time {
+  font-size: 0.8rem;
 }
 
 code {
@@ -28,4 +33,29 @@ code {
   background: rgba(138, 147, 161, 0.17);
   border-radius: 3px;
   box-decoration-break: clone;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  text-align: left;
+  th,
+  td {
+    border: 1px solid;
+    padding: 10px;
+  }
+  th {
+    background-color: var(--color-secondary);
+  }
+
+  tbody {
+    background-color: var(--color-grey);
+    tr td:first-of-type {
+      background-color: var(--color-secondary);
+    }
+  }
+}
+
+strong {
+  color: var(--color-strong);
 }

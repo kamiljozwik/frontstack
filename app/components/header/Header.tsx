@@ -8,7 +8,7 @@ export const Header = () => {
         <Link href="/">FRONTSTACK.PL</Link>
         <ul>
           <li>
-            <Link href="/blog">Najnowsze</Link>
+            <Link href="/blog">Wszystkie posty</Link>
           </li>
           <li>
             <Link href="/blog">Kategorie</Link>

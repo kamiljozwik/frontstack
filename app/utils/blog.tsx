@@ -5,6 +5,7 @@ const postsDirectory = path.join(process.cwd(), "app", "posts");
 
 export type PostMeta = {
   title: string;
+  seo_desc: string;
   short: string;
   date: string;
   tags: string[];

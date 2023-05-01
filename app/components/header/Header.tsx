@@ -6,14 +6,16 @@ export const Header = () => {
     <header className={styles.root}>
       <div className={styles.links}>
         <Link href="/">FRONTSTACK.PL</Link>
-        <ul>
-          <li>
-            <Link href="/blog">Wszystkie posty</Link>
-          </li>
-          <li>
-            <Link href="/blog">Kategorie</Link>
-          </li>
-        </ul>
+        <nav>
+          <ul>
+            <li>
+              <Link href="/blog">Wszystkie posty</Link>
+            </li>
+            <li>
+              <Link href="/blog">Kategorie</Link>
+            </li>
+          </ul>
+        </nav>
       </div>
       <div className="extra"></div>
     </header>

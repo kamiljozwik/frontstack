@@ -1,10 +1,20 @@
 import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 import { PostMeta, getPostsMeta } from "@/app/utils/blog";
 
 import styles from "./blopost.module.scss";
 
 export async function generateStaticParams() {
   return getPostsMeta();
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: PostMeta;
+}): Promise<Metadata> {
+  const meta = getPostsMeta().find(({ slug }) => slug === params.slug);
+  return { title: meta?.title, description: meta?.seo_desc };
 }
 
 const PostPage = ({ params }: { params: PostMeta }) => {

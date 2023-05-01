@@ -1,0 +1,253 @@
+import Image from "next/image";
+import chain from "./chain.png";
+import callCenter from "./callCenter.gif";
+import wynik from "./wynik.png";
+
+export const meta = {
+  title: "Wzorzec: Chain Of Responsibility",
+  seo_desc:
+    'Wzorzec "Chain of responsibility", zwany również łańcuchem zobowiązań jest wzorcem projektowym, dzięki któremu możemy tworzyć modułowy kod.',
+  short:
+    "Chcesz dowiedzieć się, jak efektywnie zarządzać złożonymi zadaniami w programowaniu? Zapoznaj się z wzorcem projektowym Chain of Responsibility. Poznaj jego zalety, takie jak rozdzielenie obowiązków i elastyczność, oraz dowiedz się, jak zastosować ten wzorzec w praktyce, aby ulepszyć swoje projekty.",
+  date: "2023-04-28",
+  tags: ["Wzorce", "JavaScript"],
+};
+
+Chain of responsibility jest wzorcem behawioralnym, który jest stosunkowo łatwy do zrozumienia, więc część teoretyczna tego wpisu będzie dość krótka. Przykłady w tym przypadku przyniosą nam większą korzyść 🙂
+
+## Łańcuch zobowiązań
+
+_Chain of responsibility_, zwany również Łańcuchem zobowiązań, pozwala nam podzielić obsłużenie jakiegoś zadania / żądania przez wiele pojedynczych obiektów obsługujących. Obiekty te są niejako połączone jak za pomocą łańcucha i **realizują zadanie jeden po drugim**. Jeżeli dany obiekt stwierdzi, iż nie potrafi obsłużyć danego zadania, przekazuje je dalej do kolejnego obiektu. W łańcuchu takim ostatni obiekt musi być przygotowany na to, że nie będzie w stanie dalej przekazać zadania, więc będzie musiał jakoś sobie z nim zawsze poradzić.
+
+W przypadku gdy obiekt będzie w stanie obsłużyć żądanie i w wyniku jego pracy zdecyduje o tym, że dalsze przetwarzanie nie ma sensu, **może on w tym momencie przerwać cały łańcuch** i zakończyć obsługę żądania.
+
+<img src={chain.src} alt="graficzna prezentacja łańcucha zobowiązań" />
+
+Stosując łańcuch zobowiązań, delegujemy każdemu z obiektów (każdej klasie/funkcji) **tylko jedno zadanie**. W ten sposób nasz kod robi się dużo czytelniejszy oraz łatwiejszy do utrzymania.
+
+Posiadając już zdefiniowane pojedyncze obiekty obsługujące, nasz łańcuch możemy tworzyć dynamicznie w zależności od aktualnych potrzeb. Musimy więc dopilnować również zgodności interfejsów (np. korzystając z TypeScript lub rozszerzając klasy bazowe).
+
+## Wady i zalety
+
+Wzorzec Chain of Responsibility oczywiście ma swoje wady i zalety. Najważniejsze z nich możemy znaleźć poniżej:
+
+### Zalety 👍
+
+- **Rozdzielenie obowiązków**: Łańcuch zobowiązań pozwala na rozbicie odpowiedzialności za obsługę żądań pomiędzy wiele obiektów. Każdy z obiektów ma jasno zdefiniowane zadanie, co pozwala na łatwiejsze zarządzanie kodem.
+- **Większa elastyczność**: Pozwala na dynamiczne tworzenie łańcucha, a także modyfikowanie go w trakcie działania aplikacji.
+- **Odmowa obsługi**: Przerwanie łańcucha w dowolnym miejscu jest możliwe, gdy dalsze przetwarzanie żądania nie ma sensu.
+
+### Wady 👎
+
+- **Wyższa złożoność**: Stosowanie wzorca Chain of Responsibility może wprowadzić dodatkową złożoność do aplikacji, zwłaszcza gdy istnieje wiele obiektów i zależności pomiędzy nimi.
+- **Opóźnienia**: Stosowanie łańcucha może prowadzić do opóźnień, gdy żądanie musi przejść przez wiele obiektów zanim zostanie obsłużone.
+
+## Kilka przykładów
+
+Jednym z nieprogramistycznych przykładów obrazujących ten wzorzec jest **call center**. W przypadku gdy chcemy dowiedzieć się czegoś, korzystając z infolinii, najprawdopodobniej w pierwszej kolejności usłyszymy w słuchawce automat. Automat ten będzie pierwszym obiektem obsługującym. Być może będzie umiał od rozwiązać nasz problem, czytając jakąś gotową odpowiedź bądź rozłączy nas, gdy nie wyrazimy zgody na nagrywanie, ale w większości przypadków przekaże nasze żądanie dalej, do pierwszej linii wsparcia. Jeżeli tam również się nie uda, będziemy przekazywani dalej, aż w końcu ktoś nam pomoże, albo okaże się, że nasz problem jest nie do rozwiązania przez telefon.
+
+<img src={callCenter.src} />
+
+Kolejnym przykładem może być **praca bankomatu**. Po wybraniu odpowiedniej kwoty do wypłaty bankomat musi sprawdzić, czy posiadamy takie środki na koncie, czy w bankomacie jest wystarczająco dużo gotówki oraz zdecydować, w jakich nominałach wypłacić nam banknoty. Tutaj ponownie wszystkie te czynności można wykonać z wykorzystaniem Chain of responsibility.
+
+Z kolei wracając już do świata IT, tego typu wzorzec sprawdzi się bardzo dobrze we wszelkich **procesach autoryzacyjnych**. Poprawność hasła, przyznane uprawnienia, opłacona subskrypcja, nałożone bany, ilość środków na koncie itd. Wszystkie te czynności można wynieść do osobnych obiektów i składać łańcuchy (np. przy pomocy jakiejś fabryki) w zależności od aktualnych potrzeb.
+
+Przykładem bliższym nam, frontendowcom, jest [event bubbling](https://javascript.info/bubbling-and-capturing), gdzie poszczególne zdarzenia (np. click) obsługiwane są przez te elementy w drzewie DOM, które są do tego przygotowane (tj. napisaliśmy dla nich kod obsługujący dany event).
+
+To tyle suchej gadki – spójrzmy w końcu w kod 😉
+
+## Przykład – operacje płatnicze
+
+W poniższym przykładzie omówimy sobie łańcuch zobowiązań na podstawie kilku klas, których moglibyśmy użyć przy tworzeniu systemu płatności. „Żądaniem” w tym przypadku będzie zainicjowanie płatności. Poza samą kwotą posiadamy również informację o tym, czy w przypadku danej operacji powinniśmy skorzystać z waluty tradycyjnej, czy wirtualnej. Dla waluty tradycyjnej użyjemy konta bankowego lub PayPal, natomiast waluty wirtualne, jakie mamy w naszym portfelu to Bitcoin oraz Dogecoin. Łańcuch, który stworzymy, preferuje w pierwszej kolejności skorzystanie z konta PayPal (waluta tradycyjna) bądź Bitcoina (waluta wirtualna).
+
+Szczegółowe wyjaśnienie ról poszczególnych klas znajdziemy w **komentarzach** do kodu.
+
+```js showLineNumbers
+/**
+ * Pomocniczy obiekt na cele przykładu.
+ * Symuluje stan naszego konta w różnych walutach.
+ */
+const fakeBalanceApi = {
+  payPal: 50,
+  bankAccount: 200,
+  /* Wiedzieliście, że tak również można zapisywać liczby w JS? 😉 */
+  bitcoin: 1_000,
+  dogecoin: 10_000_000,
+};
+
+/**
+ * Klasa tworząca obiekt obsługujący, tj. "ogniwo łańcucha".
+ * Właściwe obiekty będą rozszerzały tę właśnie klasę.
+ */
+class Account {
+  /**
+   * Metoda służąca do "połączenia" obecnego obiektu
+   * ("ogniwa") z kolejnym obiektem w łańcuchu.
+   */
+  setNextHandler(nextObj) {}
+
+  /**
+   * Domyślne zachowanie w przypadku, gdy żaden z
+   * elementów łańcucha nie jest w stanie obsłużyć
+   * żądania.
+   */
+  handlePayment(req) {
+    const { amount } = req.getRequest();
+    console.log(`Can't handle ${amount}$ 😞`);
+  }
+}
+
+/**
+ * Klasa tworząca nowe żądanie - punk wejściowy
+ * do łańcucha.
+ */
+class Request {
+  constructor(request) {
+    this.request = request;
+    this.nextObj = new Account();
+  }
+
+  /**
+   * Metoda zwracająca aktualnie przetwarzane żądanie.
+   */
+  getRequest() {
+    return this.request;
+  }
+}
+
+/**
+ * Poniżej znajdują się klasy tworzące obiekty
+ * obsługujące. Rozszerzają klasę "Account".
+ */
+
+class PayPal extends Account {
+  constructor() {
+    super();
+    /**
+     * Inicjalizacja zmiennej "nextObj", czyli kolejnego
+     * obiektu w łańcuchu.
+     */
+    this.nextObj = new Account();
+  }
+
+  setNextHandler(nextObj) {
+    this.nextObj = nextObj;
+  }
+
+  handlePayment(req) {
+    const { useVirtual, amount } = req.getRequest();
+    if (!useVirtual && amount < fakeBalanceApi.payPal) {
+      /* Obiekt potrafi obsłużyć żądanie, więc przystępuje do pracy. */
+      console.log(`Handle ${amount}$ with PayPall 💳`);
+    } else {
+      /* Przekazanie żądania do kolejnego obiektu. */
+      this.nextObj.handlePayment(req);
+    }
+  }
+}
+
+class BankAccount extends Account {
+  constructor() {
+    super();
+    this.nextObj = new Account();
+  }
+
+  setNextHandler(nextObj) {
+    this.nextObj = nextObj;
+  }
+
+  handlePayment(req) {
+    const { useVirtual, amount } = req.getRequest();
+    if (!useVirtual && amount < fakeBalanceApi.bankAccount) {
+      console.log(`Handle ${amount}$ with Bank account 💰`);
+    } else {
+      this.nextObj.handlePayment(req);
+    }
+  }
+}
+
+class Bitcoin extends Account {
+  constructor() {
+    super();
+    this.nextObj = new Account();
+  }
+
+  setNextHandler(nextObj) {
+    this.nextObj = nextObj;
+  }
+
+  handlePayment(req) {
+    const { useVirtual, amount } = req.getRequest();
+    if (useVirtual && amount < fakeBalanceApi.bitcoin) {
+      console.log(`Handle ${amount}$ with Bitcoin 💲`);
+    } else {
+      this.nextObj.handlePayment(req);
+    }
+  }
+}
+
+class Dogecoin extends Account {
+  constructor() {
+    super();
+    this.nextObj = new Account();
+  }
+
+  setNextHandler(nextObj) {
+    this.nextObj = nextObj;
+  }
+
+  handlePayment(req) {
+    const { useVirtual, amount } = req.getRequest();
+    if (useVirtual && amount < fakeBalanceApi.dogecoin) {
+      console.log(`Handle ${amount}$ with Dogecoin 🐶`);
+    } else {
+      this.nextObj.handlePayment(req);
+    }
+  }
+}
+
+/**
+ * Utworzenie pojedynczych elementów łańcucha
+ * (obiektów obsługujących)
+ */
+const h1 = new PayPal();
+const h2 = new BankAccount();
+const h3 = new Bitcoin();
+const h4 = new Dogecoin();
+
+/**
+ * Tworzymy łańcuch zobowiązań z powyższych obiektów:
+ * request ➡ h1 ➡ h2 ➡ h3 ➡ h4 ➡ h5
+ * Łańcuch ten może wyglądać różnie w zależności od
+ * aktualnych wymagań.
+ */
+
+h1.setNextHandler(h2);
+h2.setNextHandler(h3);
+h3.setNextHandler(h4);
+
+/* Testowanie łańcuchów */
+
+h1.handlePayment(new Request({ amount: 10, useVirtual: false }));
+h1.handlePayment(new Request({ amount: 100, useVirtual: false }));
+h1.handlePayment(new Request({ amount: 100, useVirtual: true }));
+h1.handlePayment(new Request({ amount: 10_00, useVirtual: true }));
+h1.handlePayment(new Request({ amount: 100_000_000, useVirtual: false }));
+h1.handlePayment(new Request({ amount: 100, useVirtual: false }));
+h1.handlePayment(new Request({ amount: 100_000_000, useVirtual: true }));
+
+/* Łańcuchów nie musimy uruchamiać od samego początku */
+
+h3.handlePayment(new Request({ amount: 100, useVirtual: true }));
+h3.handlePayment(new Request({ amount: 100, useVirtual: false }));
+```
+
+Wynik uruchomienia powyższego kodu:
+
+<img src={wynik.src} />
+
+Powyższy przykład tworzy nowe obiekty za pomocą klas, jednak oczywiście [możemy skorzystać z innych metod](https://frontstack.pl/blog/obiekty-javascript-podstawy/). Żądanie, które przetwarzamy w kolejnych obiektach, będzie obsłużone tylko raz. W razie potrzeby możemy również nieco modyfikować przekazywany obiekt (nie zmieniając oczywiście jego interfejsu) i w takiej formie przekazywać go dalej. Dodawane mogą być informacje np. o opłaconym abonamencie. Jeżeli abonament nie jest opłacony, łańcuch może zostać przerwany. Jeżeli jednak abonament jest opłacony, możemy „doczepić” informację o wykupionych usługach, co może zostać wykorzystane przez jedno z kolejnych ogniw.
+
+## Podsumowanie
+
+Wzorzec _**Chain of responsibility**_ jest wzorcem dość łatwym do zrozumienia i zaimplementowania. Podobnie jak w przypadku innych wzorców, skorzystanie z łańcucha pozwoli nam pisać bardziej czytelny, modułowy i reużywalny kod. Również przyszły refactor, który może nas czekać w kodzie, będzie stosunkowy łatwy, jeżeli będzie polegał jedynie na dodaniu / zamienieniu / usunięciu jednego elementu z łańcucha. Warto stosować ten wzorzec w sytuacjach, gdzie mamy do czynienia z wieloma obiektami, które mają wykonywać określone zadania w określonym porządku.

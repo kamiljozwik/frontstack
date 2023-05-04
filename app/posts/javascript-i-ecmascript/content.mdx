@@ -1,0 +1,77 @@
+import love from "./love.gif";
+
+export const meta = {
+  title: "JavaScript i ECMAScript – wyjaśnienie odwiecznego problemu",
+  seo_desc:
+    "JavaScript, ECMAScript, ES5, ES6 - jeżeli nie wiesz jeszcze jakie są główne różnice między tymi nazwami to zdecydowanie powinieneś przeczytać ten post.",
+  short:
+    "Odkryj tajemnice stojące za JavaScript i ECMAScript! Ten artykuł wyjaśnia różnice, związki i historię obu pojęć, pomagając zrozumieć ich znaczenie w świecie programowania. Czytając ten tekst, odkryjesz, jak te technologie się rozwijały i jak współgrają ze sobą. Gwarantuję, że będzie ciekawie.",
+  date: "2022-04-05",
+  tags: ["JavaScript", "Inne"],
+};
+
+JavaScript oraz ECMAScript – dwa słowa, których wyjaśnienie często sprawia problemy zarówno początkującym jak i już bardzo doświadczonym developerom. Dokładając do tego **wersjonowanie** (ES5, ES6, ES2015, etc) możemy już utknąć w długiej wymianie zdań między różnymi programistami, którzy chcą przedstawić swoją interpretację tego tematu.
+
+Co jest standardem, specyfikacją, implementacją, dialektem, itp. – mam nadzieję, że dzisiejszy wpis rzuci trochę więcej światła na to zagadnienie.
+
+W pierwszej kolejności rozłóżmy wszystkie podane wcześniej nazwy na czynniki pierwsze.
+
+## Ecma
+
+[Ecma international](https://www.ecma-international.org/) (ang. _European Association for Standardizing Information and Communication Systems_; dawniej ang. _European Computer Manufacturers Association_) jest to organizacja, której zadaniem jest **tworzenie standardów technologicznych**. Nie jest ona związana tylko z JavaScript. Standardy wprowadzone przez Ecma dotyczą także płyt DVD, NFC czy algorytmów bezstratnej kompresji danych. Pełną listę możemy znaleźć pod tym [adresem](https://www.ecma-international.org/publications-and-standards/standards/).
+
+Na naszą szczególną uwagę powinien zasłużyć standard **ECMA-262**: _ECMAScript® 2018 Language Specification, 9th edition (June 2018)_. ECMAScript jest więc nazwą standardu dla języków programowania ogólnego zastosowania (_general-purpose programming language_).
+
+Początkowo, standard ten definiował specyfikację jedynie dla języków skryptowych. Skryptowych, czyli takich, które działają wewnątrz jakiegoś środowiska/systemu, który można obsługiwać przez interfejs użytkownika. Natomiast sam język skryptowy udostępniał nam możliwość wykonywania tych samych operacji w „programatyczny” sposób – poprzez pisanie skryptów (np. automatyzujących część prac).
+
+## ECMAScript
+
+ECMAScript jest więc **standardem**, który definiuje język skryptowy. Warto zaznaczyć, że ECMAScript nie jest językiem programowania, a jedynie standardem. Standardem, który definiuje język programowania. Obecnie, ECMAScript zdefiniowany jest już jako obiektowy język programowania ogólnego zastosowania, który wykonywany jest wewnątrz środowiska dostarczonego przez hosta. Nie jest on w stanie funkcjonować samodzielnie.
+
+ECMAScript dostarcza nam więc **zasady oraz wytyczne**, którymi musi kierować się język programowania, aby mógł zostać uznany za kompatybilny ze standardem. Warto zaznaczyć, że standard ECMAScript nie definiuje żadnych zewnętrznych bibliotek, ani też nie definiuje sposobu, w jaki język programowania ma być wykonywany. Wszystko to pozostawia implementatorom. W tym przypadku implementatorami są **twórcy przeglądarek internetowych**. To oni decydują, w jaki sposób język programowania będzie wykonywany wewnątrz przeglądarki.
+
+## ES
+
+ES jest niczym więcej niż tylko **skrótem od ECMAScript**. Za każdym razem, gdy zobaczymy skrót ES poprzedzający jakąś liczbę, możemy być pewni, iż mamy do czynienia z konkretną wersją standardu. Sześć pierwszy wersji oznaczone były nazwami **ES1** (1997), **ES2** (1998), **ES3** (1999), **ES4** (zaniechane), **ES5** (2009), **ES6** (2015).
+
+Wersja **ES6 była dość przełomowa**, ponieważ od tej wersji Ecma International zdecydowała się na zmianę nazewnictwa kolejnych edycji. Zamiast numerować wersje, od teraz w nazwie konkretnej wersji znajduje się rok jej publikacji. ES6 został opublikowany w 2015r, dlatego też ta wersja, jako jedyna, **posiada dwie nazwy** – ES6 oraz ES2015. Wszystkie kolejne wydania są oznaczane już nazwami ES2016, ES2017, etc.
+
+## JavaScript
+
+JavaScript jest językiem programowania, który został **zaimplementowany na podstawie standardu ECMAScript**. JavaScript jest więc dialektem języka ECMAScript. Warto zaznaczyć, że JavaScript nie jest jedynym dialektem języka ECMAScript. Istnieje wiele innych dialektów, które również są zgodne ze standardem ECMAScript. Przykładem może być ActionScript, który został stworzony przez firmę Adobe. Innym przykładem może być JScript, który został stworzony przez Microsoft.
+
+Idąc tym tropem, łatwo się domyśleć, iż JavaScript jest językiem programowania, który powstaje w zgodzie ze standardem ECMAScript i jest jego najpopularniejszą implementacją. Czytając specyfikację ECMAScript, możemy się nauczyć w jaki sposób stworzyć nowy język programowania. Natomiast czytając dokumentację JavaScript, uczymy się jak używać języka programowania.
+
+Warto w tym momencie przytoczyć pewną ciekawostkę. JavaScript został stworzony w 1996r przez firmę Netscape i następnie wysłany do Ecma International w celu standaryzacji. W ten właśnie sposób został stworzony standard ECMAScript (ES1). Oczywistym więc było, iż JavaScript był w pełni zgodny z tym standardem. Tym samym doszliśmy dzisiaj do sytuacji w której **ECMAScript bazuje na JavaScript i jednocześnie JavaScript implementuje ECMAScript**.
+
+## Silniki JavaScript i implementacje ECMAScript
+
+Współcześnie JavaScript jest używany w wielu różnych środowiskach, ale jego pierwotnym zastosowaniem było działanie w przeglądarkach internetowych. Aby zrozumieć, jak różne przeglądarki stosują standard ECMAScript, warto przyjrzeć się silnikom JavaScript, które są ich sercem.
+
+Silnik JavaScript to program komputerowy, który interpretuje kod JavaScript i wykonuje go. Silnik JavaScript składa się z wielu komponentów, które są odpowiedzialne za różne zadania. Jednym z tych komponentów jest **parser**, który jest odpowiedzialny za analizę kodu JavaScript i przekształcenie go w **abstrakcyjne drzewo składniowe**. Abstrakcyjne drzewo składniowe to struktura danych, która reprezentuje strukturę kodu JavaScript. Parser jest więc odpowiedzialny za sprawdzenie, czy kod JavaScript jest poprawny i czy nie zawiera błędów składniowych, ale to już temat za zupełnie inny artukuł.
+
+Dwa najpopularniejsze silniki JavaScript to **V8**, **SpiderMonkey** oraz **JavaScriptCore**. Każdy z nich jest używany przez inną przeglądarkę internetową. Warto zaznaczyć, że każdy z tych silników jest **otwartoźródłowy** i jest rozwijany przez społeczność. Dzięki temu, każdy może przyczynić się do rozwoju silnika JavaScript.
+
+### **V8** (Google Chrome)
+
+V8 jest silnikiem JavaScript stworzonym przez Google, który napędza przeglądarkę Google Chrome. Jest on znany ze swojej szybkości i wydajności, dzięki optymalizacjom, takim jak kompilacja JIT (Just-In-Time) oraz zaawansowane techniki zarządzania pamięcią. V8 jest również używany w Node.js, co pozwala na uruchamianie JavaScript poza przeglądarką.
+
+### **SpiderMonkey** (Mozilla Firefox)
+
+SpiderMonkey to pierwszy na świecie silnik JavaScript, stworzony przez Brendana Eicha w firmie Netscape. Obecnie jest on rozwijany przez Mozilla Foundation i napędza przeglądarkę Firefox. Podobnie jak V8, SpiderMonkey stosuje kompilację JIT i różne optymalizacje, aby poprawić wydajność kodu JavaScript.
+
+### **JavaScriptCore** (Safari)
+
+JavaScriptCore, znany również jako Nitro, jest silnikiem JavaScript stworzonym przez Apple, który napędza przeglądarkę Safari. W swojej implementacji korzysta z technik optymalizacji, takich jak kompilacja JIT i typowanie inferencyjne, aby zapewnić szybsze działanie kodu JavaScript.
+
+Wszystkie te silniki mają swoje unikalne cechy i optymalizacje, ale wszystkie mają wspólną cechę - **są zgodne ze standardem ECMAScript**. Dzięki temu deweloperzy mogą pisać kod JavaScript, który będzie działać we wszystkich współczesnych przeglądarkach, niezależnie od używanego silnika.
+
+Kolejna warta odnotowania rzecz, to fakt, iż człon Java w nazwie JavaScript, ze względów marketingowych został umieszczony tylko po to, aby skorzystać z rosnącej w tamtym czasie popularności języka Java.
+
+Więcej na temat tego, jak powstała nazwa JavaScript można posłuchać w wywiadzie z twórcą tego języka - [Brendanem Eichem](https://www.youtube.com/watch?v=WqMbzVWIAjY).
+
+Tak na marginesie JS został napisany w 10 dni 🤯 a sama nazwa „JavaScript”, zarówno jak i „Java” są objęte prawami autorskimi, które należą do tej samej firmy – Oracle.
+
+I jak tu nie kochać tego języka!
+
+<img src={love.src} />

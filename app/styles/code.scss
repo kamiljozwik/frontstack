@@ -6,7 +6,7 @@ code {
   counter-reset: line;
   background: #282c34;
   margin: 12px 0;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 code[data-line-numbers] > .line::before {

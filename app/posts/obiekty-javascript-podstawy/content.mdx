@@ -1,0 +1,137 @@
+import { Info } from "../../components/posts";
+
+export const meta = {
+  title: "Obiekty JavaScript: wprowadzenie i podstawowe zagadnienia",
+  seo_desc:
+    "Obiekty w JavaScript są jednym z najbardziej podstawowych zagadnień JavaScript. W tej serii dowiesz się wszystkiego na ich temat.",
+  short:
+    "Odkryj świat obiektów JavaScript w artykule wprowadzającym do tego tematu. Dowiedz się, czym są obiekty, jak korzystać z ich właściwości i jak tworzyć obiekty w praktyce. Ta przystępna lektura stanowi dobrą bazę dla każdego, kto chce zgłębić tajniki obiektów w JavaScript.",
+  date: "2021-08-23",
+  tags: ["JavaScript"],
+};
+
+Gdybym miał wskazać najbardziej fundamentalne rzeczy potrzebne do nauki i zrozumienia JavaScript – obiekty na pewno byłyby jednym z głównych kandydatów do tej listy. W tym oraz kilku kolejnych postach postaram się więc wprowadzić wszystkich zaczynających swoją przygodą do obiektowego świata JavaScript.
+
+## Czym są obiekty JavaScript?
+
+Gdy zaczynamy myśleć o obiektach w JavaScript, do głowy przychodzi nam pewnie myśl – _„prosta reprezentacja danych w której każdemu kluczowi przypisana jest odpowiednia wartość„_. W głowie pewnie też od razu układa nam się prosty kod:
+
+```js
+const user = {
+  name: "Kamil",
+  surname: "Front",
+  age: 27,
+};
+```
+
+Jednak gdy zaczynamy czytać dalej i trafiamy na pojęcia takie jak prototypy, klasy, prymitywy, dziedziczenie, klasy, yyy… Wtedy ten prosty obiekt przestaje być taki prosty.
+
+W tej serii artykułów postaram się w przystępny sposób przybliżyć wszystko co należy wiedzieć o obiektach w JavaScript.
+
+<Info title="Nomenklatura">
+  Z racji tego, iż większość profesjonalnych materiałów oraz dokumentacji
+  znajdziemy w języku angielskim, dość często będę posługiwał się angielskimi
+  nazwami takimi jak _object literal_, _immutable_, _primitives_, itp. Czasem
+  znalezienie polskiego odpowiednika bywa dość „sztuczne” i może prowadzić do
+  wielu nieporozumień, szczególnie dla mniej doświadczonych developerów.
+</Info>
+
+## Property
+
+Zacznijmy od czegoś łatwego – _property_. Property, czasami też nazywane kluczem, jest unikalną wartością występującą w obiekcie. Do property musi być przyporządkowana jakaś wartość. Wartość tą odczytujemy właśnie poprzez podanie odpowiedniej property obiektu. Odnosząc się do przykładu ze wstępu – `name`, `surname`, `age` są to property obiektu `user`. Natomiast Kamil, Front, 27 są ich odpowiednimi wartościami.
+
+Istnieją dwa sposoby na odczyt/zapis wartości property:
+
+- _dot notation_
+- _bracket notation_
+
+```js
+const user = {
+  name: "Kamil",
+  surname: "Front",
+  age: 27,
+};
+
+user.name; // dot notation
+user["name"]; // bracket notation
+```
+
+Gdy będziemy chcieli odczytać wartość property, która nie istnieje na obiekcie, JavaScript nie wyrzuci błędu, tylko zwróci wartość `undefined`. Ponownie patrząc na nasz przykład: `user.weigth // undefined{:js}`
+
+Używając _dot notation_, musimy używać tzw. _valid identifier_, czyli ciągu znaków składających się z dużych bądź małych znaków Unicode, cyfr oraz znaku podkreślenia, przy czym cyfra nie może być pierwszym znakiem. [Tutaj](https://mothereff.in/js-variables) możemy sprawdzić, czy dany ciąg znaków może być użyty jako nazwa zmiennej w JavaScript. W przypadku bracket notation nie jesteśmy tym ograniczeni:
+
+```js
+let powitania = {};
+powitania["przed południem"] = "Dzień dobry";
+
+powitania["przed południem"]; // "Dzień dobry"
+``;
+```
+
+Warto mieć na uwadze fakt, iż gdy ustawimy property, która nie jest typu `string`, zostanie ona zamieniona na `string` (poprzez metodę `toString()`, gdy jest to możliwe):
+
+`obj[1] === obj["1"]; // true, integer 1 przekonwertowany na string „1”{:js}`.
+
+## Property value (wartość property)
+
+Wartością property może być kolejny obiekt, funkcja, bądź _primitive_. Może tutaj pojawić się pytanie: czym jest _primitive_ i czym różni się on od obiektu? Wszystko co musimy wiedzieć na temat _primitives_ na chwilę obecną, to fakt, iż _primitives_ to tzw. typy podstawowe. W JavaScript zaliczają się do nich następujące typy danych:
+
+- string
+- number
+- boolean
+- null
+- undefined
+- symbol
+
+Typy te nie posiadają żadnych przypisanych do siebie metod oraz nie są obiektami. Brzmi to bardzo zawile i skomplikowanie, ale zasadniczo w JavaScript wszystkie nasze dane są albo obiektami (o nich tutaj rozmawiamy), albo są typu _primitive_, czyli są po prostu stringiem, liczbą, wartością logiczną, itp.
+
+Więcej na temat różnic między obiektami a prymitywami znajdzie się w oddzielnym poście.
+
+## Obiekt
+
+W przypadku, gdy wartością property będzie kolejny obiekt, wtedy tworzymy strukturę zagnieżdżoną:
+
+```js
+const user = {
+  name: "Kamil",
+  surname: "Front",
+  age: 27,
+  address: {
+    city: "Warsaw",
+    district: "Bielany",
+  },
+};
+```
+
+Teraz, aby dostać się do kolejnych, zagnieżdżonych wartości, ponownie możemy korzystać z _dot notation_ bądź _bracket notation_ wskzaując kolejne interesujące nas property:
+
+`user.address.city // Warsaw {:js}`
+
+## Funkcja
+
+Gdy wartością property jest funkcja, wtedy taką property nazywamy _metodą_. Wewnątrz metody istnieje kolejny, sprawiający sporo problemów składnik języka JavaScript: słowo `this` – jednak jest to temat na zupełnie oddzielny artykuł, który na pewno pojawi się na łamach frontstack.pl.
+
+## Tworzenie obiektu
+
+Obiekty w JavaScript możemy tworzyć na dwa podstawowe sposoby:
+
+- **object literal**, czyli deklarujemy nasz obiekt tak jak każdą podstawową zmienną. W tym miejscu możemy od razu podać property oraz ich wartości:
+
+```js
+const user = {
+  name: "Kamil",
+  surname: "Front",
+  age: 27,
+};
+```
+
+- użycie **słowa kluczowego** `new`, dzięki czemu tworzymy nowy obiekt nie posiadający żadnego property:
+
+```js
+const user = new Object();
+
+user.name = "Kamil";
+user["age"] = 27;
+```
+
+To tyle, jeżeli chodzi o najbardziej podstawowe informacje dotyczące obiektów w JavaScript. Kolejną część zaczniemy od pojęcia _prototypu_ i przejdziemy do dziedziczenia, także gorąco zachęcam do dalszego czytania.

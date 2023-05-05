@@ -27,5 +27,5 @@ export function getPostsMeta() {
     };
   });
 
-  return postsMeta;
+  return postsMeta.sort((a, b) => (a.date < b.date ? 1 : -1));
 }

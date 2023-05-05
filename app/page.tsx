@@ -13,7 +13,7 @@ export default function Home() {
         <section className={styles.postsList}>
           <h2 className="yellow-header-h2">NAJNOWSZE WPISY</h2>
           <div>
-            {allPosts.map((post) => (
+            {allPosts.slice(0, 5).map((post) => (
               <PostLink key={post.slug} post={post} />
             ))}
           </div>

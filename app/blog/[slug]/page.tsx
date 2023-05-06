@@ -21,9 +21,9 @@ const PostPage = ({ params }: { params: PostMeta }) => {
   const slugs = getPostsMeta().map(({ slug }) => slug);
 
   const PostContent = slugs.includes(params.slug)
-    ? dynamic(() => import(`../../posts/${params.slug}/content.mdx`), {
+    ? (dynamic(() => import(`../../posts/${params.slug}/content.mdx`), {
         loading: () => <p>Loading...</p>,
-      })
+      }) as any) // TODO: fix types
     : () => <p>Nie mogliśmy znaleźć tego posta</p>;
 
   const meta = getPostsMeta().find(({ slug }) => slug === params.slug);

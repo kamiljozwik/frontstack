@@ -1,0 +1,95 @@
+import docker1 from "./docker1.png";
+import docker2 from "./docker2.png";
+import docker3 from "./docker3.png";
+import docker4 from "./docker4.png";
+import docker5 from "./docker5.png";
+import docker6 from "./docker6.png";
+import docker7 from "./docker7.png";
+
+export const meta = {
+  title: "Docker – wprowadzenie, instalacja i pierwsze uruchomienie",
+  seo_desc:
+    "Wprowadzenie do technologii Docker. Artykuł wyjaśnia czym jest docker, jak go zainstalować i przedstawia podstawowe komendy.",
+  short:
+    "Odkryj świat Dockera dzięki temu wprowadzeniu, które pokazuje, jak zainstalować i uruchomić pierwszy kontener. Dowiedz się, jak technologia kontenerów może ułatwić codzienną pracę programisty i przyśpieszyć wdrożenia aplikacji. Sprawdź nasz artykuł, aby zacząć swoją przygodę z Dockerem.",
+  date: "2021-08-09",
+  tags: ["FrontOps", "Docker"],
+};
+
+Dzisiejszy wpis zaczyna krótką serię artykułów na temat niezwykle popularnego obecnie [Dockera](https://www.docker.com/). Technologia ta najczęściej kojarzy nam się z aplikacjami backend-owymi, jednakże może okazać się niezwykle przydatna również w przypadku frontend-u. Omówimy sobie dzisiaj, czym jest Docker, jak zacząć z niego korzystać i uruchomimy nasz pierwszy kontener. W kolejnych wpisach skupimy się już na dokładniejszym omówieniu koncepcji obrazów oraz kontenerów, a także sami spróbujemy użyć Dockera na przykładzie aplikacji składającej się na froncie z React-owego frameworka [NextJS](https://nextjs.org/) oraz bardzo prostego API napisanego przy użyciu [Express](https://expressjs.com/). Zarówno front end i jak i back end tej aplikacji będzie działał w swoim własnym kontenerze. Zacznijmy wprowadzenie od odpowiedzi na podstawowe pytanie – czym jest Docker?
+
+## Czym jest Docker?
+
+Docker jest platformą, dzięki której możemy rozwijać oraz wdrażać nasze aplikacje w postaci samowystarczalnych kontenerów. Kontenery (omówimy je dokładniej nieco później) są odizolowanym środowiskiem uruchomieniowym dla naszej aplikacji. Można porównać je do maszyn wirtualnych uruchamianych na Windowsie np. za pomocą [Hyper-V](https://pl.wikipedia.org/wiki/Hyper-V). Dzięki temu możemy na jednym fizycznym sprzęcie uruchomić Windowsa oraz Linuxa. Jednak każda maszyna wirtualna posiada własny system operacyjny. Tym samym uruchomienie kilku maszyn oznacza uruchomienie kilku systemów operacyjnych, co może być dużym obciążeniem dla jednego komputera. Do tego najczęściej nowo uruchomiony system należy odpowiednio skonfigurować i zainstalować wszystkie potrzebne nam biblioteki w odpowiednich wersjach i konfiguracjach. Tak naprawdę interesujące i przydatne dla nas jest to wszystko, co działa wewnątrz systemu operacyjnego, a nie sam OS.
+
+Docker i kontenery znacznie upraszczają cały ten proces. Zamiast instalować hipervisora i całe systemy operacyjne uruchamiamy jedynie to, co powinno działać wewnątrz tego systemu (czyli np. NodeJS bądź MongoDB). Jedynym systemem operacyjnym jest wtedy OS działający na naszym komputerze-hoście. Docker jest odpowiedzialny za to, żeby podkraść z naszego fizycznego sprzętu nieco zasobów (tj. miejsce na dysku twardym, RAM, usługi sieciowe itp.) i przeznaczyć je dla pojedynczego kontenera. A co najważniejsze – to co zostanie przydzielone kontenerowi, należy tylko do tego kontenera. Nawet host nie ma dostępu do zasobów, z których korzysta kontener. Wszystkie kontenery są odizolowane zarówno od siebie, jak i od naszego systemu operacyjnego.
+
+Co i jak powinno być uruchomione wewnątrz kontenera, jest określone przez plik nazywany Dockerfile. To tam znajdują się informacje, jakie wersje biblioteki powinny być zainstalowane, jak powinny zostać skonfigurowane, w jakiej kolejności uruchomione itp. Można trochę o nim myśleć jak o pliku package.json, ale dla Dockera.
+
+Tyle na razie powinno nam wystarczyć, żeby uruchomić Dockera i odpalić nasz pierwszy kontener. Mając już żywy organizm, dużo łatwiej będzie zagłębiać się w kolejne tematy. Jeżeli jednak ktoś czuje niedosyt wiedzy – może poświęcić jeszcze kilka minut na ten oto artykuł [na stronie MS](https://learn.microsoft.com/pl-pl/dotnet/architecture/microservices/container-docker-introduction/docker-defined).
+
+## Instalacja Dockera
+
+Instalacja Dockera na naszym komputerze w większości przypadków nie różni się bardzo od instalacji standardowych programów (`Install` ➡️ `Next` ➡️ `Next` ➡️ `Finish` ). Dockera możemy zainstalować na Windowsie, MacOS oraz Linuxie. W przypadku Windowsa oraz macOS zainstalujemy dwa główne składniki – **Docker Client** oraz **Docker Server** (nazywany również jako **Docker Daemon**).
+
+<img src={docker1.src} width={300} />
+
+**Docker Client** jest narzędziem, w którym to będziemy wpisywać wszelkie obsługiwane komendy w wybranym przez nas terminalu (np. CMD, Powershell itp.). Sam client nie potrafi nic więcej oprócz komunikacji z Docker Server. To server jest odpowiedzialny za wszystkie kluczowe operacje, czyli np. generowanie obrazów, uruchamianie kontenerów itp.
+
+## Instalacja na Windows / macOS
+
+Pracując na macOS bądź Windowsie w wersji Professional lub Enterprise możemy skorzystać z darmowej i bardzo prostej w instalacji wersji – **Docker Desktop**. W przypadku macOS oprogramowanie możemy pobrać [z tej strony](https://docs.docker.com/desktop/install/mac-install/) i zainstalować korzystając z [gotowej instrukcji](https://docs.docker.com/desktop/install/mac-install/).
+
+**Windows-owy** plik instalacyjny jest do znalezienia [pod tym linkiem](https://docs.docker.com/desktop/install/windows-install/). Po pobraniu instalujemy tak jak każdą standardową aplikację. Jedna rzecz warta odnotowania – podczas instalacji upewnijmy się, że opcja _"Use windows containers instead of Linux containers"_ nie jest zaznaczona. Po instalacji restartujemy system (instalator zresztą sam się o to upomni) i jesteśmy gotowi do pracy. Docker potrzebuje ok. 1-2 minut, aby się uruchomić. Znajdziemy wtedy w naszym zasobniku nową ikonkę:
+
+<img src={docker2.src} />
+
+## Instalacja na Linuxie
+
+W przypadku instalacji na Linuxie możemy skorzystać z oficjalnych poradników ze strony Dockera. Nie będziemy tutaj zgłębiać tego tematu. Poradniki dostępne są dla systemów [Ubuntu](https://docs.docker.com/engine/install/ubuntu/), [Fedora](https://docs.docker.com/engine/install/fedora/) oraz [CentOS](https://docs.docker.com/engine/install/centos/).
+
+## Pierwsze uruchomienie
+
+Po zakończeniu instalacji możemy upewnić się, czy wszystko przebiegło bez błędów, uruchamiając w terminalu komendę `docker version`. Zobaczymy wtedy, iż faktycznie na naszym sprzęcie działają dwa narzędzia – **client** oraz **server**:
+
+<img src={docker3.src} />
+
+Jako ciekawostkę można wskazać tutaj jedną wartość z sekcji Server – pole `OS/Arch`. Pisząc ten artykuł i uruchamiając kolejne komendy, pracuję na Windowsie 10. Widać to dokładnie w sekcji `Client` ➡️ `OS/Arch`. Dockerowy Server z kolei jest uruchomiony na Linuxie. Instalując aplikację Docker Desktop for Windows instalujemy również w pakiecie u siebie wirtualną maszynę z Linuxem. Za każdym razem, gdy uruchamiam Dockera to z technicznego punktu widzenia w tle uruchamia się również wspomniana już maszyna wirtualna. To wewnątrz tej maszyny będziemy tworzyć wszystkie przyszłe kontenery.
+
+## Docker Image
+
+Gdy upewnimy się, że instalacja Dockera przebiegła pomyślnie możemy spróbować uruchomić kontener. Tutaj po raz pierwszy pojawi się termin **Docker Image**.
+
+Wiemy już, że kontenery uruchamiają się na naszym systemie operacyjnym i posiadają w sobie jakiś uruchomiony program bądź proces. Obraz w terminologii Dockera odnosi się do pliku, który posiada w sobie wszystkie pliki, biblioteki, skrypty i wszystko, co jest wymagane do poprawnego uruchomienia programu. Obraz jest plikiem tylko do odczytu, nie możemy bezpośrednio modyfikować znajdujących się wewnątrz niego plików. Docker Server potrafi odczytać taki obraz i korzystając z niego uruchomić kontener, który będzie działającą instancją obrazu. Sposób, w jaki to się odbywa, omówimy dokładniej w następnym wpisie.
+
+Wiemy więc już, że kontenery są działającymi instancjami obrazów, uruchomionymi na naszym lokalnym systemie operacyjnym:
+
+<img src={docker4.src} />
+
+Pytanie, które teraz może się pojawić – skąd wziąć te obrazy? Oczywiście możemy (i niedługo będziemy) tworzyć je samodzielnie, jednak niemal zawsze będą bazowały one na jakimś innym, oficjalnym obrazie. Docker posiada darmowe repozytorium obrazów, z którego możemy skorzystać – [Docker Hub](https://hub.docker.com/). Można to luźno porównać do tego, czym jest [npm](https://www.npmjs.com/) w świecie NodeJS / JavaScript. W repozytorium tym znajdziemy obrazy np. [NodeJS](https://hub.docker.com/_/node) czy [MongoDB](https://hub.docker.com/_/mongo), a także czyste systemy operacyjne takie jak [Ubuntu](https://hub.docker.com/_/ubuntu), dzięki czemu możemy od razu zacząć z nich korzystać.
+
+## Hello World
+
+Teraz jednak skorzystamy z najbardziej podstawowego obrazu – [Hello World](https://hub.docker.com/_/hello-world). Obraz ten zawiera program, którego cała funkcjonalność to wyświetlenie nam wiadomości w terminalu (wierszu poleceń). Uruchomi on się oczywiście w swoim kontenerze.
+
+Do uruchomienia kontenera bezpośrednio z obrazu pochodzącego z Docker Hub możemy skorzystać z komendy `docker run image-name`. W przypadku obrazu `hello-world` powinniśmy otrzymać następujący rezultat:
+
+<img src={docker5.src} />
+
+Dwa słowa wyjaśnienia co teraz odbyło się za kulisami. Po uruchomieniu ww. komendy Docker sprawdza, z jakiego obrazu chcemy uruchomić nowy kontener. Następnie sprawdzone zostaje, czy być może w naszym lokalnym cache nie mamy już zapisanego tego obrazu. Jako że uruchamiamy Dockera po raz pierwszy nie będziemy go posiadali. Widzimy to w logach terminala jako wiersz `Unable to find image 'hello-world:latest' locally`. W takim wypadku musimy wyjść poza naszą lokalną maszynę i sprawdzić, czy obraz jest dostępny w repozytorium Docker Hub. Jeżeli obraz zostanie tam znaleziony, to zostanie pobrany na nasz dysk i zapisany w cache. Dzięki temu przy kolejnym tworzeniu kontenera z tego obrazu nie będziemy musieli pobierać go z zewnątrz, tylko użyjemy wersji zapisanej lokalnie. Cały ten proces możemy przedstawić jako poniższy schemat:
+
+<img src={docker6.src} />
+
+Posiadając już obraz na naszej maszynie, Docker może utworzyć z niego kontener. Wszystko, co wyświetla się od wiersza `Hello from Docker!`, jest wynikiem działania kontenera.
+
+Jak już wcześniej wspomniałem, raz zapisany obraz nie będzie pobierany ponownie przy uruchamianiu nowego kontenera. Wykonajmy więc komendę `docker run hello-world` jeszcze raz:
+
+<img src={docker7.src} />
+
+Tym razem mamy od razu wynik działania kontenera. Zniknęła nam informacja o pobieraniu obrazu. Został on uruchomiony z naszego lokalnego dysku twardego.
+
+## Podsumowanie
+
+Dowiedzieliśmy się już, czym jest i jak działa Docker. Wiemy również, iż wszystkie nowo tworzone kontenery są tak naprawdę lokalnie działającymi instancjami obrazów (Docker Images). Obrazy te z kolei można znaleźć i pobrać z repozytorium o nazwie Docker Hub. Każdy obraz jest plikiem tylko do odczytu i zawiera wszystkie pliki, biblioteki i tym podobne rzeczy umożliwiające kontenerowi prawidłowe działanie.
+
+Pozostaje pytanie – czym tak naprawdę jest ten kontener? Jak stworzyć swój własny obraz? Jak sprawdzić, czy mamy na komputerze jakieś uruchomione kontenery? Odpowiedź na te pytania oraz listę najważniejszych komend stosowanych w Dockerze znajdziemy w kolejnym wpisie.

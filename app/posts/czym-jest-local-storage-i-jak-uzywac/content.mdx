@@ -1,0 +1,158 @@
+export const meta = {
+  title: "Czym jest Local Storage i jak go używać ?",
+  seo_desc:
+    "Artykuł odpowiadający na pytanie 'Czym jest Local Storage?' oraz wyjaśniający gdzie i w jaki sposób możemy z tego lokalnego magazynu danych korzystać.",
+  short:
+    "Ten artykuł wprowadza w świat Local Storage - integralnej funkcji przeglądarek, która pozwala na przechowywanie danych na poziomie klienta. Poznaj jak korzystać z API Local Storage, zrozum kiedy i dlaczego jest to przydatne, a także dowiedz się, czego unikać przy użyciu tej technologii.",
+  date: "2020-04-06",
+  tags: ["JavaScript", "Przeglądarka"],
+};
+
+W dzisiejszym artykule zastanowimy się nad tym czym jest Local Storage oraz gdzie i jak należy go używać. Temat jest stosunkowo łatwy i przyjemny. Jeżeli dopiero zaczynasz swoją przygodę z front endem, to po przeczytaniu tego artykułu na pewno dostrzeżesz wiele nowych możliwości.
+
+## Czym jest Local Storage ?
+
+Jak sama nazwa wskazuje, jest pewnego rodzaju „magazynem danych” w przeglądarce. Możemy z niego korzystać w naszych aplikacjach webowych. Z racji tego, iż aplikacja taka będzie napisana w JavaScript dane w tym przypadku będą przechowywane w formacie key-value. Dokładnie tak jak ma to miejsce w przypadku obiektów JavaScript:
+
+```js
+data = {
+  name: "Kamil",
+  frontend: true,
+  age: 29,
+};
+```
+
+W takim razie po co nam w ogóle potrzebne coś takiego? Przecież możemy równie dobrze zawrzeć to w kodzie naszej aplikacji.
+
+Otóż największą zaletą tego lokalnego magazynu danych jest to, iż dane te zapisujemy w pamięci przeglądarki osoby odwiedzającej naszą stronę. Co więcej, dane te są zachowywane w przeglądarce nawet po jej zamknięciu. Tak więc aplikacja ma dostęp do zapisanych informacji nawet wtedy, gdy użytkownik zdecyduje się później wrócić na naszą stronę. Chyba, że wcześniej z poziomu ustawień przeglądarki zdecyduje się on na wyczyszczenie danych. Na to jednak nic nie poradzimy.
+
+W jakim celu możemy więc wykorzystywać ten mechanizm:
+
+- zapisywanie postępów w prostych grach w których nie wymagamy rejestracji/logowania użytkownika,
+- zapisywanie informacji o tym, na jakim etapie użytkownik jest w różnego rodzaju samouczkach,
+- oznaczenie użytkowników, którzy kliknęli w nowy feature na naszej stronie,
+- określanie, czy użytkownik jest zalogowany przy ponownym otwarciu przeglądarki,
+- przenoszenie danych pomiędzy podstronami aplikacji (chociaż zdecydowanie lepszym rozwiązaniem jest tutaj użycie bibliotek do zarządzania stanem, np. Redux).
+
+nformacje trzymane w Local Storage są dostępne per domena. Dane zapisane przez domenę frontstack.pl nie będą mogły być odczytane przez kod na stronie example.com. Nawet gdy w naszej przeglądarce będziemy mieli otwarte w dwóch kartach obie w/w strony.
+
+## Jak korzystać z Local Storage ?
+
+Dostęp do Local Storege jest możliwy poprzez tzw. `WEB Storage API` przeglądarki. Ważną rzeczą o której musimy pamiętać jest fakt, iż nasze dane, zarówno klucze jak i wartości, muszą być typu `string` (dane typu `integer` są automatycznie konwertowane na `string`).
+
+Dostęp do Local Storage umożliwia nam 5 głównych metod:
+
+- `setItem(key, value)` - zapisuje wartość `value` pod kluczem `key`,
+- `getItem(key)` - zwraca wartość zapisaną pod kluczem `key`,
+- `removeItem(key)` - usuwa wartość zapisaną pod kluczem `key`,
+- `clear()` - usuwa wszystkie dane zapisane w Local Storage,
+- `key(index)` - zwraca klucz znajdujący się pod danym indeksem.
+
+### `setItem(key, value)`
+
+Pierwsza z metod pozwala nam na zapisywanie danych. Przyjmuje ona dwa argumenty – klucz i wartość. Poprzez klucz możemy później odczytać przypisaną do niego wartość:
+
+```js
+window.localStorage.setItem("name", "Adam Front");
+```
+
+Jak już wcześniej wspomniałem, Local Storage może jedynie przechowywać dane typu `string`. Jeżeli chcemy przechować tablice albo obiekty, musimy najpierw wykonać na nich konwersję. W tym celu możemy posłużyć się metodą `JSON.stringify()`:
+
+```js
+const person = {
+  name: "Adam Front",
+  position: "developer",
+};
+
+window.localStorage.setItem("user", JSON.stringify(person));
+```
+
+### `getItem(key)`
+
+Dzięki tej metodzie możemy odczytać zapisane przez nas wcześniej dane. W tym przypadku podajemy tylko jeden argument – klucz, dzięki któremu możemy odczytać przypisaną do niego wartość.
+
+```js
+window.localStorage.getItem("user");
+```
+
+Wartość jaką otrzymamy z powyższego wyrażenia jest typu `string`: `“{“name”:”Adam Front”,”position”:”developer”}”{:js}` więc musimy skonwertować ją ponowne do obiektu:
+
+```js
+JSON.parse(window.localStorage.getItem("user"));
+```
+
+### `removeItem(key)`
+
+Gdy zdecydujemy się na usunięcie z Local Storage dowolnej pozycji, możemy zrobić to używając metody `removeItem()`, przekazując jako argument klucz pozycji do usunięcia. Gdy jako argument podamy nieistniejącą wartość klucza, metoda ta nic nie zrobi (nie pojawią nam się komunikaty błędu).
+
+### `clear()`
+
+Metoda `clear()` usuwa wszystkie dane zapisane w Local Storage.
+
+### `key(index)`
+
+Metoda ta jest przydatna w przypadku, gdy musimy iterować po kluczach. Pozwala nam podać jako argument numer bądź index elementu Local Storage w celu wyciągnięcia jego nazwy:
+
+```js
+const KeyName = window.localStorage.key(index);
+```
+
+### `length`
+
+Dodatkową, bardzo przydatną property jest `length` – pozwala nam ona sprawdzić, czy posiadamy jakieś dane zapisane w Local Storage: `localStorage.length` (gdy = 0, nasz Local Storage jest pusty).
+
+Istnieje również możliwość odczytu/zapisu danych w taki sam sposób jak przy typowym obiekcie JavaScript:
+
+```js
+window.localStorage.myColor = "#fff09b";
+window.localStorage["myColor"] = "#fff09b";
+```
+
+jednak zdecydowanie zaleca się używanie jednej z w/w metod.
+
+Web Storage API umożliwia nam również skorzystanie z SessionStorage. Zachowuje się on niemal dokładnie tak samo jako Local Storage. Jednak dane przechowywane w Session Storage zostają usunięte każdorazowo po zamknięciu okna/karty przeglądarki.
+
+## Kompatybilność
+
+Local Storage jest częścią specyfikacji HTML5, dzięki czemu jest dostępna na wszystkich głównych przeglądarkach, włączając w to IE8. Jeżeli jednak chcemy mieć pewność, że przeglądarka naszego użytkownika pozwala nam na skorzystanie z tej funkcjonalności, możemy użyć poniższego kodu:
+
+```js
+if (typeof Storage !== "undefined") {
+  // kod gdy Local Storage jest wspierany
+} else {
+  // Brak wsparcia Local Storage
+}
+```
+
+## Kiedy nie stosować Local Storage
+
+- nie przechowujmy wrażliwych informacji (hasła, klucze API) w tego typu pamięci,
+- nie jest to technologia, która mogłaby w jakimkolwiek stopniu zastąpić bazę danych,
+- domyślnie, rozmiar przeznaczony na Local Storage przez większość współczesnych przeglądarek to 5MB na domenę,
+- Local Storage jest synchroniczna, czyli wszystkie operacje są wykonywane tylko jedna po drugiej.
+
+## Synchronizacja między kartami/oknami
+
+Local Storage posiada jedną cechę, która może być zarówno korzyścią, jak i wyzwaniem - jest synchronizowany między wszystkimi otwartymi kartami i oknami tej samej domeny. Oznacza to, że jeśli użytkownik otworzy dwie karty z naszą stroną, zmiany dokonane w Local Storage w jednej z nich będą widoczne również w drugiej. Jest to wygodne, jeśli chcemy synchronizować stan między kartami, ale może stwarzać problemy, jeśli nie przewidzieliśmy takiego zachowania.
+
+## Bezpieczeństwo
+
+Local Storage, choć wygodny, nie jest miejscem, w którym powinniśmy przechowywać wrażliwych informacji, takich jak wspomniane już wcześniej hasła czy klucze API. Dlaczego? Ponieważ Local Storage jest podatny na ataki typu XSS (Cross-Site Scripting). Atak taki polega na wstrzykiwaniu złośliwych skryptów JavaScript do naszej strony, które następnie mogą odczytać i wykorzystać dane z Local Storage. Dlatego ważne jest, aby zawsze zwracać uwagę na bezpieczeństwo i nie przechowywać w Local Storage żadnych danych, które mogłyby być wykorzystane przeciwko użytkownikom naszej strony.
+
+## Alternatywy dla Local Storage
+
+Choć Local Storage jest bardzo użytecznym narzędziem, istnieją też inne technologie przechowywania danych na stronie klienta, które mogą lepiej pasować do niektórych zastosowań. Są to między innymi cookies i IndexedDB. Cookies są idealne do przechowywania małych ilości danych i są jedyną technologią, która pozwala na wysyłanie danych do serwera z każdym żądaniem. IndexedDB natomiast jest bazą danych działającą w przeglądarce, która umożliwia przechowywanie dużych ilości strukturyzowanych danych i wykonanie na nich operacji w sposób asynchroniczny. O tych technologiach będziemy na pewno rozmawiać w kolejnych wpisach 🙂
+
+## Performance
+
+Pamiętaj, że nadmierna ilość danych w Local Storage może wpłynąć na wydajność strony. Każde odwołanie do Local Storage jest operacją synchroniczną, co oznacza, że blokuje ona wykonanie innych operacji do momentu zakończenia. Jeśli więc mamy dużo danych do przetworzenia, może to spowolnić działanie naszej strony.
+
+## Przykłady użycia
+
+Aby lepiej zrozumieć, jak można wykorzystać Local Storage, przyjrzyjmy się kilku praktycznym przykładom. Możemy na przykład użyć Local Storage do przechowywania preferencji użytkownika, takich jak wybrany język czy motyw strony. Innym przykładem może być przechowywanie danych o produkcie dodanym do koszyka w sklepie internetowym - dzięki temu produkt pozostanie w koszyku nawet po zamknięciu i ponownym otwarciu strony. Możemy także użyć Local Storage do cache'owania danych z API - jeśli użytkownik już raz pobierał jakieś dane, możemy je zapisać w Local Storage i przy następnym odwołaniu użyć zapisanych danych zamiast ponownie pobierać je z serwera. To tylko kilka z wielu możliwości zastosowania Local Storage.
+
+Warto dodać, że Local Storage działa na zasadzie "pierwszy zapisuje, ostatni kasuje". Oznacza to, że jeśli mamy kilka skryptów lub aplikacji korzystających z Local Storage na tej samej stronie, mogą one nadpisywać dane innych skryptów. Dlatego ważne jest, aby zawsze dokładnie kontrolować, co i kiedy zapisujemy do Local Storage.
+
+## Podsumowanie
+
+Podsumowując, Local Storage to potężne narzędzie, które pozwala nam na przechowywanie danych bezpośrednio na urządzeniu użytkownika, z możliwością dostępu do nich nawet po zamknięciu i ponownym otwarciu przeglądarki. Mimo że posiada pewne ograniczenia, w wielu przypadkach może okazać się niezwykle przydatne. Pamiętaj jednak, aby zawsze korzystać z niego odpowiedzialnie i z uwzględnieniem bezpieczeństwa danych użytkowników.

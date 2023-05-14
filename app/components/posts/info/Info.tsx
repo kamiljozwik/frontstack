@@ -1,6 +1,6 @@
 import { PropsWithChildren, CSSProperties } from "react";
 import styles from "./infox.module.scss";
-/* Not working with MDX - why? */
+/* TODO: Not working with MDX - why? */
 
 type Props = {
   type?: "info";
@@ -13,7 +13,7 @@ const style: { [key: string]: CSSProperties } = {
     borderColor: "var(--color-links)",
     borderWidth: "4px 1px 1px",
     padding: "8px 16px",
-    marginBottom: "12px",
+    marginBottom: "24px",
   },
 };
 

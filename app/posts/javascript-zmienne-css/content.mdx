@@ -1,0 +1,188 @@
+import { CodeSandbox } from "../../components/posts";
+
+export const meta = {
+  title: "JavaScript i zmienne CSS (custom properties)",
+  seo_desc:
+    "Custom properties znane również jako zmienne CSS pomagają nam znacząco przy pracy ze stylami CSS za pomocą JavaScript. Dokładny opis tego tematu w artykule.",
+  short:
+    "Artykuł rzuca światło na wykorzystanie zmiennych CSS oraz ich integrację z JavaScript. Zostały objaśnione zagadnienia związane z definicją i zastosowaniem zmiennych CSS, ich różnice w porównaniu do preprocesorów CSS oraz praktyczne przykłady ingerencji w kod CSS za pomocą JavaScript.",
+  date: "2020-07-02",
+  tags: ["JavaScript"],
+};
+
+Pojawienie się zmiennych w świecie CSS dało front-end developerom większe możliwości w kontekście tworzenia nieco bardziej rozbudowanego stylowania. Umożliwiają one również pisanie dużo czytelniejszego kodu dla nowo tworzonych stron. Ułatwiły też w znacznym stopniu ingerowanie w style CSS za pomocą JavaScript. JavaScript i zmienne CSS współgrają ze sobą bardzo dobrze.
+CSS variables (znane również jako [Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)) – czym są i jak z nich korzystać?
+
+## Definiowanie zmiennej
+
+Zmienna CSS wygląda niemal identycznie jak każda standardowa property CSS. Różnicą jest specyficzny, złożony z dwóch kresek, prefix "–": `--primary-color: #4286f4;`, `--secondary-color: #efef3f;`
+
+Celem zmiennej CSS, jak nietrudno się domyśleć, jest możliwość jej wielokrotnego użycia. Od teraz stylizując poszczególne elementy na naszej stronie, możemy podawać tylko nazwę naszej zmiennej:
+
+```css
+:root {
+  --primary-color: #4286f4;
+  --secondary-color: #efef3f;
+}
+
+.app-header {
+  background-color: var(--primary-color);
+}
+
+.app-title {
+  color: var(--secondary-color);
+}
+```
+
+Jak widać odwołujemy się do zmiennej za pomocą słowa kluczowego `var` oraz jej nazwy (nie zapominając o prefixie "–"). Takie podejście daje nam teraz możliwość pisania czytelniejszego kodu. Jest również dużo mniej podatne na literówki oraz pozwala nam na szybkie prototypowanie podczas developmentu. Chcąc przetestować różne rodzaje wiodącego koloru na stronie zmieniamy tylko jedną wartość w pliku CSS.
+
+Zmienne CSS mogą zostać zadeklarowane jako globalne lub lokalne. Do zmiennych globalnych możemy odwołać się w każdym miejscu, natomiast zmienne lokalne są dostępne tylko w swoim scope’ie, np. możemy ustalić zmienną globalną `--font-size`, którą możemy ustawić jako wartość property dla każdego elementu na naszej stronie, ale w przypadku gdy implementujemy coś w rodzaju alert-boxa, wtedy wewnątrz tego komponentu możemy mieć zdefiniowaną zmienną `--alert-color`, niedostępną w innych częściach naszej strony:
+
+```css
+:root {
+  --font-size: 12px;
+}
+
+.alert-box {
+  --alert-color: red;
+}
+
+.alert-box p {
+  color: var(--alert-color);
+  border: 1px solid var(--alert-color);
+}
+
+.normal-box {
+  font-size: var(--font-size); /* OK */
+  color: var(--alert-color); /* NIE OK, NIEPOPRAWNY SCOPE */
+}
+```
+
+Jak widać z powyższego przykładu, deklaracja zmiennej globalnej musi mieć miejsce w pseudo-selektorze `:root` (wtedy scope dla tej zmiennej to cały dokument) i jest zapisywana jak każda inna property CSS.
+
+## Zmienne CSS vs SASS/LESS
+
+Dla osób zaznajomionych z preprocesorami CSS takimi jak SASS bądź LESS, zmienne CSS nie wyglądają jak coś nowego. W wymienionych wcześniej narzędziach zmienne są dostępne już od dawna. CSS variables jednak pod wieloma względami są lepszym rozwiązaniem niż zmienne preprocesorów:
+
+- nie musimy używać żadnych dodatkowych narzędzi, aby mieć możliwość pracowania na zmiennych, brak konieczności użycie preprocesora,
+- zmienne CSS są elementem DOM a więc są one dostępne np. z konsoli developerskiej podczas inspekcji elementu. Preprocesory wszędzie umieszczają jedynie wartość zmiennej. Produkcyjne użycie zmiennych CSS można zaobserwować m.in. na YouTube, przeglądając ich stronę przy użyciu narzędzi developerskich (Chrome DevTools)
+- możemy zmieniać wartość zmiennej CSS wewnątrz wywołania mediaquery, dzięki czemu możemy łatwo i szybko zmieniać layout naszej strony czyniąc ją responsywną (np. zmieniając zmienną dla property grid-template-columns).
+
+## JavaScript ➕ CSS
+
+W związku z tym, że zmienne CSS są elementem DOM-u mamy do nich dość łatwy dostęp z poziomu JavaScript. Teraz wystarczy odczytać jedną property na elemencie (zmienną CSS), ustawić jej wartość i od razu zmienimy style CSS w każdym miejscu w którym zmienna ta jest wykorzystywana.
+
+Ustawienie zmiennej globalnej można zrobić następująco:
+
+```js
+// sposób nr. 1
+let root = document.querySelector(":root");
+
+//sposób nr. 2
+let root = document.documentElement;
+```
+
+Aby teraz zmienić wartość zmiennej CSS, możemy wywołać:
+
+```js
+root.style.setProperty("--primary-color", "#88d8b0");
+```
+
+Powyższy kod zmieni wartość zmiennej `--primary-color`, która jest atrybutem CSS (custom property) dla tagu `<HTML>`. Zmiana wartości tej zmiennej, jak już wcześniej wspomniano, spowoduje zaktualizowanie koloru w każdym miejscu, w którym był on określony za pomocą `--primary-color`.
+
+Jedna uwaga – pomimo, iż operujemy tutaj nazwą zmienna, nie możemy używać jej dokładnie tak jak w przypadku np. JavaScript, czyli:
+
+```js
+/* to jest źle ⛔ */
+.box {
+--od-dolu: margin-bottom;
+var(--od-dolu): 20px;  /* ŹLE, to nie to samo co "margin-bottom: 20px" */
+}
+```
+
+Zmienna CSS występuje zawsze jako wartość dla property CSS. Nie możemy również wykonywać w deklaracji zmiennej operacji matematycznych (chyba, że użyjemy `calc`).
+
+## Przykład
+
+Poniżej zamieszczam przykład w którym zastosowałem wszystkie omówione wcześniej właściwości zmiennych CSS. W tej małej aplikacji zmienne CSS wykorzystane są do zmiany kolorystyki strony i zmiany ułożenia elementów w momencie, gdy szerokość viewport’u będzie mniejsza niż 600px.
+
+<CodeSandbox embedId="89mp995m2" title="CSS variables" />
+
+W pliku HTML znajduje się prosta struktura naszego przykładu. Zadeklarowane tam są również kolory, na które możemy zmienić nasz layout.
+
+Pierwsze linie kodu w pliku CSS są specyficzne dla zmiennych CSS:
+
+```css
+:root {
+  --primary-color: #94baf7;
+  --secondary-color: #dfe881;
+  --layout: 1fr 1fr;
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --layout: 1fr;
+  }
+}
+```
+
+Definiujemy w pierwszej kolejności zmienne, których będziemy używać. Tutaj dwa główne kolory oraz układ strony (korzystamy tutaj z możliwości css grid). Jak widać z przykładu, zmienna `--layout` jest nadpisywana nową wartością w momencie gdy zmienimy szerokość ekranu i aktualizuje style wszędzie tam, gdzie jest ona użyta (w naszym przypadku `grid-template-columns: var(--layout);` w linii 42 pliku `styles.css`).
+
+Korzystając ze zmiennych CSS oraz małego snippetu JavaScript, możemy bardzo łatwo dodać ciekawą funkcjonalność na naszej stronie, czyli zmianę kolorów. Coraz więcej stron oferuje możliwość zmiany kolorów na tzw. 'tryb nocny’ – z użyciem w/w techniki jest to teraz niezwykle łatwe.
+
+```js
+let boxes = document.querySelectorAll(".color"); // wybieramy kontrolki kolorów
+let root = document.documentElement; // tutaj mamy dostęp do globalnych zmiennych CSS
+
+boxes.forEach((box) => {
+  box.addEventListener("click", (e) => {
+    // po kliknięcie w kontrolkę koloru
+    e.target.classList.contains("primary") // sprawdzamy, który kolor chcemy zmienić
+      ? root.style.setProperty("--primary-color", e.target.style.background) // i aplikujemy ten kolor zmieniając wartość zmiennej CSS
+      : root.style.setProperty("--secondary-color", e.target.style.background); // na kolor, który jest przypisany do kontrolki
+  });
+});
+```
+
+## Ograniczenia i potencjalne problemy
+
+Pierwszym i najbardziej oczywistym problemem, który może napotkać developer, jest kompatybilność z przeglądarkami. Chociaż większość nowoczesnych przeglądarek obsługuje zmienne CSS, niektóre starsze wersje - takie jak Internet Explorer - nie obsługują ich wcale. Jest to istotne, jeśli twój target to grupa użytkowników korzystających ze starszych przeglądarek. W takim przypadku, niestety, nie można polegać na zmiennych CSS, a jedynym rozwiązaniem jest skorzystanie z alternatywnych technik, takich jak preprocesory CSS lub fallbacki.
+
+Zmienne CSS są dynamiczne, co oznacza, że przeglądarka musi je na bieżąco obliczać. W przypadku skomplikowanych stron internetowych, które używają dużej ilości zmiennych CSS, może to potencjalnie wpłynąć na wydajność strony. Warto zatem zawsze zastanowić się, czy dany przypadek naprawdę wymaga użycia zmiennej, czy może lepiej skorzystać z tradycyjnej metody definiowania styli.
+
+Zmienne CSS mogą również utrudniać debugowanie. Jeśli zmienna jest niepoprawnie zdefiniowana lub nie jest dostępna w danym kontekście, przeglądarka po prostu nie zastosuje żadnej wartości, co może być trudne do zauważenia. Dodatkowo, narzędzia deweloperskie w przeglądarkach mogą nie pokazywać bezpośrednio wartości zmiennych, co może dodatkowo utrudniać proces debugowania.
+
+Zmienne CSS nie obsługują operacji matematycznych, co oznacza, że nie można ich używać (bezpośrednio) do dodawania, odejmowania, mnożenia czy dzielenia wartości.
+
+```css
+:root {
+  --base-size: 16;
+}
+
+body {
+  font-size: var(--base-size) * 1.5; /* to nie zadziała */
+  font-size: calc(var(--base-size) * 1.5); /* to zadziała */
+}
+```
+
+## Dobre praktyki
+
+Zmienne powinny być nazywane tak, aby ich nazwa odzwierciedlała ich zastosowanie, a nie ich wartość. Na przykład, zamiast nazywać zmienną `--dark-blue`, lepiej użyć nazwy `--primary-color`. W ten sposób, jeśli kiedykolwiek zdecydujesz się zmienić schemat kolorów strony, nie będziesz musiał przeglądać całego kodu CSS w poszukiwaniu wszystkich miejsc, w których używasz konkretnej zmiennej.
+
+Zmienne CSS są dziedziczone, co oznacza, że jeśli zdefiniujesz zmienną na poziomie :root, będzie ona dostępna we wszystkich elementach na stronie. Używanie zmiennych na najwyższym możliwym poziomie pozwala na łatwą zmianę wartości na całej stronie.
+
+Kiedy używasz zmiennej CSS, zawsze warto podać wartość zapasową. Wartość zapasowa zostanie użyta, jeśli z jakiegoś powodu zmienna nie jest dostępna. To jest szczególnie ważne, gdy zmienna jest używana w kontekście, w którym jej brak mógłby spowodować błąd.
+
+```css
+body {
+  background-color: var(--bg-color, white);
+}
+```
+
+W tym przykładzie, jeśli zmienna `--bg-color` nie jest zdefiniowana, przeglądarka użyje białego koloru jako koloru tła.
+
+Kiedy pracujesz nad dużym projektem lub w zespole, ważne jest, aby dokumentować swoje zmienne. Komentarze w kodzie CSS mogą pomóc innym programistom zrozumieć, do czego służą poszczególne zmienne i jak ich używać.
+
+## Podsumowanie
+
+JavaScript i zmienne CSS nareszcie pozwoliły nam w dość łatwy i przejrzysty sposób ingerować bezpośrednio w kod CSS. Dotychczasowa zmiana wyglądu za pomocą JavaScript potrafiła sprawiać dość sporo problemów. Teraz mamy w końcu na to rozwiązanie.

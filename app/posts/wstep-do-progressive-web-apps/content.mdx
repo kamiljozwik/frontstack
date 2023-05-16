@@ -1,0 +1,158 @@
+import { Info } from "../../components/posts";
+
+export const meta = {
+  title: "Wstęp do Progressive Web Apps (PWA)",
+  seo_desc:
+    "Post który może posłużyć jako wstęp do Progressive Web Apps (PWA) wszystkim osobom zainteresowanym tworzeniem aplikacji mobilnych za pomocą JavaScript",
+  short:
+    "Kompleksowe wprowadzenie do Progressive Web Apps (PWA) - stosunkowo nowym podejściu do tworzenia aplikacji mobilnych. Od zrozumienia, czym jest PWA i jakie są jego zalety, po zbadanie jego alternatyw, przyjrzymy się również kluczowym zasadom, w tym istotnej roli Service Workers w umożliwianiu funkcjonalności offline.",
+  date: "2020-04-06",
+  tags: ["JavaScript", "PWA"],
+};
+
+Progressive Web Apps (PWA) jest jednym z najnowszych oraz jednym z najpopularniejszych tematów w kontekście tworzenia aplikacji mobilnych. Czym więc jest i dlaczego warto znać to zagadnienie. Omówimy sobie wszystko dokładnie w dzisiejszym wpisie. Można go traktować jako wstęp do Progressive Web Apps dla osób które jeszcze nie spotkały się z tym zagadnieniem.
+
+## Czym jest PWA?
+
+Może nieco pokrętnie, ale zaczniemy od tego czym PWA nie jest. Nie jest to żadna nowa technologia, albo framework, którego musielibyśmy nauczyć się w celu jego zastosowania. PWA jest zbiorem dobrych praktyk, których przestrzeganie spowoduje, że nasza aplikacja będzie „dostosowywała się” do urządzenia użytkownika. Tym dopasowanie są np. push notyfikacje, możliwość pracy offline, itp.
+
+W idealnym przypadku użytkownik aplikacji nie powinien widzieć różnicy w tym, czy otworzył naszą aplikacje jako natywną aplikację stworzoną pod dany system operacyjny czy jako aplikację PWA.
+
+Aplikacja Progressive Web Apps jest stroną internetową, napisaną przy użyciu wielkiej trójki – HTML, JavaScript oraz CSS. Działa na zarówno w przeglądarkach (dostosowując swój wygląd oraz układ do wielkości ekranu – responsywność) oraz niczym zainstalowana aplikacja (push notyfikacje, praca offline, dostęp z ikony na pulpicie, brak paska adresu, tryb pełnoekranowy). Wszystko to możliwe z wykorzystaniem jedynie technologii frontend-owych!
+
+## Po co nam PWA?
+
+Zasady PWA powstały, aby rozwiązać jak najwięcej współczesnych problemów dotyczących natywnych aplikacji. Do niektórych z nich należą:
+
+- prędkość internetu – mimo ciągłego rozwoju telekomunikacji oraz coraz śmielszych zapowiedzi sieci 5G, w dalszym ciągu niemal 60% ludzi na świeci korzysta z Internetu z prędkością 2G (czyli ok. 500 kbit/s przy wsparciu EDGE),
+- długi czas ładowania strony – statystycznie, przeciętny użytkownik aplikacji mobilnej jest w stanie czekać na załadowanie się strony ok. 3s! Tak więc, czas pojawienia się „jakiejkolwiek” zawartości strony ma tutaj bardzo duże znaczenie,
+- niechęć do instalacji kolejnych aplikacji – statystyczny użytkownik telefonu instaluje nie więcej niż 1 aplikację miesięcznie z dedykowanego swojej platformie sklepu z aplikacjami,
+- aplikacje ponad przeglądarką – zdecydowana większość użytkowników preferuje korzystanie ze swoich ulubionych serwisów poprzez natywne aplikacje, zamiast przeglądać je w mobilnych przeglądarkach.
+
+## Alternatywy dla PWA
+
+### Aplikacje natywne
+
+Przychodzącą pierwszą do głowy oraz najbardziej oczywistą opcją są aplikacje natywne, czyli pisane pod konkretną platformę. Chcąc tworzyć software działający na wszystkich najpopularniejszych urządzeniach mobilnych, musimy znać odpowiednio technologie: Objective-C albo Swift dla iOS, Java dla Androida oraz C# dla Windows Phone (wiem, wiem… jednak dalej są na rynku 🙂 ) oraz oczywiście JavaScript dla aplikacji działających w przeglądarce.
+
+Jak nie trudno się domyśleć, największym problem jest tutaj mnogość technologii. Chcąc dotrzeć do naszych użytkowników na wszystkich platformach, musimy de facto stworzyć oraz utrzymywać kilka mocno różniących się od siebie projektów. Do tego dbać o ich spójność a co za tym idzie poświęcać na to mnóstwo czasu i zasobów.
+
+### Aplikacje hybrydowe – „write once, run anywhere”
+
+Aplikacje hybrydowe, podobnie jak aplikacje PWA, są tworzone przy użyciu stosu HTML-JS-CSS, jednak są one umieszczane w sklepach z aplikacjami. Jest to możliwe dzięki wykorzystaniu frameworków, które odpowiednio „pakują” aplikację i wysyłają je do App Store’ów. Przykładami takich frameworków są [Ionic](https://ionicframework.com/) lub [Flutter](https://flutter.dev/). W tym przypadku to co najczęściej widzimy na ekranie naszego urządzenia jest strona internetowa wyświetlona przy użyciu [WebView](https://developer.android.com/reference/android/webkit/WebView).
+
+Minusem takiego rozwiązania jest konieczność stworzenia naszej aplikacji tak, aby działała „satysfakcjonująco” dobrze ma wszystkich platformach. Do tego jesteśmy zależni od frameworka działającego pomiędzy naszą aplikacją a produktem docelowym na specyficzną platformę. W przypadku bardziej rozbudowanych aplikacji ich wydajność również nie jest zbyt wysoka. Pamiętać należy również o tym, iż taka aplikacja musi przejść weryfikację sklepu, aby mogła się w nim pojawić.
+
+### React Native – „learn once, write anywhere”
+
+W tym przypadku aplikacje również tworzone są przy użyciu standardowego stosu front-end’owego oraz stworzona aplikacja trafia do App Store’a. Tworzymy tutaj jednak jedną aplikację per platforma. Czyli podobnie jak w przypadku aplikacji natywnych. Z tą różnicą, iż korzystamy cały czas z tej samej technologii.
+Wydajność takich aplikacji jest niemal taka sama jak aplikacji natywnych (piszemy w końcu pod konkretną platformą). W dalszym ciągu mamy jednak kilka projektów do zarządzania.
+
+## PWA – najnowszy gracz w świecie mobilnym
+
+Najważniejszą różnicą między wszystkimi wymienionymi sposobami tworzenia aplikacji a PWA jest fakt, iż aplikacje PWA nie pojawiają się w sklepie danej platformy. Początkowo może to brzmieć jak coś negatywnego – przecież wszystkie nasze aplikacje ściągamy z App Store. Jednak po dokładniejszej analizie możemy dojść do nieco innych wniosków:
+
+- sklepy z aplikacjami zawierają miliony aplikacji (3,3 mln aplikacji dla Androida i 2,2 mln w sklepie iOS), więc szansa przebicia się i zaistnienia naszej aplikacji jest bardzo mała
+- nie umieszczając naszej aplikacji w sklepie nie musimy przechodzi przez proces akceptacji naszej aplikacji, która jest wymagana przy pierwszym umieszczeniu w sklepie jak i przy przy każdej aktualizacji.
+- dając możliwość zainstalowania aplikacji bezpośrednio z naszej strony (a technicznie rzecz biorąc – dając możliwość użytkownikowi korzystania z naszej aplikacji na swoim urządzeniu w taki sposób, aby miał wrażenie, iż korzysta z aplikacji natywnej), pozycjonujemy swoją aplikację korzystając ze standardowych rozwiązań SEO. Popularność naszej strony internetowej napędza jednocześnie popularność naszej aplikacji.
+
+### Benefity
+
+Zróbmy krótkie podsumowanie tego, czemu jako developerzy powinniśmy zainteresować się PWA:
+
+- rozmiar aplikacji – rozmiar aplikacji natywnych zazwyczaj mierzony jest w dziesiątkach MB, podczas gdy dobrze przygotowana aplikacja mobilna często mieści się w dziesiątkach kB.
+- jeden stack technologiczny – nie musimy uczyć się języków specyficznych dla natywnych platform oraz zarządzamy tylko jednym projektem
+- szybsze budowanie zaangażowania użytkownika – ten będzie bardziej skory wejść na stronę i przetestować tam naszą aplikację przed instalacją niż zainstalować nieznaną mu aplikację na swoim urządzeniu w celu przetestowania
+- dużo szybszy czas wprowadzania nowych funkcjonalności i poprawek w naszej aplikacji
+
+### Kluczowe założenia
+
+Na samym początku tego artykułu napisałem, że PWA jest zbiorem dobrych praktyk. Teraz, gdy mamy już większe zrozumienie tego czym są aplikacje PWA, poznajmy jej kluczowe założenia:
+
+- **Responsywność** – wygląd oraz układ naszej aplikacji zmienia się w zależności od rozmiaru ekranu,
+- **Wygląd** aplikacji natywnej – użytkownik jest przekonany, iż korzysta z aplikacji natywnej a nie z aplikacji WEB-owej,
+- **Wsparcie** offline – aplikacja zapisuje w pamięci urządzenia niezbędne materiały, aby mogła zostać uruchomiona bez połączenia do Internetu,
+- **Instalacja** – podczas przeglądania aplikacji w przeglądarce użytkownikowi zostanie zaproponowana możliwość instalacji przeglądanej aplikacji na urządzeniu,
+- **Budowanie** zaangażowania – zainstalowana aplikacja poprzez notyfikacje push przypomina użytkownikowi o najważniejszych z jego punktu widzenia funkcjonalnościach,
+- **Wyszukiwalność** – wykorzystanie SEO w celu lepszego pozycjonowania naszej aplikacji w sieci,
+- **Aktualność** – po każdym podłączeniu do Internetu, aplikacja samoczynnie aktualizuje swoją zawartość,
+- **Bezpieczeństwo** – użycie HTTPS (wymóg konieczny!)
+- **Progresywność** – aplikacja będzie działała również na starszych urządzeniach bez względu na wersję systemu operacyjnego, ewentualnie zmniejszając swoją funkcjonalność,
+- **Linkowalność** – łatwo wskazać na naszą aplikację zamieszczając jedynie adres URL pod którym jest umieszczona.
+
+Jedną z najważniejszych rzeczy z powyższej listy jest możliwość pracy offline. Jako, że technologią umożliwiającą stronie internetowej pracę offline jest tzw. `Service Worker`, implikuje to stwierdzenie, że Service Worker jest obowiązkową częścią każdej aplikacji PWA.
+
+Na temat `Service Workers` powstanie oddzielny, szczegółowy wpis, dlatego przedstawię tutaj jedynie kilka kluczowych zagadnień dotyczących tej technologii.
+
+<Info title="Uwaga!" type="danger">
+  Nie należy mylić Service Workers z [Web
+  Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers).
+  Mają one dwa, zupełnie inne zastosowania.
+</Info>
+
+Service Worker jest plikiem JavaScript, który pełni rolę pośrednika (proxy) pomiędzy aplikacją a siecią. Dzięki temu mamy możliwość zapisywania (cache’owania) zawartości aplikacji (dostęp offline) jak również przyśpieszamy renderowanie. Service Worker działa w tle naszej aplikacji i jest niezależny od głównej logiki oraz nie wymaga żadnych elementów UI.
+
+Service Worker nie jest dostępny podczas pierwszego odwiedzenia strony internetowej. Wchodząc po raz pierwszy na określoną stronę w technologi PWA, nie zobaczymy od razu okna z propozycją instalacji. Dzieje się tak, ponieważ podczas pierwszego uruchomienia strony Service Worker musi się zainstalować i dopiero kolejne przerenderowanie strony odpali nam Service Worker’a.
+
+Drugą obowiązkową rzeczą o której musimy pamiętać podczas tworzenia PWA jest app manifest. Jest to zwykły plik `.json` w którym umieszczamy najważniejsze informacje na temat naszej aplikacji. Informacje te są wykorzystywane przez urządzenie użytkownika w celu poprawnego renderowania naszej aplikacji na ekranie. Plik ten zawiera informacje takie jak:
+
+- nazwa pełna i skrócona naszej aplikacji
+- lokalizacja ikon
+- początkowy adres URL (relatywnie do adresu domeny)
+- domyślne ustawienie pozycji ekaranu
+- splash screen (ekran widoczny podczas startowania aplikacji)
+
+Przykładowo nasz plik może wyglądać następująco:
+
+```json
+{
+  "name": "Perfect App",
+  "short_name": "Perfect",
+  "description": "Perfect Progressive Web App",
+  "icons": [
+    {
+      "src": "images/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "orientation": "portrait",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000"
+}
+```
+
+## Bariery i wyzwania
+
+Mimo że PWA, czyli Progressive Web Apps, oferują wiele zalet, jak lepsza wydajność, oszczędność danych, czy dostęp offline, towarzyszą im też pewne bariery i wyzwania, które mogą wpływać na ich rozwój i adaptację. Niektóre z najbardziej znaczących przeszkód omówiono poniżej.
+
+**Niespójność między platformami i przeglądarkami**
+
+Pierwszą i być może najbardziej oczywistą przeszkodą dla PWA jest różnica w obsłudze technologii PWA przez różne przeglądarki i systemy operacyjne. Na przykład, Safari na iOS obsługuje tylko podstawowy zestaw funkcji PWA, podczas gdy Chrome na Androidzie obsługuje praktycznie wszystko. W rezultacie, tworzenie PWA, które działa jednolicie na wszystkich platformach, może być trudne.
+
+**Brak pełnego dostępu do API urządzenia**
+
+Chociaż PWA zyskały dostęp do wielu funkcji urządzeń, takich jak notyfikacje push, są nadal ograniczenia dotyczące pełnego dostępu do API urządzenia. To może utrudniać tworzenie aplikacji, które w pełni wykorzystują możliwości urządzenia, takie jak interfejsy Bluetooth czy NFC.
+
+**Trudności z odkrywalnością**
+
+Tradycyjne aplikacje mobilne są łatwe do znalezienia i pobrania z dedykowanych sklepów z aplikacjami, takich jak Google Play czy App Store. PWA nie mają takiej widoczności, co sprawia, że mogą być trudniejsze do odkrycia dla użytkowników. Co więcej, niektóre sklepy z aplikacjami, takie jak App Store, mają restrykcyjne polityki dotyczące PWA.
+
+**Aktualizacje i utrzymanie**
+
+Ponieważ PWA są z natury rozproszone, aktualizacje i utrzymanie mogą być trudniejsze w porównaniu do tradycyjnych aplikacji mobilnych. Dla przykładu, w przypadku problemów z bezpieczeństwem, aktualizacja PWA może wymagać więcej czasu i zasobów.
+
+**Przekonanie użytkowników**
+
+Wiele osób jest przyzwyczajonych do korzystania z tradycyjnych aplikacji mobilnych i może nie być świadomych zalet PWA. Może to stanowić barierę dla adopcji PWA, zwłaszcza dla firm, które muszą przekonać użytkowników do przejścia na nową platformę.
+
+## Podsumowanie
+
+Mam nadzieję, że udało mi się w tym wpisie wyjaśnić wszystkim zainteresowanym czym jest PWA i jakimi zasadami się kieruje. Jako,, że jest to tylko wstęp do Progressive Web Apps – wpis ten zawiera informacje czysto teoretyczne. Już niedługo na łamach frontstack.pl pojawią się kolejne wpisy związane z PWA, przede wszystkim wpis poświęcony Service Workers oraz tutorial obrazujący jak zbudować w pełni działającą aplikację PWA.

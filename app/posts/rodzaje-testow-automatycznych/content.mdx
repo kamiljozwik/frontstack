@@ -1,0 +1,83 @@
+export const meta = {
+  title: "Rodzaje testów automatycznych aplikacji JavaScript",
+  seo_desc:
+    "Zanim zaczniemy naszą przygodę z testowaniem aplikacji warto poznać rodzaje testów automatycznych występujących w aplikacjach JavaScript.",
+  short:
+    "Odkryj znaczenie i typy testów automatycznych w rozwijaniu oprogramowania. Ten artykuł wprowadzi Cię w świat testów jednostkowych, integracyjnych i funkcjonalnych, podkreślając ich rolę w procesie CI/CD. Dowiedz się, jak te testy mogą zminimalizować ryzyko błędów i zwiększyć wydajność procesu wytwarzania oprogramowania.",
+  date: "2019-11-18",
+  tags: ["Inne"],
+};
+
+Dzisiejszy post będzie postem wprowadzającym w świat testowania aplikacji webowych. Poznasz dzięki niemu rodzaje testów automatycznych. Dowiesz się również po co są nam są one potrzebne i jaki jest ich główny cel. Wszystko to w dalszej części artykułu.
+
+Dzięki bardzo dużemu rozwojowi narzędzi CI/CD mamy dzisiaj możliwość wytwarzać oraz dostarczać oprogramowanie w przeciągu kilku godzin bądź dni. Jeszcze kilka lat temu zajmowało to całe tygodnie/miesiące.
+
+Zmiany bądź nowe funkcjonalności potencjalnie mogą spowodować niepoprawne działanie aplikacji w miejscach, których developer nie brał pod uwagę podczas testowania zmian w kodzie. Aplikacja z nowym bugem wchodzi w pipeline CI/CD i momentalnie trafia do naszych użytkowników i właśnie stworzyliśmy sobie niepotrzebne problemy. Problemy, których moglibyśmy uniknąć, gdybyśmy odpowiednio przetestowali nowy release.
+
+Testerzy manualni nie zawsze są w stanie przetestować każdy przypadek użycia oraz ich praca nieco zaburza główne założenie CI/CD – automatyzm.
+
+W dalszej części wpisu omówimy rodzaje testów automatycznych oraz samej ich koncepcji. Przykładowe implementacje będą pojawiały się w kolejnych artykułach dotyczących już konkretnych rozwiązań.
+
+## Rodzaje testów automatycznych
+
+Pierwszą rzeczą jaką należy zrozumieć w różnych typach testów automatycznych jest ich cel. Należy tutaj zrozumieć, iż każdy z testów jest przeznaczony do zupełnie innych zadań.
+
+Wyróżniamy trzy podstawowe (i w sumie najważniejsze) rodzaje testów:
+
+- jednostkowe (unit tests)
+- integracyjne (integration tests)
+- funkcjonalne (functional tests)
+
+Bardzo częstym problem podczas pisania testów jest niezrozumienie różnic między tymi testami i mieszanie ze sobą różnych typów testów, bądź całkowite ich nie rozróżnianie i przysłowiowe „wrzucanie do jednego worka”.
+
+Jak już wcześniej wspomniałem, każdy z powyższych testów służy testowaniu całkowicie innych rzeczy. Nie powinniśmy wybierać jednego z tych testów do naszej aplikacji – powinniśmy użyć ich wszystkich.
+
+## Testy jednostkowe
+
+Testy jednostkowe, jak nazwa może wskazywać testują jedną, wybraną funkcjonalność aplikacji. Najczęściej jest to jedna funkcja/metoda/pojedynczy moduł. Testy takie odbywają się w całkowicie wyizolowanym środowisku, co znaczy, że żadne inne czynniki nie mają wpływu na testowany przez nas kod. Przez inne czynniki mam na myśli np. zapis do bazy danych, zapytanie sieciowe, pobieranie danych z API, itp. Jeżeli takie operacje są wymagane przez naszą funkcję, zastępujemy je tzw. mock’ami, czyli w pełni przewidywalnymi implementacjami rzeczywistych operacji.
+
+Podczas testów jednostkowych podajemy znany nam stan początkowy testu (np. argumenty dla funkcji) i podajemy wynik jakiego oczekujemy po wykonaniu testu – jeżeli wyprodukowany wynik zgadza się z tym podanym przez nas, wtedy możemy uznać, iż testowany fragment przeszedł testy, czyli działa zgodnie z założeniami.
+
+Testy jednostkowe są również często określane jako „testy dla developerów”. Testy takie działają jak błyskawiczny feedback podczas developmentu.
+
+Najczęściej testy takie są uruchomione w konsoli i wykonują się automatycznie po każdorazowym zapisie pliku, gwarantując nam testowanie w czasie rzeczywistym – takie podejście do testów jednostkowych implikuje kilka wymogów: muszą być one bardzo szybkie, bardzo łatwe do zrozumienia i w przypadku błędów gwarantować czytelne informacje na temat tego, który test i dlaczego zwrócił nam błędy. W przeciwnym razie nikt nie będzie z nich nigdy korzystał.
+
+Przykłady miejsc gdzie możemy użyć testów jednostkowych to formatowanie string’ów, sortowanie tablic, sprawdzenie poprawności wpisanych danych, itp.
+
+## Testy integracyjne
+
+Testy integracyjne pozwalają nam na przetestowanie jak różne części naszej aplikacji działają razem. Można powiedzieć, iż testy integracyjne łączą ze sobą testy jednostkowe. Sprawdzają one czy pojedyncze elementy działają również w przypadku braku odizolowania. Funkcjonalności, które do tej pory były mock’owane są teraz ponownie rzeczywistą implementacją. W testach integracyjnych korzystamy również już np. z połączenia sieciowego.
+
+W testach integracyjnych sprawdzamy poprawność działania elementów całego naszego systemu. Testujemy takie rzeczy jak prawidłowe połączenie z bazą danych (odczyt/zapis) oraz poprawne integracje z elementami typu 3rd party.
+
+Omawiane testy są dużo wolniejsze niż testy jednostkowe, więc nie są tak często używane podczas developmentu. Najczęściej są one elementami pipeline’u CI/CD.
+
+Przykładami testów integracyjnych może być odczytanie danych z bazy danych po kliknięciu w przycisk „Szukaj”, poprawne działanie logger’a podczas przekierowywań, itp.
+
+## Testy funkcjonalne (E2E)
+
+Testy funkcjonalne, zwane również testami E2E (end-to-end), testują wszystkie funkcjonalności naszej aplikacji z perspektywy użytkownika. Najczęściej takie testy spotykamy w aplikacjach webowych, gdzie automat symuluje akcje naszych użytkowników i weryfikuje poprawność działania pełnych scenariuszy testowych. Przykładami takich czynności mogą być:
+
+- wypełnianie pól w formularzach,
+- klikanie w przyciski,
+- przetestowanie całej ścieżki rejestracji użytkownika,
+- dodania produktu do koszyka a następnie proces zakupu,
+- wyszukiwanie elementów w rzeczywistym drzewie DOM.
+
+W pewnym sensie takie testy próbują wyręczyć w wielu monotonnych scenariuszach testerów manualnych. Robią to np. poprzez przechodzenie scenariusza rejestracji/logowania użytkownika, dodawania postów/komentarzy. Symulujemy tutaj również błędy użytkownika. Przykładem może być wpisania zbyt krótkiego hasła – test sprawdzi, czy na ekranie wyrenderuje się odpowiedni komunikat błędu.
+
+Temat testów funkcjonalnych jest dość szeroki i skupiony głównie wokół aplikacji webowych. Postaram się w niedługim czasie poświęcić im osobny wpis.
+
+## Smoke tests
+
+Wszystkie wyżej wymienione testy uruchamiane są zanim aplikacja trafi do naszych użytkowników. Istnieje również jeden rodzaj testów, który jest uruchamiany na produkcyjnej aplikacji – tzw. smoke test. Są to testy, które mają na celu „ogólne” sprawdzenie poprawnego funkcjonowania całej aplikacji. Bez wchodzenia w konkretne scenariusze testowe, sprawdzamy, czy wszystkie elementy systemu są dostępne i widoczne dla użytkowników.
+
+Nazwa tego testu nie jest przypadkowa. Jest to analogia to systemów elektronicznych, gdzie w przypadku pracy nad płytką scaloną mamy wiele współpracujących ze sobą elementów. Jeżeli podczas pierwszego podłączenia do zasilania zobaczymy dym (smoke), wtedy jeszcze nie do końca wiemy gdzie, ale mamy świadomość, że coś jednak nie funkcjonuje prawidłowo.
+
+Spotykamy również porównanie do hydrauliki, gdzie nowo powstałą instalację często testuje się wypełniając ją dymem i obserwuje ulatniający się dym. Jeżeli tak się dzieje, od razu wiemy, że system jest nieszczelny.
+
+## Testy + CI/CD
+
+Na samym początku artykułu wspomniałem o tym, jak szybko można w dzisiejszych czasach wytwarzać oprogramowanie dzięki podejściu CI/CD. Jedną z najważniejszych składowych sukcesu tego podejścia jest upewnianie się, że nawet najmniejsza zmiana w kodzie nie będzie miała wpływu na dotychczasowe funkcjonowanie pozostałych części systemu. Wplecenie testów automatycznych w proces CI/CD znacząco wpłynie na jakość wytwarzanego produktu a także przyspieszy wprowadzanie nowych funkcjonalności.
+
+Należy pamiętać również o tym, iż koszt znalezienia i poprawienia błędu w programie na produkcji jest znacznie większy niż wyłapanie i poprawienie tego błędu w trakcie developmentu. Jednym z podejść ułatwiającym pisanie kodu, który zostaje od razu pokryty testami jest tzw. [TDD](https://pl.wikipedia.org/wiki/Test-driven_development) (Test-driven Development), ale o tym już powiemy sobie w oddzielnym wpisie. Na chwilę obecną poznaliśmy już wszystkie podstawowe rodzaje testów automatycznych występujące w aplikacjach JavaScript.

@@ -1,0 +1,206 @@
+export const meta = {
+  title: "Service Worker czyli koń napędowy PWA: praca offline",
+  seo_desc:
+    "Artykuł wyjaśniajacy czym jest Service Worker, w jakim celu możemy go wykorzystać oraz w jaki sposób możemy go zaimplementować w JavaScript",
+  short:
+    "Wpis wyjaśniajacy czym jest Service Worker, w jakim celu możemy go wykorzystać oraz w jaki sposób możemy go zaimplementować w JavaScript. Zobacz w jaki sposób możesz wykorzystać Service Worker do pracy offline i synchronizacji w swojej aplikacji",
+  date: "2020-04-06",
+  tags: ["JavaScript", "PWA"],
+};
+
+W jednym z poprzednich postów poruszałem tematykę PWA (progresive web apps). Wspomniałem tam o jednym z najważniejszych elementów powyższej technologii, czyli service workers. W dzisiejszym wpisie opowiemy sobie nieco więcej na temat tego kluczowego elementu współczesnych aplikacji mobilnych, jak również stworzymy przykładowy plik service worker.
+
+## Can I use?
+
+Jak widać w serwisie [CanIUse](https://caniuse.com/serviceworkers), service worker jest aktualnie wspierany przez wszystkie najpopularniejsze przeglądarki. Możemy więc myśleć o nim jako o aktualnie dostępnej technologii. Jednak mając na uwadze, że jest to dość nowe podejście (choć już powoli robi się standardem) należy implementować ją z pewną dozą ostrożności.
+
+## Czym jest Service Worker
+
+Service Worker pozwala nam na rozszerzenie funkcjonalności naszej aplikacji o pewne funkcje, które dostępne są w natywnych aplikacjach mobilnych. Przykładami mogą być umożliwienie pracy w trybie offline oraz push notyfikacje na ekranie urządzenia użytkownika naszej aplikacji.
+
+Techniczne rzecz biorąc, Service Worker jest swego rodzaju proxy, umieszczonym pomiędzy naszą aplikacją a siecią Internet. Dzięki temu mamy możliwość cache’owania elementów naszej strony (takie jak grafiki, pliki HTML, CSS, itp.) w celu wykorzystania ich podczas pracy offline jak i przyśpieszenia działania naszej aplikacji (pobieranie elementów z cache, zamiast ściągania z sieci).
+
+Service Worker jest zaimplementowany w osobnym pliku `.js` (tak więc wszystko piszemy przy użyciu JavaScript) i jest powiązany z naszą aplikacją. Service Worker jest rodzajem `web worker'a`, więc uruchamiany jest w oddzielnym wątku, zupełnie nie powiązanym z działaniem aplikacji, dzięki czemu nie blokujemy głównego wątku i nie wpływamy (bezpośrednio) na pracę naszego programu. Działanie w osobnym wątku oznacza, iż Service Worker nie ma dostępu do elementów DOM strony oraz `localStorage` i `AJAX`. Warto pamiętać również o tym, że w pliku w którym implementujemy Service Worker, nie możemy używać kodu „blokującego”. Stąd brak dostępu do synchronicznego `localStorage`, więc musimy opierać się na kodzie asynchronicznym.
+
+Service Worker, jak już wcześniej wspomniałem nie ma dostępu do zapytań typu AJAX, dlatego korzysta on z innych dobrodziejstw WEB API, takich jak Fetch API, Cache API jak i operuje jedynie na danych asynchronicznych (Promises).
+
+Service Workers są dostępne jedynie na przy połaczeniu HTTPS (za wyjątkiem `localhost`).
+
+Ostatnia rzecz o której warto wspomnieć, zanim przejdziemy do implementacji, to fakt, iż Service Worker naszej aplikacji działa w tle. Znaczy to, że będzie on wykonywać zaprogramowane operacje nawet wtedy, gdy nasza aplikacja/przeglądarkazostaną wyłączone. Dzięki temu mamy możliwość ciągłego zapisywaniu elementów w cache (w celu użycia ich gdy urządzenie będzie offline) oraz wysyłania push notyfikacji.
+
+## Implementacja
+
+W celu poprawnego działania, Service Worker musi przejść przez trzy fazy:
+
+1. Rejestracja
+2. Instalacja
+3. Aktywacja
+
+### Rejestracja
+
+Rejestracja polega na „powiedzeniu” naszej stronie, iż zamierzamy na niej korzystać z Service Worker. Odbywa to się poza Service Worker’em (kod jest wywoływany z innego pliku, niż ten zawierający implementację samego Service Worker’a). Poniższy snippet kodu zarejestruje SW w naszej aplikacji:
+
+```js
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/serviceWorker.js", {
+      scope: "/",
+    })
+    .then((registration) => {
+      console.log("SW zarejestrowany! Scope:", registration.scope);
+    });
+}
+```
+
+Domyślnie SW działa dla naszej całej aplikacji, jednak możemy to zmienić, podając odpowiednią wartość `scope`. W powyższym przykładzie `scope` obejmuje całą aplikację (domyślne zachowanie, zachowanie takie samo gdybyśmy w ogóle nie podali tego parametru). Jeżeli jednak chcemy zaimplementować SW jedynie na części naszej aplikacji (np. w notyfikacjach albo na stronach bloga), wtedy jako wartość dla `scope` podajemy odpowiednio ścieżkę do tego fragmentu aplikacji ("/notifications/"" albo "/blog/"). Warto pamiętać, że scope musi być podany w formie ścieżki względnej do naszej aplikacji.
+
+### Instalacja
+
+Instalację SW implementujemy już w pliku .js dedykowanym Service Worker’owi. Instalacja uruchamiana jest przez event install:
+
+```js
+self.addEventListener("install", (event) => {
+  // Kod wykonywany podczas instalacji
+  console.log("SW zainstalowany!");
+});
+```
+
+Podczas fazy instalacji dokonujemy inicjalizacji cache oraz zapisujemy w nim pierwsze statyczne elementy (grafiki, pliki HTML, itp.), które następnie będziemy mogli używać na innych stronach (ekranach) aplikacji. Dzięki temu dane będziemy mogli teraz odczytywać z cache, zamiast pobierać ich ponownie z Internetu podczas przełączania się pomiędzy stronami aplikacji.
+
+Rozbudowując powyższy snippet o funkcjonalność cache’owania otrzymamy:
+
+```js
+self.addEventListener("install", (event) => {
+  function onInstall() {
+    return caches
+      .open("static")
+      .then((cache) =>
+        cache.addAll([
+          "/images/MainLogo.gif",
+          "/js/site.js",
+          "/css/styles.css",
+          "/offline/",
+          "/",
+        ])
+      );
+  }
+
+  event.waitUntil(onInstall(event));
+});
+```
+
+Dwa słowa celem wyjaśnienia:
+
+`event.waitUntil` – wstrzymaj event `install` i nie kończ go, dopóki nie skończymy robić wszystkiego co zaimplementowaliśmy. Teraz jesteśmy pewni, że wszystkie elementy zostaną zapisane, zanim instalacja się zakończy.
+
+`cache.addAll` – otwórz cache i umieść w nim zdefiniowane elementy.
+
+`caches` – Service Worker implementuje interfejs `cacheStorage`, dzięki czemu na `caches` mamy globalny dostęp do takich metod jak `.open` lub `.delete`.
+
+### Fetch event
+
+Prawdziwa „siła” Service Worker’a ujawnia się w obsłudze eventów fetch (asynchronicznych zapytań sieciowych). Możemy obsługiwać te eventy na kilka różnych sposobów, tzn. możemy wymusić na przeglądarce pobieranie pewnych materiałów tylko z serwera (z Internetu), aby mieć pewność, iż zawsze mamy „aktualną” wartość, wymuszając z kolei pobieranie statycznych zasobów zawsze z cache zamiast pobierania ich z serwera. Za każdym razem, gdy przeglądarka będzie chciała pobrać zasoby, które znajdują się w `scope` Service Worker’a (patrz pkt. Rejestracja), możemy obsługiwać taki event w pliku SW poprzez `eventListener`:
+
+```js
+self.addEventListener("fetch", (event) => {
+  // może damy radę obsłużyć to zapytanie efektywniej ?
+});
+```
+
+Jak nie trudno się domyśleć, decyzja o tym, czy powinniśmy obsłużyć dany event czy nie, będzie zależała od tego, czy posiadamy w cache interesujące nas zasoby (pliki). Teraz obsługa eventu `fetch` może wyglądać następująco:
+
+```js
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      if (response) {
+        //entry found in cache
+        return response;
+      }
+      return fetch(event.request);
+    })
+  );
+});
+```
+
+Powyższy snippet obsługuje najprostszy przypadek, czyli sprawdzamy jedynie, czy request URL jest już przechowywany w cache. Jeżeli jest – odpowiadamy wartością z cache, jeżeli nie – wykonujemy normalne zapytanie asynchroniczne `fetch`.
+
+Na potrzeby tego artykułu mocno uprościliśmy sprawę – czyli np. nie sprawdzamy, czy zapytanie jest wewnątrz domeny, w przypadku gdy musimy wykonać zapytanie sieciowe nie zapisujemy odpowiedzi w cache dla przyszłego użytku, nie sprawdzamy co zostaje zwrócone. W przypadku blogów, w których treść zmienia się dość często, nie powinno cache’ować się plików HTML. Wszystkim tym zajmiemy się, gdy będziemy tworzyć przykładową aplikację PWA – artykuł na ten temat pojawi się już wkrótce.
+
+## Aktywacja
+
+Trzeci krok przez który przechodzi Service Worker – aktywacja, dzięki któremu Service Worker będzie mógł działać podczas otwierania i przeładowaniach kolejnych stron.
+
+```js
+self.addEventListener("activate", (event) => {
+  // np. w przypadku nowej wersji SW wyczyść zbędny cache
+});
+```
+
+W przypadku, gdy w naszej aplikacji pojawi się nowa wersja Service Worker’a, wtedy w eventListenerze `activate` możemy np. wyczyścić cache, aby nie zajmował on niepotrzebnie miejsca na dysku. W tym celu możemy użyć metody `caches.delete`:
+
+```js
+self.addEventListener("activate", (event) => {
+  function onActivate() {
+    return caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter((key) => key !== "static").map((key) => caches.delete(key))
+      );
+    });
+  }
+
+  event.waitUntil(onActivate(event));
+});
+```
+
+## Synchronizacja w tle
+
+Dzięki synchronizacja w tle, możemy regularnie pobierać zasoby naszej aplikacji z serwera gdy jesteśmy podłączeni do Internetu. W momencie gdy stracimy połączenie, Service Worker będzie próbował regularnie sprawdzać połączenie i w momencie jego odzyskania pobierze najnowsze zasoby.
+
+W aplikacji możemy zaimplementować to następująco:
+
+```js
+navigator.serviceWorker.ready.then((swRegistration) => {
+  return swRegistration.sync.register("event1");
+});
+```
+
+W tym przypadku, gdy Service Worker będzie miał dostęp do Internetu, wykona zarejestrowaną synchronizację. W przypadku, gdy nie będzie miał dostępu do Internetu, synchronizacja zostanie wykonana w momencie odzyskania połączenia.
+
+Fragment kodu SW nasłuchujący na event:
+
+```js
+self.addEventListener("sync", (event) => {
+  if (event.tag === "event1") {
+    event.waitUntil(doSomething());
+  }
+});
+```
+
+`doSomething()` – funkcja zwracająca promise. Jeżeli jej wykonanie zwróci błąd, po pewnym czasie kolejne sync eventy zostaną wywoływane do czasu, aż funkcja wykona się prawidłowo (czyli np. po odzyskaniu połączenia z Internetem).
+
+## Notyfikacje push
+
+Jedną z ciekawszych funkcjonalności Service Worker jest możliwość wysyłania natywnych notyfikacji push (zarówno w przeglądarce jak i na urządzeniu mobilnym). Temat ten zostanie dokładniej opisane w oddzielnym wpisie.
+
+## Update Service Worker
+
+Jeżeli zakładamy, że nasz Service Worker (oraz nasza aplikacja) nigdy nie będzie się zmieniała, możemy odpuścić ten punkt. Raz zainstalowany SW powinien już nam działać prawidłowo bez naszej ingerencji.
+
+W przypadku gdy wprowadzimy jakieś zmiany w naszym SW, musimy mieć na uwadze kilka rzeczy. Po pierwsze, aby zaktualizować Service Worker, wystarczy zmienić w nim chociaż jedną linijkę kodu. Zmiana zostanie zauważona i gdy `register` event zostanie uruchomiony, SW zostanie zaktualizowany. Nie będzie on jednak działał do czasu, gdy mamy otwartą chociaż jedną stronę ze starym SW. Przeładowanie strony nie jest wystarczające – musimy zamknąć wszystkie strony (zakładki przeglądarki) i otworzyć je na nowo. Dzięki temu mamy pewność, że po update’cie nic nie popsuje się na otwartych już stronach.
+
+Aktualizacja SW nie nastąpi jednak natychmiastowo – przeglądarki domyślnie trzymają w swoim cache plik SW przez 24h. Tak więc, domyślnie raz na dobę nasza przeglądarka sprawdza, czy nie powinna użyć nowego, zaktualizowanego Service Worker’a. Nie jest to na pewno oczekiwane zachowanie, jednak możemy łatwo to obejść, przez ustawienie odpowiedniego cache-control header dla pliku SW:
+
+`cache-control: max-age=0,no-cache,no-store,must-revalidate`
+
+To w jaki sposób ustawiać headery zależy od tego w jaki sposób hostujemy naszą aplikację.
+
+Drugą ważną sprawą jest nie zmienianie nazwy SW (czyt. pliku z implementacją SW). Zmiana nazwy spowoduje, że przeglądarka zinterpretuje to jako nowy Service Worker i zainstaluje go na naszej aplikacji nie usuwając poprzedniego. Bardzo łatwo w ten sposób narobić sobie sporego bałaganu.
+
+Dobrą praktyką jest wersjonowanie naszego Service Workera. Ułatwi nam to sprawdzanie aktualnie działającego SW oraz czyszczenie cache w przypadku aktualizacji SW. Jeżeli nasza aplikacja i nasz SW nie są jakoś bardzo rozbudowane, możemy zajmować się tym ręcznie. Jednak istnieją narzędzia, które mogą znacznie ułatwić nam pracę z SW oraz zautomatyzować część prac.
+
+## Podsumowanie
+
+Jak widać Service Worker jest dość potężnym narzędziem, który dodaje naszej aplikacji niezwykle ważne funkcjonalności. Wśród nich wymienić możemy pracę offline, szybsze ładowanie zasobów, ograniczenie wykorzystania łącza internetowego oraz push notyfikacje. Stworzenie Service Worker’a dla naszej aplikacji może być dość trudnym i kłopotliwym zadaniem, szczególnie gdy nasza aplikacja jest mocno rozbudowana. Na szczęście z pomocą przychodzą nam narzędzia, które w znaczny sposób ułatwiają nam automatyczne generowanie pliku SW oraz jego skuteczne wersjonowanie.
+
+Korzyści wynikające z używania Servive Worker są moim zdaniem na tyle duże, że warto poświęcić czas na jego implementację. Przeniesiemy naszą aplikację na zupełnie nowy poziom – a nasi użytkownicy na pewno to docenią.

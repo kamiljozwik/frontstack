@@ -1,0 +1,106 @@
+import { Info } from "../../components/posts";
+
+export const meta = {
+  title: "Wzorce projektowe JavaScript",
+  seo_desc:
+    "Wzorce projektowe JavaScript to jeden z tych tematów które często bywają bagatelizowane nawet przez doświadczonych programistów. Dowiedzmy się o nich więcej",
+  short:
+    "Wzorce projektowe JavaScript to jeden z tych tematów które często bywają bagatelizowane nawet przez doświadczonych programistów. W tym wpisie przyjrzymy się genezie wzorców projektowych, ich rodzajom oraz wymienimy sobie najpopularniejszym z nich.",
+  date: "2021-08-23",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Wzorce projektowe – dwa słowa, które w pierwszej chwili (szczególnie dla mniej doświadczonych developerów) brzmią jak magiczne zaklęcie. To samo dotyczy programistów którzy w świat front end-u wchodzą po przebranżowieniu i samodzielnej nauce programowania. Materiału do przyswojenia jest wtedy tak dużo, że taki temat jak wzorce projektowe JavaScript najczęściej schodzi na drugi plan. Nie ma w tym w sumie nic złego i można być całkiem dobrym developerem bez znajomości tego tematu. Jednak przyswojenie sobie omawianego właśnie zagadnienia na pewno pozwoli każdemu czytającemu znacznie podnieść wartość i jakość wytwarzanego kodu.
+
+## Czym są wzorce projektowe?
+
+Wzorce projektowe to nic innego niż sprawdzone, przetestowane i powszechnie stosowane rozwiązania konkretnych problemów programistycznych. Są to również wskazówki i wytyczne mówiące o tym w jaki sposób podejść do danego zagadnienia. Znajomość najpopularniejszych wzorców oszczędzi nam dużo czasu, który musielibyśmy poświęcić na samodzielne znalezienie tegoż rozwiązania.
+
+Należy pamiętać o tym, że wzorzec projektowy jest abstrakcyjnym opisem ściśle określonego rozwiązania programistycznego. Jest on niezależny od języka w którym będzie zaimplementowany. Należy go traktować tylko jako schemat postępowania.
+
+Wzorce projektowe najczęściej są stosowane w programowaniu obiektowym i pokazują zależności między klasami i obiektami oraz korzyści wynikające z tych zależności. Stosowanie wzorców projektowych pozwala na pisanie lepszych, bardziej efektywnych, skalowalnych i mniej narażonych na błędy programów.
+
+Zbierając wszystko w jednym miejscu, możemy wypunktować główne korzyści płynące ze wzorców projektowych:
+
+- **Są one sprawdzonymi rozwiązaniami.** Z racji tego, iż są wielokrotnie używane i ciągle optymalizowane przez dużą liczbę programistów, możemy być po pewni, że będą dobrze działały.
+- **Łatwo ich re-używać.** Wzorzec przedstawia rozwiązanie, które można dostosować do własnych potrzeb.
+- **Są łatwe do zrozumienia.** Duże i trudne rozwiązania są przedstawione w dość przystępny sposób.
+- **Ułatwiają komunikację w zespole.** Zamiast dokładnie opisywać w jaki sposób rozwiązaliśmy dany problem, możemy powiedzieć z jakiego wzorca skorzystaliśmy.
+- **Zmniejszają potrzebę refaktoryzowania kodu.** Korzystając ze wzorca problem jest zazwyczaj rozwiązany w sposób prawidłowy.
+- **Zmniejszają ilość kodu.** Rozwiązania prezentowane we wzorcach są najczęściej już wielokrotnie sprawdzone i maksymalnie zoptymalizowane.
+
+## Skąd się wzięły wzorce projektowe?
+
+Dwa słowa na temat historii wzorców projektowych. Zapewne większość osób słysząc wyrażenie „wzorzec projektowy” podświadomie kojarzy i przypisuje ten termin architekturze lub budownictwu. Jest to dobre skojarzenie, ponieważ pierwsze wzorce projektowe pojawiły się właśnie w architekturze. Twórcą tego pojęcia jest [Christopher Alexander](https://en.wikipedia.org/wiki/Christopher_Alexander), amerykański architekt który postawił tezę, że funkcjonalność oraz inne cechy użytkowe i konstrukcyjne można zapisać w postaci uogólnionych rozwiązań. Więcej na ten temat można doczytać chociażby na [Wikipedii](https://en.wikipedia.org/wiki/Pattern_language). Niestety idee Alexandra nie odbiły się szerokim echem w dziedzinie architektury, jednak były impulsem dla rozwoju projektowania oprogramowania.
+
+Przełomowym wydarzeniem było wydanie książki pt. ["Design Patterns: Elements of Reusable Object-Oriented Software"](https://en.wikipedia.org/wiki/Design_Patterns), autorstwa tzw. Gang Of Four (GoF). Po raz pierwszy zebrano i sklasyfikowano wtedy 24 wzorce projektowe dotyczące konstrukcji, struktury i zachowania obiektów w systemach informatycznych. Osoby zainteresowane ww. tematem odsyłam [do książki](https://books.google.pl/books/about/Design_Patterns.html?id=6oHuKQe3TjQC&redir_esc=y).
+
+## Rodzaje wzorców projektowych
+
+Wzorce projektowe JavaScript można podzielić na trzy główne kategorie:
+
+- Konstrukcyjne
+- Strukturalne
+- Behawioralne
+
+W dalszej części artykułu przyjrzymy się dokładnie wszystkim trzem kategoriom oraz omówimy już dokładniej każdy z wymienionych wzorców projektowych w kontekście języka JavaScript. Każdy ze wzorców będzie również opatrzony przykładową implementacją.
+
+Bardzo prawdopodobne, że nieświadomie korzystałeś już z wielu omawianych tutaj wzorców. W takim przypadku dowiesz się chociaż, jak stosowany przez Ciebie wzorzec został nazwany w literaturze.
+
+<Info title="Język angielski">
+  Podczas wymieniania wzorców skorzystałem z ich angielskich nazw. Uznałem, że
+  tłumaczenie ich na język polski wniesie więcej zamieszania niż pożytku. W
+  dodatku osoby, które zdecydują się szukać dodatkowych informacji na pewno będą
+  wolały używać oficjalnych nazw występujących w literaturze.
+</Info>
+
+## Wzorce konstrukcyjne (Creational Patterns)
+
+Wzorce konstrukcyjne skupiają się na tym w jaki sposób możemy tworzyć nowe obiekty w zależności od aktualnych potrzeb. W krótkiej serii poprzednich wpisów (1)(2)(3) wprowadzających w świat JavaScript pokazałem już kilka podstawowych sposobów na tworzenie nowych obiektów. Pora teraz pójść krok dalej i poznać kolejne stosowane przez programistów na całym świecie metody konstruowania obiektów.
+
+Do wzorców konstrukcyjnych zaliczamy:
+
+- Constructor
+- Module
+- Singleton
+- Simple Factory
+- Factory Method
+- Abstract factory
+- Prototype
+- Builder
+
+## Wzorce strukturalne (Structural Patterns)
+
+Nasze aplikacje niemalże nigdy nie składają się tylko z jednego rodzaju obiektu. Przeważnie mamy do czynienia z bardzo dużą liczbą różnego rodzaju obiektów, które dopiero gdy zaczną ze sobą prawidłowo współpracować stworzą kompletny system. W celu poprawnej komunikacji i bezkonfliktowej pracy poszczególnych części systemu będziemy stosować właśnie wzorce strukturalne. Wzorce te pomogą nam budować zależności między obiektami w taki sposób, że gdy zmienimy jeden fragment systemu, nie będzie to skutkowało koniecznością wprowadzania zmian w innych jego częściach.
+
+Do wzorców strukturalnych zaliczamy:
+
+- Facade
+- Flyweight
+- Adapter
+- Decorator
+- Composite
+- Bridge
+- Proxy
+
+## Wzorce behawioralne (Behavioral Patterns)
+
+Wzorce behawioralne opisują jak realizować podział obowiązków pomiędzy obiektami a także definiują metody komunikacji pomiędzy nimi. Jest to szczególnie pomocne, gdy chcemy mieć pewność, iż informacje w całym systemie są poprawnie synchronizowane między poszczególnymi komponentami.
+
+Do wzorców behawioralnych zaliczamy:
+
+- Mediator
+- Observer
+- Command
+- Chain of responsibility
+- Interpreter
+- Iterator
+- Memento
+- State
+- Strategy
+- Template method
+- Visitor
+
+## Podsumowanie
+
+Wzorce projektowe JavaScript to jedna z tych rzeczy, która bywa bagatelizowana nawet przez doświadczonych programistów. Zrozumienie i poprawne stosowanie chociażby części wzorców pozwoli nam na szybsze i bardziej profesjonalne tworzenie oprogramowania.

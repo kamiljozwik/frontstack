@@ -1,0 +1,110 @@
+export const meta = {
+  title: "Wzorzec: Facade design pattern",
+  seo_desc:
+    "Facade design pattern jest bardzo popularnym i jednym z najstarszych wzorców programowania. Więcej na jego temat można znaleźć w tym artykule.",
+  short:
+    "Facade design pattern jest bardzo popularnym i jednym z najstarszych wzorców programowania. Po lekturze tego artykułu dowiesz się, czym jest wzorzec fasady oraz jak go zaimplementować w języku JavaScript.",
+  date: "2020-04-23",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Facade design pattern jest jednym z tych wzorców, które są tak popularne i powszechnie używane, że nie zdajemy sobie sprawy iż może być to wzorzec projektowy. Nazwa tego wzorca wywodzi się z architektury. Facade, czyli po polsku fasada, oznacza frontową część budynku. Jest ona zazwyczaj bardzo reprezentatywna i znajdują się w niej drzwi przez które wejdziemy do środka. Patrząc na fasadę nie zastanawiamy się jeszcze co dokładnie może znajdować się w środku. Interesuje nas głównie to, czy łatwo będzie tam się dostać.
+
+Dokładnie taką samą rolę odgrywa fasada w programowaniu… no prawie taką samą.
+
+## Czym jest fasada?
+
+Fasada w programowaniu jest uproszczonym interfejsem do bardziej założonego, czasami wielowarstwowego systemu (bądź wielu systemów). Interfejs ten ma być prosty w zrozumieniu oraz w użyciu. Ma być tą reprezentatywną częścią naszego systemu / programu / biblioteki / itp.
+
+Odbiegając jeszcze na chwilę od programowania (chodź zostając w świecie IT), fasadą komputera PC (oczywiście mówimy tutaj w bardzo dużym uproszczeniu) może być jego obudowa. Czy wiemy jak włączyć / wyłączyć komputer za pomocą przycisku na obudowie – pewnie że tak. Ale czy wiemy co dokładnie się dzieje po naciśnięciu tego przycisku – to już jest przed nami ukryte za fasadą. Na pewno dzieje się znacznie więcej niż tylko podłączenie / odłączenie zasilania.
+
+Wracając już do ekosystem front end-owego, niemalże każdy zna i pewnie korzystał z biblioteki implementującej wzorzec fasady – jQuery.
+Korzystanie z jQuery jest bardzo proste. Składnia jest czytelna i dość intuicyjna. Zmianę tekstu na przycisku możemy zrealizować za pomocą jednej linijki:
+
+```js
+$("button.continue").html("Next Step..."); // jQuery docs
+```
+
+Logika schowana za tym selektorem jest dość złożona, wliczając w to np. jeszcze sprawdzanie wersji przeglądarki, itp. Natomiast interfejs który dostajemy do użytkowania może sugerować, iż jest to trywialna czynność.
+
+## Przykład
+
+Wszystko to bardzo ładnie brzmi w teorii, ale napiszmy w takim razie naszą własną fasadę. Skorzystamy z klasyku – aplikacja ToDo. Stworzymy serwis za pomocą którego będziemy mogli stworzyć zadanie oraz oznaczyć je jako ukończone.
+
+```js
+// Serwis służący do stworzenia i zarządzania zadaniami
+class TaskService {
+  // konstruktor służący do stworzenia nowego zadania
+  constructor(data) {
+    this.name = data.name;
+    this.priority = data.priority;
+    this.project = data.project;
+    this.user = data.user;
+    this.completed = data.completed;
+  }
+
+  complete() {
+    // logika sprawdzająca np. czy użytkownik może
+    // oznaczyć task jako zakończony
+    this.completed = true;
+    console.log(`Kończenie zadania: "${this.name}"`);
+  }
+
+  setCompleteDate() {
+    // zapiszmy czas zakończenia zadania.
+    // Taka informacja zawsze jest przydatna
+    this.completedDate = new Date();
+    console.log(`"${this.name}" zakończony dnia ${this.completedDate}`);
+  }
+
+  save() {
+    // Zapiszmy w naszej bazie danych informacje o zakończeniu zadania
+    // wymagane będzie obsłużenie akcji asynchronicznych
+    // oraz potencjalnych błędów
+    console.log(`Aktualizacja zadania: "${this.name}"`);
+  }
+
+  notifyCompletion() {
+    // pokażmy na ekranie użytkownika (UI) informację o tym,
+    // że task został zapisany,
+    // bądź poinformujmy o ewentualnych błędach
+    console.log(
+      `${this.user} został powiadomiony o zakończeniu zadania "${this.name}"`
+    );
+  }
+}
+
+// Fasada naszego serwisu - udostępniamy jedną metodę
+// za pomocą której obsłużymy wszystkie podzadania związane
+// z ukończeniem taska
+class TaskServiceFacade extends TaskService {
+  completeAndNotify() {
+    // cała logika związana z ukończeniem zadania
+    this.complete();
+    this.setCompleteDate();
+    this.save();
+    this.notifyCompletion();
+  }
+}
+
+// Korzystamy z fasady - stworzenie zadania
+let mytask = new TaskServiceFacade({
+  name: "Sprawdzić nowe posty na frontstack.pl",
+  priority: 1,
+  project: "Edukacja",
+  user: "Wojtek",
+  completed: false,
+});
+
+// Ukończmy zadanie - callback, który może być uruchomiony np.
+// podczas "onClick" na przycisku "Zakończ" znajdującym się obok zadania
+console.log(mytask.completeAndNotify());
+
+/** Konsola: **/
+// Kończenie zadania: "Sprawdzić nowe posty na frontstack.pl"
+// "Sprawdzić nowe posty na frontstack.pl" zakończony dnia Thu Apr 23 2020 20:46:26 GMT+0200 (czas środkowoeuropejski letni)
+// Aktualizacja zadania: "Sprawdzić nowe posty na frontstack.pl"
+// Wojtek został powiadomiony o zakończeniu zadania "Sprawdzić nowe posty na frontstack.pl"
+```
+
+Mam nadzieję, że komentarze umieszczone w kodzie będą wystarczające, aby w pełni zrozumieć ten prosty przykład obrazujący jak Facade design pattern może być przez nas samodzielnie zaimplementowany.

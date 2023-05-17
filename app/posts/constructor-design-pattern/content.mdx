@@ -1,0 +1,105 @@
+import Link from "next/link";
+
+export const meta = {
+  title: "Wzorzec: Constructor design pattern",
+  seo_desc:
+    "Constructor design pattern jest ze wzorców projektowych spotykanych w JavaScript. Jest również bardzo popularny. W tym wpisie więcej na ten temat.",
+  short:
+    "Constructor design pattern jest ze wzorców projektowych spotykanych w JavaScript. Jest on również bardzo bardzo często wykorzystywany przez programistów, więc w tym wpisie przyjrzymy się bliżej temu podejściu i na prostym przykładzie zobaczymy jak zaimplementować ten właśnie wzorzec.",
+  date: "2020-04-14",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Constructor design pattern jest jednym ze wzorców projektowych kategoryzowanym jako wzorzec konstrukcyjny. W dużym skrócie polega on na tworzeniu obiektów za pomocą tzw. constructor functions oraz niedawno wprowadzonych klas JavaScript. Wzorzec ten jest tak popularny, że zapewne nie wszyscy nawet sobie zdają sprawę, iż takie podejście ma swoją nazwę. W tym artykule dowiesz się jak zaimplementować ten wzorzec bazując na prostym przykładzie.
+
+## ES6 Classes / Klasy
+
+W klasycznych obiektowych językach programowania (np. Java, C++), constructor jest specjalną metodą wywoływaną podczas inicjowania obiektów. Począwszy od wersji ES6 języka JavaScript mamy do naszej dyspozycji klasy (ES6 Classes). Przy użyciu klas możemy jawnie zdefiniować constructor obiektu, czyli jak już wiemy metodę tworzącą nowy obiekt. Nowo tworzony obiekt w tym przypadku będzie miał od razu dostęp do zadeklarowanych w klasie właściwości (properties) oraz metod.
+
+Prostym przykładem może być klasa tworząca nowego gracza:
+
+```js
+class Player {
+  constructor(nick, weapon, canJump) {
+    this.nick = nick;
+    this.weapon = weapon;
+    this.canJump = canJump;
+  }
+  writeBio() {
+    return `${this.nick} uses ${this.weapon} and ${
+      this.canJump ? "can" : "can not"
+    } jump.`;
+  }
+}
+```
+
+Klasa `Player` posiada właściwości `nick`, `weapon` oraz `canJump` a także metodę `writeBio()`. Constructor, w przeciwieństwie do writeBio nie jest tutaj zwykłą metodą obiektu. Zostanie ona wywołana tylko gdy zainicjujemy tworzenie nowego obiektu przy użyciu słowa [new](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new). Następnie to właśnie constructor zajmie się stworzeniem obiektu oraz przypisaniem do niego ww. właściwości oraz metod.
+
+```js
+const Kmaikadze = new Player("Kmaikadze", "sword", true);
+
+Kmaikadze.weapon; // "sword"
+Kmaikadze.writeBio(); // "Kmaikadze uses sword and can jump."
+```
+
+Klasy są dosyć nową rzeczą w JavaScript. Jednak nie wprowadzają one żadnej nowej funkcjonalności oraz nie rozszerzają możliwości języka. Klasy są jedynie tzw. lukrem składniowym (ang: syntatic sugar). Oznacza to, że klasy jedynie ułatwiają nam tworzenie obiektów w sposób, który znany jest z innych obiektowych języków programowania. Zmienia się sam zapis, natomiast zasada działania jest taka sama jak przed pojawieniem się klas. To znaczy, że Constructor design pattern można również zastosować bez użycia klas. Tak na marginesie: `console.log(typeof Player); // function {:js}`
+
+## Constructor functions
+
+W języku JavaScript każda funkcja może zwrócić nowych obiekt. Stwórzmy teraz naszego zawodnika przy użyciu konstruktora funkcyjnego:
+
+```js
+function Player(nick, weapon, canJump) {
+  this.nick = nick;
+  this.weapon = weapon;
+  this.canJump = canJump;
+  this.writeBio = function () {
+    return `${this.nick} uses ${this.weapon} and ${
+      this.canJump ? "can" : "can not"
+    } jump.`;
+  };
+}
+
+const Kmaikadze = new Player("Kmaikadze", "sword", true);
+Kmaikadze.weapon; // "sword"
+Kmaikadze.writeBio(); // "Kmaikadze uses sword and can jump."
+```
+
+Jak widać na pierwszy rzut oka zapis jest bardzo podobny. Ponownie używamy w tym przypadku słowa kluczowego `new`. Dzięki niemu podczas tworzenia obiektu do gry wchodzi constructor, pomimo tego, iż nie jest on tutaj jawnie określony w kodzie. W obydwu przypadkach to własnie dzięki konstruktorowi oraz słowu `new` tworzenie nowych obiektów oraz przypisywanie im właściwości oraz metod dzieje się niejako "za kulisami".
+
+W przypadku tworzenia obiektów bez konstruktorów, musielibyśmy korzystać z jednej z trzech obecnie dostępnych możliwości na klasyczne tworzenie obiektów w JavaScript a następnie doczepiać kolejne właściwości oraz metody korzystając z tzw. dot notation, nawiasów kwadratowych bądź metod [Object.defineProperty()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) / [Object.defineProperties()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties).
+
+```js
+/***
+	Trzy możliwości tworzenia obiektów JavaScript
+	(bez użycia konstruktorów)
+*/
+
+let player = {};
+/* ----- lub ------ */
+let player = new Object();
+/* ----- lub ------ */
+let player = Object.create({});
+
+/***
+	Dodawanie właściwości do obiektów
+*/
+
+/* notacja "kropkowa" */
+player.nick = "Kmaikadze";
+console.log(player.nick); // "Kmaikadze"
+
+/* nawiasy kwadratowe" */
+player["nick"] = "Kmaikadze";
+console.log(player.nick); // "Kmaikadze"
+
+/* Object.defineProperty() */
+Object.defineProperty(player, "nick", { value: "Kmaikadze" });
+console.log(player.nick); // "Kmaikadze"
+```
+
+Osoby zainteresowane doczytaniem jeszcze takich rzeczy jak np. dziedziczenie zachęcam dodatkowo do przejrzenia innych moich wpisów - szczególnie tych poświęconych obiektom:
+
+- [Wprowadzenie i podstawowe zagadnienia](./obiekty-javascript-podstawy)
+- [Prototypy i dziedziczenie](./prototypy-i-dziedziczenie-javascript)
+- [Klasy (ES6 Classes)](./klasy-javascript)

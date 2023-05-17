@@ -1,0 +1,206 @@
+export const meta = {
+  title: "Wzorzec: Module design pattern",
+  seo_desc:
+    "Module design pattern jest wzorcem dzieki któremy będziemy mogli pisać modułowy oraz re-używalny kod w naszych aplikacjach JavaScript. Więcej w artykule.",
+  short:
+    "Module design pattern jest wzorcem dzieki któremy będziemy mogli pisać modułowy oraz re-używalny kod w naszych aplikacjach JavaScript. W tym artkule dowiesz się jak zaimplementować ten wzorzec bazując na prostym przykładzie.",
+  date: "2020-04-18",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Module design pattern jest jednym z tych wzorców projektowych, którego nieświadomie używamy niemal codziennie. Głównym celem korzystania z tego wzorca jest zapewnienie w naszych aplikacjach logicznego podziału całego kodu na mniejsze części. Kolejną ważną rzeczą dotyczącą tego wzorca jest eksponowanie innym modułom aplikacji tylko wybranych zmiennych i metod. Pozostała część kodu powinna zostać prywatna i zablokowana przed próbą modyfikowania poza modułem.
+
+## Czym jest moduł?
+
+Moduł w kontekście omawianego wzorca projektowego jest samodzielną jednostką kodu, odpowiedzialną za (najlepiej) pojedynczą funkcjonalność aplikacji. Moduły komunikują się ze sobą w celu stworzenia działającego systemu. Zgodnie z założeniami module design pattern, moduły posiadają publicznie dostępne metody bądź zmiennie (API modułu), przez które inne moduły mogą komunikować się z prywatną częścią kodu. Funkcje oraz zmienne które mają zostać prywatne mogą być odczytywane oraz zmieniane tylko przez publiczne API modułu.
+
+To co napisałem wyżej jest podejściem teoretycznym omawianego zagadnienia. JavaScript jest dynamicznie rozwijającym się językiem, więc implementacja ww. wzorca zmieniała się wraz z kolejnymi wersjami JavaScript. Bez wchodzenia jakoś głęboko w szczegóły omówimy teraz chronologicznie sposoby na zapewnienie modułowości naszego kodu.
+Będą to:
+
+- IIFE
+- CommonJS
+- ES Modules
+
+## Immediately Invoked Function Expression (IIFE)
+
+Pierwszym omówionym podejściem będzie [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE). Ta przyjemnie brzmiąca dla ucha nazwa to nic innego niż zdefiniowanie funkcji oraz natychmiastowe jej wywołanie. W tym przypadku możemy osiągnąć efekt prywatnie dostępnych zmiennych dzięki zastosowaniu tzw. [domknięcia](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) (ang: closure). Dwa słowa dla osób które pierwszy raz słyszą o domknięciach. Domknięciem jest funkcja, która posiada dostęp do [zakresu zmiennych](https://www.w3schools.com/js/js_scope.asp) funkcji wewnątrz której została wywołana (dostęp do tzw. parent scope). Schemat takiej funkcji będzie wyglądał następująco:
+
+```js
+/** IIFE */
+(function () {
+  // Zmienne i funkcje prywatne.
+  // Brak dostępu do tej części poza modułem (poza IIFE)
+
+  return {
+    // Zmienne i funkcje publiczne - API naszego modułu.
+    // Poprzez metody zwracane z modułu możemy modyfikować dane prywatne
+  };
+})(); // natychmiastowe wywołanie funkcji
+```
+
+Spójrzmy teraz na prawdziwą implementację tego rozwiązania. Zmienna `heroes` jest dostępna tylko wewnątrz funkcji która zostaje natychmiastowo wywołana po swoim stworzeniu. Funkcja ta zwraca obiekt z metodami jako własnościami (properties). Metody te mają dostęp do zmiennej `heroes` po wywołaniu IIFE właśnie poprzez domknięcie.
+
+```js
+const myHeroes = (function () {
+  // prywatne zmienne
+  const heroes = [];
+
+  // zwrócony obiekt będzie publiczny
+  // i dostępny dla innych modułów
+  return {
+    addHero: function (hero) {
+      heroes.push(hero);
+    },
+    getHero: function () {
+      return heroes;
+    },
+  };
+})(); // natychmiastowe wywołanie funkcji
+
+myHeroes.addHero("Superman");
+myHeroes.addHero("Batman");
+myHeroes.addHero("Rumcajs");
+console.log(myHeroes.getHero()); // ["Superman", "Batman", "Rumcajs"]
+console.log(myHeroes.heroes); // undefined
+```
+
+Przy korzystaniu z IIFE możemy rozwinąć koncepcję Module Pattern do Revealing Module Pattern. W tym wzorcu zwracany obiekt z publicznymi metodami nie zawiera implementacji tychże metod. Logika tych metod jest napisane w prywatnej części modułu. Następnie zwracamy tylko te funkcje które chcemy zwrócić jako wartość klucza obiektu. Powyższy przykład będzie wtedy wyglądał następująco:
+
+```js
+const myHeroes = (function () {
+  // prywatne zmienne i metody
+  const heroes = [];
+
+  function addItem(hero) {
+    heroes.push(hero);
+  }
+
+  function getItems() {
+    return heroes;
+  }
+
+  // zwrócony obiekt będzie publiczny
+  // i dostępny dla innych modułów
+  return {
+    addHero: addItem,
+    getHero: getItems,
+  };
+})(); // natychmiastowe wywołanie funkcji
+
+myHeroes.addHero("Superman");
+myHeroes.addHero("Batman");
+myHeroes.addHero("Rumcajs");
+console.log(myHeroes.getHero()); // ["Superman", "Batman", "Rumcajs"]
+console.log(myHeroes.heroes); // undefined
+```
+
+IIFE były pierwszym sposobem na osiągnięcie czegoś podobnego na wzór klasy w językach obiektowych. Problemem jednak dalej była modułowość. Najczęściej takie funkcje były umieszczone w jednym pliku i każdy z takich plików był ładowany przez `<script>` tag w głównym pliku HTML. Ważne było zachowanie odpowiedniej kolejności script tagów. Metody i zmienne z innych modułów można było współdzielić między sobą przypinając je do obiektu `document` przeglądarki. Nie było to jednak zbyt optymalne rozwiązanie. Problem został po części rozwiązany z pomocą CommonJS.
+
+## CommonJS
+
+CommonJS jest standardem, którego celem było umożliwienie tworzenia pojedynczych modułów per plik. Plik ten zawierał całą logikę naszego modułu i była ona prywatna – niedostępna nigdzie poza modułem. To co ma być dostępne poza modułem jest eksportowane z pliku. Jeżeli dany moduł zależy od innego modułu, wtedy importuje to co ten inny moduł eksportuje. Zmienne i metody nie eksportowane z pliku nie mogą być bezpośrednio modyfikowane nigdzie poza modułem. Wracając do naszego przykładu z listą bohaterów:
+
+```js
+// --- Plik myHeroes.js ---
+const heroes = [];
+
+function addItem(hero) {
+  heroes.push(hero);
+}
+
+function getItems() {
+  return heroes;
+}
+
+// Eksport danych które mają być dostępne poza modułem.
+// Wszystko co chcemy udostępnić z tego modułu "podpinamy" pod "module.exports"
+module.exports = {
+  addHero: addItem,
+  getHero: getItems,
+};
+
+// --- Plik heroUtils.js ---
+const myHeroes = require("./myHeroes"); // import publicznych danych z myHeroes.js
+
+myHeroes.addHero("Superman");
+myHeroes.addHero("Batman");
+myHeroes.addHero("Rumcajs");
+
+console.log(myHeroes.getHero()); // ["Superman", "Batman", "Rumcajs"]
+console.log(myHeroes.heroes); // undefined
+```
+
+CommonJS jest od razu wbudowany w NodeJS, więc jest zapewne znany osobom korzystającym często z Node. CommonJS posiada dwie zasadnicze wady. Po pierwsze nie jest on domyślnie wspierany przez przeglądarki. Po drugie działa synchronicznie, a więc wszystkie wywołania `require` blokują główny wątek JavaScript. Z rozwiązaniem przychodzą nam tutaj narzędzia znane jako module bundlers. Głównym celem takich narzędzi jest zebranie wszystkich plików poszczególnych modułów występujących w aplikacji i spakowanie je w jeden plik, który następnie jest ładowany w pliku HTML. Dzięki temu pliki nie muszą wywoływać `require` po zasoby z innego pliku, gdyż wszystkie dane są w jednym pliku.
+Przykładami takich narzędzi są webpack oraz parcel.
+
+## ES6 Modules
+
+CommonJS jest powszechnie używany obecnie głównie z NodeJS. Wraz z nadejściem specyfikacji dla JavaScript w wersji ES6 w końcu doczekaliśmy standardu wspieranego przez przeglądarki oraz działającego w sposób asynchroniczny.
+
+ES6 Modules, bo o tym mowa, jest obecnie najpopularniejszym sposobem na dzielenie naszej aplikacji na moduły. Jego użycie jest bardzo podobne do tego znanego z CommonJS. Największą różnicą jest sposób eksportowania danych. W CommonJS eksportowaliśmy jeden obiekt na samym końcu pliku:
+
+```js
+/*  logika modułu... */
+module.exports = {
+  /* tutaj umieszczmy rzeczy które chcemy udostępnić */
+};
+```
+
+W przypadku modułów ES6 możemy importować w dowolnym miejscu pliku. Do tego mamy dwa rodzaje eksportów:
+
+- _default export_
+- _named exports_
+
+Default export może zostać użyty tylko raz. Jest to główna rzecz eksportowana z komponentu. Jako, że dopuszczalny jest tylko jeden domyślny eksport, możemy importować go używając dowolnej nazwy.
+
+Named export może być wykonywany wielokrotnie w jednym pliku (jednym module). Importując tak udostępnione rzeczy musimy już podawać dokładne nazwy.
+
+Wszystko na pewno rozjaśni się na przykładzie:
+
+```js
+// --- plik myHeroes.js ---
+const heroes = []; // prywatna wartość - dostępna tylko wewnątrz modułu
+
+const heroSlogan = "WE ARE HEROES"; // patrz linia nr. 14
+
+export function addItem(hero) { // named export, funkcja będzie publiczna
+  heroes.push(hero);
+}
+
+export function getItems() { // named export, funkcja będzie publiczna
+  return heroes;
+}
+
+export default heroSlogan; // default export, wartość będzie publiczna
+
+// --- plik heroUtils.js ---
+import slogan, { addItem as addHero, getItems } from "./myHero2";
+
+addHero("Superman");
+addHero("Batman");
+addHero("Rumcajs");
+
+console.log(getItems()); // ["Superman", "Batman", "Rumcajs"]
+console.log(slogan); //  "WE ARE HEROES"
+
+const data = 'myData';
+
+export default data; // moduł może jednocześnie importować oraz eksportować dane
+```
+
+Plik `myHeroes.js` jest modułem eksportującym dwie funkcje jako named exports oraz jedną stałą jako default export. W pliku heroUtils.js widzimy w jaki sposób są one importowane.
+
+Stała `heroSlogan` jest eksportowana domyślnie, więc może być zaimportowana przy użyciu dowolnej nazwy. W naszym przypadku użyliśmy nazwy `slogan`.
+
+Dwie funkcje `addItem` oraz `getItem` są eksportowane jako nie domyślne, więc musimy zaimportować je podając ich dokładne nazwy. Podczas importu możemy również zmienić aktualną nazwę na taką która nam bardziej odpowiada. Tutaj zamiana nazwy `addItem` na `addHero`.
+
+W przypadku gdy moduł posiada bardzo dużą liczbę eksportowanych metod, nie musimy importować wszystkich funkcji podając ich nazwy, może skorzystać z poniższej notacji:
+
+```js
+import * as bigModule from "./bigModuleFile.js";
+
+bigModule.method1();
+bigModule.method99();
+```
+
+Jak widać wzorzec Module design pattern może przyjmować różne postacie. Główne założenie jednak zawsze zostaje takie samo – starajmy się pisać modularny, re-używalny kod oraz upubliczniajmy (w kontekście aplikacji) tylko potrzebne dane. Nasz kod będzie wtedy bardziej czytelny i bardziej odporny na błędy.

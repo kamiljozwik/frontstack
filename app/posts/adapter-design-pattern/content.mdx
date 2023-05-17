@@ -1,0 +1,99 @@
+import refactor from "./refactor.jpg";
+
+export const meta = {
+  title: "Wzorzec: Adapter design pattern",
+  seo_desc:
+    "Adapter design pattern jest stosunkowo prostym wzorcem projektowym służącym integracji niekompatybilnych interfejsów. Więcej na jego temat w tym artykule.",
+  short:
+    "Adapter design pattern jest stosunkowo prostym wzorcem projektowym służącym integracji niekompatybilnych interfejsów. Dzięki temu artykułowi będziesz miał okazję poznać tej wzorzec bliżej na podstawie prostego przykładu.",
+  date: "2020-04-28",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Adapter design pattern jest wzorcem, który podpowiada nam co możemy zrobić w sytuacji, gdy chcemy połączyć ze sobą dwa niekompatybilne interfejsy. Co to może oznaczać w praktyce? Otóż na taką sytuację natkniemy się, gdy np. będziemy chcieli skorzystać z zewnętrznych bibliotek. Wyobraźmy sobie, iż bardzo chcemy skorzystać z biblioteki renderującej piękne wykresy na podstawie określonego pliku JSON. My natomiast w naszym systemie mamy stary API endpoint zwracający dany w formacie XML. Jednym z rozwiązań takiego problemu będzie przepisanie endpointu od nowa, ale może to nie być takie trywialne. W dodatku może z niego korzystać też jakaś inna część systemu. Najlepszym rozwiązaniem w tym przypadku będzie napisanie funkcji konwertującej dane z XML na format JSON. Tak przygotowanymi danymi możemy już zasilić naszą upragnioną biliotekę.
+
+## Czym jest adapter?
+
+Jak widać ze wstępu sama koncepcja tego wzorca jest dość prosta. Przygotowana przez nas funkcja konwertująca dane będzie własnie tytułowym adapterem. Nie trudno też domyśleć się skąd pochodzi ta nazwa. Wszyscy roztargnieni podróżnicy na pewno doceniają już jak ważną i przydatną rzeczą w podróży może być adapter gniazdek elektrycznych. W zależności od kraju w którym się znajdujemy możemy natknąć się na różne standardy gniazdek elektrycznych. Nie będziemy przecież w takich sytuacjach wymieniali wtyczki (~interfejsu) naszego urządzenia elektrycznego. Zdecydowanie wygodniej będzie użyć adaptera.
+
+Wracając do programowania – adapter przyjdzie nam z pomocą nie tylko w przypadku zewnętrznych bibliotek. Często skorzystamy z niego w momencie rozwijania naszego obecnego systemu. Gdy posiadamy np. aplikację za pomocą której możemy rezerwować bilety, czy robić zakupy online, możemy w pewnym momencie dołożyć do niej możliwość naliczania rabatów, skorzystać z silniejszych mechanizmów bezpieczeństwa, itp. Jednakże z tą częścią systemu mogą być zintegrowani już inni klienci. Nie chcemy, żeby ich integracja przestała nagle działać, albo żebyśmy musieli poświęcać dużo czasu na dostosowywanie się do nowego interfejsu. W tym celu możemy właśnie skorzystać z adaptera. Z jednej strony będzie on przyjmował dane „po staremu” a z drugiej już korzystał z najnowszych feature-ów.
+
+Wzorzec ten może nam nieco przypominać jeden z innych omawianych już wzorców strukturalnych – facade design pattern. Różnica w tym przypadku polega na tym, iż w fasadzie tworzymy interfejs od zera. Interfejs ten ma jedynie pomóc w pracy ze złożoną częścią systemu. Adapter natomiast wymaga już istnienia dwóch interfejsów, które należy ze sobą zintegrować.
+
+## Przykład
+
+Wspomnieliśmy sobie już o aplikacji do zakupu biletów. Załóżmy, że jedna część naszego systemu jest odpowiedzialna za kalkulację ceny biletu do kina. Została ona napisana dość dawno temu, więc postanowiliśmy nieco ją usprawnić. Poza standardowym wyliczaniem ceny bazującym tylko na mieście i dniu tygodnia, dorzucamy jeszcze możliwość otrzymania zniżki w przypadku gdy kupujemy bilet dla dziecka. Zmienimy więc na pewno interfejs tak, aby odczytać wiek widza. Tutaj pojawi się na pewno pierwszy brak kompatybilności. Możemy też oczywiście zmienić samą logikę w kalkulacji ceny w danym mieście, jednak główne założenia:
+
+```js
+let final_price = city === "Warsaw" ? current_price * 2 : current_price;
+```
+
+zostają oczywiście bez zmian.
+
+Do tego żyjemy w 2020 r, więc nasz nowiutki interfejs tworzymy za pomocą klasy ES6. I wszystko byłoby bardzo fajnie, gdyby nie to, że w wielu innych miejscach naszego systemu korzystamy już z tego interfejsu od dawna. Należało by teraz we wszystkich tych miejscach dostosować się do nowego interfejsu…
+
+<img src={refactor.src} width={400} />
+
+… albo stworzyć adapter. Oczywiście w poniższym przykładzie zajmiemy się stworzeniem adaptera. Dzięki temu nowy interfejs będzie mogli stosować tylko przy nowo tworzonych częściach systemu. W pozostałych przypadkach dopasujemy nowy interfejs za pomocą adapterów.
+
+```js
+// Stary interfejs do wyliczania ceny
+function TicketPrice() {
+  this.calcPrice = function (city, day) {
+    // wyliczamy cenę biletu
+    return 30;
+  };
+}
+
+// Nowy interfejs do wyliczania ceny
+class TicketPriceV2 {
+  constructor() {
+    this.city = (city) => {
+      /* ustalmy miasto */
+    };
+    this.day = (day) => {
+      /* ustalmy dzień tygodnia */
+    };
+    this.age = (age) => {
+      /* ustalmy wiek, może będzie zniżka */
+    };
+    this.calculate = () => {
+      /* wyliczamy po nowemu cenę i doliczamy zniżki */
+      return 18;
+    };
+  }
+}
+
+// Adapter do integracji obecnych klientów z nowym interfejsem
+// "Wiek" jest nową rzeczą, więc musimy go przekazać
+function PriceAdapter(age) {
+  // korzystamy tutaj już z nowego interfejsu
+  let newPricing = new TicketPriceV2();
+  newPricing.age(age);
+  // zwracamy metodę z tymi samymi argumentami i nazwą
+  // jakie były w starym interfejsie,
+  // w celu zapewnienia kompatybilności...
+  return {
+    calcPrice: (city, day) => {
+      newPricing.city(city); // ...ale operujemy na nowym interfejsie
+      newPricing.day(day);
+      return newPricing.calculate();
+    },
+  };
+}
+
+// Użycie przed wprowadzeniem nowego interfejsu - stare API:
+const oldPricing = new TicketPrice();
+let price = oldPricing.calcPrice("Warsaw", "Wednesday");
+console.log(price); // 30
+
+// Użycie nowego interfejsu poprzez zastosowanie adaptera - nowe API
+const adapter = new PriceAdapter(12);
+// wywołanie identyczne jak w przypadku starego API (linia 41)
+let price_new = adapter.calcPrice("Warsaw", "wednesday");
+console.log(price_new); // 18
+```
+
+## Podsumowanie
+
+Jak można zobaczyć w tym krótkim wpisie, Adapter design pattern jest dość prostym a jednocześnie bardzo pomocnym podejściem. Dokładanie adapterów w miejscach gdzie kod systemu jest stary i nikt nie chce go dotykać (znam to… byłem tam…) potrafi zaoszczędzić nam wiele zszarganych nerwów. Przedstawiony przykład co prawda jest dużym uproszczeniem implementacji tego wzorca, jednak mam nadzieję, że wyjaśnił wszelkie z nim związane wątpliwości.

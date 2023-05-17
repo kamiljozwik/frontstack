@@ -1,0 +1,199 @@
+import factory from "./factory.gif";
+
+export const meta = {
+  title: "Wzorzec: Simple Factory",
+  seo_desc:
+    "Wzorzec projektowy Simple Factory (nazywany również po prostu Fabryką) to jeden z podstawowych wzorców w języku JavaScript.",
+  short:
+    "Wzorzec projektowy Simple Factory (nazywany również po prostu Fabryką) to jeden z podstawowych wzorców w języku JavaScript. W tym krókim wpisie dowiesz się czym jest i jak go używać. Zobaczysz również dwa przykłady i dowiesz się jakie problemy ten wzorzec rozwiązuje.",
+  date: "2021-03-16",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Wzorzec Simple Factory, często nazywany również po prostu „Fabryką” jest jednym z podstawowych wzorców projektowych używanych w JavaScript. Jest bardzo prosty w użyciu, więc ten krótki post nie powinien być dla nikogo problematyczny 🙂
+
+<img src={factory.src} />
+
+## Czemu "Fabryka"?
+
+Głównym celem stosowania tego wzorca jest „produkowanie” obiektów związanych z jednym wspólnym interfejsem. Używając „Fabryki” w kodzie nie interesuje nas za bardzo, w jaki sposób ten obiekt zostanie stworzony. My jedynie podajemy „parametry” i oczekujemy na dostarczenie prawidłowo „wyprodukowanego” obiektu.
+
+Teraz może pojawić się pytanie – no ale po co to? Obiekty w JavaScript można tworzyć na wiele różnych sposobów – co daje nam fabryka?
+
+Pamiętajmy, że Simple Factory, jest jedynie wzorcem, a nie nowym sposobem na tworzenie obiektów. Obiekty będziemy tworzyli w znany nam już sposób (np. poprzez klasy, sprawdź inne moje wpisy), natomiast fabryka jedynie decyduje jaki obiekt i w jaki sposób stworzyć.
+
+Dzięki temu będziemy tworzyć obiekty zawsze za pomocą tego samego interfejsu a ewentualne zmiany, poprawki, dodatkowe funkcjonalności będziemy już wykonywać w samej fabryce. Dzięki temu nasz kod będzie łatwiejszy w utrzymaniu i łatwo skalowalny.
+
+## Przykłady
+
+Teoria teorią – zobaczmy teraz na przykładach jak ten wzorzec możemy zastosować i jakie problemy nam rozwiąże.
+
+### Przykład 1 – Firma transportowa
+
+Załóżmy, że tworzymy aplikację dla firmy transportowej. Początkowo firma ta realizuje tylko przesyłki rowerowe w jednym mieście. Nowe zamówienie (tj. obiekt zawierający informacje na temat ceny, daty dostawy, przypisanego kuriera) tworzymy na podstawie docelowego adresu oraz rodzaju przesyłki. Tworzenie takiego obiektu za pomocą np. klasy będzie dość łatwe. Co natomiast w przypadku, gdy firma się rozwinie i zacznie realizować dostawy również za pomocą samochodów osobowych, busów, pociągów? I do tego rozwinie działalność na skalę krajową? Możemy tworzyć zamówienia za pomocą kolejnych klas, ale wtedy różne zamówienia będą posiadały różne interfejsy. Do tego czeka nas stosowanie if-ologii w każdym miejscu aplikacji, gdzie napotkamy na tworzenie zamówienia.
+
+Wzorzec fabryki pozwoli nam na dużo łatwiejsze zarządzanie takim stanem. Jako pragmatyczni programiści, przewidzieliśmy, że zamówienie może być w przyszłości realizowane w inny sposób niż tylko na rowerze. I napisaliśmy coś takiego jak w przykładzie poniżej:
+
+```js
+/* Pojedyncze zamówienie tworzone bezpośrednio z klasy - mało skalowalne rozwiązanie */
+class Zamowienie {
+  constructor(nadanie, odbior, przesylka) {
+    this.nadanie = nadanie;
+    this.odbior = odbior;
+    this.przesylka = przesylka;
+  }
+  // Pozostała logika - np. przypisanie kuriera, obliczenie ceny, itp.
+}
+
+const zamowienie = new Zamowienie(
+  "ul. Marszałkowska 10, Warszawa",
+  "ul. Sabały 10/12, Warszawa",
+  "List A4"
+);
+
+/* -- Tworzymy fabrykę w celu obsługi różnego rodzaju zamówień -- */
+
+function fabrykaZamowien(nadanie, odbior, przesylka) {
+  /* Implementujemy logikę do wyboru właściwego środka transportu. 
+     Tutaj dla ułatwienia decydujemy tylko na podstawie odległości */
+
+  const odleglosc = liczOdleglosc();
+
+  if (odleglosc > 10 && odleglosc < 50) {
+    return new ZamowienieSamochod(nadanie, odbior, przesylka);
+  }
+  if (odleglosc > 50) {
+    return new ZamowienieBus(nadanie, odbior, przesylka);
+  }
+  return new ZamowienieRower(nadanie, odbior, przesylka);
+}
+
+/* Klasy, które będą właściwymi twórcami obiektów */
+
+class ZamowienieSamochod {
+  constructor(nadanie, odbior, przesylka) {
+    this.nadanie = nadanie;
+    this.odbior = odbior;
+    this.przesylka = przesylka;
+  }
+  // Pozostała logika - wszystko co związane z obsłużeniem przesyłki samochodem
+}
+
+class ZamowienieBus {
+  constructor(nadanie, odbior, przesylka) {
+    this.nadanie = nadanie;
+    this.odbior = odbior;
+    this.przesylka = przesylka;
+  }
+  // Pozostała logika - wszystko co związane z obsłużeniem przesyłki busem
+}
+
+class ZamowienieRower {
+  constructor(nadanie, odbior, przesylka) {
+    this.nadanie = nadanie;
+    this.odbior = odbior;
+    this.przesylka = przesylka;
+  }
+  // Pozostała logika - wszystko co związane z obsłużeniem przesyłki rowerem
+}
+
+/* Przesyłkę tworzymy zawsze w ten sam sposób (za pomocą tego samego interfejsu).
+   To fabryka jest odpowiedzialna za odpowienie przygotowanie zamówienia.
+   Dodanie nowej metody dostawy nie popsuje i nie spowoduje konieczności edycji poniższego kodu. */
+
+const zamowienie1 = new fabrykaZamowien(
+  "ul. Marszałkowska 10, Warszawa",
+  "ul. Sabały 10/12, Warszawa",
+  "List A4"
+);
+
+const zamowienie2 = new fabrykaZamowien(
+  "ul. Marszałkowska 10, Warszawa",
+  "ul. Szkolna, Gdańsk",
+  "Paczka 50x50"
+);
+
+const zamowienie3 = new fabrykaZamowien(
+  "ul. Długa 1, Płock",
+  "ul. Słowackiego 15, Gąbin",
+  "Paczka 20x20"
+);
+```
+
+### Przykład 2 – Fabryka (tym razem prawdziwa 🙂) samochodów
+
+W drugim przykładzie będziemy mieli do czynienia z linią produkcyjną samochodów. Przykład ten jest tutaj umieszczony głównie po to, aby pokazać, że fabryką (wzorzec) również może być klasa, a nie funkcja jak to miało miejsce w przypadku firmy transportowej.
+
+Wzorzec jedynie podpowiada nam, w jaki sposób możemy rozwiązać dany problem. Nie narzuca jednego sztywnego sposobu implementacji. Wzorzec „Fabryki” sugeruje nam, aby do tworzenia obiektów używać jednego, spójnego interfejsu. Dzięki temu obiekty tworzone są w przewidywalny sposób i cały proces jest scentralizowany. Jak to zrobimy – to już nasza decyzja.
+
+Wracając do przykładu – wyobraźmy sobie teraz fabrykę samochodów oraz fragment aplikacji do zarządzania produkcją (chociaż wątpię, żeby coś takiego było oparte o JavaScript 😉). Fabryka ta produkuje zarówno samochody osobowe, jak i busy. W przypadku samochodów osobowych możemy dodatkowo określić liczbę drzwi a w przypadku busów ilość foteli dla pasażerów.
+
+```js
+/* Tworzymy Fabrykę dla pojazdów */
+
+class FabrykaPojazdow {
+  constructor(opcje) {
+    let pojazd;
+    switch (opcje.rodzaj) {
+      case "osobowy":
+        pojazd = new Osobowy(opcje.kolor, opcje.skrzynia, opcje.drzwi);
+        break;
+      case "bus":
+        pojazd = new Bus(opcje.kolor, opcje.skrzynia, opcje.fotele);
+        break;
+    }
+    return pojazd;
+  }
+}
+
+/* Klasy, które będą "produkowały" właściwy pojazd */
+
+class Osobowy {
+  constructor(kolor, skrzynia, drzwi) {
+    this.kolor = kolor;
+    this.skrzynia = skrzynia;
+    this.drzwi = drzwi;
+  }
+
+  produkuj() {
+    return `Wyprodukuj samochód osobowy`;
+  }
+}
+
+class Bus {
+  constructor(kolor, skrzynia, fotele) {
+    this.kolor = kolor;
+    this.skrzynia = skrzynia;
+    this.fotele = fotele;
+  }
+
+  produkuj() {
+    return `Wyprodukuj busa`;
+  }
+}
+
+/* Użycie Fabryki - ponownie mamy jeden spójny interfejs dla każdego pojazdu */
+
+let zamowienie1 = {
+  rodzaj: "osobowy",
+  kolor: "biały",
+  skrzynia: "automatyczna",
+  drzwi: 4,
+};
+
+let zamowienie2 = {
+  rodzaj: "bus",
+  kolor: "srebrny",
+  skrzynia: "manualna",
+  fotele: 6,
+};
+
+let pojazd1 = new FabrykaPojazdow(zamowienie1);
+let pojazd2 = new FabrykaPojazdow(zamowienie2);
+```
+
+## Podsumowanie
+
+Mam nadzieję, że krótki wstęp oraz dwa powyższe przykłady są wystarczające, żeby zrozumieć idee wzorca Simple Factory.
+
+Z "Fabryką" spotkamy się jeszcze w dwóch kolejnych wzorcach, tj. Factory Method oraz Abstract Factory. Różnią się one implementacją, jednak każdy z nich ma za zadanie dostarczyć optymalny sposób na tworzenie nowych obiektów.

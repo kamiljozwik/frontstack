@@ -1,3 +1,8 @@
+import Image from "next/image";
+import chain from "./chain.png";
+import callCenter from "./callCenter.gif";
+import wynik from "./wynik.png";
+
 export const meta = {
   title: "Wzorzec: Chain Of Responsibility",
   seo_desc:
@@ -16,10 +21,7 @@ _Chain of responsibility_, zwany również Łańcuchem zobowiązań, pozwala nam
 
 W przypadku gdy obiekt będzie w stanie obsłużyć żądanie i w wyniku jego pracy zdecyduje o tym, że dalsze przetwarzanie nie ma sensu, **może on w tym momencie przerwać cały łańcuch** i zakończyć obsługę żądania.
 
-<img
-  src="/blog/chain-of-responsibility/chain.webp"
-  alt="graficzna prezentacja łańcucha zobowiązań"
-/>
+<img src={chain.src} alt="graficzna prezentacja łańcucha zobowiązań" />
 
 Stosując łańcuch zobowiązań, delegujemy każdemu z obiektów (każdej klasie/funkcji) **tylko jedno zadanie**. W ten sposób nasz kod robi się dużo czytelniejszy oraz łatwiejszy do utrzymania.
 
@@ -44,7 +46,7 @@ Wzorzec Chain of Responsibility oczywiście ma swoje wady i zalety. Najważniejs
 
 Jednym z nieprogramistycznych przykładów obrazujących ten wzorzec jest **call center**. W przypadku gdy chcemy dowiedzieć się czegoś, korzystając z infolinii, najprawdopodobniej w pierwszej kolejności usłyszymy w słuchawce automat. Automat ten będzie pierwszym obiektem obsługującym. Być może będzie umiał od rozwiązać nasz problem, czytając jakąś gotową odpowiedź bądź rozłączy nas, gdy nie wyrazimy zgody na nagrywanie, ale w większości przypadków przekaże nasze żądanie dalej, do pierwszej linii wsparcia. Jeżeli tam również się nie uda, będziemy przekazywani dalej, aż w końcu ktoś nam pomoże, albo okaże się, że nasz problem jest nie do rozwiązania przez telefon.
 
-<img src="/blog/chain-of-responsibility/callCenter.gif" />
+<img src={callCenter.src} />
 
 Kolejnym przykładem może być **praca bankomatu**. Po wybraniu odpowiedniej kwoty do wypłaty bankomat musi sprawdzić, czy posiadamy takie środki na koncie, czy w bankomacie jest wystarczająco dużo gotówki oraz zdecydować, w jakich nominałach wypłacić nam banknoty. Tutaj ponownie wszystkie te czynności można wykonać z wykorzystaniem Chain of responsibility.
 
@@ -242,7 +244,7 @@ h3.handlePayment(new Request({ amount: 100, useVirtual: false }));
 
 Wynik uruchomienia powyższego kodu:
 
-<img src="/blog/chain-of-responsibility/wynik.webp" />
+<img src={wynik.src} />
 
 Powyższy przykład tworzy nowe obiekty za pomocą klas, jednak oczywiście [możemy skorzystać z innych metod](https://frontstack.pl/blog/obiekty-javascript-podstawy/). Żądanie, które przetwarzamy w kolejnych obiektach, będzie obsłużone tylko raz. W razie potrzeby możemy również nieco modyfikować przekazywany obiekt (nie zmieniając oczywiście jego interfejsu) i w takiej formie przekazywać go dalej. Dodawane mogą być informacje np. o opłaconym abonamencie. Jeżeli abonament nie jest opłacony, łańcuch może zostać przerwany. Jeżeli jednak abonament jest opłacony, możemy „doczepić” informację o wykupionych usługach, co może zostać wykorzystane przez jedno z kolejnych ogniw.
 

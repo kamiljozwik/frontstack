@@ -1,0 +1,188 @@
+export const meta = {
+  title: "Wzorzec: Flyweight Design Pattern",
+  seo_desc:
+    "Flyweight Design Pattern (tzw. pyłek) jest jednym ze strukturalnych wzorców projektowych. Pomaga on w poprawie wydajności aplikacji. Jak? Więcej we wpisie",
+  short:
+    "Flyweight Design Pattern (tzw. pyłek) jest jednym ze strukturalnych wzorców projektowych. Pomaga on w poprawie wydajności aplikacji. W jaki sposób możemy z niego korzystać i jakie daje nam korzyści? O tym wszystkim powiemy sobie w dzisiejszym wpisie.",
+  date: "2020-04-26",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Flyweight Design Pattern jest strukturalnym wzorcem projektowym. Stosujemy go do tworzenia bardzo dużej liczby identycznych lub podobnych obiektów. Sama nazwa została po raz pierwszy użyta w 1990 r i pochodzi od jednej z kategorii wagowych w boksie – wagi muszej. Nazwa ta ma nawiązywać do tego, iż głównym celem stosowania omawianego wzorca jest uzyskanie jak najmniejszego zużycia pamięci podczas tworzenia nowych obiektów.
+
+## Pyłek
+
+Flyweight Design Pattern w języku polskim jest nazywany również Pyłkiem. Ideą wzorca jest podział danych przechowywanych w obiektach na wewnętrzne (współdzielone, nie modyfikowane przy tworzeniu obiektu) i zewnętrzne (unikatowe dla każdego nowo tworzonego obiektu).
+
+Główne cele wzorca:
+
+- jak największe zmniejszenie wykorzystywanej pamięci zmarnowanej na obsługę wielu podobnych obiektów,
+- wykorzystanie współdzielenia obiektów, czyli nie tworzenie każdego obiektu od początku, tylko bazowanie na tych już utworzonych.
+
+Przykładem wykorzystania wzorca w codziennym użytkowaniu jest pamięć cache przeglądarki. Raz odwiedzona strona przy kolejnej wizycie nie będzie wszystkiego pobierała od nowa a korzystała z zasobów zapisanych w pamięci podręcznej. Dzięki temu strona działa dużo szybciej.
+
+## Przykład
+
+Mimo, iż sama idea tego wzorca wydaje się bardzo prosta, trochę ciężko sobie wyobrazić jego implementację. Przejdziemy więc teraz przez przykład Flyweight Design Pattern w JavaScript. W przykładzie tym będziemy tworzyć obiekty trzymające dane na temat samochodów. W naszym przykładzie pyłkiem będzie zestaw danych „producent / model / paliwo„. Te informacje będą wielokrotnie powtarzać się przy kolejnych samochodach. Nie będziemy więc za każdym razem tworzyć tych danych. Przy pierwszym pojawieniu się unikalnej kombinacji powyższych trzech elementów zapiszemy je w naszej fabryce pyłków. Przy kolejnych zapytaniach będziemy zwracać już raz stworzony obiekt (a tak dokładnie rzecz ujmując – referencję do tego obiektu w pamięci). Obiekt zawierający dane o każdym samochodzie będzie więc częściowo złożony ze współdzielonego pyłku oraz kilku własności unikatowych dla każdego modelu. Starałem się umieszczać komentarze na temat tego co się dzieje na każdym etapie tworzenia obiektu. Mam nadzieję, że poniższy kod będzie dość zrozumiały:
+
+```js
+class CarFlyweight {
+  // Flyweight (pyłek) - powtarzalna część w każdym obiekcie
+  // zawierającym dane na temat samochodu
+  constructor(company, model, fuel) {
+    this.company = company;
+    this.model = model;
+    this.fuel = fuel;
+  }
+}
+
+class FlyweightFactory {
+  // Tutaj trzymamy wszystkie stworzone "pyłki"
+  // w celu reużycia w przyszłości
+  constructor() {
+    this.flyweights = {};
+  }
+
+  get(company, model, fuel) {
+    // Sprawdzamy, czy stworzyliśmy już kiedyś dany "pyłek".
+    // Jeżeli nie, tworzomy nowy i zapisujemy na później.
+    const id = `${company}/${model}/${fuel}`;
+    if (!this.flyweights[id]) {
+      this.flyweights[id] = new CarFlyweight(company, model, fuel);
+    }
+    // Jeżeli tak, zwracamy już posiadany obiekt zamiast tworzyć nowy.
+    return this.flyweights[id];
+  }
+
+  getCount() {
+    // metoda zwracająca liczbę aktualnie zapisanych pyłków
+    return Object.keys(this.flyweights).length;
+  }
+
+  getAll() {
+    // metoda zwracająca wszystkie zapisane pyłki
+    return this.flyweights;
+  }
+}
+
+const flyWeightFactory = new FlyweightFactory();
+// klasa służąca do tworzenia nowych samochodów
+class Car {
+  constructor(company, model, fuel, price, vin) {
+    // Tę część danych możemy pobrać z już utworzonych obiektów
+    // i dołożyć jedynie unikalne własności obiektu (czyli "price" i "vin")
+    this.flyweight = flyWeightFactory.get(company, model, fuel);
+    this.price = price;
+    this.vin = vin;
+  }
+}
+
+// W tym przykładzie wszystkie samochody będziemy trzymać w jednej liście
+// i do tej listy będziemy dokładać kolejne obiekty
+class CarsList {
+  constructor() {
+    this.cars = {};
+  }
+
+  // dodajemy nowy samochód do listy
+  add(company, model, fuel, price, vin) {
+    this.cars[vin] = new Car(company, model, fuel, price, vin);
+  }
+
+  // pobieramy jeden samochód z listy
+  get(vin) {
+    return this.cars[vin];
+  }
+
+  // pobieramy wszystkie samochody z listy
+  getAll() {
+    return this.cars;
+  }
+
+  // pobieramy liczbę wszystkich samochodów
+  getCount() {
+    return Object.keys(this.cars).length;
+  }
+}
+
+// Inicjujemy listę samochodów
+let cars = new CarsList();
+
+// cars.add(company, model, fuel, price, vin);
+cars.add("Ford", "Focus", "Gasoline", "20000", "5XYKT3A17BG157871");
+cars.add("Ford", "Focus", "Gasoline", "40000", "JH4KA7660NC003110");
+cars.add("Ford", "Focus", "Gasoline", "30000", "JNKCV61E09M303716");
+cars.add("Ford", "Focus", "Diesel", "25000", "2C4GM68475R667819");
+cars.add("Ford", "Focus", "Diesel", "27000", "JH4KA3140JC003021");
+cars.add("Audi", "A4", "Diesel", "32000", "1B7GL22Z31S190315");
+cars.add("Audi", "A4", "Diesel", "28000", "JH4KA7532NC036794");
+cars.add("Audi", "A4", "Diesel", "42000", "JH4KA3270LC001300");
+
+console.log(cars.getCount()); // 8 -> tyle stworzyliśmy samochodów
+console.log(flyWeightFactory.getCount()); // 3 -> tyle mamy pyłków
+
+console.log(flyWeightFactory.getAll()); // zobacz screen nr 1 poniżej
+console.log(cars.getAll()); // zobacz screen nr 2 poniżej
+
+// Sprawdzamy czy na pewno korzystamy z tego samego obiektu
+const car1 = cars.get("5XYKT3A17BG157871");
+const car2 = cars.get("JH4KA7660NC003110");
+
+// Dwa obiekty współdzielą ten sam obiekt.
+console.log(car1.flyweight === car2.flyweight); // true (ten sam obiekt w pamięci)
+```
+
+<figure>
+  <img src="/blog/flyweight-design-pattern/capture1.webp" />
+  <figcaption>
+    Screen nr 1: Stworzone przez nas pyłki, czyli re-używane obiekty podczas
+    tworzenia samochodów
+  </figcaption>
+</figure>
+
+<figure>
+  <img src="/blog/flyweight-design-pattern/capture2.webp" />
+  <figcaption>
+    Screen nr 2: Stworzone obiekty z danymi samochodów. Numer VIN występuje w
+    roli klucza. Widzimy, iż jedną z własności obiektu jest flyweight, czyli
+    współdzielony obiekt
+  </figcaption>
+</figure>
+
+## DOM events
+
+Kolejnym przykładem wykorzystania pyłków może być obsługa zdarzeń w drzewie DOM (np. reagowanie na zdarzenia typu onclick, itp). Weźmy jako przykład listę zawierającą różne samochody (zostańmy już w klimacie motoryzacyjnym).
+Skorzystanie z Flyweight Design Pattern w tym przypadku będzie polegało na umieszczeniu jednego event handlera na najwyższym tagu listu zamiast przypinania każdemu elementowi listy osobnego handlera. Oszczędzamy dzięki temu pamięć i zwiększamy wydajność aplikacji.
+
+```html
+<!-- Bez użycia Flyweight Design Pattern -->
+<div id="app">
+  <ul>
+    <li onclick="alert('You clicked Ford')">Ford</li>
+    <li onclick="alert('You clicked BMW')">BMW</li>
+    <li onclick="alert('You clicked Audi')">Audi</li>
+  </ul>
+</div>
+```
+
+```html
+<!-- Z użyciem Flyweight Design Pattern -->
+<script>
+  function clickHandler(e) {
+    e = e || window.event;
+    var text = e.target.innerText;
+    alert("You clicked " + text);
+  }
+</script>
+<div id="app">
+  <ul onclick="clickHandler()">
+    <li>Ford</li>
+    <li>BMW</li>
+    <li>Audi</li>
+  </ul>
+</div>
+```
+
+## Podsumowanie
+
+Stosowanie omawianego w tym wpisie wzorca może nam poprawić wydajność tworzonych przez nas aplikacji. Pyłki znajdą zastosowanie głównie tam, gdzie korzystamy z dużej liczby powtarzających się obiektów oraz nasze obiekty są kosztowne w przechowywaniu.

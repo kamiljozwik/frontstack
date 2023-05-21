@@ -1,0 +1,123 @@
+import { Vimeo } from "../../components/posts";
+
+export const meta = {
+  title: "Hosting stron i aplikacji webowych",
+  seo_desc:
+    "Wpis pokazujący jak zrealizować hosting stron i aplikacji webowych (statycznych i SSR) za pomocą takich narzędzi jak GitHub Pages czy Netlify",
+  short:
+    "Odkryj tajniki hostowania swojej pierwszej strony lub aplikacji. Dowiedz się o różnych usługach hostingowych, w tym o hostowaniu statycznych plików oraz SSR, oraz jak wybrać najlepszą opcję dla swojego projektu. Omówimy sobie takie narzędzia jak Github Pages, Netlify oraz Vercel.",
+  date: "2022-07-26",
+  tags: ["FrontOps"],
+};
+
+Stworzenie swojej pierwszej strony lub aplikacji to nie lada wyczyn dla początkującego programisty 🙂. Jedną z pierwszych rzeczy, o których myślimy tuż po zakończeniu projektu to **pochwalenie się nim światu**. Pozostaje tylko pytanie – jak to zrobić? W tym wpisie przyjrzymy się najpopularniejszym darmowym usługom, dzięki którym **przeniesiemy naszą pracę z lokalnego komputera do Internetu**. Mam nadzieję, że po tej lekturze hosting stron i aplikacji webowych nie będzie już dla nikogo zagadką.
+
+## Pliki statyczne i SSR
+
+W przypadku aplikacji webowych możemy wyróżnić dwa główne typy – aplikacje statyczne i dynamiczne. W pierwszym przypadku mamy do czynienia z aplikacją, która **nie wymaga żadnej logiki po stronie serwera**. Wszystkie pliki, które są potrzebne do jej działania, są dostarczane do przeglądarki użytkownika. W drugim przypadku mamy do czynienia z aplikacją, która **wymaga logiki po stronie serwera**. W tym przypadku serwer jest odpowiedzialny za generowanie odpowiedzi na żądania użytkownika. W zależności od tego, jakie dane są potrzebne do wygenerowania odpowiedzi, możemy wyróżnić dwa podejścia – **Server Side Rendering** (SSR) i **Client Side Rendering** (CSR). W pierwszym przypadku serwer generuje całą odpowiedź, a w drugim tylko część, a resztę wykonuje przeglądarka.
+
+W ostatnim czasie dużą popularnością cieszą się aplikacje typu [SPA](https://pl.wikipedia.org/wiki/Single_Page_Application) (np. [React](https://react.dev/)) lub [JAM](https://jamstack.org/) (np. [Gatsby](https://www.gatsbyjs.com/)), które to generują dla nas **statyczne pliki HTML, CSS i JavaScript**. Statyczne pliki (w dużym uproszczeniu) są wysyłane przez web serwer do przeglądarki użytkownika i to już tam następuje renderowanie / wyświetlanie konkretnych stron. W przypadku aplikacji SPA najczęściej będziemy posiadali **jeden główny plik HTML** i dużo JavaScriptu (który to może być podzielony na kilka mniejszych plików). Z kolei aplikacje tworzone zgodnie z podejściem JAM finalnie złożone będą z **wielu gotowych plików HTML** i dużo mniejszej ilości JavaScriptu. Nie zmienia to faktu, iż hostowanie takich aplikacji będzie polegało głównie na przesyłaniu tych statycznych plików do przeglądarki.
+
+Nie wszystkie strony/aplikacje będą złożone tylko ze statycznych plików. Część z nich tworzona jest w trybie **SSR** (Server-Side Rendering). W tym przypadku więc, na serwerze hostingowym nie wystarczy jedynie umieścić plików. Musimy na nim uruchomić naszą aplikację (np. w środowisku [Node.js](https://nodejs.org/en)). Bardzo popularnym obecnie frameworkiem do tworzenia tego typu aplikacji jest [Next.js](https://nextjs.org/). Może on co prawda działać również jako aplikacja SPA lub JAM, jednak w tym artykule skupimy na nim w kontekście SSR. Uruchomiana na serwerze aplikacja SSR będzie „nasłuchiwała” na requesty przychodzące z przeglądarki (np. „wyświetl stronę /contact„) i zwracała w odpowiedzi już **wygenerowany na serwerze kod HTML**.
+
+Nasza strona może być również oczywiście prostą stroną typu **wizytówka** czy **portfolio** i w tym przypadku zasada działania będzie podobna jak w przypadku serwowania statycznych plików. Napisane przez nas kod będzie znajdował się w **plikach HTML/CSS/JavaScript** i pliki te będą wysyłane do przeglądarki.
+
+Jak widzimy, wybierając platformę hostingową, musimy wiedzieć, czy nasza strona będzie składała się z plików statycznych, czy może będzie wymagała uruchomienia dodatkowego środowiska (np. Node.js). W dalszej części artykułu **porównamy** sobie kilka najpopularniejszych (**i darmowych**) obecnie usług. Pod lupę weźmiemy hosting dla statycznej aplikacji stworzonej za pomocą **Reacta** oraz aplikacji **SSR** stworzonej przy użyciu **Next.js**.
+
+## Aplikacja i repozytorium
+
+Nasza aplikacja w obydwu przypadkach będzie bardzo prosta i jej główną funkcjonalnością będzie [przewidywanie narodowości na podstawie imienia](https://nationalize.io/) 😉. W przypadku Next.js i SSR dorzucimy sobie jeszcze zapytanie API, które pobiera jeden **losowy żart**.
+
+Istnieje duża szansa, iż nasz projekt będziemy trzymali na **GitHubie**, dlatego sprawdzimy również, czy testowane przez nas usługi będą miały możliwość **pobierania kodu z repozytorium i automatycznego deployowania** nowej wersji aplikacji w momencie, gdy pojawią się jakieś zmiany w kodzie.
+
+Nasza testowa aplikacja znajduje się pod tym linkiem: [Repozytorium GitHub](https://github.com/kamiljozwik/fs-hosting)
+
+Znajdziemy tam branche `react` oraz `nextjs`, na których to znajdują się dwie wersja naszej aplikacji. O branchu `gh-pages` dowiesz się więcej w sekcji GitHub Pages. A teraz zacznijmy już przyglądać się bohaterom tego artykułu.
+
+## 1. GitHub Pages [[link]](https://pages.github.com/)
+
+Jest to prawdopodobnie najłatwiejszy sposób na to, aby umieścić naszą stronę online. Za pomocą GitHub Pages możemy hostować **jedynie statyczne pliki**. Tak więc umieścimy tutaj aplikację napisaną w **React** ✅, ale niestety nie damy rady uruchomić aplikacji **Next.js** ⛔.
+
+Zanim przejdziemy do Reacta zobaczmy, w jaki sposób możemy ustawić **hosting dla prostej strony**, którą napisaliśmy samodzielnie za pomocą HTML, CSS i ewentualnie JavaScript. W tym przypadku posiadamy plik `index.html`, który jest punktem wejściowym do naszej strony. Plik ten znajduje się w głównym katalogu całego kodu.
+
+<Vimeo videoLink="https://vimeo.com/823271250/a8a3b2650f" />
+
+Teraz za każdym razem, gdy zmodyfikujemy zawartość brancha `master` (za pomocą PR lub zwykłego `git push`), GitHub **zauważy** te zmiany i **automatycznie zaktualizuje** zawartość strony.
+
+W przypadku aplikacji Reactowej statyczne pliki tworzącą aplikację domyślnie są generowane podczas builda (`yarn run build`) i umieszczane w folderze `/build`. Niestety GitHub Pages umożliwiają nam jedynie serwowanie plików z **katalogu głównego** (jak w poprzednim przypadku) bądź z folderu `/docs`. Musimy więc jakoś przygotować naszą aplikację do tego, aby była poprawnie hostowana.
+
+Najłatwiejszym sposobem będzie uruchomienie lokalnie komendy `yarn run build` i zmiana nazwy katalogu z `/build` na `/docs`. Nie jest to jednak zbyt optymalne rozwiązanie („ale działa” 🙂) i istnieje nieco lepsze podejście.
+
+Wystarczy, iż w naszym projekcie zainstalujemy paczkę `gh-pages` (`yarn add gh-pages`), a w pliku `package.json` wprowadzimy małe zmiany:
+
+```json
+{
+  "homepage": "https://userName.github.io/repoName", // "userName" i "repoName" bierzemy z GitHuba
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
+}
+```
+
+W powyższym przykładzie `userName` jest nazwą naszego użytkownika na GitHubie, a `repoName` jest to nazwa repozytorium, w którym znajduje się nasz kod. Przykład takiego URL widzieliśmy na poprzednim wideo.
+
+Po uruchomieniu skryptu `yarn run deploy` nasza aplikacja zostanie w pierwszej kolejności **zbudowana** (za pomocą skryptu `predeploy`), a następnie zawartość katalogu `/build` zostanie **automatycznie przeniesiona** na nowy branch o nazwie `gh-pages`. Branch ten również z automatu zostanie **„wypchnięty”** do serwerów GitHuba. Mając już branch, na którym w katalogu głównym znajdują się **pliki statyczne** (automatycznie przesłana zawartość folderu `/build`), dalej postępujemy dokładnie tak jak w przypadku zwykłej strony HTML i w kroku wyboru brancha docelowego wybieramy `gh-pages`.
+
+Teraz za każdym razem, gdy wprowadzimy jakieś zmiany w naszej aplikacji, możemy łatwo pokazać je światu za pomocą `yarn run deploy`. Gdy GitHub „zauważy” zmiany na branchu `gh-pages`, automatycznie zaktualizuje naszą stronę. Piękne, prawda? 🙂
+
+<img src="/blog/hosting-stron-i-aplikacji-webowych/beauty.gif" />
+
+Link wygenerowany przez GitHub Pages dla naszej aplikacji **wygląda następująco**:
+[https://kamiljozwik.github.io/fs-hosting/](https://kamiljozwik.github.io/fs-hosting/).
+
+## 2. Netlify [[link]](https://www.netlify.com/)
+
+Kolejnym bardzo popularnym serwisem działającym jako hosting stron i aplikacji webowych jest **Netlify**. W tym przypadku będziemy już mogli hostować zarówno **strony statyczne** ✅, jak i aplikacje **Next.js** ✅. Pliki źródłowe możemy **pobierać z repozytoriów** GitHub, GitLab, oraz Bitbucket. Jeżeli nie posiadamy zdalnego repozytorium, możemy również po prostu **bezpośrednio przesłać** (drag and drop) statyczne pliki składające się na naszą stronę.
+
+W przypadku Netlify nie musimy sami budować aplikacji. Jeżeli skorzystaliśmy z create-react-app bądź create-next-app, to build zostanie **uruchomiony automatycznie** przez Netlify. Podobnie jak w przypadku GitHub Pages wskazujemy repozytorium oraz branch, które mają być obserwowane przez Netlify. Gdy pojawią się tam jakiekolwiek zmiany, następuje automatyczny build oraz deploy aplikacji. Proces dodawania nowej strony do naszego konta możemy zaobserwować poniżej. Tym razem skorzystamy z brancha `nextjs`:
+
+<Vimeo videoLink="https://vimeo.com/823271272/ad07adec60" />
+
+Na samym końcu powyższego materiału widzimy **losowo wygenerowaną** nazwę dla naszej strony – „festive-swirles-28b3d4„. Możemy ją oczywiście zmienić (np. na „fs-hosting„) i wtedy **URL będzie wyglądał następująco**:
+[https://fs-hosting.netlify.app/](https://fs-hosting.netlify.app/) (przypominam, jest to strona SSR).
+
+Netlify jest zdecydowanie **bardziej rozbudowaną platformą** niż GitHub Pages i możemy tutaj **zarządzać** takimi aspektami strony jak własna domena, zmienne środowiskowe, analityka, automatyczne zbieranie danych z formularzy, autoryzacja użytkownika itd. Naszymi stronami możemy również zarządzać z poziomu **wiersza poleceń** – więcej informacji tutaj: [Netlify CLI](https://docs.netlify.com/cli/get-started/).
+
+W darmowej wersji jesteśmy ograniczeni przez kilka czynników takich jak czas buildów czy bandwitdh. Pełna **lista funkcjonalności** oraz darmowe limity znajdziemy [pod tym linkiem](https://www.netlify.com/pricing/).
+
+## 3. Vercel [[link]](https://vercel.com/)
+
+Vercel (nazwa ta obowiązuje od [kwietnia 2020](https://vercel.com/blog/zeit-is-now-vercel), wcześniej usługa ta nazywała się ZEIT) jest usługą bardzo podobną do Netlify. Tutaj również możemy **„podłączyć się”** do naszego repozytorium na GitHub, GitLab lub Bitbucket. Vercel na podstawie plików w repo spróbuje samodzielnie określić jakiego rodzaju projekt będziemy chcieli hostować. Jeżeli mu się to nie uda, to będziemy mogli wybrać samodzielnie jedno z gotowych ustawień, bądź samodzielnie określić wszystkie wymagane komendy. Vercel **sprawdzi się** zarówno w przypadku React ✅, jak i Next.js ✅
+
+W poniższym przykładzie możemy zaobserwować, w jaki sposób **stworzyć nowy projekt**. Niestety podczas tworzenia projektu **nie mamy opcji wybrania brancha** i Vercel automatycznie wybiera główną gałąź naszego projektu (tutaj: `master`), ale **możemy to samodzielnie zmienić** po pierwszym deployu. Wiemy, iż będziemy korzystać z aplikacji Next.js, więc to te ustawienia wybieramy w pierwszej kolejności. Następnie w ustawieniach projektu **podmieniamy** branch `master` na `nextjs`. W przypadku aplikacji **React** wszystkie kroki wyglądają identycznie.
+
+<Vimeo videoLink="https://vimeo.com/823271289/c4dfced139" />
+
+Na początku powyższego materiału widzieliśmy opcję **„Clone Template”**. Jest to bardzo przydatna funkcjonalność, dzięki której możemy **stworzyć szkielet** naszej aplikacji od razu z poziomu Vercel. Na kolejnych krokach będziemy mogli zdefiniować nazwę repozytorium, które zostanie **automatycznie utworzone** na naszym koncie GitHub i nowo tworzony projekt zostanie automatycznie **połączony** z tym właśnie repo. Standardowo musielibyśmy samodzielnie stworzyć aplikację np. za pomocą `create-react-app` oraz repozytorium, następnie wysłać kod do repozytorium i dopiero wtedy stworzyć projekt w Vercel. Za pomocą template-ów możemy to wszytko skompensować do jednego „kliknięcia” 🙂.
+
+Warto tutaj wspomnieć o tym, iż Next.js jest rozwijany przez [ten sam zespół](https://vercel.com/solutions/nextjs), który tworzy Vercel. Możemy więc w tym przypadku liczyć na naprawdę **bardzo dobrą integrację** tych dwóch narzędzi. Posiadamy tutaj również opcję tworzenia projektów za pomocą wiersza poleceń – [Vercel CLI](https://vercel.com/docs/cli).
+
+**Cennik** oraz **ograniczenia konta darmowego** znajdziemy pod tym linkiem: [Vercel Pricing](https://vercel.com/pricing).
+
+Automatycznie wygenerowany dla nas adres URL będzie wyglądał następująco:
+[https://fs-hosting.vercel.app/](https://fs-hosting.vercel.app/)
+
+## Pozostałe usługi hostingowe
+
+GitHub Pages, Netlify, Vercel oraz AWS to serwisy, z których osobiście najczęściej korzystam w celu hostowania własnych projektów. Trzy z nich zostały omówione w tym wpisie, natomiast o **AWS** możemy więcej przeczytać w **innych moich postach**: [Wprowadzenie](https://frontstack.pl/blog/wprowadzenie-do-aws/), [Automatyzacja](https://frontstack.pl/blog/aws-dla-front-end-developera/), [Amplify](https://frontstack.pl/blog/aws-amplify/) (i szykują się kolejne 😉).
+
+Na rynku znajdziemy również kilka innych dość popularnych usług działających podobnie do Netlify i Vercel (czyli szybko, łatwo, przyjemnie i darmowo 🙂). Nie miałem jednak jeszcze okazji dogłębnie z nimi się zapoznać, więc zostawiam was z listą oraz krótkim opisem pozostałych opcji:
+
+- **[Firebase](https://firebase.google.com/docs/hosting?hl=pl)** – rozwiązania chmurowe podobne do AWS, ale stworzone przez Google. Jedną z usług jest oczywiście również hosting.
+- **[Heroku](https://www.heroku.com/)** – istniejąca od 2007 roku platforma, która wspiera całkiem sporą liczbę języków programowania.
+- **[Surge](https://surge.sh/)** – wyróżniająca się prostotą użycia platforma skrojona na potrzeby frontendu. Działamy tutaj głównie za pomocą wiersza poleceń.
+- **[Render](https://render.com/)** – stosunkowo młoda platforma w świecie PaaS (platform-as-a-service) z jednym całkiem sporym [sukcesem na koncie](https://www.youtube.com/watch?v=Qz0mVLk9GR8). Statyczny hosting jest jedyną darmową oferowaną usługą.
+- **[GitLab](https://docs.gitlab.com/ee/user/project/pages/)** Pages – niemal to samo co GitHub Pages, ale oferowane użytkownikom GitLaba.
+- **[Azure](https://azure.microsoft.com/pl-pl/products/app-service/)** – Rozwiązania chmurowe oferowane przez Microsoft.
+
+## Podsumowanie
+
+Jak widać, na rynku możemy znaleźć **wiele interesujących usług**, dzięki którym hosting stron i aplikacji webowych (a także podstawowa wersja [Continuous Deployment](https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment)) będzie dość prostym zadaniem i nie zajmie nam czasu, który możemy spożytkować na udoskonalanie i rozbudowywanie naszego produktu.
+
+Nie mamy w tym przypadku oczywiście takiej **elastyczności** jak w przypadku samodzielnie uruchomionego i skonfigurowanego web serwera, ale prawdopodobnie w początkowych fazach projektu, a także w przypadku niedużych projektów pobocznych omówione w tym wpisie usługi w zupełności nam wystarczą.

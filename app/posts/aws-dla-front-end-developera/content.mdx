@@ -1,0 +1,62 @@
+export const meta = {
+  title: "AWS dla frontend developera – automatyzacja pracy",
+  seo_desc:
+    "AWS jeste świetnym środowiskiem dla frontend developera, który samemu chce nieco zautomatyzować swoje prace nie związane bezpośrednio z programowaniem.",
+  short:
+    "W tym artykule omawiamy zaawansowane usługi AWS dla front-end developerów, takie jak Elastic Beanstalk, Route 53, CloudFront oraz Cloud9. Dowiesz się, jak te narzędzia mogą zautomatyzować i usprawnić Twoją pracę, od zarządzania infrastrukturą po edycję kodu bezpośrednio w przeglądarce.",
+  date: "2020-04-08",
+  tags: ["FrontOps", "AWS"],
+};
+
+W pierwszej części wpisu dotyczącego AWS omówiliśmy sobie podstawowe usługi oferowane przez Amazona. Pozwolą nam one na stworzenie infrastruktury dla aplikacji webowej. Dzisiaj spojrzymy na kolejne serwisy dzięki którym zautomatyzujemy sporo naszej pracy. Dotkniemy tematów związanych z DNS oraz CDN a także poznamy oferowany przez Amazona edytor tekstowy dostępny w przeglądarce. AWS dla front end developera jest naprawdę świetnym środowiskiem pracy.
+
+## Elastic Beanstalk
+
+[AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) jest bardzo użyteczną usługą, dzięki której możemy oddać w ręce AWS wszystkie rzeczy związane z infrastrukturą. Wszystkie, czyli czyli deployment, auto-skalowanie, load-balancing, hosting, połaczenie z bazą danych, itp. Naszym jedynym obowiązkiem będzie dostarczanie do Elastic Beanstalk nowej wersji naszej aplikacji. Wszystkie inne DevOps-owe czynności będą wykonywały się automatycznie. Elastic Beanstalk działa w taki sposób, iż bazując na naszej konfiguracji (którą definiujemy podczas tworzenia projektu) samoczynnie obsługuje wszystkie inne usługi AWS potrzebne do poprawnego zbudowania całej infrastruktury. Usługami tymi mogą być:
+
+- stworzenie bucketa w S3 w którym będzie znajdowała się produkcyjna wersja aplikacji,
+- uruchomienie i monitorowanie instancji EC2, utworzenie Load Balancera między instancjami,
+- monitorowanie ruchu na naszej stronie i w miarę potrzeby uruchamianie kolejnych instancji EC2 włączonych w Load Balancer,
+- uruchomienie serwera bazodanowego,
+- skalowanie serwera bazodanowego,
+- itd.
+
+Do naszej dyspozycji są następujące środowiska:
+
+<img src="/blog/aws-dla-front-end-developera/eb.webp" />
+
+Dodatkowo Elastic Beanstalk wersjonuje nasze kolejne deploye, więc w każdej chwili możemy cofnąć nieudany (bądź działający nieprawidłowo) deploy. Wewnątrz jednej aplikacji możemy tworzyć dodatkowo środowiska (np. staging / beta / prod) co również mocno ułatwia pracę. Odpowiednia konfiguracja środowisk umożliwia również przeprowadzanie deploymentu nowych wersji aplikacji praktycznie bez powodowania downtime-u.
+
+Jak już wcześniej napisałem, EB tworzy za nas potrzebną infrastrukturę korzystając z istniejących usług AWS. Oczywiście mamy dostęp do wszystkich stworzonych przez EB zasobów i w razie potrzeby możemy delikatnie je modyfikować. Zalecam jednak poświęcić więcej czasu na odpowiednią konfigurację naszego środowiska podczas zakładania nowego projektu. Jest to bezpieczniejsze niż poprawianie tego co zostało zbudowane automatycznie.
+
+Sama usługa Elastic Beanstalk jest bezpłatna – płacimy jedynie za zasoby które zostały stworzone przez EB (czyli np. EC2, S3, RDS, itp.). Gdy zdecydujemy się z jakiegoś powodu usunąć naszą aplikację, EB usunie wszystkie stworzone przez siebie zasoby nie zostawiając żadnych „śmieci” na koncie AWS.
+
+## Route 53
+
+Bez względu na to czy stworzymy infrastrukturę dla naszej aplikacji samodzielnie czy skorzystamy z usług takich jak Elastic Beanstalk, nasza strona będzie dostępna pod publicznym adresem IP bądź nieładnie wyglądającym adresem URL takim jak: [http://frontstack-aws.s3-website-eu-west-1.amazonaws.com](http://frontstack-aws.s3-website-eu-west-1.amazonaws.com). Potrzebujemy więc jakiejś usługi DNS – w świecie AWS takim serwisem jest [Amazon Route 53](https://aws.amazon.com/route53/).
+
+Nie chcę tutaj mocno rozwodzić się nad tym czym jest DNS. W dużym skrócie wszystko to co stworzymy i hostujemy na AWS możemy wystawić „na świat” pod adresem typu: `https://www.frontstack.pl`. Interesującą nas domenę możemy wcześniej wykupić u wybranego przez nas dostawcy (np. OVH bądź Nazwa.pl) i następnie zarządzać nią przy użyciu Route 53. Oczywiście jest też możliwość kupowania dostępnych domen bezpośrednio przez Route 53.
+
+Route 53 potrafi jednak znacznie więcej niż tylko zarządzanie DNS. Możemy również zarządzać ruchem w naszym aplikacjach i np. w zależności od geograficznej lokalizacji odwiedzającego naszą stronę – kierować go do odpowiedniego end-pointu aplikacji.
+
+Jedną z kolejnych możliwości jest monitorowanie stanu aplikacji (poprzez np. pingowanie web serwerów). W przypadku niedostępności części naszej infrastruktury możemy kierować ruch na poprawnie działające zasoby. Wszystko to jest możliwe dzięki temu, że Route 53 jest w pełni zintegrowany z innymi usługami AWS.
+
+Możliwości jest naprawdę bardzo dużo – warto przejrzeć dokumentację.
+
+## CloudFront
+
+W dwóch słowach wspomnę również o usłudze [CloudFront](https://aws.amazon.com/cloudfront/). Może ona przydać się developerom posiadającym aplikację skierowaną do użytkowników na całym świecie.
+
+AWS posiada serwerownie rozsiane po niemal wszystkich kontynentach. Gdy hostujemy naszą aplikację na S3 czy tworzymy ją przy użyciu Elastic Beanstalk to ląduje ona na jednym z serwerów umieszczonych w wybranej przez nas lokalizacji. Gdy wybierzemy region EU (Ireland), wtedy użytkownicy z Europy prawdopodobnie będą dużo bardziej zadowoleni z szybkości działania aplikacji niż użytkownicy z Brazylii. Warto w takim przypadku pomyśleć o zastosowaniu CDN (content delivery network). Dzięki temu trzymamy statyczne zasoby w serwerowniach znajdujących się tak blisko naszych użytkowników jak to tylko możliwe. W tym celu możemy użyć [Amazon CloudFront](https://aws.amazon.com/cloudfront/), czyli usługi cdn-as-a-service. Dzięki temu zasoby naszej aplikacji mogą wylądować we wszystkich serwerowniach posiadanych przez Amazona i być serwowane z tych, które są najbliżej naszego użytkownika. Wszystko oczywiście zamyka się na wyklikaniu kilku opcji konfiguracyjnych i wskazaniu stworzonej przez nas aplikacji w AWS.
+
+## Cloud9
+
+AWS dla front end developera posiada również dedykowany edytor. [AWS Cloud9](https://aws.amazon.com/cloud9/) jest usługą dzięki której możemy tworzyć kod w edytorze dostępnym z poziomu przeglądarki. Jest to rozwiązanie podobne do tego co oferuje obecnie np. CodeSandbox, jednak korzystając z Cloud9 tak naprawdę uruchamiamy instancję EC2 z preinstalowanymi narzędzami wspomagającymi programowanie (biblioteki, pluginy, SDK, itp.) w takich środowiskach jak JavaScript, Python, PHP, C++ i wiele więcej (dostępnych ponad 40 języków programowania). Dzięki temu możemy pracować nad naszym projektem bez względu na to z jakiego komputera w danym momencie korzystamy – wystarczy nam jedynie dostęp do Internetu i przeglądarka.
+
+<img src="/blog/aws-dla-front-end-developera/ide.webp" />
+
+Ciekawym dodatkiem jest możliwość pisania kodu w jednym pliku jednocześnie przez kilka osób. Wtedy wszyscy widzą na żywo zmiany wprowadzane przez innych użytkowników. Cloud9 posiada również wbudowany terminal z którego mamy dostęp (uprawnienia na poziomie sudo) do maszyny na której uruchomiony jest edytor z odpowiednio ustawionymi już uprawnieniami dzięki którym będziemy mieli dostęp do naszych zasobów AWS z poziomu CLI.
+
+## Podsumowanie
+
+AWS jest bardzo wygodnym narzędziem dla front end developera. Znajac już podstawowe, poznane w pierwszej części usługi oferowane przez AWS oraz kilka bardziej zaawansowanych rozwiązań z dzisiejszego wpisu jesteśmy już w stanie stworzyć dość profesjonalną infrastrukturę dla naszej aplikacji nie posiadając zbyt dużych umiejętności DevOpsowych. W kolejnej części skupimy się nieco więcej na autoryzacji, aplikacjach mobilnych oraz frameworku [Amplify](https://aws.amazon.com/amplify/) – czyli praktycznie kompletnym rozwiązaniu backend-as-a-service.

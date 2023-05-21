@@ -1,0 +1,225 @@
+export const meta = {
+  title: "Wzorzec: Command design pattern",
+  seo_desc:
+    "Command design pattern, zwany również wzorcem 'polecenia' pozwala nam na oddzielenie od siebie obiektów nadawcy oraz odbiorcy.",
+  short:
+    "W tym artykule zapoznasz się z wzorcem projektowym Command. Przybliżymy jego zastosowanie przez analogię do świata kulinarnego, a potem przejdziemy do praktycznej implementacji w JavaScript i TypeScript. Idealne dla osób szukających sposobów na poprawę modułowości kodu.",
+  date: "2021-07-19",
+  tags: ["Wzorce", "JavaScript"],
+};
+
+Kolejnym wzorcem projektowym na naszej liście jest Command design pattern, nazywany również po prostu „Poleceniem”. Wzorzec ten jest przydatny w sytuacji, gdy chcemy oddzielić obiekty wydające polecenia od obiektów, które te polecenia będą wykonywać. Wyobraźmy sobie scenariusz, gdzie nasza aplikacja korzysta z dużej liczby wywołań API do jakiegoś konkretnego serwisu. Co w przypadku gdy serwis ten zmieni swoje główne API albo będziemy chcieli wymienić ten serwis na jakiś inny? Musimy oczywiście zmodyfikować kod wszędzie tam, gdzie „uderzaliśmy” do serwisu przed zmianami. Nie brzmi ciekawie, prawda? Zobaczmy jak może nam w tej sytuacji pomóc Command design patter.
+
+Zanim wrócimy do wspomnianego już przykładu z API, spróbujmy sobie jeszcze bardziej doprecyzować, na czym polega omawiany tutaj wzorzec. W tym celu odejdziemy na chwilę od programowania i przeniesiemy się w świat kulinarny.
+
+## Pad Thai 🍜
+
+Wyobraźmy sobie sytuację, w której regularnie odwiedzamy naszą ulubioną knajpkę z tajskim jedzeniem. Zazwyczaj zamawiamy tam Pad Thaia oraz sok z mango. W tym przypadku my jako klient niejako wydajemy polecenie „przygotuj mi Pad Thaia i podaj mi sok”. Jeżeli lokal jest naprawdę bardzo mały, być może nasze zamówienie (polecenie) przyjmie od nas razu kucharz. De facto to on jest odbiorcą polecenia, ponieważ to on ma wiedzę oraz umiejętności w zakresie przygotowania naszego dania.
+
+Mocno teraz naginając nasz przykład, załóżmy, że którego dnia w tej samej restauracji znajduje się już inny kucharz i nie mówi on w naszym języku, albo gotuje w innym pomieszczeniu i nie wiem w którym, bądź też nowy kucharz nie wie, gdzie znajduje się sok i nie może nam go wydać? Sprawa trochę się skomplikuje a my albo będziemy musieli skorzystać z tłumacza, poszukać nowego pomieszczenia, albo pogodzić się z myślą, że zamiast soku z mango otrzymamy np. wodę. Musimy zmienić nasze dotychczasowe zachowanie, aby w dalszym ciągu otrzymać posiłek.
+
+Sytuacja wyglądała zupełnie inaczej, gdyby w takiej restauracji pracował dodatkowo kelner. Byłby on łącznikiem na linii klient ↔ kucharz. Kelner przyjmuje polecenie i wie, w jaki sposób ma je dostarczyć do osoby umiejącej to polecenie wykonać. W przypadku zmiany kucharza, to kelner wyposaży się w tłumacza i dowie się, gdzie teraz należy zanosić zamówienia. Oprócz tego będzie w stanie samodzielnie wykonywać bardzo proste czynności, takie jak np. podanie soku. My nasze zamówienia będziemy składać tak jak zawsze – nie odnotujemy zmian, które wydarzyły się "za kulisami".
+
+<img src="/blog/command-design-pattern/padthai.gif" />
+
+Widzimy tutaj, iż wprowadzając kelnera, odseparowaliśmy od siebie nadawcę oraz wykonawcę polecenia. Tego typu zabieg jest jednak dość kosztowny. W przypadku kelnera będzie to jego pensja, natomiast w programowaniu będzie to dodatkowy narzut w postaci kodu, zużycia procesora oraz czytelności (dodatkowa warstwa abstrakcji / komunikacji).
+
+## Wracamy do kodu
+
+Nie wiem jak wy, ale ja po opisaniu tego przykładu musiałem wstać i wyjść coś zjeść… chyba nie muszę mówić co 😉. Wracamy jednak już teraz do kodu i zamieniamy pałeczki na klawiaturę. Jak widzieliśmy w przykładzie, w przypadku wzorca command design pattern najczęściej będziemy mieli do czynienia z czterema elementami:
+
+- **klient** (client) – obiekt wydający polecenie,
+- **polecenie** (command) – obiekt zawierający informację na temat akcji, która ma zostać podjęta/wykonana,
+- **posłaniec** (invoker) – pośrednik pomiędzy klientem a wykonawcą,
+- **wykonawca** (receiver) – obiekt wykonujący akcje zawarte w poleceniu.
+
+Mam nadzieję, że już mniej więcej rozumiemy istotę tego wzorca, zobaczmy więc teraz, jak może wyglądać przykładowa implementacja tego, o czym do tej pory mówiliśmy za pomocą JavaScript.
+
+## Przykład nr 1 (trochę łatwiejszy)
+
+W pierwszym przykładzie możemy zobaczyć, w jaki sposób możemy wprowadzić dodatkową warstwę pośredniczącą w wywołaniu prostych metod umieszczonych wewnątrz obiektu:
+
+```js
+/* Obiekt, kóry wie jak wykonywać polecenia.
+Z prostymi zadaniami poradzi sobie sam, trudniejsze deleguje
+do odpwiedniego serwisu. */
+
+const operations = {
+  add: (x, y) => x + y,
+  subtract: (x, y) => x - y,
+  heavyMath: (x, y) => Math.sin(x) / Math.tan(y),
+};
+
+/* Obiekt, który jest używany jako warstwa abstrakcji
+podczas wykonywania poleceń. Reprezentuje interfejs w
+kierunku obiektu wywołującego. */
+const mathManager = {
+  /* Często spotykaną praktyką jest nazywanie metody wywołującej
+  jako "execute" */
+  execute: function (name, args) {
+    if (name in operations) {
+      /* Odnosimy się do obiektu wywołującego poprzez
+      wywoływanie zdefiniowanych na nim metod i przekazanie do nich
+      odpowiednich parametrów. */
+      return operations[name].apply(operations, [].slice.call(arguments, 1));
+    }
+    return console.log("🤷‍");
+  },
+};
+
+/* Możemy oczywiście omijać warstwę abstrakcji i wywoływać 
+polecenia bezpośrednio z obiektu "operations": */
+console.log(operations.add(2, 3)); // => 5
+console.log(operations.subtract(2, 3)); // => -1
+
+/* Możemy jednak skorzystać z mathManagera, wysłać do niego
+odpowiednią komendę i czekać na rezultat: */
+console.log(mathManager.execute("add", 2, 3)); // => 5
+console.log(mathManager.execute("subtract", 2, 3)); // => -1
+console.log(mathManager.execute("heavyMath", 2, 3)); // => -6,379
+console.log(mathManager.execute("multiply", 2, 3)); // => 🤷‍
+```
+
+## Przykład nr 2 (TypeScript oraz klasy)
+
+W drugim przykładzie posłużymy się już klasami. Spróbujemy tutaj odwzorować to, o czym powiedzieliśmy sobie w przykładzie z restauracją. Dodatkowo już bardzo wyraźnie zaznaczymy która klasa pełni funkcję polecenia, posłańca, wykonawcy oraz klienta.
+
+```ts
+/**
+ * Interfejs polecenia. Tak jak wspomniałem już we wcześniejszym
+ * przykładzie, metodę wywołującą polecenie zazwyczaj nazywamy "execute".
+ */
+interface Command {
+  execute(): void;
+}
+
+/**
+ * Proste polecenie nie musi wymagać odwołań do zewnętrznych serwisów i
+ * może być bezpośrednio obsłużone.
+ */
+class OrderDrik implements Command {
+  private drinkName: string;
+
+  constructor(drinkName: string) {
+    this.drinkName = drinkName;
+  }
+
+  public execute() {
+    console.log(`Here is your ${this.drinkName} drink`);
+  }
+}
+
+/**
+ * Bardziej skomplikowane polecenia mogą odwoływać się do zewnętrznych
+ * serwisów, tzw. odbiorców. To do nich zostanie przesłane polecenie.
+ */
+class OrderFood implements Command {
+  private receiver: Receiver;
+  private meal: string;
+
+  /**
+   * Odbiorcę polecenia możemy przekazać podczas tworzenia klasy, wtedy
+   * nasz kod będzie bardziej uniwersalny.
+   */
+  constructor(receiver: Receiver, meal: string) {
+    this.receiver = receiver;
+    this.meal = meal;
+  }
+
+  /**
+   * Wywołanie metody dostępnej na odbiorcy i przekazanie ewentualnych
+   * parametrów.
+   */
+  public execute() {
+    this.receiver.cookMeal(this.meal);
+  }
+}
+
+/**
+ * Odbiorca ma wiedzę o tym jak poradzić sobie z danym poleceniem.
+ * Tutaj również często trafia logika biznesowa.
+ */
+class Receiver {
+  public cookMeal(meal: string): void {
+    console.log(`Creating a ${meal} for you!`);
+  }
+}
+
+/**
+ * Pośrednik wywołujący metody może być w stanie obsługiwać
+ * wiele różnych poleceń.
+ */
+class Invoker {
+  /**
+   * Invoker nie jest zależny ani od polecenia ani od wykonawcy.
+   * Przekazuje on jedynie polecenie do odbiorcy (poprzez wywołanie metody).
+   */
+  public takeMealOrder(order: OrderFood): void {
+    order.execute();
+  }
+
+  public takeDrinkOrder(order: OrderDrik): void {
+    order.execute();
+  }
+}
+
+/**
+ * Klient "wydając" polecenie komunikuje się jedynie z pośrednikiem.
+ */
+class Client {
+  private invoker: Invoker;
+  private receiver: Receiver;
+
+  constructor(invoker: Invoker, receiver: Receiver) {
+    this.invoker = invoker;
+    this.receiver = receiver;
+  }
+
+  makeOrder(meal?: string, drink?: string) {
+    if (meal) {
+      const orderFood = new OrderFood(this.receiver, meal);
+      this.invoker.takeMealOrder(orderFood);
+    }
+
+    if (drink) {
+      const orderDrink = new OrderDrik(drink);
+      this.invoker.takeDrinkOrder(orderDrink);
+    }
+  }
+}
+
+/**
+ * Wydanie polecenia (złożenie zamówienia) przez klienta:
+ */
+const invoker = new Invoker();
+const receiver = new Receiver();
+
+const client = new Client(invoker, receiver);
+
+client.makeOrder("Pad Thai", "Mango Juice");
+client.makeOrder("Curry Soup");
+client.makeOrder(undefined, "Coke");
+
+/**
+ * Output:
+ * "Creating a Pad Thai for you!"
+ * "Here is your Mango Juice drink"
+ * "Creating a Curry Soup for you!"
+ * "Here is your Coke drink"
+ */
+```
+
+## Wady i ograniczenia
+
+Pomimo wielu zalet wzorca Command, istnieją również pewne wady i ograniczenia, które warto rozważyć przed jego zastosowaniem:
+
+- **Złożoność kodu:** Jak zostało to już wcześniej wspomniane, wzorzec Command dodaje dodatkową warstwę abstrakcji do struktury kodu. W rezultacie, może to prowadzić do zwiększonej złożoności, szczególnie w przypadku prostych aplikacji, gdzie taka abstrakcja może być zbędna.
+- **Wymagania dotyczące pamięci:** Ze względu na swoją naturę, wzorzec Command może wymagać więcej pamięci operacyjnej. Dzieje się tak, ponieważ każde polecenie jest reprezentowane przez dedykowany obiekt, który musi być przechowywany do momentu jego wykonania. Może to być problematyczne w przypadku systemów o ograniczonych zasobach pamięci, szczególnie jeśli są one zobowiązane do obsługi dużej liczby poleceń.
+- **Trudność w utrzymaniu:** Wraz ze wzrostem liczby poleceń, utrzymanie kodu może stać się bardziej skomplikowane. Każde polecenie to osobna klasa, która musi być utrzymywana i ewentualnie modyfikowana w miarę ewolucji projektu.
+- **Skomplikowane testowanie:** Ze względu na dodatkową warstwę abstrakcji, testowanie kodu korzystającego z wzorca Command może być bardziej skomplikowane. Każde polecenie musi być testowane osobno, a następnie w kontekście interakcji z innymi obiektami.
+
+## Command design pattern – podsumowanie
+
+Za pomocą wzorca Command design pattern możemy relatywnie łatwo oddzielić od siebie klasy (obiekty), wywołujące polecenia od obiektów wykonawczych. Dzięki temu nasz kod stanie bardziej modularny i spełnimy zasady pojedynczej odpowiedzialności. Taki kod będzie w przyszłości dużo łatwiejszy do utrzymania w trakcie poprawek, dodawania nowych poleceń lub podmiany całych serwisów.
+
+Wadą tego rozwiązania z pewnością jest komplikacja kodu, gdyż wprowadzamy całą nową warstwę pomiędzy dwa komunikujące się ze sobą obiekty. W przypadku prostych poleceń, które nie wymagają odwołań do zewnętrznych serwisów, nie ma sensu stosować tego wzorca. W przypadku bardziej skomplikowanych poleceń, które wymagają odwołań do zewnętrznych serwisów, wzorzec ten może okazać się bardzo przydatny.

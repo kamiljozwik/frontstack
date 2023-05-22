@@ -1,0 +1,100 @@
+export const meta = {
+  title: "Wzorzec: Singleton design pattern",
+  seo_desc:
+    "Singleton design pattern jest jednym z rzadko używanych wzorców JavaScript, jednak jego znajomość być może ułatwi nam rozwiązanie kilku problemów",
+  short:
+    "Singleton design pattern jest jednym z rzadko używanych wzorców JavaScript, jednak jego znajomość być może ułatwi nam rozwiązanie kilku problemów. W tym artykule zobaczymy na konkretnym przykładzie jak możemy go zaimplementować.",
+  date: "2020-04-19",
+  tags: ["JavaScript", "Wzorce"],
+};
+
+Singleton design pattern jest jednym z mniej popularnych i mniej stosowanych wzorców projektów w świecie JavaScript. Nie mniej jednak znajdą się przypadki gdy singleton okaże się dobrym rozwiązaniem.
+
+## Singleton
+
+Singleton jest wzorcem, który pozwala na stworzenie tylko jednej instancji obiektu z klasy bądź konstruktora funkcyjnego. W przypadku wielokrotnego wywoływania tej samej klasy zawsze będziemy otrzymywali tą samą instancję, która została stworzona podczas pierwszego wywołania. To tyle jeżeli chodzi o samą definicję singletonu. Jak widać nie jest ona zbyt skomplikowana.
+
+Singleton przez niektórych klasyfikowany jest jako anty-wzorzec, ponieważ łamie zasady programowania obiektowego i bywa nadużywany jako alternatywny sposób na tworzenie zmiennych globalnych.
+
+Jako przypadki użycia singletonu możemy tutaj wymienić np.:
+
+- Obiekty konfiguracyjne. Nie chcemy może za każdym razem generować nowego obiektu z danymi konfiguracyjnymi. Zamiast tego możemy zwracać już raz wygenerowane dane.
+- Połączenie z bazą danych. Zazwyczaj chcemy ustanowić jedno połączenie z bazą a nie inicjować wielu połączeń przy każdym zapisie/odczycie.
+- Logger danych. Duplikowanie logów z aplikacji może wprowadzić sporo problemów przy debugowaniu potencjalnych problemów.
+
+## Implementacja
+
+Przedstawimy sobie dwa przykładowe sposoby na to w jaki sposób można stworzyć singleton w JavaScript. We wpisie dotyczącym module design pattern omawialiśmy sobie tworzenie modułów przy użyciu funkcji IIFE, więc również tutaj jedna implementacja będzie oparta na IIFE:
+
+```js
+/* --- Singleton --- */
+const AppConfig = (function () {
+  let config; // prywatna wartość, która zostanie zainicjowana tylko raz
+
+  function initializeConfiguration(initData) {
+    // funkcja konstruktora
+    this.randomNumber = Math.random();
+    initData = initData || {};
+    this.number = initData.number || 5;
+  }
+
+  // publiczna część singletonu - API modułu
+  return {
+    getConfig: function (values) {
+      // inicjujemy singleton tylko jeden raz
+      if (config === undefined) {
+        config = new initializeConfiguration(values);
+      }
+      // przy kolejnych wywołaniach zawsze zwracamy już te same dane
+      return config;
+    },
+  };
+})();
+
+const configObject = AppConfig.getConfig({ number: 8 });
+console.log(configObject); // patrz zdjęcie poniżej
+
+const configObject2 = AppConfig.getConfig({ number: 1 });
+console.log(configObject2); // patrz zdjęcie poniżej
+
+console.log(configObject.config); // undefined
+console.log(config); // ERROR
+```
+
+Oto co zobaczymy w konsoli:
+
+<img src="/blog/singleton-design-pattern/image.webp" />
+
+Jak widać na powyższym screenie zarówno losowo generowana wartość dla `randomNumber` jak i determinowany przez konstruktor `number` w obydwu przypadkach mają dokładnie takie same wartości. Sama wartość zmiennej `config` nie może również zostać zmieniona poza modułem stworzonym przez IIFE.
+
+## Użycie klasy
+
+W momencie gdy w JavaScript pojawiły się zdefiniowane w standardzie ES6 klasy możemy stworzyć singleton nieco łatwiej i czytelniej. Poniżej znajduje się jeden z najprostszych sposobów.
+
+```js
+class AppConfig {
+  constructor(number = 5) {
+    if (AppConfig.exists) {
+      return AppConfig.instance;
+    }
+    this.randomNumber = Math.random();
+    this.number = number;
+    AppConfig.exists = true;
+    AppConfig.instance = this;
+    return this;
+  }
+}
+
+const configObject = new AppConfig(8);
+const configObject2 = new AppConfig(1);
+
+console.log(configObject);
+console.log(configObject2);
+console.log(configObject === configObject2); // true
+```
+
+<img src="/blog/singleton-design-pattern/image2.webp" />
+
+Jak widać w tym przypadku również obiekty, które zostały zwrócone z klas są identyczne.
+
+Singleton design pattern można zaimplementować na kilka różnych sposobów. Powyższe dwa przykłady pokazują jedne z najłatwiejszych sposobów na osiągniecie tego celu. Mimo, iż singleton w aplikacjach JavaScript nie jest wykorzystywany zbyt często – zdecydowanie warto wiedzieć o jego istnieniu.

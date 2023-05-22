@@ -1,0 +1,135 @@
+import { Table } from "./table.tsx";
+
+export const meta = {
+  title: "Obiekty JavaScript: klasy (ES6 Classes)",
+  seo_desc:
+    "Trzecia część wpisu dotyczącego programowania obiektowego. Klasy w JavaScript to nowy sposób tworzenia obiektów wprowadzony z wersją ES6",
+  short:
+    "Zanurz się w świecie obiektów JavaScript z artykułem o klasach ES6! Dowiedz się, jak skutecznie wykorzystać klasy, by ułatwić tworzenie i zarządzanie obiektami, oraz jak zastosować dziedziczenie i rozszerzenie klas. Odkryj możliwości, jakie dają klasy, i zacznij tworzyć czysty kod.",
+  date: "2021-08-27",
+  tags: ["JavaScript"],
+};
+
+Trzecia część wpisu dotycząca obiektów JavaScript. Wiemy już jak najłatwiej tworzyć obiekty oraz jak działa dziedziczenie. Przyszła teraz kolej na najnowszy sposób pracy z obiektami – klasy JavaScript.
+
+## Czym są klasy JavaScript?
+
+Klasy JavaScript to nowy sposób tworzenia obiektów **wprowadzony wraz z wersją [ES6](https://262.ecma-international.org/6.0/)**. Wcześniej obiekty tworzyliśmy za pomocą konstruktorów. Konstruktory są jednak dość nieintuicyjne, a ich składnia nie jest zbyt przyjazna. Klasy mają to zmienić.
+
+Tak naprawdę zasada działania klas jest identyczna jak w przypadku tworzenia klas za pomocą konstruktora. Umożliwiają one jedynie **łatwiejszy (czytelniejszy) zapis** (tzw. [_syntactic sugar_](https://pl.wikipedia.org/wiki/Lukier_sk%C5%82adniowy)) dla definiowania property oraz metod, które mają zostać dziedziczone przez kolejno tworzone instancje klasy. Bardzo przydatną rzeczą w klasach jest możliwość tworzenia klas, które rozszerzają istniejące już klasy o dodatkowe property lub metody.
+
+Składnia klasy w JavaScript jest niezwykle prosta:
+
+```js
+class Person {
+  constructor(name, email) {
+    // property są tworzone tutaj - wewnątrz metody 'constructor'
+    // są one bezpośrednio dołączone do instancji klasy
+    this.name = name;
+    this.email = email;
+  }
+
+  // metody są tworzone tutaj - bezpośrednio w ciele klasy
+  // są one dostępne jako 'prototype'
+  login() {
+    console.log(this.name, "własnie się zalogował");
+  }
+
+  logout() {
+    console.log(this.name, "własnie się wylogował");
+  }
+}
+
+const Mario = new Person("Mario", "mario@example.com");
+const Luigi = new Person("Luigi", "luigi@example.com");
+```
+
+Co do znaczenia słowa kluczowego `this` powstanie osobny artykuł, ponieważ jest to dość szczegółowy temat. Na ten moment wystarczy wiedzieć, iż słowo `this` wskazuje na **konkretny obiekt**, który został stworzony poprzez klasę. Klasa `Person` pozwoli nam stworzyć wiele obiektów które będą miały property `name`, dlatego musimy używać `this`, aby wskazać z którego z tych obiektów chcemy odczytać wartość tej property. Wstawiając `this`, wiemy, że chcemy tą wartość właśnie z obiektu na którym wykonujemy jakieś operacje.
+
+Wiedząc już jak działa dziedziczenie w przypadku _function constructor_, wiemy co otrzymamy w konsoli gdy spróbujemy logować obiekt `Mario`:
+
+<img src="/blog/klasy-javascript/clg.webp" />
+
+Konstruktor klasy (metoda _constructor_) **wywoływany jest zawsze jako pierwsza metoda** podczas tworzenia nowej instancji klasy. Wewnątrz konstruktora umieszczamy property, które chcemy, aby było bezpośrednio dołączone do obiektu. Możemy tam również umieści metody, ale nie jest to zalecane działanie.
+
+Metody dużo lepiej jest umieszczać w ciele klasy, wtedy będą one dostępne poprzez prototype. Identycznie jak w przypadku _function constructor_.
+
+Wywołanie teraz metody `Mario.login()` wyświetli nam w konsoli tekst `Mario własnie się zalogował!`, natomiast `Luigi.login()` oczywiście `Luigi własnie się zalogował!`.
+
+Dopowiem jeszcze dwa słowa na temat słowa `new`, którego **używamy podczas tworzenia nowej instancji klasy**. Za kulisami, wywołanie słowa `new` wykonuje nam następujące czynności:
+
+- Tworzy nowy pusty obiekt `{}`
+- Wywołuje konstruktor klasy (metodę `constructor`), przekazując mu wszystkie argumenty, które zostały przekazane do słowa `new`
+- Zwraca nowo utworzony obiekt
+- Ystawia wartość `this` na ten dopiero co stworzony pusty obiekt
+
+Przejdźmy teraz do **funkcjonalności, której nieco brakowało** w przypadku function constructor, czyli rozszerzania funkcjonalności (można było próbować to robić za pomocą `Object.assign()`, ale nie było to zbyt intuicyjne). Jak wiele osób może się teraz domyślać – wracamy do naszej przeglądarkowej gry oraz zarządzanie graczami. W drugiej części kursu pokazałem jak tworzyć nowych użytkownik poprzez konstruktory. Przepiszmy więc szybko poprzednią logikę wykorzystując do tego klasy:
+
+```js
+class Player {
+  constructor(nick, email) {
+    this.nick = nick;
+    this.email = email;
+  }
+
+  shoot() {
+    console.log("SHOOT!!!");
+  }
+  login() {
+    console.log("Jestem zalogowany!");
+  }
+  logout() {
+    console.log("Jestem wylogowany!");
+  }
+  moveLeft() {
+    console.log("Idę w lewo!");
+  }
+  moveRight() {
+    console.log("Idę w prawo!");
+  }
+}
+
+const Player1 = new Player("Dragon", "janek@example.com");
+const Player2 = new Player("Fenix", "john@example.com");
+const Player3 = new Player("Kmaikadze", "tom@example.com");
+
+Player1.shoot(); // "SHOOT!!!"
+```
+
+Wróćmy do problemu, który pojawił nam się w przypadku pojawienia się gracza o rozszerzonych możliwościach względem gracza w wersji podstawowej. Stworzenie teraz takiego obiektu jest bardzo łatwym zadaniem – wykorzystamy do tego słowo kluczowego `extends`:
+
+```js
+lass Leader extends Player {
+  constructor(nick, email, team) {
+    super(nick, email);     // pozwala na użycie property z klasy 'Player'
+    this.team = team;       // nowa property tylko dla klasy 'Leader'
+  };
+  jump() { console.log("Mogę skakać!") }
+  invite(nick) { console.log(nick, ", zapraszam Cię do mojego zespołu")}
+}
+
+const Player99 = new Leader("Snake", "frank@example.com", "team-red");
+
+Player99.moveLeft(); // Idę w lewo!
+Player99.jump(); // Mogę skakać!
+console.log(Player99.team) // team-red
+Player99.invite("Dragon"); // Dragon , zapraszam Cię do mojego zespołu
+
+Player3.jump(); // ERROR!
+```
+
+Jak widać z powyższego przykładu, rozszerzanie klas o dodatkowe funkcjonalności nie jest niczym skomplikowanym. W przypadku gdy chcemy jedynie dodawać nowe metody, nie musimy ponownie deklarować konstruktora klasy. Wywołany zostanie konstruktor z rozszerzanej klasy – w naszym przypadku z klasy `Player`. Gdy jednak chcemy dodać również nowe property poprzez konstruktor, musimy użyć słowa kluczowego `super`, które daje nam dostęp do property z konstruktora klasy rozszerzanej.
+
+## Porównanie
+
+Aby jeszcze lepiej zrozumieć zalety i wady klas w JavaScript, przyjrzyjmy się porównaniu z innymi znanymi nam już technikami tworzenia obiektów czyli konstruktory i prototypy. Poniżej znajduje się tabela porównawcza przedstawiająca różnice między tymi trzema podejściami:
+
+<Table />
+
+W związku z powyższym porównaniem, klasy w JavaScript (ES6) zapewniają bardziej przejrzystą i prostą składnię w porównaniu z konstruktorami i prototypami. Dziedziczenie w klasach jest łatwiejsze dzięki słowu kluczowemu extends, co sprawia, że zarządzanie obiektami i ich relacjami jest prostsze.
+
+Warto jeszcze raz podkreślić, że klasy w JavaScript są tylko _syntactic sugar_ nad tradycyjnym podejściem do prototypów i konstruktorów, ale oferują czytelniejszą i bardziej intuicyjną strukturę kodu. Ostatecznie, wybór między tymi technikami zależy oczywiście od preferencji programisty i wymagań projektu.
+
+## Podsumowanie
+
+Jesteśmy na końcu trzeciej części artykułu przeprowadzającego nas przez świat obiektów oraz dziedziczenia w JavaScript. Znamy już niemal wszystkie techniki, które pozwolą nam na świadomą pracę na obiektach. Nie zostaje więc nam nic innego niż samemu zacząć pisać dobry kod obiektowy.

@@ -1,0 +1,134 @@
+export const meta = {
+  title: "Obiekty JavaScript: prototypy i dziedziczenie",
+  seo_desc:
+    "Druga część wpisu w temacie obiektów. Tym razem omówimy prototypy i dziedziczenie JavaScript na rzeczywistych przykładach i implementacji.",
+  short:
+    "Odkryj tajniki obiektowego programowania w JavaScript. Omawiamy tutaj kluczowe koncepcje prototypów i dziedziczenia, które pozwolą Ci tworzyć bardziej wydajny, czytelny i reużywalny kod. Zostań ekspertem w obiektowej strukturze JavaScript i zacznij pisać lepsze aplikacje",
+  date: "2021-08-25",
+  tags: ["JavaScript"],
+};
+
+W pierwszej części artykułu przedstawiłem najbardziej podstawowe zagadnienia związane z obiektami. Obecny artykuł poruszy bardzo istotne kwestie – prototypy i dziedziczenie JavaScript. Niezwykle ważne rzeczy w obiektowym podejściu pisania kodu.
+
+Wszystkim osobom zaczynającym przygodę z JavaScript oraz tym, którzy potrzebują delikatnego odświeżenia swojej wiedzy gorąco polecam przeczytać w pierwszej kolejności poprzedni wpis. Wszystkich innych zapraszam do dalszego zgłębiania wiedzy.
+
+Obiekty są jednym z najważniejszych zagadnień w języku JavaScript. Dogłębne ich zrozumienie pozwoli nam na świadome pisanie bardzo dobrego, czytelnego i re-używalnego kodu.
+
+Zaczynamy od prototypów.
+
+## Prototypy i dziedziczenie
+
+_Prototypes_ and _Inheritance_, czyli prototypy i dziedziczenie to bardzo ważne tematy w JavaScript. Odpowiednie zrozumienie tych zagadnień pozwoli nam na tworzenie kodu w sposób _zorientowany obiektowo_ (na tyle, na ile JavaScript nam pozwala). W celu zobrazowania programowania obiektowego w JavaScript posłużmy się prostym przykładem. Zakładamy, że w naszej aplikacji, która jest grą w przeglądarce, mamy możliwość tworzenia kolejnych graczy – czyli użytkowników naszej gry. Dane naszych graczy możemy przechowywać w postaci obiektów:
+
+<img src="/blog/prototypy-i-dziedziczenie-javascript/gr1.webp" />
+
+Jak widać, każdy z graczy posiada te same property oraz metody. Musi więc być jakiś sposób na to, żeby tworząc nowych użytkowników w naszej aplikacji nie musieć implementować (de facto kopiować/wklejać) cały czas tych samych metod. Na ratunek przychodzą nam tutaj prototypy oraz dziedziczenie. Dzięki nim możemy stworzyć konstruktor (tutaj: `Player`) z którego będziemy tworzyć nowe instancje naszych obiektów (tutaj: graczy).
+
+<img src="/blog/prototypy-i-dziedziczenie-javascript/gr2.webp" />
+
+Mało tego – załóżmy, iż w naszej grze mamy graczy o super możliwościach, nazwijmy ich Liderzy. Liderzy posiadają dokładne te same umiejętności co zwykli gracze, jednak oprócz tego mają możliwość wykonywania specjalnych akcji, zarezerwowanych tylko dla nich. Również w tym przypadku dziedziczenie umożliwi nam stworzenie takiego gracza w naszej grze w dużo efektywniejszy sposób niż przy użyciu _object literal_.
+
+<img src="/blog/prototypy-i-dziedziczenie-javascript/gr3.webp" />
+
+Wróćmy jednak do przykładu zwykłego gracza i przyjrzyjmy się dokładniej dziedziczeniu. Jak już wiemy, każdy z naszych graczy jest instancją obiektu _Player_. Obiekt/konstruktor _Player_ posiada następujące metody `login`, `logout`, `moveLeft`, `moveRight`, `shoot`. Są to podstawowe ruchy, które możemy wykonywać w naszej grze. Nasi gracze więc różnią się tylko swoimi nickami oraz adresami email. To właśnie tylko te informacje musimy podać tworząc nowego zawodnika – wszystkie inne cechy zostaną odziedziczone.
+
+Wszystko to ładnie wygląda w teorii i na obrazkach – przeskoczmy więc teraz do edytora i zaimplementujmy to co już przeczytaliśmy wcześniej.
+
+Zanim to jednak zrobimy – wyjaśnimy sobie jeszcze jedno pojęcie: _function constructor_. W pierwszej części tego wpisu poznaliśmy najbardziej podstawową metodę tworzenia obiektów: _object literal_. _Function constructor_ jest kolejnym sposobem na tworzenie obiektów. Tak naprawdę jest to najzwyklejsza funkcja, która zwraca nam obiekt – jeżeli chcemy skorzystać ze wszystkich dobrodziejstw dziedziczenia, musimy nasze obiekty tworzyć w ten właśnie sposób (przynajmniej na ten moment, o klasach nauczymy się w kolejnej części artykułu).
+
+Podstawowa składnia wygląda następująco:
+
+```js
+const Person = function (name, surname, age) {
+  // function constructor (konstruktor)
+  this.name = name;
+  this.surname = surname;
+  this.age = age;
+};
+
+const Antoni = new Person("Antoni", "Misiewicz", 60);
+console.log(Antoni);
+```
+
+<img src="/blog/prototypy-i-dziedziczenie-javascript/clg1.webp" />
+
+Jak widzimy, nasza zmienna `Antoni` jest obiektem, zawierającym takie property, jakie zadeklarowaliśmy w konstruktorze `Person`. Antoni w tym przypadku jest instancją konstruktora `Person`.
+
+Wracamy do naszej gry.
+
+Poniższy fragment kodu stworzy nam konstruktor `Player` oraz trzech graczy:
+
+```js
+const Player = function (nick, email) {
+  // konstruktor
+  this.nick = nick;
+  this.email = email;
+  this.shoot = () => console.log("SHOOT!!!");
+};
+
+Player.prototype.login = () => console.log("Jestem zalogowany!");
+Player.prototype.logout = () => console.log("Jestem wylogowany!");
+Player.prototype.moveLeft = () => console.log("Idę w lewo!");
+Player.prototype.moveRight = () => console.log("Idę w prawo!");
+
+const Player1 = new Player("Dragon", "janek@example.com");
+const Player2 = new Player("Fenix", "john@example.com");
+const Player3 = new Player("Kmaikadze", "tom@example.com");
+```
+
+Zwróćmy na razie uwagę tylko na konstruktor i zignorujmy linijki kodu zaczynające się od `Player.prototype...`
+
+Wiemy już jak działa _function constructor_, więc powyższy kod powinien być dość jasny. Spójrzmy w konsoli na `Player1`:
+
+<img src="/blog/prototypy-i-dziedziczenie-javascript/clg2.webp" />
+
+Widzimy dwie property oraz jedną metodę – dokładnie tak jak w konstruktorze. Wywołanie metody `Player1.shoot()` wyświetli nam w konsoli `SHOOT!!!` To samo stanie się, gdy wywołamy tą metodę na każdej innej instancji naszego konstruktora. Widać więc, że dziedziczenie działa prawidłowo.
+
+Powiedzmy sobie teraz nieco więcej o prototypach. W dwóch słowach, prototypy są to property bądź metody, które są odziedziczone od konstruktora, jednak nie są bezpośrednio dostępne jako property (bądź metoda) instancji. Spójrzmy jeszcze raz na umieszczony wyżej log konsoli – widzimy tam metodę shoot, która należy do obiektu `Player1`. Co się natomiast stanie gdy wywołamy metodę `Player1.login()` ? Mimo, iż nie wyświetla się ona jako property obiektu `Player1`, w naszej konsoli zobaczymy napis `Jestem zalogowany!`. Jest to możwliwe, ponieważ metoda ta jest prototypem konstruktora `Player`:
+
+`Player.prototype.login = () => console.log("Jestem zalogowany!");{:js}`
+
+Wyświetlmy sobie jeszcze raz w konsoli `Player1` i tym razem zwróćmy uwagę na dość tajemniczo wyglądającą property: `proto`. Po rozwinięciu jej, zobaczymy wszystkie inne metody, które są prototypami konstruktora `Player` i tym samym zostały odziedziczone przez instancje stworzone przy pomocy tego konstruktora. Wywołując metodę `login()`, JavaScript w pierwszej kolejności sprawdza, czy taka metoda jest dostępna bezpośrednio na obiekcie, jeżeli nie, zagląda do konstruktora i tam ponownie poszukuje metody `login()`.
+
+<img src="/blog/prototypy-i-dziedziczenie-javascript/clg3.webp" />
+
+Zwróćmy uwagę na to, iż nasz konstruktor również posiada property `__proto__`. Skąd ono się wzięło? Oczywiście jest to wynik dziedziczenia. Nasz konstruktor jest niczym innym niż obiektem (przypominam – w JavaScript wszystko jest albo obiektem, albo jest typem danych należącym do _primitives_) i obiekt również posiada swój konstruktor. Dzięki temu dziedziczymy pewne specyficzne dla obiektów metody.
+
+Wiemy już jak tworzyć kolejnych graczy w naszej aplikacji. A co w przypadku z super graczem, który posiada większe możliwości niż zwykły zawodnik? O tym powiemy w kolejnej części kursu, gdy zabierzemy się za stosunkowo dość nową rzecz w JavaScript, tj. klasy (_Classess_).
+
+## Object.create()
+
+Zanim przejdzeimy do klas, warto przedstawić w tym momencie kolejny sposób na tworzenie obiektów:` Object.create()`. Będzie to czwarta już, po _object literal_, _new Object()_, _function constructor_, metoda na to, aby stworzyć obiekt. W przypadku tej drogi tworzenia obiektu, najpierw definiujemy prototyp naszego obiektu i podajemy go jako argument metody `create()`. Drugim, opcjonalnym argumentem są bezpośrednie property dla nowo tworzonego obiektu: `Object.create(prototypes, proterties)`.
+
+Poniższy fragment kodu pokazuje w jaki sposób możemy używać omawianej metody:
+
+```js
+let PlayerProto = {
+  login: () => console.log("Jestem zalogowany!"),
+  logout: () => console.log("Jestem wylogowany!"),
+};
+
+// tylko prototyp
+let Player4 = Object.create(PlayerProto);
+Player4.nick = "AngryBird";
+Player4.mail = "max@example.com";
+
+// prototyp plus property - musimy podawać to w sposób { property: {value: "wartość property"} }
+let Player5 = Object.create(PlayerProto, {
+  nick: { value: "Joker" },
+  email: { value: "andrew@example.com" },
+});
+```
+
+Oczywiście zarówno `Player4` i `Player5` mają dostęp do metod `login()` oraz `logout()`.
+
+## Podsumowanie
+
+Prototypy i dziedziczenie w JavaScript to jedno z najważniejszych zagadnień obiektowego programowania. Dzisiejszy wpis na temat dziedziczenia można podsumować w kilku krótkich punktach:
+
+- każdy obiekt w JavaScript posiada property prototype, dzięki czemu możliwe jest korzystanie z dziedziczenia,
+- property prototype zawiera wszystkie property oraz metody, które chcemy, aby zostały odziedziczone przez wszystkie nowo tworzone instancje,
+- podczas wywołania metody na obiekcie, najpierw sprawdzane jest, czy metoda ta znajduje się bezpośrednio na obiekcie, jeżeli nie jest ona tam znaleziona, metoda jest szukana na prototypie obiektu. Zagłębianie się w kolejne prototypy w celu wyszukania wywołanej metody (albo property) nazywane jest prototype chain,
+- `Object.create()` jest kolejnym sposobem na tworzenie obiektów w JavaScript.
+
+Kolejna część wpisu będzie poświęcona klasom w JavaScript – zachęcam do czytania

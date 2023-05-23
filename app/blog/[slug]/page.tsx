@@ -38,9 +38,7 @@ const PostPage = ({ params }: { params: PostMeta }) => {
         <h1>{meta?.title}</h1>
         <PostContent />
       </main>
-      <section className={styles.side}>
-        <h2>Podobne posty</h2>
-      </section>
+      <section className={styles.side}>{/* <h2>Podobne posty</h2> */}</section>
     </div>
   );
 };

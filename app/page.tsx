@@ -11,7 +11,7 @@ export default function Home() {
       <Hero />
       <main className={styles.main}>
         <section className={styles.postsList}>
-          <h2 className="yellow-header-h2">NAJNOWSZE WPISY</h2>
+          <h2>NAJNOWSZE WPISY</h2>
           <div>
             {allPosts.slice(0, 5).map((post) => (
               <PostLink key={post.slug} post={post} />
@@ -20,7 +20,7 @@ export default function Home() {
         </section>
         <div className={styles.side}>
           <section>
-            <h2 className="yellow-header-h2">KATEGORIE</h2>
+            <h2>KATEGORIE</h2>
           </section>
         </div>
       </main>

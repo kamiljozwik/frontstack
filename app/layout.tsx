@@ -1,9 +1,9 @@
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 
 import "./globals.scss";
 import { Header } from "./components/header/Header";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
   title: "Frontstack",
@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pl">
-      <body className={inter.className}>
+    <html lang="pl" className={outfit.className}>
+      <body>
         <Header />
         {children}
       </body>

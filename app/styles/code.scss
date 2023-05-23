@@ -4,9 +4,10 @@ pre > code {
 
 code {
   counter-reset: line;
-  background: #282c34;
+  background: var(--color-code-background);
   margin: 12px 0 24px 0;
   overflow-x: auto;
+  color: var(--color-code);
 }
 
 code[data-line-numbers] > .line::before {

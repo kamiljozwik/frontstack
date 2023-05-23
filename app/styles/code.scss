@@ -10,7 +10,13 @@ code {
   color: var(--color-code);
 }
 
-code[data-line-numbers] > .line::before {
+div[data-rehype-pretty-code-title] {
+  display: inline-block;
+  padding: 0 12px;
+  border-top: 1px solid var(--color-links);
+}
+
+code > .line::before {
   counter-increment: line;
   content: counter(line);
 

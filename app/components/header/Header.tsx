@@ -13,7 +13,10 @@ export const Header = () => {
         <nav>
           <ul>
             <li>
-              <Link href="/blog">Wszystkie posty</Link>
+              <Link href="/blog">Posty</Link>
+            </li>
+            <li>
+              <Link href="/frontendowka">Frontendówka</Link>
             </li>
           </ul>
         </nav>

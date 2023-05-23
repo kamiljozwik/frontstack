@@ -1,3 +1,4 @@
+import { Tags } from "./components/tags/Tags";
 import { Hero } from "./components/hero/Hero";
 import { PostLink } from "./components/postLink/PostLink";
 import styles from "./page.module.scss";
@@ -21,6 +22,7 @@ export default function Home() {
         <div className={styles.side}>
           <section>
             <h2>KATEGORIE</h2>
+            <Tags />
           </section>
         </div>
       </main>

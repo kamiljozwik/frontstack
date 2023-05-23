@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 0;
+  margin: 0;
+  font-size: 1rem;
+  li {
+    cursor: pointer;
+    list-style: none;
+    padding: 6px 12px;
+    margin: 2px;
+    background: #2b4555;
+    border-radius: 12px;
+    &:hover {
+      background: #162d3b;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}

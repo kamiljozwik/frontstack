@@ -1,15 +1,8 @@
-import { getPostsMeta } from "@/app/utils/blog";
+import { getTags } from "@/app/utils/blog";
 import styles from "./tags.module.scss";
 
 export const Tags = () => {
-  const allPosts = getPostsMeta();
-
-  const tags = allPosts
-    .reduce((acc: string[], post) => {
-      return [...acc, ...post.tags];
-    }, [])
-    .filter((category, index, arr) => arr.indexOf(category) === index);
-
+  const tags = getTags();
   return (
     <ul className={styles.root}>
       {tags.map((category) => (

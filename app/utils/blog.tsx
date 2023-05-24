@@ -29,3 +29,10 @@ export function getPostsMeta() {
 
   return postsMeta.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
+
+export const getTags = () =>
+  getPostsMeta()
+    .reduce((acc: string[], post) => {
+      return [...acc, ...post.tags];
+    }, [])
+    .filter((category, index, arr) => arr.indexOf(category) === index);

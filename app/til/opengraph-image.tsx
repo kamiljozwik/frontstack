@@ -23,7 +23,7 @@ export default function Image() {
             marginTop: "5%",
           }}
         >
-          FRONTENDÓWKA
+          Dziś się nauczyłem
         </p>
         <p
           style={{
@@ -31,7 +31,7 @@ export default function Image() {
             color: "#fce746",
           }}
         >
-          Newsy ze świata frontendu
+          Małe przydatne rzeczy z frontu
         </p>
       </OgImage>
     ),

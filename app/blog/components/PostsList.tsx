@@ -1,6 +1,6 @@
+import { PageHeader } from "@/app/components/headers/Headers";
 import { PostLink } from "../../components/postLink/PostLink";
 import { getPostsMeta } from "../../utils/blog";
-import styles from "./page.module.scss";
 
 type Props = {
   title: string;
@@ -11,8 +11,8 @@ export const PostsList = ({ title, tag }: Props) => {
   const allPosts = getPostsMeta();
 
   return (
-    <div className={styles.root}>
-      <h2>{title}</h2>
+    <section>
+      <PageHeader>{title}</PageHeader>
       <div>
         {tag
           ? allPosts
@@ -22,6 +22,6 @@ export const PostsList = ({ title, tag }: Props) => {
               .map((post) => <PostLink key={post.slug} post={post} />)
           : allPosts.map((post) => <PostLink key={post.slug} post={post} />)}
       </div>
-    </div>
+    </section>
   );
 };

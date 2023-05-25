@@ -11,11 +11,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
+      url: `https://frontstack.pl`,
+    },
+    {
       url: `https://frontstack.pl/blog`,
     },
     ...postsMap,
     {
       url: `https://frontstack.pl/frontendowka`,
+    },
+    {
+      url: `https://frontstack.pl/til`,
     },
   ];
 }

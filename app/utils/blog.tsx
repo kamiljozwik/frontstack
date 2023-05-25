@@ -30,6 +30,9 @@ export function getPostsMeta() {
   return postsMeta.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
+export const getPostBySlug = (slugToFind: string) =>
+  getPostsMeta().find(({ slug }) => slug === slugToFind);
+
 export const getTags = () =>
   getPostsMeta()
     .reduce((acc: string[], post) => {

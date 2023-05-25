@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/server";
 import { OgImage } from "@/app/components/og/OgImage";
+import { getPostBySlug } from "@/app/utils/blog";
 
 // Route segment config
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 // Image metadata
 export const alt = "Post na blogu";
@@ -12,13 +13,14 @@ export const size = {
 };
 export const contentType = "image/png";
 
-// Image generation
 export default function Image({ params }: { params: { slug: string } }) {
+  const meta = getPostBySlug(params.slug);
+
   return new ImageResponse(
     (
       <OgImage>
         <p style={{ fontSize: 20, color: "#fce746" }}>BLOG</p>
-        <p style={{ fontSize: 60 }}>{params.slug}</p>
+        <p style={{ fontSize: 60 }}>{meta?.title}</p>
       </OgImage>
     ),
     // ImageResponse options

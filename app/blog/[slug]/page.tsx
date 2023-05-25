@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { PostMeta, getPostsMeta } from "@/app/utils/blog";
+import { PostMeta, getPostBySlug, getPostsMeta } from "@/app/utils/blog";
 
 import styles from "./blopost.module.scss";
 
@@ -13,7 +13,7 @@ export async function generateMetadata({
 }: {
   params: PostMeta;
 }): Promise<Metadata> {
-  const meta = getPostsMeta().find(({ slug }) => slug === params.slug);
+  const meta = getPostBySlug(params.slug);
   return { title: meta?.title, description: meta?.seo_desc };
 }
 
@@ -26,7 +26,7 @@ const PostPage = ({ params }: { params: PostMeta }) => {
       }) as any) // TODO: fix types
     : () => <p>Nie mogliśmy znaleźć tego posta</p>;
 
-  const meta = getPostsMeta().find(({ slug }) => slug === params.slug);
+  const meta = getPostBySlug(params.slug);
 
   return (
     <div className={styles.root}>

@@ -1,9 +1,7 @@
-"use client";
-
 // import { useState } from "react";
 import NextImage from "next/image";
 
-type YouTubeLazyLoadProps = {
+type YouTubeProps = {
   id: string;
   title?: string;
   thumbnailOverride?: {
@@ -11,11 +9,7 @@ type YouTubeLazyLoadProps = {
   };
 };
 
-export function YouTubeLazyLoad({
-  id,
-  title,
-  thumbnailOverride,
-}: YouTubeLazyLoadProps) {
+export function YouTube({ id, title, thumbnailOverride }: YouTubeProps) {
   // cant use hooks in server rendered MDX - find a better way to lazy load video.
   // const [showVideo, setShowVideo] = useState(false);
 
@@ -23,12 +17,14 @@ export function YouTubeLazyLoad({
     <div style={{ marginBottom: "24px" }}>
       {true ? (
         <iframe
-          width={560}
-          height={315}
+          width={600}
+          height={337.5}
+          frameBorder="0"
           src={`https://www.youtube-nocookie.com/embed/${id}`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title={title || "Youtube video"}
+          style={{ width: "100%", maxWidth: 600, aspectRatio: "16/9" }}
         />
       ) : (
         <button

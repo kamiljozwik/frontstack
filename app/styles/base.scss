@@ -39,6 +39,10 @@ code {
   box-decoration-break: clone;
 }
 
+.table-wrapper {
+  overflow-x: auto;
+}
+
 table {
   border-collapse: collapse;
   margin-bottom: 24px;

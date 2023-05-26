@@ -48,13 +48,13 @@ Jak widać będziemy mieli tutaj zarówno prace na "froncie" jak i na "backendzi
 
 Upewniamy się, czy nasz obecny **develop** zawiera aktualną wersję aplikacji z **mastera** i bierzemy się do pracy.
 
-<img src="/blog/praca-z-git-git-flow/gitflow1.webp" />
+<img src="/blog/praca-z-git-git-flow/flow1.webp" />
 
 ### **2. Praca nad zadaniami**
 
 Mamy trzy zadania i trzech programistów, więc każdy z nich tworzy własną gałąź roboczą i implementuje swoją część zadania. W międzyczasie oczywiście aktualizuje swoje branche o nowe commity, które pojawiły się w gałęzi develop.
 
-<img src="/blog/praca-z-git-git-flow/gitflow2.webp" />
+<img src="/blog/praca-z-git-git-flow/flow2.webp" />
 
 ### **3. Pożar 🔥🔥🔥**
 
@@ -62,13 +62,13 @@ Nasza praca nad nowym releasem idzie zgodnie z planem, ale w międzyczasie okaza
 
 <img src="/blog/praca-z-git-git-flow/fire.gif" width={300} />
 
-<img src="/blog/praca-z-git-git-flow/gitflow3.webp" />
+<img src="/blog/praca-z-git-git-flow/flow3.webp" />
 
 ### **4. Przygotowanie release-u**
 
 Gdy wszyscy już ukończą pracę nad swoimi zadaniami i w branchu **develop** znajduje się już działający formularz kontaktowy, przechodzimy do przygotowania _release-u_. Z **developa** tworzymy nową gałąź np. `release/3.3.0` i od teraz wszystko, co związane jest z funkcjonalnościami wymaganymi w tym _release-ie_ dzieje się już na tym branchu. Wliczamy w to również wszelkie poprawki i bugfixy.
 
-<img src="/blog/praca-z-git-git-flow/gitflow4.webp" />
+<img src="/blog/praca-z-git-git-flow/flow4.webp" />
 
 ### **5. Release branch**
 
@@ -78,7 +78,7 @@ Kod, który znajduje się na branchu release-owym powinien zostać umieszczony i
 
 Jeżeli jedna z poprawek jest dość istotna z punktu widzenia całej aplikacji, nic nie stoi na przeszkodzie, aby w międzyczasie zaktualizować **developa** o commity z release brancha jeszcze zanim kod trafi na produkcję.
 
-<img src="/blog/praca-z-git-git-flow/gitflow5.webp" />
+<img src="/blog/praca-z-git-git-flow/flow5.webp" />
 
 Co w tym czasie robią pozostali członkowie zespołu?
 
@@ -94,7 +94,7 @@ Aplikacja działa poprawnie, wszystkie testy świecą się na zielono i nie mamy
 
 Tą fazą jest aktualizacja gałęzi **develop** oraz **master** o commity, które zostały wydane wraz z ostatnim releasem. W masterze dodatkowo dodajmy tag odpowiadający wersji releasu. Dzięki temu w **masterze** trzymamy tylko ten kod, który był kiedykolwiek deployowany. W przypadku problemów z nową wersją aplikacji zawsze możemy przywrócić jej poprzednią działającą wersję.
 
-<img src="/blog/praca-z-git-git-flow/gitflow6.webp" />
+<img src="/blog/praca-z-git-git-flow/flow6.webp" />
 
 ## Podsumowanie
 
@@ -104,4 +104,4 @@ Git Flow powstał w czasach, gdy taka forma tworzenia i wydawania oprogramowania
 
 W takiej sytuacji stosowanie Git Flow będzie bardzo nieefektywne. Potrzebne jest łatwiejsze i szybsze podejście. Tym podejściem jest **GitHub Flow**, który jak sama nazwa wskazuje, został stworzony przez GitHuba na potrzeby ich codziennych (czasem nawet kilkukrotnych w ciągu jednego dnia) deployów. Tym zagadnieniem jednak zajmiemy się już w oddzielnym wpisie.
 
-<img src="/blog/praca-z-git-git-flow/gitflow7.webp" />
+<img src="/blog/praca-z-git-git-flow/flow7.webp" />

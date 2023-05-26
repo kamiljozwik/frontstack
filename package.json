@@ -11,20 +11,20 @@
   "dependencies": {
     "@mdx-js/loader": "2.3.0",
     "@mdx-js/react": "2.3.0",
-    "@next/mdx": "13.4.3",
-    "next": "13.4.3",
+    "@next/mdx": "13.4.4",
+    "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rehype-pretty-code": "0.9.5",
+    "rehype-pretty-code": "0.9.6",
     "sass": "1.62.1",
     "shiki": "0.14.2"
   },
   "devDependencies": {
-    "@types/node": "20.2.3",
-    "@types/react": "18.2.6",
+    "@types/node": "20.2.4",
+    "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "eslint": "8.41.0",
-    "eslint-config-next": "13.4.3",
+    "eslint-config-next": "13.4.4",
     "typescript": "5.0.4"
   }
 }

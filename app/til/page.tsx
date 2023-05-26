@@ -3,10 +3,10 @@ import { PageHeader } from "../components/headers/Headers";
 
 const Frontendowka = () => {
   return (
-    <section>
+    <main>
       <PageHeader>Dziś się nauczyłem</PageHeader>
       <p>Coming soon ⌛</p>
-    </section>
+    </main>
   );
 };
 

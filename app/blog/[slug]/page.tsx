@@ -31,11 +31,23 @@ const PostPage = ({ params }: { params: PostMeta }) => {
   return (
     <div className={styles.root}>
       <main className={styles.main}>
-        <div>
-          <small>Aktualizacja: </small>
-          <time dateTime={meta?.date}>{meta?.date}</time>
-        </div>
-        <h1>{meta?.title}</h1>
+        <header>
+          <h1>{meta?.title}</h1>
+          <div className={styles.meta}>
+            <div className={styles.time} title="Ostatnia aktualizacja">
+              <span>📅</span>
+              <time dateTime={meta?.date}>{meta?.date}</time>
+            </div>
+            <div className={styles.tags} title="Tagi">
+              <span>🏷️</span>
+              {meta?.tags.map((tag) => (
+                <a key={tag} href={`/blog/tags/${tag.toLowerCase()}`}>
+                  {tag}
+                </a>
+              ))}
+            </div>
+          </div>
+        </header>
         <PostContent />
       </main>
       <section className={styles.side}>{/* <h2>Podobne posty</h2> */}</section>

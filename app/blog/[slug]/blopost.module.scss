@@ -7,12 +7,15 @@
   width: clamp(600px, 75%, 800px);
   max-width: 800px;
 
-  h1 {
+  header {
     margin: 40px 0;
-    padding: 10px 20px;
-    display: inline-block;
-    border: 2px solid white;
-    border-radius: 6px;
+
+    h1 {
+      border: 2px solid white;
+      border-radius: 6px;
+      padding: 10px 20px;
+      display: inline-block;
+    }
   }
 
   h2 {
@@ -25,6 +28,28 @@
 
   img {
     margin-bottom: 24px;
+  }
+}
+
+.meta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.time {
+  display: flex;
+  gap: 8px;
+  time {
+    font-size: 20px;
+  }
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  a {
+    margin-right: 4px;
   }
 }
 

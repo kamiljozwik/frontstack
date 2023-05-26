@@ -1,0 +1,101 @@
+import { YouTubeLazyLoad } from "../../components/video/YouTubeLazyLoad";
+
+export const meta = {
+  title: "Vercel Frontend Cloud",
+  seo_desc:
+    "Tematem tego postu jest Vercel Frontend Cloud, kompleksowa platforma do tworzenia, testowania i wdrażania wysokiej jakości aplikacji internetowych.",
+  short:
+    "W artykule tym po raz pierwszy spojrzymy na tzw. Vercel Frontend Cloud, czyli kompleksową platformę do tworzenia, testowania i wdrażania wysokiej jakości aplikacji internetowych. Ewolucja, rewolucja czy po prostu marketing?",
+  date: "2023-05-26",
+  tags: ["FrontOps", "Vercel"],
+};
+
+Początek maja 2023 r. był bardzo ekscytującym czasem dla programistów frontendowych. W ciągu zaledwie kilku dni [Vercel ogłosił](https://vercel.com/ship) kilka nowych produktów i funkcji, które mają na celu zmienić sposób, w jaki tworzymy aplikacje internetowe. Narzędzia te zostały włożone niejako do jednego worka o nazwie **Vercel Frontend Cloud**, który to jest tematem tego posta.
+
+W tym wpisie rzucimy okiem na zapowiedzi Vercel Frontend Cloud, a także na to, jakie korzyści może przynieść programistom frontendowym i organizacjom, które zdecydują się na jego wykorzystanie. Dzisiaj będę posiłkował się głównie dokumentacją oraz zapowiedziami (temat jest cały czas dość świeży), ale w kolejnych postach będę starał się przedstawić Wam, jak to wszystko wygląda w praktyce.
+
+## Czym jest Vercel Frontend Cloud?
+
+Vercel pozycjonuje się jako chmura frontendowa, kompleksowa platforma, na której programiści mogą uzyskać dostęp do wszystkiego, czego potrzebują do swoich aplikacji bez opuszczania pulpitu nawigacyjnego Vercel. Obejmuje to wdrożenia, solidny framework, łatwe ścieżki integracji, bazy danych i wiele innych. Przyjrzyjmy się niektórym z tych funkcji.
+
+Frontend Cloud w dużym skrócie możemy opisać jako kompleksowe, wyspecjalizowane środowisko, ekosystem narzędzi działających w chmurze (ciekawe czy mamy na rynku jeszcze jakieś produkty bez dopisku `Cloud` lub `AI` 😉), zaprojektowany, aby pomóc zespołom developerskim skupić się na tym, co naprawdę ważne w aplikacjach webowych — doświadczeniu użytkownika (czyt. "na naszym kochanym frontendzie"). Vercel Frontend Cloud oferuje zintegrowany zestaw narzędzi i usług dostosowanych specjalnie do rozwoju frontendu, uwalniając czas i zasoby, które w przeciwnym razie byłyby poświęcane na zabawę ze złożonościami narzędzi backendowych.
+
+## Założenia Vercel Frontend Cloud
+
+Frontend Cloud skupia się na natywnych technologiach chmurowych oraz kilku dodatkowych narzędziach i usługach przydatnych podczas rozwjania naszych projektów. Oto niektóre z jej kluczowych komponentów (są to punkty znalezione w dokumentacji Vercel, które wydają się najistotniejsze, ale jeszcze nie miałem okazji w pełni ich przetestować — to będą ciekawe tematy na kolejne posty 🙂):
+
+**Globalna infrastruktura i buforowanie**: Wykorzystując globalnie rozproszoną infrastrukturę, Frontend Cloud zapewnia niskie opóźnienia i wysoką dostępność. Wykorzystuje zaawansowane mechanizmy buforowania, aby serwować treści z najbliższej lokalizacji, optymalizując wydajność naszej witryny.
+
+**Narzędzia dla deweloperów i przepływ pracy**: Frontend Cloud zapewnia zintegrowane narzędzia programistyczne, które obsługują popularne frameworki i biblioteki frontendowe. Sprzyja to współpracy, skraca czas wprowadzania produktów na rynek i usprawnia cały proces tworzenia aplikacji.
+
+**Obserwowalność i monitorowanie**: Możliwość monitorowania wydajności aplikacji, śledzenia zachowań użytkowników i szybkiego identyfikowania problemów ma kluczowe znaczenie w nowoczesnym rozwoju. Funkcje obserwowalności Frontend Cloud obejmują wszystkie te obszary, umożliwiając programistom precyzyjne dostosowanie aplikacji do potrzeb użytkowników.
+
+Wszystkie te elementy możemy oczywiście spokojnie zapewnić sobie, nie używając Frontend Cloud, ale to, co tutaj jest kluczowe to fakt, że wszystkie te elementy są zintegrowane w jednym miejscu, co znacznie ułatwia nam pracę i pozwala skupić się na tym co najważniejsze — tworzeniu aplikacji.
+
+## Główne elementy Vercel Frontend Cloud
+
+Podczas konferencji [Vercel Ship](https://vercel.com/ship) w maju 2023 r. Vercel przybliżył nam nieco kilka kluczowych elementów Frontend Cloud. Poniżej znajduje się krótkie podsumowanie tych elementów, a ich dokładniejszym opisem zajmiemy się w kolejnych postach.
+
+### Vercel Spaces
+
+Vercel Spaces to znacząca ewolucja przepływu pracy Vercel. Pozwala wszystkim pracować i współpracować w jednym miejscu, z potężnymi narzędziami i konwencjami zaprojektowanymi do integracji z ulubionymi narzędziami monorepo. Pomaga skalować jakość oprogramowania poprzez Conformance i Code Owners, zapewniając, że właściwe osoby przeglądają i zatwierdzają zmiany w kodzie.
+
+### Edycja wizualna z komentarzami podglądu
+
+Vercel wprowadził nowy otwarty standard mapowania źródła treści dla dowolnego bezgłowego systemu CMS. Pozwala to na wizualną edycję treści bezpośrednio w witrynie, upraszczając proces edycji i umożliwiając wszystkim szybkie wprowadzanie zmian. Ta funkcja jest przełomowa dla witryn marketingowych, które wymagają częstych aktualizacji treści. Dzięki edycji wizualnej użytkownicy nie muszą już logować się do oddzielnego systemu CMS, wprowadzać zmian, zapisywać i czekać na utworzenie aplikacji, aby zobaczyć wynik. Zamiast tego mogą szybko i łatwo wprowadzać zmiany bezpośrednio na stronie.
+
+### Next.js App Router
+
+Next.js App Router to prosty model programowania inspirowany najlepszymi częściami PHP i Ruby on Rails, połączony z potężnym interaktywnym silnikiem UI, React. Sprawia, że pobieranie danych jest niezwykle łatwe, a dzięki najnowszej wersji stało się jeszcze bardziej wydajne, a jednocześnie łatwe w użyciu.
+
+### Vercel Storage: KV, Postgres i Blob
+
+Vercel wprowadził nowe rozwiązania do przechowywania danych: KV, Postgres i Blob. Rozwiązania te łączą frontend i bazę danych w jednym miejscu, zapewniając kompletną platformę internetową. Podczas gdy niektórzy programiści wyrazili obawy dotyczące modelu cenowego, ważne jest, aby wziąć pod uwagę ogólną wygodę i wydajność posiadania baz danych bezpośrednio w Vercel. Ta integracja upraszcza zarządzanie danymi i usprawnia proces rozwoju.
+
+### Vercel Secure Compute / Firewall
+
+Vercel Secure Compute umożliwia tworzenie prywatnych połączeń między funkcjami bezserwerowymi Vercel a tradycyjnymi backendami, takimi jak bazy danych wewnątrz VPC i chronionych środowisk chmurowych. Vercel Firewall zwiększa bezpieczeństwo, zapewniając kluczową infrastrukturę, taką jak blokowanie IP i ograniczanie DDoS. Vercel Secure Compute pozwala na prywatne połączenia między funkcjami bezserwerowymi Vercel a tradycyjnymi backendami, takimi jak bazy danych wewnątrz VPC i chronione środowiska chmurowe. Funkcje te dodatkowo zwiększają bezpieczeństwo aplikacji i usprawniają proces rozwoju.
+
+Zapowiedzi wszystkich tych narzędzi możecie znaleźć w jednym video będącym niejako podsumowaniem konferencji Vercel Ship 2023 👇
+
+<YouTubeLazyLoad id="M4vrwI5PDI0" />
+
+## Benefity dla organizacji
+
+Frontend Cloud oferuje wiele korzyści, które mogą w znaczący sposób zmienić sposób, w jaki organizacje podchodzą do tworzenia stron internetowych. Oto kilka z nich:
+
+- **Zwiększona produktywność programistów:** Frontend Cloud zapewnia usprawnione środowisko, zmniejszając koszty ogólne i przyspieszając proces rozwoju. Ma to bezpośredni związek ze zdolnością organizacji do utrzymania konkurencyjności i spełniania oczekiwań klientów.
+
+- **Lepsze doświadczenie użytkownika i satysfakcja klienta:** Zapewnia narzędzia i infrastrukturę niezbędną do tworzenia responsywnych, spersonalizowanych doświadczeń użytkowników. Szybko ładujące się, globalnie dostępne i odporne aplikacje internetowe poprawiają zaangażowanie i lojalność, zwiększając zadowolenie klientów.
+
+- **Niższe koszty infrastruktury i utrzymania:** Dzięki modelom cenowym pay-as-you-go i zautomatyzowanym, usprawnionym przepływom pracy, Frontend Cloud może znacznie obniżyć koszty infrastruktury i utrzymania organizacji.
+
+- **Bezpieczeństwo i obserwowalność:** Przestrzeganie rygorystycznych standardów bezpieczeństwa i zgodności ma kluczowe znaczenie. Frontend Cloud zapewnia to dzięki wbudowanym funkcjom bezpieczeństwa i kompleksowym funkcjom obserwowalności, umożliwiając programistom utrzymywanie niezmiennie wysokiej jakości aplikacji, które spełniają lub przekraczają oczekiwania użytkowników.
+
+## Benefity dla programistów
+
+Vercel Frontend Cloud oferuje oczywiście również (albo przede wszystkim 🙂) wiele korzyści dla programistów frontendowych (ponownie, punkty te powstały na podstawie dokumentacji i zapowiedzi — z czasem zobaczymy, jak się to sprawdza w rzeczywistości):
+
+- **Wydajność:** Umożliwia programistom szybkie i wydajne tworzenie, testowanie i wdrażanie wysokiej jakości aplikacji internetowych.
+
+- **Współpraca:** Vercel Spaces pozwala wszystkim pracować i współpracować w jednym miejscu, poprawiając współpracę zespołu.
+
+- **Kontrola jakości:** Dzięki funkcjom Conformance i Code Owners, Vercel Spaces zapewnia, że właściwe osoby przeglądają i zatwierdzają zmiany w kodzie, poprawiając jakość oprogramowania.
+
+- **Uproszczona edycja:** Nowy otwarty standard mapowania źródła treści pozwala na wizualną edycję treści bezpośrednio na stronie, dzięki czemu edycja jest szybka i łatwa.
+
+- **Łatwe pobieranie danych:** Next.js App Router upraszcza pobieranie danych, ułatwiając tworzenie dużych, dynamicznych aplikacji.
+
+- **Zintegrowane rozwiązania danych:** Dzięki KV, Postgres i Blob, Vercel łączy frontend i bazę danych w jednym miejscu, upraszczając zarządzanie danymi (szczególnie developerom bez dużego doświadczenia z bazami danych, bądź przy projektach typu MVP).
+
+- **Bezpieczeństwo:** Vercel Secure Compute zapewnia bezpieczne, prywatne połączenia między funkcjami serverless a tradycyjnym backendem, zwiększając bezpieczeństwo aplikacji.
+
+## Podsumowanie
+
+Rozwój Frontend Cloud firmy Vercel jest zgodny z przyspieszającym przejściem w kierunku modeli cyfrowych. Jak powiedział jeden z dyrektorów generalnych dużej firmy technologicznej, "jesteśmy świadkami tego, co z pewnością zostanie zapamiętane jako historyczne wdrożenie cyfrowego dostępu do usług w każdej dziedzinie". Wraz z tą transformacją Frontend Cloud stał się potężnym narzędziem w arsenale rozwoju frontendów, przynosząc transformacyjne zmiany w sposobie, w jaki organizacje podchodzą do tworzenia stron internetowych.
+
+Frontend Cloud zapewnia (przynajmniej na papierze) solidne i zwinne środowisko dla programistów frontendowych, którzy mogą teraz dużo łatwiej stawić czoła codziennym wyzwaniom. Przyjmując Frontend Cloud, organizacje mogą pozostać konkurencyjne, sprostać rosnącym oczekiwaniom użytkowników i odnieść sukces biznesowy w tym szybko zmieniającym się cyfrowym krajobrazie.
+
+Vercel w ciągu ostatnich lat stawia się w roli dostarczyciela kompleksowych rozwiązań do tworzenia aplikacji frontendowych. W ciągu ostatniego roku uruchomił również kilka innych narzędzi, które tradycyjnie wymagały usług zewnętrznych, w tym analitykę, zadania cron i monitoring. Dodając do tego Frontend Cloud i integrując wszystkie te usługi, Vercel tworzy kompleksowe rozwiązanie dla programistów, eliminując potrzebę korzystania z wielu usług zewnętrznych i upraszczając proces rozwoju aplikacji.
+
+Niezależnie od tego, czy postrzegamy chmurę frontendową jako trik marketingowy, czy strategiczne pozycjonowanie, jasne jest, że Vercel zmienia krajobraz rozwoju frontendu. Wszystko oczywiście rozbije się o cenę wszystkich tych usług (a na razie nie jest ona niska), ale zdecydowanie jest to ekscytujący czas dla programistów frontendowych i nie mogę się doczekać, aby zobaczyć, jak ta nowa platforma ewoluuje i kształtuje przyszłość tworzenia stron i aplikacji internetowych.

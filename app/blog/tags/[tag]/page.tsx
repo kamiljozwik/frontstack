@@ -13,7 +13,11 @@ type Props = {
 };
 
 const Tags = ({ params }: Props) => {
-  return <PostsList title={params.tag.toUpperCase()} tag={params.tag} />;
+  return (
+    <main>
+      <PostsList title={params.tag.toUpperCase()} tag={params.tag} />
+    </main>
+  );
 };
 
 export default Tags;

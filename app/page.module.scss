@@ -21,3 +21,18 @@
 .side {
   width: 30vw;
 }
+
+@media screen and (max-width: 768px) {
+  .main {
+    flex-direction: column-reverse;
+    gap: 30px;
+  }
+
+  .postsList {
+    width: 100%;
+  }
+
+  .side {
+    width: 100%;
+  }
+}

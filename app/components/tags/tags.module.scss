@@ -10,7 +10,7 @@
     list-style: none;
     padding: 6px 12px;
     margin: 2px;
-    background: #2b4555;
+    background: var(--color-secondary);
     border-radius: 12px;
     &:hover {
       background: #162d3b;

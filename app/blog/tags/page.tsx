@@ -2,10 +2,10 @@ import { Tags as TagsList } from "@/app/components/tags/Tags";
 
 const Tags = () => {
   return (
-    <div>
+    <main>
       <h2>Wybierz kategorię:</h2>
       <TagsList />
-    </div>
+    </main>
   );
 };
 

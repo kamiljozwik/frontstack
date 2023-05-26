@@ -21,3 +21,17 @@
     text-decoration: none;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .root {
+    margin-top: 24px;
+    justify-content: center;
+  }
+  .links {
+    flex-direction: column;
+    gap: 20px;
+    ul {
+      padding: 0;
+    }
+  }
+}

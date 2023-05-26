@@ -8,7 +8,7 @@
   --color-body-background: #0b1015;
 
   --color-primary: #ef5350;
-  --color-secondary: #002d4e;
+  --color-secondary: #2b4555;
 
   --color-links: #3aa3fd;
   --color-headers: #fce746;
@@ -22,6 +22,7 @@
 
 html {
   font-size: 20px;
+  height: 100%;
 }
 
 body {
@@ -30,4 +31,10 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 40px;
+  height: 100%;
+}
+
+body > footer {
+  position: sticky;
+  top: 100vh;
 }

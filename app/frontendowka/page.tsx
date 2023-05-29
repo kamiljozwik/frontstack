@@ -4,8 +4,9 @@ import { PageHeader } from "../components/headers/Headers";
 const Frontendowka = () => {
   return (
     <main>
-      <PageHeader>Newsy ze świata frontendu</PageHeader>
-      <p>Coming soon ⌛</p>
+      <PageHeader desc="Najświeższe informacje ze świata frontendu 📰">
+        Frontendówka
+      </PageHeader>
     </main>
   );
 };

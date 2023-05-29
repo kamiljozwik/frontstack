@@ -1,0 +1,16 @@
+.root {
+  section {
+    counter-increment: section -1;
+    margin-bottom: 80px;
+    small {
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+  }
+
+  section h2:before {
+    content: "#" counter(section);
+    color: var(--color-headers);
+    margin-right: 8px;
+  }
+}

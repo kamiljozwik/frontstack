@@ -1,13 +1,23 @@
-import React from "react";
+import Content from "./content.mdx";
 import { PageHeader } from "../components/headers/Headers";
+import style from "./til.module.scss";
 
-const Frontendowka = () => {
+const Til = () => {
+  const sections = Content({}).props.children.filter(
+    (c: any) => c.type === "section"
+  );
+
   return (
-    <main>
-      <PageHeader>Dziś się nauczyłem</PageHeader>
-      <p>Coming soon ⌛</p>
+    <main
+      className={style.root}
+      style={{ counterReset: `section ${sections.length + 1}` }}
+    >
+      <PageHeader desc="Małe, przydatne informacje / sztuczki / rozwiązania na które dzisiaj się natknąłem.">
+        Dziś się nauczyłem
+      </PageHeader>
+      <Content />
     </main>
   );
 };
 
-export default Frontendowka;
+export default Til;

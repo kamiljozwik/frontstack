@@ -19,7 +19,7 @@ export const Header = () => {
               <Link href="/til">TIL</Link>
             </li>
             <li>
-              <Link href="/frontendowka">Frontendówka</Link>
+              <Link href="/frontendowka">News</Link>
             </li>
           </ul>
         </nav>

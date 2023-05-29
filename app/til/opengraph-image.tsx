@@ -5,7 +5,7 @@ import { OgImage } from "../components/og/OgImage";
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Frontendówka";
+export const alt = "Dziś się nauczyłem";
 export const size = {
   width: 1200,
   height: 630,

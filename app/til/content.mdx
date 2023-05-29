@@ -1,0 +1,29 @@
+<section>
+## Brak mocków w testach z `React Router (v6)` i `React Testing Library`
+
+<small>📅 29.05.2023</small>
+
+Customowy `render()`, za pomocą którego możemy łatwo testować komponenty wykorzystujące nawigację w naszej aplikacji:
+
+```js
+import React, { isValidElement } from "react";
+import { render } from "@testing-library/react";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+
+export function renderWithRouter(children, routes = []) {
+  const options = isValidElement(children)
+    ? { element: children, path: "/" }
+    : children;
+
+  const router = createMemoryRouter([{ ...options }, ...routes], {
+    initialEntries: [options.path],
+    initialIndex: 1,
+  });
+
+  return render(<RouterProvider router={router} />);
+}
+```
+
+Dokładniejsze omówienie powyższego kodu oraz przykładowe użycie do znalezienia w [tym artykule](https://webup.org/blog/how-to-avoid-mocking-in-react-router-v6-tests/).
+
+</section>

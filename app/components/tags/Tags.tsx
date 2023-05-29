@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getTags } from "@/app/utils/blog";
 import styles from "./tags.module.scss";
 
@@ -7,7 +8,7 @@ export const Tags = () => {
     <ul className={styles.root}>
       {tags.map((category) => (
         <li key={category}>
-          <a href={`/blog/tags/${category.toLowerCase()}`}>{category}</a>
+          <Link href={`/blog/tags/${category.toLowerCase()}`}>{category}</Link>
         </li>
       ))}
     </ul>

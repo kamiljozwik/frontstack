@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { PostMeta, getPostBySlug, getPostsMeta } from "@/app/utils/blog";
 
 import styles from "./blopost.module.scss";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   return getPostsMeta();
@@ -41,9 +42,9 @@ const PostPage = ({ params }: { params: PostMeta }) => {
             <div className={styles.tags} title="Tagi">
               <span>🏷️</span>
               {meta?.tags.map((tag) => (
-                <a key={tag} href={`/blog/tags/${tag.toLowerCase()}`}>
+                <Link key={tag} href={`/blog/tags/${tag.toLowerCase()}`}>
                   {tag}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

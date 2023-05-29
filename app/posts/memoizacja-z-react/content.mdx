@@ -1,0 +1,60 @@
+export const meta = {
+  title: "Memoizacja z React",
+  seo_desc:
+    "Memoizacja w React to użyteczna technika optymalizacji. Zobacz jak ją zaimplementować w swoich projektach.",
+  short:
+    "Memoizacja to bardzo użyteczna technika optymalizacyjna. W tym krótkim wpisie przyjrzymy się w jaki sposób możemy z niej skorzystać w kontekście aplikacjach budowanych za pomocą Reacta.",
+  date: "2023-05-29",
+  tags: ["React"],
+};
+
+Dzisiejszy wpis będzie dość krótki, ale mam nadzieję, że przyda się wszystkim, którzy pracują z Reactem i jeszcze nie do końca rozumieją, kiedy należy funkcji `memo()` a kiedy hooka `useMemo` i w jaki sposób możemy poprawnie zaimplementować memoizację w naszych aplikacjach.
+
+## Memoizacja
+
+Memoizacja to użyteczna technika optymalizacji, która może pomóc zwiększyć wydajność naszych aplikacji. W istocie memoizacja polega na przechowywaniu wyników kosztownych wywołań funkcji i ponownym ich wykorzystaniu w sytuacji, gdy dane wejściowe się nie zmieniły. Dzięki temu możemy uniknąć niepotrzebnych obliczeń i nieco przyspieszyć działanie aplikacji.
+
+Choć istnieje wiele sposobów na implementację memoizacji w JavaScript, jednym z najprostszych i najbardziej efektywnych metod jest użycie funkcji `memo()` dostarczonej przez React dla komponentów funkcyjnych oraz hooka `useMemo()` dla wartości wewnątrz komponentu.
+
+## memo()
+
+Spójrzmy na komponent funkcyjny, który otrzymuje skomplikowane dane i wykonuje kosztowne obliczenia:
+
+```jsx
+function ExpensiveComponent({ data }) {
+  const result = expensiveComputation(data);
+  // ...
+}
+```
+
+Za każdym razem, gdy `ExpensiveComponent` jest renderowany, wywoływana jest funkcja `expensiveComputation()`, nawet jeśli dane wejściowe się nie zmieniły i wiemy, że otrzymamy dokładnie ten sam wynik. Oczywiście może to prowadzić do problemów z wydajnością aplikacji, szczególnie gdy takie obliczenia są wykonywane w wielu miejscach.
+
+Na szczęście funkcja `memo()` w React pozwala nam tego uniknąć:
+
+```jsx
+import React from "react";
+
+const ExpensiveComponent = React.memo(function ExpensiveComponent({ data }) {
+  const result = expensiveComputation(data);
+  // ...
+});
+```
+
+## useMemo()
+
+`ExpensiveComponent` z poprzedniego przykładu zostanie teraz ponownie wyrenderowany tylko wtedy, gdy zmieni się properta `data`. A co jeśli kosztowne obliczenia są **wewnątrz** komponentu? Tutaj z pomocą przychodzi nam `useMemo()`:
+
+```jsx
+import { useMemo } from "react";
+
+function ExpensiveComponent({ data }) {
+  const result = useMemo(() => expensiveComputation(data), [data]);
+  // ...
+}
+```
+
+Dzięki `useMemo()`, funkcja `expensiveComputation()` jest wywoływana ponownie tylko wtedy, gdy zmieni się properta `data`, co pozwala nam zaoszczędzić cenny czas oraz zasoby potrzebne do przetwarzania tego zadania.
+
+## Podsumowanie
+
+Należy pamiętać, że choć memoizacja może być potężnym narzędziem, nie zawsze jest najlepszym rozwiązaniem. Dodanie memoizacji wiąże się z własnym narzutem i jest najkorzystniejsze, gdy te same kosztowne obliczenia mają prawdopodobieństwo wielokrotnego wystąpienia z tymi samymi danymi wejściowymi. Ważne jest, aby starannie rozważyć kompromisy i stosować memoizację tylko wtedy, gdy ma to sens. Memoizoacja nie jest rozwiązaniem na wszystkie problemy z wydajnością. Jeśli nie jesteś pewien, czy powinieneś zastosować memoizację, zacznij od pomiaru wydajności i zobacz, czy rzeczywiście przynosi ona korzyści. W przeciwnym razie możesz zrobić więcej szkody niż pożytku i zamiast przyspieszyć aplikację, doprowadzisz do kolejnych problemów z wydajnością.

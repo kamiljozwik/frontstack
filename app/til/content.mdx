@@ -27,3 +27,31 @@ export function renderWithRouter(children, routes = []) {
 Dokładniejsze omówienie powyższego kodu oraz przykładowe użycie do znalezienia w [tym artykule](https://webup.org/blog/how-to-avoid-mocking-in-react-router-v6-tests/).
 
 </section>
+
+<section>
+## TS `type guards` dla tablic danych
+
+<small>📅 28.05.2023</small>
+
+Coś czego może nie nauczyłem się dzisiaj, ale ostatnio potrzebowałem z tego skorzystać i musiałem wrócić do dokumentacji, żeby sobie nieco ten temat przypomnieć.
+
+Jeśli mamy tablicę danych, która może zawierać różne typy (czyli np. nie jesteśmy pewni odpowiedzi z API), to możemy użyć [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) i metodę `.every()` zamiast `if-ów`, żeby zawęzić sobie typowanie.
+
+```ts
+// type guard z użyciem słowa kluczowego "is"
+function isArrayOfNumbers(arr: unknown[]): arr is number[] {
+  return arr.every((element) => typeof element === "number");
+}
+
+const arr = [1, 2, 3, 4, 5];
+
+if (isArrayOfNumbers(arr)) {
+  console.log(arr[0].toFixed); // ✅ OK, wiemy, że "arr" jest tablicą liczb
+} else {
+  console.log(arr[0].toFixed); // ⛔ ERROR, nie możemy użyć metody ".toFixed()" na typie "unknown"
+}
+```
+
+Powyżej mamy prosty przykład z tablicą liczb, ale możemy też użyć tego rozwiązania do bardziej skomplikowanych typów danych.
+
+</section>

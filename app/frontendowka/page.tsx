@@ -7,6 +7,7 @@ const Frontendowka = () => {
       <PageHeader desc="Najświeższe informacje ze świata frontendu 📰">
         Frontendówka
       </PageHeader>
+      <p>Więcej informacji już wkrótce ⌛</p>
     </main>
   );
 };

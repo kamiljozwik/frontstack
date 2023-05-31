@@ -1,0 +1,35 @@
+export const meta = {
+  title: "Nullish Coalescing vs OR w JavaScript",
+  seo_desc:
+    "Operator Nullish Coalescing i logiczne OR w JavaScript. Dowiedz się, czym są i jakie są między nimi różnice. Zobacz przykłady użycia i poznaj zastosowania.",
+  short:
+    "Operator Nullish Coalescing i logiczne OR bardzo często w JavaScript są używane w kodzie jako dwie indentyczne operacje, co często prowadzi do błędów. W tym krótkim wpisie dowiesz się czym są i jakie są między różnice między tymi dwoma popularnymi operatorami.",
+  date: "2023-05-30",
+  tags: ["JavaScript"],
+};
+
+W ostatnim czasie dość często w Pull Requestach spotykam się z podejściem, w którym autor kodu zamiennie stosuje operatory `&&` oraz `||` traktując je niejako jak synonimy. Nie chcąc tłumaczyć za każdym razem, że nie jest to do końca prawda, postanowiłem napisać krótki wpis, który wyjaśni różnice między tymi operatorami i którego będę mógł linkować w kolejnych PR-ach 😉.
+
+Na początek przyjrzymy się operatorowi _Nullish Coalescing_ (`??`). Jest to stosunkowo nowy dodatek do języka JavaScript, który pojawił się w `ES2020`. Jest to logiczny operator, który zwraca wartość wyrażenia po prawej stronie, gdy wartość po lewej stronie jest `null` lub `undefined` a w przeciwnym przypadku zwraca wartość wyrażenie po stronie lewej.
+
+Faktycznie można pomyśleć, że brzmi to podobnie do operatora `||` (logiczne `OR`) i prawda, są podobne, ale istnieje krytyczna różnica: `||` zwraca operand (wartość wyrażenia) po prawej stronie, jeśli operand po lewej stronie jest tzw. wartością `falsy` (nie chcę używać tutaj tłumaczenia _wartość fałszywa_, więc do końca tego wpisu zostanę z angielską nazwą używaną we wszelkiego rodzaju dokumentacjach, czyli `falsy`), podczas gdy `??` robi to tylko wtedy, gdy operand po lewej stronie jest `null` lub `undefined`.
+
+Innymi słowy, `??` uważa tylko `null` i `undefined` za wartości `falsy` i traktuje wszystkie inne wartości (w tym `0`, `NaN` i pusty ciąg (`""`) ❗) jako `truthy`.
+
+Oto przykład kodu:
+
+```js
+const mojaWartosc = 0; // lub NaN, lub ""
+
+console.log(mojaWartosc || "Domyślna"); // Wynik: 'Domyślna'
+console.log(mojaWartosc ?? "Domyślna"); // Wynik: 0
+
+const mojaWartosc2 = null; // lub undefined
+
+console.log(mojaWartosc2 || "Domyślna"); // Wynik: 'Domyślna'
+console.log(mojaWartosc2 ?? "Domyślna"); // Wynik: 'Domyślna'
+```
+
+W pierwszym `console.log` operator `||` widzi `mojaWartosc` (która wynosi `0`) jako `falsy`, więc zwraca ciąg `'Domyślna'`. W drugim `console.log` operator `??` widzi `mojaWartosc` jako `truthy` (ponieważ nie jest `null` ani `undefined`), więc zwraca `mojaWartosc` samą w sobie.
+
+Operator _Nullish Coalescing_ `??` to przydatne narzędzie do dodania do twojego zestawu narzędzi JavaScript, szczególnie podczas pracy ze zmiennymi, które mogą być `null` lub `undefined`, ale gdzie inne wartości `falsy` powinny być uważane za istotne. Są one również dość przydatne do ustawiania wartości domyślnych dla argumentów funkcji. Niezrozumienie różnicy między `||` a `??` może jednak prowadzić do błędów, więc miej to na uwadze i wracaj do tego posta za kazdym razem, gdy pojawią się jakieś wątpliwości, którego operatora należy użyć w Twoim kodzie 😉.

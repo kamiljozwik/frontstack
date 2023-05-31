@@ -1,4 +1,25 @@
 <section>
+## Readonly w TS
+
+<small>📅 30.05.2023</small>
+
+W języku TypeScript można użyć modyfikatora `readonly`, aby wskazać, że właściwość klasy lub interfejsu jest tylko do odczytu, co oznacza, że po przypisaniu do niej wartości nie można jej zmienić. Oto krótki przykład:
+
+```ts
+interface Point {
+  readonly x: number;
+  readonly y: number;
+}
+
+let p: Point = { x: 10, y: 20 };
+p.x = 5; // Error: Cannot assign to 'x' because it is a read-only property
+```
+
+W powyższym kodzie `x` i `y` w `Point` są właściwościami tylko do odczytu 💪.
+
+</section>
+
+<section>
 ## Brak mocków w testach z `React Router (v6)` i `React Testing Library`
 
 <small>📅 29.05.2023</small>

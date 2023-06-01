@@ -1,0 +1,158 @@
+import { Info } from "../../components/posts";
+
+import { Table } from "./Table";
+
+export const meta = {
+  title: "Migracja CRA + React Router v6 do Next.js 13 (app)",
+  seo_desc:
+    "Migracja CRA do Next.js 13 (app) jest zabiegiem, który w niedalekiej przyszłości może okazać się bardzo popularny. W tym poście opisuję jak zacząć.",
+  short:
+    "Migracja CRA do Next.js 13 (app) jest zabiegiem, który w niedalekiej przyszłości może czekać wiele obecnych aplikacji. W tym poście zobaczymy w jaki sposób możemy dokonać stopniowej migracji aplikacji CRA z React Ruterem do frameworka Next.js.",
+  date: "2023-06-01",
+  tags: ["React", "Next.js"],
+};
+
+Jeżeli czytasz ten wpis, to zapewne dokładnie wiesz, czego szukasz, więc pozwolę sobie pominąć wyjaśnianie czym są CRA, React Router i Next.js. Obecnie stoję przed zadaniem migracji średniej wielkości aplikacji opartej na React Routerze v6 do Next.js 13 (TypeScript). Aplikacja jest cały czas w międzyczasie rozwijana, więc nie chcę tracić czasu (i zdrowia 😉) na przepisywanie wszystkiego na raz. Zamiast tego chciałbym przeprowadzić migrację krok po kroku, tak aby nie zatrzymała ona na długi czas pozostałego developmentu.
+
+W tym celu postanowiłem sprawdzić, czy w pierwszym kroku dam radę uruchomić aplikację wraz z React Routerem w Next.js bez żadnych zmian w kodzie. Next.js jest frameworkiem, który można adaptować inkrementalnie, więc powinno się dać to zrobić w miarę bezboleśnie. Mając już aplikację w Next.js, będę mógł zająć się kolejnym krokiem, jakim jest konteneryzacja oraz hosting. Mając już uruchomioną i poprawnie hostowaną aplikację, będę mógł spokojnie migrować kolejne części aplikacji bez blokowania pozostałego developmentu.
+
+Czy wszystko pójdzie zgodnie z planem? Czas (oraz kolejne wpisy na tym blogu) pokaże 😉
+
+<Info title="Kod źródłowy">
+  Cały kod opisywany w tym poście znajdziesz [pod tym
+  linkiem](https://github.com/kamiljozwik/cra-to-nextjs).
+
+Dalej w treści artykułu, zamiast wklejać fragmenty kodu, do wszystkich kroków migracji będę linkował odpowiednie commity, żeby post ten był krótszy i czytelniejszy.
+
+</Info>
+
+## CRA + React Router v6
+
+Zanim rzucę się na głęboką wodę, spróbowałem stworzyć nową bazową aplikację CRA + React Router. Tutaj wielkiej filozofii nie było. Skorzystałem z `npx create-react-app cra-to-nextjs --template typescript` i dorzuciłem tam React Router v6 bazując [na tym oficjalnym przykładzie](https://github.com/remix-run/react-router/tree/dev/examples/basic/src). Wszystko działało bez problemu. Wszystkie testy przechodziły, więc mogłem przejść do następnego kroku.
+
+<Info title="Commit nr 1️⃣">
+  Dodanie React Routera do CRA: [init CRA with
+  react-router](https://github.com/kamiljozwik/cra-to-nextjs/commit/92b59d64205c20445e40e6a69c5c868b6cc66b88)
+</Info>
+
+## Instalacja Next.js
+
+Kolejnym krokiem było zainstalowanie Next.js. Tutaj najlepiej było skorzystać z [dokumentacji na temat ręcznej instalacji](https://nextjs.org/docs/getting-started/installation#manual-installation) w istniejącym już projekcie. Po instalacji Next.js usuwamy paczkę `react-scripts` (bye bye CRA 👋), zmieniamy skrypty i dodajemy wymagane pliki `layout.tsx` oraz `page.tsx`.
+
+Next.js skonfigurowany, przenosimy teraz naszą aplikację.
+
+## Przenoszenie aplikacji CRA
+
+Głównym założeniem tej migracji była jak najmniejsza ingerencja w kod źródłowy, więc postanowiłem po prostu skopiować cały folder `src` (czyli aplikację CRA) do folderu `app`. Aby mieć pewność, że Next nie będzie próbował budować folderu `src` jako strony pod adresem `localhost:3000/src/`, zmieniłem nazwę folderu na `_src`, aby tak jak mówi nam [dokumentacja](https://nextjs.org/docs/app/building-your-application/routing/colocation#private-folders), folder ten był ignorowany podczas routingu.
+
+W Next.js istnieją [inne sposoby](https://nextjs.org/docs/app/building-your-application/routing/colocation#project-organization-strategies) organizacji kodu (_"There is no 'right' or 'wrong' way when it comes to organizing your own files and folders in Next.js a project."_) i mógłbym spokojnie zostawić folder `src` [poza](https://nextjs.org/docs/app/building-your-application/routing/colocation#store-project-files-outside-of-app) `app`, ale chciałem spróbować przeniesienia wszystkiego w jedno miejsce, ponieważ docelowo tak właśnie chciałbym zorganizować kod w migrowanym projekcie.
+
+Jedna rzecz, o której musiałem pamiętać to deklaracja `use client` w folderze `app/page.tsx`. Jest to wymagane, aby Next.js wiedział, że aplikacja jest aplikacją kliencką (a nie serwerową, na serwerze React Router nie zadziała). Tyle wystarczyło, aby React Router zadziałał w Next.js 🎉
+
+## Testy
+
+Pozbywając się `react-scripts` pozbyliśmy się również niejako wbudowanej konfiguracji dla `Jest` i `React Testing Library`. Na szczęście tutaj ponownie ratuje nas dokumentacja, która [opisuje jak skonfigurować testy](https://nextjs.org/docs/pages/building-your-application/optimizing/testing) w naszej aplikacji.
+
+<Info title="Commit nr 2️⃣">
+  Migracja React Routera do Next.js : [move src to app
+  folder](https://github.com/kamiljozwik/cra-to-nextjs/commit/e5d7974ee66be0158c8871f76a5506b67d091c7f)
+</Info>
+
+## Nawigacja
+
+W tym momencie w naszej aplikacji działają dwa systemy odpowiedzialne za routing: React Router oraz oparty na folderach routing wbudowany w Next.js. Zakładając, że będę chciał stopniowo przenosić kod _per_ strona, muszę mieć pewność, że mogę nawigować pomiędzy stronami w obu systemach.
+
+Zarówno React Router, jak i Next.js korzystają z komponentu o nazwie `<Link />` do nawigacji (eksport jest domyślny, więc możemy użyć dowolnej nazwy, ale w dokumentacjach najczęsciej znajdziemy właśnie `Link`). Stworzyłem więc kilka dodatkowych stron, żeby sprawdzić, której metody nawigacji powinienem użyć w zależności od tego, czy chcę nawigować z/do strony React Router, czy Next.js.
+
+W tym celu stworzyłem nową stronę `/blog` za pomocą Server Componentów (Next.js) oraz nową stronę `/login`, żeby mieć również niezagnieżdżoną stronę w React Routerze. Struktura plików wygląda teraz następująco:
+
+<img src="/blog/migracja-cra-nextjs-13/routes.webp" />
+
+Na każdej z tych stron umieściłem linki do innych stron, aby sprawdzić, jak zachowują się one w obu systemach nawigacji. Link do commita z tymi zmianami znajduje się nieco dalej, ale zanim zaczniemy testować nawigację, warto zająć się jeszcze jedną rzeczą.
+
+Next.js daje nam możliwość zdefiniowania tzw. [rewrites](https://nextjs.org/docs/pages/api-reference/next-config-js/rewrites), co znacznie usprawni nam działanie naszej nawigacji. Dodając `rewrites()` do `next.config.js` tak jak poniżej:
+
+```js title="next.config.js"
+const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/:any*",
+        destination: "/",
+      },
+    ];
+  },
+};
+```
+
+otrzymamy możliwość nawigowania do stron i podstron React Routera po wpisaniu w pasku adresu konkretnego URL, np. `localhost:3000/login`. Bez tego, próba nawigacji do tych stron zakończy się błędem `404`, ponieważ Next.js nic nie wie o istnieniu tej strony. Z powyższym `rewrites()` trafimy na stronę główną, tam załadujemy React Routera i on już zadba o poprawną nawigację, ponieważ _path_ `/login` zostanie zachowany przy przekierowaniu. Będzie nam to również mocno pomagało przy nawigacji ze stron Server Componentów do stron React Routera.
+
+Poniżej listuję **kilka wniosków** opisujących zachowania linków w obu systemach nawigacji (z zastosowaniem `rewrites()`):
+
+- na stronach Next.js oczywiście nie możemy używać komponentu `<Link />` z React Routera. Tutaj mamy do dyspozycji tylko komponent `<Link />` z Next.js oraz ewentualnie znacznik `<a href=''>`
+- ze stron Next.js możemy nawigować do dowolnej strony React Routera (zarówno zagnieżdżonej np. `/about` jak i niezagnieżdżonej `/login` ) za pomocą komponentu `<Link />`
+- ze stron React Routera nie możemy nawigować do stron Next.js za pomocą komponentu `<Link />` z React Routera (trafimy na stronę `404`). W tym przypadku musimy użyć komponentu `<Link />` z Next.js
+- ze stron React Routera nie możemy nawigować do innych stron React Routera za pomocą komponentu `<Link />` z Next.js (zmieni się adres w pasku przeglądarki, ale nie wyświetli się odpowiednia strona).
+
+Poza tym oczywiście bez problemu działa nawigacja pomiędzy stronami React Routera za pomocą komponentu `<Link />` z React Routera oraz nawigacja pomiędzy stronami Next.js za pomocą komponentu `<Link />` z Next.js.
+
+<Table />
+
+## Build
+
+Na samym końcu spróbowałem jeszcze zbudować mój projekt. Lokalnie (`yarn dev`) wszystko działało bez problemu, ale po odpaleniu `yarn build` otrzymałem błąd `ReferenceError: document is not defined`. Jak widać, React Router próbuje gdzieś dostać się do obiektu `window.document`, który nie istnieje w środowisku Node.js. Wpadałem na to już wielokrotnie wcześniej, więc jak zawsze spróbowałem obejść to prostym sprawdzeniem:
+
+```js
+typeof window === "undefined" ? null : <App />;
+```
+
+Tutaj build przeszedł bez problemu i aplikacja uruchomiła się (`yarn start`) prawidłowo, ale gdy wróciłem do trybu lokalnego (`yarn dev`) w przeglądarce pojawił się błąd `Error: Hydration failed because the initial UI does not match what was rendered on the server.` Co się stało?
+
+Po załadowaniu aplikacji, Next.js:
+
+1.  próbuje wstępnie wyrenderować ją na serwerze,
+2.  wysyła wynik do przeglądarki i
+3.  dokonuje "rehydracji" (_re-hydrates_) strony w przeglądarce. Rehydracja oznacza, że strona jest ponownie renderowana w przeglądarce i porównywana z wersją, która została wyrenderowana na serwerze. Jeśli coś się nie zgadza, to React zgłasza błąd.
+
+Możemy pozbyć się powyższego błędu, korzystając z `useEffect`:
+
+```js
+const Page = () => {
+  const [render, setRender] = useState(false);
+  useEffect(() => setRender(true), []);
+
+  return render ? (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  ) : null;
+};
+```
+
+Teraz gdy Next.js renderuje stronę na serwerze, nie wykonuje żadnych wywołań z `useEffect` (`useEffect` jest uruchamiany tylko w przeglądarce), czyli po prostu renderuje stronę przy użyciu wartości domyślnych i zwraca wynik.
+
+Gdy ta strona zostanie załadowana przez przeglądarkę, zrobi to samo: wyrenderuje stronę przy użyciu wartości domyślnych. Jako że domyślną wartością `render` jest `false`, przeglądarka początkowo wyrenderuje wartość `null`, co zgadza się z wersją strony renderowaną przez serwer.
+
+Natychmiast po tym przeglądarka wykona wywołanie `useEffect`, które ustawi wartość `render` na `true`. Strona zostanie teraz wyrenderowana w pełnej krasie. Początkowo tracimy trochę czasu na renderowanie wartości `null`, ale jest to znikoma ilość czasu i nie wpływa mocno na wydajność strony.
+
+<Info title="Commit nr 3️⃣">
+  Testowanie nawigacji : [play with
+  Links](https://github.com/kamiljozwik/cra-to-nextjs/commit/060311c02a2b2881e68308e36ca45476132a320e)
+</Info>
+
+## Podsumowanie
+
+Teraz już nasza aplikacja działa prawidłowo i mamy możliwość stopniowego przenoszenia kodu z React Routera do Next.js. Poniżej podsumowanie wszystkich kroków migracji:
+
+- Stworzenie aplikacji CRA z React Routerem v6
+- Instalacja Next.js oraz usunięcie `react-scripts`
+- Przeniesienie aplikacji CRA (folderu `src`) do folderu `app` i zmiana nazwy na `_src`
+- Dodanie `rewrites()` do `next.config.js`
+- Konfiguracja testów
+- Dodanie kilku stron do testowania nawigacji
+- Naprawienie błędu `ReferenceError: document is not defined` podczas budowania aplikacji
+- Naprawienie błędu `Error: Hydration failed because the initial UI does not match what was rendered on the server.` podczas uruchamiania aplikacji w trybie deweloperskim
+
+Myślę, że na tym etapie można już podchodzić do migracji większych, pełnoprawnych aplikacji opartych na React Routerze v6 do Next.js 13. Tutaj mieliśmy do czynienia z bardzo prostym przykładem i przy bardziej rozbudowanych projektach na pewno będą wychodziły kolejne problemy, ale przynajmniej mamy już podstawy, na których możemy budować.
+
+Wydaje się, że ciekawą rzeczą do przetestowania będzie również stopniowa migracja aplikacji zbudowanej na Reduxie ([redux-toolkit](https://redux-toolkit.js.org/)) i dzielenie stanu pomiędzy stronami CRA i Next.js, ale to już zdecydowanie temat na kolejny wpis.

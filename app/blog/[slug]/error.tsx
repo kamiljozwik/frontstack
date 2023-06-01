@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import { NoPost } from "./components/NoPost";
 
 const Error = () => {
-  return <div>Ooops - nie możemy wyświetlić tego posta</div>;
+  return <NoPost />;
 };
 
 export default Error;

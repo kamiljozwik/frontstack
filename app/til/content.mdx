@@ -1,4 +1,110 @@
 <section>
+## `unknown` vs `any` w TS
+
+<small>📅 05.06.2023</small>
+
+W TypeScript typ `unknown` jest bezpieczniejszym odpowiednikiem typu `any`. Podczas gdy `any` pozwala nam na wszystko, `unknown` wymusza sprawdzanie typu przed wykonaniem operacji.
+
+```ts
+let foo: any = "hello";
+foo = foo.split("").reverse().join(""); // Zadziała, ale...
+
+let foo2: any = { greet: "hello" };
+foo2 = foo.split("").reverse().join(""); // TS nie wykryje błędu, ale dostaniemy błąd w konsoli
+
+let bar: unknown = "world";
+bar = bar.split("").reverse().join(""); // TS podkreśli nam błąd w edytorze, ponieważ nie możemy użyć metody "split" na nieznanym typie.
+
+bar = (bar as string).split("").reverse().join(""); // OK, ponieważ zadeklarowaliśmy typ, ale może być lepiej...
+bar = typeof bar === "string" ? bar.split("").reverse().join("") : bar; // Jeszcze lepiej, ponieważ sprawdziliśmy typ
+```
+
+Z `unknown` TypeScript zapewnia, że musiz sprawdzić typ przed wykonaniem operacji, więc jest to dużo bezpieczniejsze podejście niż `any`.
+
+</section>
+
+<section>
+## Aliasy podczas importów w TS
+
+<small>📅 05.06.2023</small>
+
+Macie już dość _kropkowania_ podczas importów? [Aliasy](https://www.typescriptlang.org/tsconfig#paths) w TS mogą nam tutaj znacznie uprościć życie. Do pliku `tsconfig.json` wystarczy dodać następującą konfigurację:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    // Your other options...
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+Od teraz możemy zaczynać nasze importy od zdefiniowanego wcześniej poziomu w naszej aplikacji:
+
+```ts
+import { Button } from "@/components/Button"; // 🤩 import z "src/components/Button"
+import { OtherButton } from "../../../components/Button"; // 😥
+```
+
+Taka składnia jest dużo czytelniejsza i łatwiejsza do utrzymania. Jeśli zmienimy zagnieżdżenie bądź położenie folderu, to nie musimy martwić się o zmianę ścieżek w naszym kodzie 💪.
+
+</section>
+
+<section>
+## Wartość domyślna dla każdego klucza w obiekcie
+
+<small>📅 04.06.2023</small>
+
+Czasami chcemy (niezbyt często, ale może się zdarzyć 😉), aby właściwości obiektu były automatycznie inicjalizowane. Powszechnym sposobem radzenia sobie z tym jest korzystanie z metod `getter` i `setter`. Jednak może to stać się uciążliwe, jeśli mamy wiele właściwości. Właśnie tutaj obiekt [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy?retiredLocale=pl) może okazać się bardzo pomocny.
+
+`Proxy` w JavaScript jest używane do definiowania niestandardowego zachowania dla podstawowych operacji (np. wyszukiwanie, przypisanie, wyliczanie, wywoływanie funkcji itp.) obiektów.
+
+Proxy możemy również użyć więc również do automatycznego inicjowania właściwości obiektów, których właściwości nie są do końca znane:
+
+```js
+const autoInit = (defaultValue) =>
+  new Proxy(
+    {},
+    {
+      get: (target, name) =>
+        name in target ? target[name] : (target[name] = defaultValue),
+    }
+  );
+
+const myObject = autoInit([]);
+
+console.log(myObject.foo); // []
+
+myObject.foo.push("bar");
+
+console.log(myObject.foo); // ['bar']
+```
+
+W tym przykładzie każda właściwość `myObject`, która jest dostępna przed jej ustawieniem, zostanie automatycznie zainicjowana na pustą tablicę (lub dowolną inną domyślną wartość, którą podamy). Może to być dość przydatne w sytuacjach w których chcemy uniknąć wartości `undefined`.
+
+</section>
+
+<section>
+## Szybkie sprawdzanie właściwości obiektu w JavaScript
+
+<small>📅 04.06.2023</small>
+
+Czy wiedziałeś, że możesz sprawdzić, czy obiekt ma daną właściwość używając operatora `in`? Oto jak to zrobić:
+
+```javascript
+const myObject = { foo: "bar" };
+
+console.log("foo" in myObject); // true
+console.log("baz" in myObject); // false
+```
+
+Szybko i czysto, bez potrzeby sprawdzania `undefined` 😉
+
+</section>
+
+<section>
 ## Readonly w TS
 
 <small>📅 30.05.2023</small>

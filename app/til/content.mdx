@@ -1,4 +1,56 @@
 <section>
+## `infer` - zaawansowany typ warunkowy w TS
+
+<small>📅 07.06.2023</small>
+
+W TypeScript możemy wykorzystać typy warunkowe wraz z słowem kluczowym `infer` do wnioskowania o typach. Przyjrzyjmy się poniższemu przykładowi:
+
+```typescript
+type ArrayTypes<T> = T extends (infer U)[] ? U : never;
+
+let arr = [1, "2", []];
+type test = ArrayTypes<typeof arr>; // typ test = string | number | any[]
+```
+
+W tym przykładzie, typ `ArrayTypes<T>` bierze typ `T` i sprawdza, czy `T` jest typem tablicy. Jeśli tak, to inferuje typ `U` z tablicy `T[]` i zwraca `U`. W przeciwnym razie zwraca `never`.
+
+Ważne jest, aby zauważyć, że `infer` musi być podłączony do `U`, a nie do `[]`. Dlatego korzystamy z nawiasów w `(infer U)[]`. Bez nawiasów, TypeScript zinterpretowałby to jako `infer (U[])`, co byłoby niepoprawne, ponieważ `infer` może być używane tylko do inferencji typów, a nie struktur typów takich jak tablice【33†source】.
+
+Kolejny przykład, tym razem z obiektem. W tym przypadku `infer` stworzy nam typ, który będzie zawierał wszystkie typy wartości obiektu:
+
+```typescript
+type ObjectTypes<T> = T extends { a: infer U; b: infer U } ? U : never;
+
+let obj = { a: 1, b: "2" };
+type Test = ObjectTypes<typeof obj>; // typ Test = string | number
+```
+
+Jak widać możliwości tutaj są ogromne, więc warto zapoznać się z tym tematem.
+
+</section>
+
+<section>
+## Typy warunkowe w TypeScript
+
+<small>📅 07.06.2023</small>
+
+Typy warunkowe w TypeScript pozwalają na wybór typu w zależności od warunku. Jest to dość przydatne narzędzie, które pozwala na tworzenie bardziej złożonych typów.
+
+```typescript
+type IsString<T> = T extends string ? true : false;
+
+type X = IsString<"hello">; // true
+type Y = IsString<number>; // false
+type Z = IsString<{ name: string }>; // false
+```
+
+W tym prostym przykładzie, `IsString` jest typem warunkowym, który sprawdza, czy podany typ `T` jest stringiem. Jeśli tak, to zwraca `true`, a w przeciwnym razie zwraca `false`.
+
+Pamiętaj, że typy warunkowe mogą być zagnieżdżone i mogą używać dowolnej logiki (możemy np. używać tego sprawdzenia w `if`-ach i zawężać bardziej typowanie), która jest dostępna w typach, co czyni je niezwykle elastycznymi i potężnymi narzędziami do modelowania typów w TypeScript.
+
+</section>
+
+<section>
 ## `unknown` vs `any` w TS
 
 <small>📅 05.06.2023</small>

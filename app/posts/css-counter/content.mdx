@@ -1,0 +1,175 @@
+import { CodeSandbox, Info } from "../../components/posts/";
+
+export const meta = {
+  title: "Liczniki / numeratory CSS",
+  seo_desc:
+    "Liczniki / numeratory CSS - automatyczna numeracja w CSS jest łatwą i potężną funkcją, która może być używana na każdym elemencie HTML.",
+  short:
+    'Odkryj moc liczników (numeratorów) stworzonych tylko w CSS. Naucz się tworzyć automatyczną i dynamiczną numerację na swoich stronach internetowych za pomocą poleceń CSS, takich jak "counter-increment", "content: counter" i "counter-reset".',
+  date: "2023-06-07",
+  tags: ["CSS"],
+};
+
+W dziseijszym wpisie zagłębimy się w prostą, ale dość potężną funkcję CSS, czyli automatyczną numerację, której możemy użyć praktycznie na każym elemencie HTML. Skupimy się przede wszystkim na poleceniach `counter-increment`, `content: counter()` i `counter-reset`. Polecenia te mogą pomóc w łatwym tworzeniu uporządkowanych list, nawet jeśli numeracja musi być dynamiczna lub niestandardowa.
+
+Zdecydowałem się napisać ten artykuł, ponieważ ostatnio skorzystałem z tych funkcjonalności CSS przy budowaniu tego bloga i okazały się bardzo pomocne, więc warto się nimi podzielić. Przedstawię kilka przykładów, które pomogą Ci zrozumieć, jak działa automatyczna numeracja w CSS a przykłady z mojego bloga znajdziesz [tutaj](https://github.com/kamiljozwik/frontstack/blob/master/app/til/til.module.scss) (strona [TIL](https://www.frontstack.pl/til)) oraz [tutaj](https://github.com/kamiljozwik/frontstack/blob/master/app/styles/code.scss) (numeracja linijek we fragmentach kodu).
+
+## Zrozumienie liczników CSS
+
+Zanim zaczniemy od praktycznych przykładów, upewnijmy się, że rozumiemy, czym są liczniki CSS.
+
+Liczniki CSS to w istocie zmienne utrzymywane przez CSS, których wartości mogą być zwiększane przez reguły CSS w celu śledzenia, ile razy są używane. Mogą one być przydatne do automatycznego numerowania nagłówków, sekcji lub innych powtarzających się elementów na stronach internetowych.
+
+Istnieją trzy właściwości CSS związane z licznikami CSS:
+
+- `counter-reset`: Tworzy lub resetuje licznik.
+- `counter-increment`: Zwiększa wartość licznika.
+- `counter`: Wstawia wygenerowaną zawartość.
+
+Teraz, gdy mamy już podstawy, przejdźmy do kilku przykładów.
+
+## Przypadek 1: Prosta numeracja automatyczna
+
+Pierwszy przykład jest bardzo prosty. Chcemy po prostu utworzyć listę numerowaną, ale nie chcemy używać znacznika `<ol>`. Zamiast tego chcemy użyć znacznika `<div>` i zastosować do niego styl CSS, który automatycznie wygeneruje numerację.
+
+```html
+<div class="list">
+  <div class="list-item">Item 1</div>
+  <div class="list-item">Item 2</div>
+  <div class="list-item">Item 3</div>
+  <div class="list-item">Item 4</div>
+  <div class="list-item">Item 5</div>
+</div>
+```
+
+```css
+.list {
+  counter-reset: list;
+} /* Resetujemy licznik */
+
+.list-item {
+  counter-increment: list;
+} /* Zwiększamy wartość licznika */
+
+.list-item::before {
+  color: brown;
+  font-weight: bold;
+  content: counter(list) ") "; /* Wstawiamy wygenerowaną zawartość */
+}
+```
+
+<Info title="CodeSandbox">
+  Na końcu tego artykułu znajdziesz CodeSandbox, w którym możesz podejrzeć
+  wszystkie omawiane przykłady.
+</Info>
+
+## Przypadek 2: Numeracja zagnieżdżona
+
+Co jeśli chcesz dodać zagnieżdżoną numerację, na przykład `1.1`, `1.2`, `1.2.1` i tak dalej? Liczniki CSS poradzą sobie bardzo dobrze również z tym zadaniem.
+
+```html
+<div>
+  <h1>Section</h1>
+  <h2>Subsection</h2>
+  <h2>Subsection</h2>
+  <h1>Section</h1>
+  <h2>Subsection</h2>
+</div>
+```
+
+```css
+/* "section" nie jest nazwą tagu, tylko nazwą licznika */
+body {
+  counter-reset: section;
+}
+
+h1 {
+  counter-reset: subsection;
+}
+
+h1::before {
+  /* Każde wystąpienie "h1::before" zwiększy nam licznik o nazwie "section" */
+  counter-increment: section;
+  content: "Section " counter(section) ". ";
+}
+
+h2::before {
+  color: brown;
+  counter-increment: subsection;
+  content: "Subsection " counter(section) "." counter(subsection) " ";
+}
+```
+
+## Przypadek 3: Numeracja niestandardowa
+
+W przypadku, gdy chcesz użyć niestandardowej numeracji, na przykład `A`, `B`, `C` lub `I`, `II`, `III`, możesz użyć właściwości [counter-style](https://developer.mozilla.org/en-US/docs/Web/CSS/counter) do zdefiniowania niestandardowego stylu licznika.
+
+```html
+<div>
+  <h1>Section</h1>
+  <h2>Subsection</h2>
+  <h2>Subsection</h2>
+  <h1>Section</h1>
+  <h2>Subsection</h2>
+</div>
+```
+
+```css
+body {
+  counter-reset: section;
+}
+
+h1 {
+  counter-reset: subsection;
+}
+
+h1::before {
+  counter-increment: section;
+  content: counter(section, upper-roman) ". ";
+}
+
+h2::before {
+  color: brown;
+  counter-increment: subsection;
+  content: counter(section, upper-roman) "." counter(subsection, upper-roman)
+    " ";
+}
+```
+
+## Przypadek 4: Liczenie w dół
+
+W przypadku, gdy chcesz użyć licznika do liczenia w dół, na przykład `5`, `4`, `3`, możesz użyć właściwości `counter-increment` z ujemną wartością.
+
+```html
+<div>
+  <h1>Chapter title here...</h1>
+  <h1>Chapter title here...</h1>
+  <h1>Chapter title here...</h1>
+</div>
+```
+
+```css
+body {
+  /* Zaczynamy liczyć od 4 */
+  counter-reset: section 4;
+}
+
+h1::before {
+  /* Pomniejszamy nasz licznik o 1 */
+  color: brown;
+  counter-increment: section -1;
+  content: "Chapter " counter(section) ". ";
+}
+```
+
+## CodeSandBox
+
+Wszystkie przedstawione tutaj przypadku możesz podejrzeć w poniższym CodeSandBox. Każdy przypadek znajduje się w osobnym pliku HTML, więc możesz łatwo przełączać się między nimi.
+
+<CodeSandbox embedId="billowing-tdd-uhc2q1" />
+
+## Podsumowanie
+
+Jak widać, liczniki CSS oferują wszechstronny sposób automatycznego numerowania elementów na stronie internetowej. Mogą one obsługiwać zarówno proste przypadki, jak i bardziej złożone, obejmujące numerację zagnieżdżoną lub odwróconą.
+
+Jak widać w powyższych przykładach, istnieje wiele fajnych rzeczy, które można zrobić z licznikami CSS, w tym stylizowanie liczników, mieszanie liczników ze statyczną zawartością, a nawet używanie liczników w połączeniu z innymi funkcjami CSS, takimi jak pseudoelementy. Zachęcam do samodzielnego eksperymentowania i zobaczenia, jakie ekscytujące efekty można wymyślić 💡.

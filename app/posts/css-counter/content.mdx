@@ -32,6 +32,20 @@ Teraz, gdy mamy już podstawy, przejdźmy do kilku przykładów.
 
 Pierwszy przykład jest bardzo prosty. Chcemy po prostu utworzyć listę numerowaną, ale nie chcemy używać znacznika `<ol>`. Zamiast tego chcemy użyć znacznika `<div>` i zastosować do niego styl CSS, który automatycznie wygeneruje numerację.
 
+<Info title="Dostępność">
+  Poniższy przykład ma tylko edukacyjnie zobrazować działanie liczników CSS. Warto zaznaczyć, że nie jest to najlepsze rozwiązanie z perspektywy dostępności i w takim przypadku powinniśmy zadbać o [odpowiednie role ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role).
+  
+  Gdybyśmy faktycznie chcieli tylko pobawić się ze stylowaniem listy, najlepszym rozwiązaniem byłoby użycie znaczników `<ol>` lub `<ul>` i taki kod HTML stylować z użyciem pseudo-elemtu `::marker` oraz omawianymi tutaj licznikami CSS. Przykład takiego zastosowania do znalezienia [w tym artykule](https://www.smashingmagazine.com/2019/07/css-lists-markers-counters/).
+
+We wspomnianym już wcześniej przypadku użycia na mojej [stronie TIL](https://www.frontstack.pl/til), liczniki CSS stanowią jedynie dekorację dla tytułu pojedynczej sekcji, więc nie mają negatywnego wpływu na dostępność tej strony. Podobnie jest z numerowaniem linijek w kodzie źródłowym, gdzie liczniki CSS ponownie są tylko dekoracją.
+
+<small>
+  PS: Dziękuję [Comandeer-owi](https://www.comandeer.pl/) za sugestie dotyczące
+  problemów dostępności w tym przykładzie.
+</small>
+
+</Info>
+
 ```html
 <div class="list">
   <div class="list-item">Item 1</div>

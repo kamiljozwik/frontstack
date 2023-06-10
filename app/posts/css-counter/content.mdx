@@ -12,7 +12,7 @@ export const meta = {
 
 W dziseijszym wpisie zagłębimy się w prostą, ale dość potężną funkcję CSS, czyli automatyczną numerację, której możemy użyć praktycznie na każym elemencie HTML. Skupimy się przede wszystkim na poleceniach `counter-increment`, `content: counter()` i `counter-reset`. Polecenia te mogą pomóc w łatwym tworzeniu uporządkowanych list, nawet jeśli numeracja musi być dynamiczna lub niestandardowa.
 
-Zdecydowałem się napisać ten artykuł, ponieważ ostatnio skorzystałem z tych funkcjonalności CSS przy budowaniu tego bloga i okazały się bardzo pomocne, więc warto się nimi podzielić. Przedstawię kilka przykładów, które pomogą Ci zrozumieć, jak działa automatyczna numeracja w CSS a przykłady z mojego bloga znajdziesz [tutaj](https://github.com/kamiljozwik/frontstack/blob/master/app/til/til.module.scss) (strona [TIL](https://www.frontstack.pl/til)) oraz [tutaj](https://github.com/kamiljozwik/frontstack/blob/master/app/styles/code.scss) (numeracja linijek we fragmentach kodu).
+Zdecydowałem się napisać ten artykuł, ponieważ ostatnio skorzystałem z tych funkcjonalności CSS przy budowaniu tego bloga i okazały się bardzo pomocne, więc warto się nimi podzielić. Przedstawię kilka przykładów, które pomogą Ci zrozumieć, jak działa automatyczna numeracja w CSS a przykłady z mojego bloga znajdziesz [tutaj](https://github.com/kamiljozwik/frontstack/blob/master/app/shorts/shorts.module.scss) (strona [Shorts](https://www.frontstack.pl/shorts)) oraz [tutaj](https://github.com/kamiljozwik/frontstack/blob/master/app/styles/code.scss) (numeracja linijek we fragmentach kodu).
 
 ## Zrozumienie liczników CSS
 
@@ -37,7 +37,7 @@ Pierwszy przykład jest bardzo prosty. Chcemy po prostu utworzyć listę numerow
   
   Gdybyśmy faktycznie chcieli tylko pobawić się ze stylowaniem listy, najlepszym rozwiązaniem byłoby użycie znaczników `<ol>` lub `<ul>` i taki kod HTML stylować z użyciem pseudo-elemtu `::marker` oraz omawianymi tutaj licznikami CSS. Przykład takiego zastosowania do znalezienia [w tym artykule](https://www.smashingmagazine.com/2019/07/css-lists-markers-counters/).
 
-We wspomnianym już wcześniej przypadku użycia na mojej [stronie TIL](https://www.frontstack.pl/til), liczniki CSS stanowią jedynie dekorację dla tytułu pojedynczej sekcji, więc nie mają negatywnego wpływu na dostępność tej strony. Podobnie jest z numerowaniem linijek w kodzie źródłowym, gdzie liczniki CSS ponownie są tylko dekoracją.
+We wspomnianym już wcześniej przypadku użycia na mojej [stronie Shorts](https://www.frontstack.pl/shorts), liczniki CSS stanowią jedynie dekorację dla tytułu pojedynczej sekcji, więc nie mają negatywnego wpływu na dostępność tej strony. Podobnie jest z numerowaniem linijek w kodzie źródłowym, gdzie liczniki CSS ponownie są tylko dekoracją.
 
 <small>
   PS: Dziękuję [Comandeer-owi](https://www.comandeer.pl/) za sugestie dotyczące

@@ -17,7 +17,14 @@ const nextConfig = {
     mdxRs: false,
   },
   async redirects() {
-    return [...oldPosts];
+    return [
+      ...oldPosts,
+      {
+        source: `/til`,
+        destination: `/shorts/`,
+        permanent: true,
+      },
+    ];
   },
 };
 

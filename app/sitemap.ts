@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `https://frontstack.pl/frontendowka`,
     },
     {
-      url: `https://frontstack.pl/til`,
+      url: `https://frontstack.pl/shorts`,
     },
   ];
 }

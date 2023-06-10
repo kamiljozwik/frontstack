@@ -5,7 +5,7 @@ import { OgImage } from "../components/og/OgImage";
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Dziś się nauczyłem";
+export const alt = "Shorts";
 export const size = {
   width: 1200,
   height: 630,
@@ -23,7 +23,7 @@ export default function Image() {
             marginTop: "5%",
           }}
         >
-          Dziś się nauczyłem
+          Shorts
         </p>
         <p
           style={{
@@ -31,7 +31,7 @@ export default function Image() {
             color: "#fce746",
           }}
         >
-          Małe przydatne rzeczy z frontu
+          Frontendowe tips & tricks
         </p>
       </OgImage>
     ),

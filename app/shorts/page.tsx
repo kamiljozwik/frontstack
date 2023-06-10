@@ -1,8 +1,8 @@
 import Content from "./content.mdx";
 import { PageHeader } from "../components/headers/Headers";
-import style from "./til.module.scss";
+import style from "./shorts.module.scss";
 
-const Til = () => {
+const Shorts = () => {
   const sections = Content({}).props.children.filter(
     (c: any) => c.type === "section"
   );
@@ -12,12 +12,12 @@ const Til = () => {
       className={style.root}
       style={{ counterReset: `section ${sections.length + 1}` }}
     >
-      <PageHeader desc="Małe, przydatne informacje / sztuczki / rozwiązania na które dzisiaj się natknąłem (albo które mogą Ci się przydać w codziennej pracy 😉).">
-        Dziś się nauczyłem... i przekazuję dalej 💡
+      <PageHeader desc="Krótkie informacje / sztuczki / rozwiązania, które mogą Ci się przydać w codziennej pracy 😉">
+        Shorts
       </PageHeader>
       <Content />
     </main>
   );
 };
 
-export default Til;
+export default Shorts;

@@ -1,8 +1,6 @@
 <section>
 ## `infer` - zaawansowany typ warunkowy w TS
 
-<small>📅 07.06.2023</small>
-
 W TypeScript możemy wykorzystać typy warunkowe wraz z słowem kluczowym `infer` do wnioskowania o typach. Przyjrzyjmy się poniższemu przykładowi:
 
 ```typescript
@@ -32,8 +30,6 @@ Jak widać możliwości tutaj są ogromne, więc warto zapoznać się z tym tema
 <section>
 ## Typy warunkowe w TypeScript
 
-<small>📅 07.06.2023</small>
-
 Typy warunkowe w TypeScript pozwalają na wybór typu w zależności od warunku. Jest to dość przydatne narzędzie, które pozwala na tworzenie bardziej złożonych typów.
 
 ```typescript
@@ -52,8 +48,6 @@ Pamiętaj, że typy warunkowe mogą być zagnieżdżone i mogą używać dowolne
 
 <section>
 ## `unknown` vs `any` w TS
-
-<small>📅 05.06.2023</small>
 
 W TypeScript typ `unknown` jest bezpieczniejszym odpowiednikiem typu `any`. Podczas gdy `any` pozwala nam na wszystko, `unknown` wymusza sprawdzanie typu przed wykonaniem operacji.
 
@@ -77,8 +71,6 @@ Z `unknown` TypeScript zapewnia, że musiz sprawdzić typ przed wykonaniem opera
 
 <section>
 ## Aliasy podczas importów w TS
-
-<small>📅 05.06.2023</small>
 
 Macie już dość _kropkowania_ podczas importów? [Aliasy](https://www.typescriptlang.org/tsconfig#paths) w TS mogą nam tutaj znacznie uprościć życie. Do pliku `tsconfig.json` wystarczy dodać następującą konfigurację:
 
@@ -106,8 +98,6 @@ Taka składnia jest dużo czytelniejsza i łatwiejsza do utrzymania. Jeśli zmie
 
 <section>
 ## Wartość domyślna dla każdego klucza w obiekcie
-
-<small>📅 04.06.2023</small>
 
 Czasami chcemy (niezbyt często, ale może się zdarzyć 😉), aby właściwości obiektu były automatycznie inicjalizowane. Powszechnym sposobem radzenia sobie z tym jest korzystanie z metod `getter` i `setter`. Jednak może to stać się uciążliwe, jeśli mamy wiele właściwości. Właśnie tutaj obiekt [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy?retiredLocale=pl) może okazać się bardzo pomocny.
 
@@ -141,8 +131,6 @@ W tym przykładzie każda właściwość `myObject`, która jest dostępna przed
 <section>
 ## Szybkie sprawdzanie właściwości obiektu w JavaScript
 
-<small>📅 04.06.2023</small>
-
 Czy wiedziałeś, że możesz sprawdzić, czy obiekt ma daną właściwość używając operatora `in`? Oto jak to zrobić:
 
 ```javascript
@@ -158,8 +146,6 @@ Szybko i czysto, bez potrzeby sprawdzania `undefined` 😉
 
 <section>
 ## Readonly w TS
-
-<small>📅 30.05.2023</small>
 
 W języku TypeScript można użyć modyfikatora `readonly`, aby wskazać, że właściwość klasy lub interfejsu jest tylko do odczytu, co oznacza, że po przypisaniu do niej wartości nie można jej zmienić. Oto krótki przykład:
 
@@ -179,8 +165,6 @@ W powyższym kodzie `x` i `y` w `Point` są właściwościami tylko do odczytu �
 
 <section>
 ## Brak mocków w testach z `React Router (v6)` i `React Testing Library`
-
-<small>📅 29.05.2023</small>
 
 Customowy `render()`, za pomocą którego możemy łatwo testować komponenty wykorzystujące nawigację w naszej aplikacji:
 
@@ -210,11 +194,7 @@ Dokładniejsze omówienie powyższego kodu oraz przykładowe użycie do znalezie
 <section>
 ## TS `type guards` dla tablic danych
 
-<small>📅 28.05.2023</small>
-
-Coś czego może nie nauczyłem się dzisiaj, ale ostatnio potrzebowałem z tego skorzystać i musiałem wrócić do dokumentacji, żeby sobie nieco ten temat przypomnieć.
-
-Jeśli mamy tablicę danych, która może zawierać różne typy (czyli np. nie jesteśmy pewni odpowiedzi z API), to możemy użyć [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) i metodę `.every()` zamiast `if-ów`, żeby zawęzić sobie typowanie.
+Mając tablicę danych, która może zawierać różne typy (czyli np. nie jesteśmy pewni odpowiedzi z API), to możemy użyć [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) i metodę `.every()` zamiast `if-ów`, żeby zawęzić sobie typowanie.
 
 ```ts
 // type guard z użyciem słowa kluczowego "is"

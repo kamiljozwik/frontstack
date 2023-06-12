@@ -1,0 +1,16 @@
+{
+  "New short": {
+    "scope": "md, mdx",
+    "prefix": "short",
+    "body": [
+      "<section>",
+      "## TITLE HERE  ",
+      "",
+      "Main content here  ",
+      "",
+      "</section>",
+      ""
+    ],
+    "description": "New short"
+  }
+}

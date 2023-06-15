@@ -1,0 +1,35 @@
+export const meta = {
+  title: "Czym różni się Deploy od Release?",
+  seo_desc:
+    "W tym poście wyjaśnimy sobie czym w wytwarzaniu oprogramowania różni się Deploy od Release",
+  short:
+    "Czym jest Deploy, a czym Release?. W tym poście wyjaśnimy sobie czym w wytwarzaniu oprogramowania różni się Deploy od Release. W tym krótkim poście wyjaśnimy sobie w prostych słowach czym różnią się od siebie te dwa pojęcia.",
+  date: "2023-06-14",
+  tags: ["Inne"],
+};
+
+W dzisiejszym wpisie nie będzie kodu, ale za to wyjaśnijmy sobie dwa odrębne, ale uzupełniające się procesy tworzenia oprogramowania: `Deploy` (wdrożenie) i Release (wydanie). Wyobraźmy je sobie jako dwóch przyjaznych sąsiadów, którzy od czasu do czasu współpracują ze sobą, ale na co dzień żyją niezależnie.
+
+## Deploy (wdrożenie)
+
+Deploy jest jak sąsiad, który uwielbia ogrodnictwo i stale sadzi nowe kwiaty na swoim podwórku. Często dodaje, poprawia lub wymienia rośliny (lub komponenty oprogramowania w naszym przypadku), aby zapewnić zdrowie i piękno ogrodu. Zmiany te mogą nie być widoczne od razu dla wszystkich przechodzących obok, ponieważ niektóre rośliny mogą potrzebować czasu, aby zakwitnąć, podobnie jak niektóre funkcje oprogramowania nie muszą być natychmiast "włączone" dla wszystkich użytkowników.
+
+Deploy to czynność polegająca na wprowadzeniu tych nowych elementów do środowiska (lub ogrodu) w celu przetestowania ich zgodności z istniejącymi elementami. Robisz to, gdy czujesz, że praca jest zakończona, tak jak wtedy, gdy nowy kwiat jest gotowy do zasadzenia. W naszym kontekście funkcja jest wdrażana, gdy kod jest napisany, przetestowany i jest gotowy do przeniesienia z lokalnego środowiska programisty do środowiska współdzielonego (np. serwery deweloperskie) lub na tzw. "produkcją", czyli na serwery serwujące aplikację naszym klientom.
+
+Aby pomóc nam w bezpiecznym wdrażaniu, używamy technik takich jak `feature flags` (które są jak małe bramy, które możemy otwierać lub zamykać, aby funkcja była widoczna), wersjonowanie (jak etykiety roślin, pozwalające nam wiedzieć, która wersja funkcji jest obecnie używana) i wdrożenia typu `blue/green` (jak posiadanie dwóch działek ogrodowych i przełączanie się między nimi w zależności od tego, która z nich jest gotowa do wyświetlenia).
+
+## Release (wydanie)
+
+Porozmawiajmy teraz o Releasie. Gdyby deploy był naszym kochającym ogród sąsiadem, release jest jak wielkie przyjęcie ogrodowe, które organizują, aby pokazać publicznie swój piękny ogród. Ogród jest teraz w pełnym rozkwicie i każdy może zobaczyć i docenić nowe dodatki.
+
+Premiera powinna być działaniem strategicznym. Jest to moment, w którym prezentujemy nową funkcjonalność naszym użytkownikom, podobnie jak prezentujemy nowy układ ogrodu uczestnikom przyjęcia. Nie chcemy ciągle zaskakiwać naszych użytkowników nowymi funkcjami, zwłaszcza takimi, które nie są w pełni gotowe. Dlatego powinniśmy wydawać je wtedy, gdy ma to znaczenie i sens, tak jak planowanie przyjęcia w ogrodzie, gdy pogoda jest idealna, a kwiaty są w pełnym rozkwicie.
+
+Wydania można podzielić na duże i małe. Duże premiery są jak wielkie przyjęcia ogrodowe, na których wprowadza się wiele nowych roślin i aranżacji. Mają one duży wpływ i często wymagają dodatkowych działań wspierających, takich jak wdrażanie użytkowników, przewodniki lub filmy. Pomniejsze wersje są bardziej jak małe spotkania, z kilkoma nowymi dodatkami lub ulepszeniami.
+
+## Podsumowanie
+
+Krótko mówiąc, **deploy** polega na posadzeniu i zarządzaniu nowymi roślinami w naszym ogrodzie, przy jednoczesnym zapewnieniu, że nadal będzie to przyjemny widok. Z drugiej strony, **release** to wielka prezentacja naszej pracy, przyjęcie w ogrodzie, na którym wszyscy mogą docenić piękno, które wyhodowaliśmy. Oddzielając te dwie czynności, zapewniamy zdrowy, tętniący życiem ogród, który jest również strategicznie prezentowany publicznie w celu uzyskania maksymalnego wpływu i przyjemności.
+
+Tak więc naszym celem powinno być oddzielenie sadzenia (Deploy) od imprezy (Release) - oba sprawiają, że nasz ogród oprogramowania kwitnie, ale na różne sposoby.
+
+Mam nadzieję, że nie przesadziłem za bardzo z analogią ogrodniczą, ale mam nadzieję, że w ten sposób łatwiej będzie Ci zrozumieć różnicę między tymi dwoma pojęciami 🌻🌹

@@ -1,0 +1,95 @@
+export const meta = {
+  title: "Abstrakcja i warstwy abstrakcji",
+  seo_desc: "",
+  short:
+    "W tym artykule wyjaśnimy sobie czym jest abstrakcja, która może pomóc nam w zarządzaniu złożonością i re-używalnością kodu. Zobaczymy praktyczne przykłady i zbadamy jak działa abstrakcja w programowaniu frontendowym, szczególnie w sferze popularnych bibliotek, takich jak React.",
+  date: "2023-06-22",
+  tags: ["Inne"],
+};
+
+W dzisiejszym artykule rozwikłamy koncepcję "abstrakcji" w kontekście aplikacji frontendowych. Abstrakcja może być nieco abstrakcyjna (gra słów zamierzona 😉), ale po przeczytaniu tego wpisu będziemy mieć solidne zrozumienie tego, czym jest abstrakcja, dlaczego ma tak duże znaczenie i jak możesz jej używać do tworzenia lepszego, czystszego i łatwiejszego w zarządzaniu kodu.
+
+## Czym jest abstrakcja?
+
+W tworzeniu oprogramowania abstrakcja jest techniką zarządzania złożonością. Pozwala nam ukryć złożone, szczegółowe informacje za prostszym interfejsem. Abstrakcji używamy niemal każdego dnia (w programowaniu), być może nie zdając sobie z tego sprawy. Każda utworzona funkcja lub metoda, która ukrywa blok kodu za nazwą, jest przykładem abstrakcji.
+
+Kiedy mówimy o abstrakcji w rozwoju frontendu, często odnosimy się do procesu rozbijania złożonych komponentów interfejsu użytkownika i logiki biznesowej na prostsze komponenty wielokrotnego użytku.
+
+## Dlaczego potrzebujemy abstrakcji?
+
+Wyobraź sobie, że budujesz samochód od podstaw za każdym razem, gdy chcesz gdzieś pojechać. Musiałbyś połączyć każdą część, przykręcić każdą śrubę, a następnie, po dotarciu do celu, ponownie go zdemontować. Brzmi bez sensu, prawda? Tak właśnie może wyglądać programowanie bez abstrakcji.
+
+Abstrakcja pomaga nam w kilku kluczowych obszarach:
+
+- **Zarządzanie złożonością**: Ukrywając szczegóły implementacji i ujawniając tylko istotne dane lub funkcjonalność, możemy uczynić nasz kod prostszzy i bardziej zrozumiały.
+- **Ponowne wykorzystanie kodu**: Komponenty utworzone za pomocą abstrakcji mogą być ponownie wykorzystane w różnych częściach aplikacji lub nawet w różnych aplikacjach.
+- **Poprawa łatwości utrzymania**: Gdy logika biznesowa jest wyodrębniona i scentralizowana, łatwiej jest znaleźć i naprawić błędy lub zaktualizować daną funkcjonalność.
+
+## Abstrakcja i frontend — przykład
+
+Zilustrujmy to przykładem. Rozważmy witrynę mediów społecznościowych z przyciskiem "Lubię to". Zamiast pisać kod przycisku "Lubię to" za każdym razem, gdy go potrzebujesz, możesz wyabstrahować go do komponentu wielokrotnego użytku o nazwie `LikeButton`.
+
+Prosty komponent `LikeButton` (React) może wyglądać mniej więcej tak:
+
+```jsx
+import React, { useState } from "react";
+
+function LikeButton({ initialCount }) {
+  const [likeCount, setLikeCount] = useState(initialCount);
+
+  const handleClick = () => {
+    setLikeCount((c) => c + 1);
+  };
+
+  return <button onClick={handleClick}>Like | {likeCount}</button>;
+}
+
+export default LikeButton;
+```
+
+Komponent ten zawiera wszystko co potrzeba do obsługi funkcji "Lubię to". Wewnętrzne działanie jest wyabstrahowane i za każdym razem, gdy potrzebujesz przycisku "Lubię to" w swojej aplikacji, po prostu importujesz i używasz komponentu `LikeButton` w następujący sposób:
+
+```jsx
+import LikeButton from "./LikeButton";
+
+function Post({ content, initialLikes }) {
+  return (
+    <div>
+      <p>{content}</p>
+      <LikeButton initialCount={initialLikes} />
+    </div>
+  );
+}
+```
+
+W tym przypadku komponent `Post` nie musi wiedzieć, jak wewnętrznie działa `LikeButton`. Musi tylko wiedzieć, że akceptuje właściwość `initialCount` i renderuje klikalny przycisk "Lubię to". To jest właśnie siła abstrakcji 💪
+
+## Warstwy abstrakcji
+
+Po rozwikłaniu koncepcji "abstrakcji" zagłębmy się głębiej i wprowadźmy pojęcie "warstw abstrakcji". Koncepcja ta idzie w parze z abstrakcją i pomaga nam w dalszym zarządzaniu złożonością naszych systemów.
+
+### Zrozumienie warstw abstrakcji
+
+Warstwy abstrakcji odnoszą się do hierarchicznej struktury, tworzonej, gdy wiele abstrakcji jest ułożonych "jedna na drugiej". Każda warstwa ukrywa złożoność warstwy znajdującej się pod nią, zapewniając prostszy interfejs do interakcji z warstwą powyżej.
+
+W rozwoju frontendu możemy myśleć o tych warstwach jak o stosie bloków konstrukcyjnych. Każdy blok reprezentuje poziom abstrakcji — począwszy od podstawowego sprzętu, systemu operacyjnego, języka programowania, bibliotek i frameworków, aż po niestandardowe komponenty, które tworzymy.
+
+Weźmy na przykład tworzenie aplikacji webowej przy użyciu biblioteki JavaScript, takiej jak React. Możemy tutaj wyodrębnić następujące warstwy abstrakcji:
+
+- **Sprzęt i system operacyjny**: W warstwie podstawowej sprzęt i system operacyjny obsługują złożoność operacji niższego poziomu, takich jak zarządzanie pamięcią, przetwarzanie wejścia/wyjścia itp.
+- **Silnik JavaScript**: Silnik JavaScript (taki jak `V8` dla Chrome) zamienia nasz kod JavaScript na kod maszynowy, który może zrozumieć sprzęt. Nie musimy się martwić o tę konwersję; po prostu piszemy kod JavaScript.
+- **Język JavaScript**: Kiedy piszemy JavaScript, nie myślimy o alokacji pamięci lub konwersji typów. Używamy zmiennych, funkcji, klas itp., które są abstrakcjami dostarczanymi przez sam język programowania.
+- **Biblioteka React**: React jest biblioteką JavaScript. Zapewnia nam ona dodatkową warstwę abstrakcji, umożliwiając tworzenie złożonych interfejsów użytkownika przy użyciu takich pojęć jak komponenty, właściwości (`props`) i stan.
+- **Komponenty niestandardowe**: To tutaj definiujemy nasze komponenty, takie jak komponent `LikeButton`, o którym mówiliśmy wcześniej. Używamy abstrakcji dostarczanych przez Reacta (komponentów, właściwości, stanu itp.) do tworzenia abstrakcji wyższego poziomu dla naszej aplikacji.
+
+### Efektywne korzystanie z warstw abstrakcji
+
+Każda warstwa abstrakcji pozwala nam skupić się na rozwiązywaniu problemów specyficznych dla naszej warstwy bez martwienia się o szczegóły warstw poniżej. Ważne jest jednak, aby zrozumieć, że każda warstwa powinna zapewniać znaczącą i logiczną separację problemów. Dodawanie niepotrzebnych warstw może nadmiernie skomplikować system, utrudnić debugowanie i prowadzić do niskiej wydajności.
+
+Dobrą zasadą jest tworzenie nowej warstwy abstrakcji tylko wtedy, gdy dostrzeżemy wyraźną korzyść, taką jak ukrywanie złożonej logiki lub poprawa możliwości ponownego użycia kodu. Jeśli nie możesz uzasadnić dodania nowej warstwy abstrakcji, prawdopodobnie nie jest ona potrzebna. Pamiętaj, że każda warstwa abstrakcji wprowadza dodatkową złożoność, więc musimy zachować równowagę.
+
+## Podsumowanie
+
+Abstrakcja jest kluczową koncepcją w rozwoju oprogramowania (ogólnego, nie tylko frontendu). Pomaga nam zarządzać złożonością, wielokrotnie wykorzystywać raz napisany kod i ułatwia utrzymywanie dużych systemów poprzez ukrywanie wewnętrznych zawiłości i eksponowanie developerom prostszego interfejsu.
+
+Pamiętaj, że celem jest uczynienie naszego kodu czystszym i łatwiejszym do zrozumienia. Nadmierna abstrakcja (tworzenie niepotrzebnych warstw abstrakcji) może prowadzić do większego zamieszania i złożoności, co przynosi efekt przeciwny do zamierzonego. Zawsze zachowuj równowagę i abstrahuj (tylko bez niepotrzebnych skojarzeń) tylko wtedy, gdy ma to sens.

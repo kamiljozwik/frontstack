@@ -1,4 +1,23 @@
 <section>
+## Loose Autocomplete w TypeScript
+
+Chcesz, aby zdefiniowany przez Ciebie typ [union](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types) przyjmował również ogólnego `string`-a, ale zachował możliwość automatycznego uzupełniania zdefiniowanych wartości? Możesz użyć pewnego tricku, aby to osiągnąć 🪄
+
+Oto przykład:
+
+```typescript
+// VS Code nie będzie podpowiadał wartości "foo", "bar" i "baz" 😢
+type MyType = "foo" | "bar" | "baz" | string;
+
+// Możemy podać dowolny string, ale VS Code będzie podpowiadał wartości "foo", "bar" i "baz" 🤩
+type MyBetterType = "foo" | "bar" | "baz" | (string & {});
+```
+
+Teraz nasz typ jest bardziej elastyczny, ale nadal możemy korzystać z automatycznego uzupełniania w VS Code 💪
+
+</section>
+
+<section>
 ## `useCallback` i `debounce` w React
 
 Szybki snippet na to, aby połączyć ze sobą `useCallback` oraz funkcję `debounce()` (chyba nie muszę nikomu jej przedstawiać 😉) z biblioteki `lodash` (albo z naszej własnej implementacji).

@@ -5,6 +5,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { data } from "./data";
 import { columns } from "./data/columns";
 import { ReportTable } from "./components";
+import { PageHeader } from "../components/headers/Headers";
 
 const Zarobki = () => {
   const table = useReactTable({
@@ -14,9 +15,12 @@ const Zarobki = () => {
   });
 
   return (
-    <div>
+    <main>
+      <PageHeader desc="Zarobki programistów pracujących w technologiach frontend-owych.">
+        Zarobki
+      </PageHeader>
       <ReportTable table={table} />
-    </div>
+    </main>
   );
 };
 

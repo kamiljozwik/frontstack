@@ -1,10 +1,14 @@
 import { createColumnHelper } from "@tanstack/react-table";
 
-import { Report } from "../types";
+import { Report, technologies } from "../types";
 import { getByTechnology } from "./getByTechnology";
 import { ReportName } from "../components/ReportName";
 
 const columnHelper = createColumnHelper<Report>();
+
+const allTechnologies = technologies.map((t) =>
+  getByTechnology(columnHelper, t)
+);
 
 export const columns = [
   columnHelper.accessor("company", {
@@ -12,8 +16,5 @@ export const columns = [
     cell: (info) => <ReportName info={info} />,
     footer: () => "Średnia",
   }),
-  getByTechnology(columnHelper, "js"),
-  getByTechnology(columnHelper, "react"),
-  getByTechnology(columnHelper, "vue"),
-  getByTechnology(columnHelper, "node"),
+  ...allTechnologies,
 ];

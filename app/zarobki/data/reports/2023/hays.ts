@@ -1,22 +1,42 @@
 import { Report } from "../../../types";
 
 export const hays23: Report = {
-  company: "HAYS",
-  reportName: "HAYS report",
-  year: 2023,
+  company: "hays",
+  reportName: "IT Contracting",
+  year: 2022,
+  url: "https://www.hays.pl/raport-placowy/o-raporcie",
   salaries: [
     {
-      technology: "js",
+      technology: "react",
       salaryBySeniority: {
-        junior: 666,
-        mid: 444,
-        senior: 888,
-        expert: 555,
+        junior: 16_800,
+        mid: 24_400,
+        senior: 26_900,
       },
     },
     {
-      technology: "react",
-      salary: 22000,
+      technology: "angular",
+      salaryBySeniority: {
+        junior: 16_800,
+        mid: 21_000,
+        senior: 26_000,
+      },
+    },
+    {
+      technology: "vue",
+      salaryBySeniority: {
+        junior: 16_800,
+        mid: 21_000,
+        senior: 26_000,
+      },
+    },
+    {
+      technology: "node",
+      salaryBySeniority: {
+        junior: 17_600,
+        mid: 21_800,
+        senior: 28_600,
+      },
     },
   ],
 };

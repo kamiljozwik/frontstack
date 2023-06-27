@@ -1,9 +1,7 @@
 import { ColumnHelper } from "@tanstack/react-table";
 
-import { Report, Seniority, Technology } from "../types";
+import { Report, Technology, seniorities } from "../types";
 import { dict } from "./dictionary";
-
-const seniorities = ["junior", "mid", "senior", "expert"] as Seniority[];
 
 export const getByTechnology = (
   columnHelper: ColumnHelper<Report>,

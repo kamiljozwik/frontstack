@@ -1,6 +1,6 @@
 import { ColumnHelper } from "@tanstack/react-table";
 
-import { Report, Technology, seniorities } from "../types";
+import { Report, Salary, Technology, seniorities } from "../types";
 import { dict } from "./dictionary";
 
 export const getByTechnology = (
@@ -23,10 +23,14 @@ export const getByTechnology = (
 
           if (!salaries) return null;
 
-          return (
+          const rawSalaryData =
             salaries.salaryBySeniority?.[seniority] ??
-            (seniority === "mid" ? salaries.salary : null)
-          );
+            (seniority === "mid" ? salaries.salary : 0) ??
+            0;
+
+          const perMonth = calcPerMonth(rawSalaryData, salaries.dataType);
+
+          return perMonth ?? null;
         },
         footer: (props) => {
           const rowsSalaries = props.table
@@ -37,14 +41,16 @@ export const getByTechnology = (
             .filter(Boolean);
 
           const singleSalaries = rowsSalaries
-            .map((s) => s?.salary)
+            .map((s) => calcPerMonth(s?.salary, s?.dataType))
             .filter(Boolean);
 
           // Take single salaries as mid salaries
           const midSalaries = seniority === "mid" ? singleSalaries : [];
 
           const salariesByExperience = rowsSalaries
-            .map((s) => s?.salaryBySeniority?.[seniority])
+            .map((s) =>
+              calcPerMonth(s?.salaryBySeniority?.[seniority], s?.dataType)
+            )
             .filter(Boolean);
 
           const allSalaries = [...midSalaries, ...salariesByExperience];
@@ -60,3 +66,15 @@ export const getByTechnology = (
       })
     ),
   });
+
+const calcPerMonth = (
+  salary = 0,
+  dataType: Salary["dataType"] = "perMonth"
+) => {
+  const NUMBER_OF_DAYS_IN_MONTH = 21;
+  const NUMBER_OF_WORKING_HOURS_PER_DAY = 8;
+
+  return dataType === "perHour"
+    ? salary * NUMBER_OF_DAYS_IN_MONTH * NUMBER_OF_WORKING_HOURS_PER_DAY
+    : salary;
+};

@@ -1,6 +1,6 @@
 import { Report } from "../../../types";
 
-export const inhire23: Report = {
+export const inhire22: Report = {
   company: "inhire",
   reportName: "IT Market Snapshot",
   year: 2022,

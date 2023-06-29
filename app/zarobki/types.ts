@@ -28,6 +28,7 @@ export type Report = {
 
 export type Salary = {
   technology: Technology;
+  dataType?: "perHour" | "perMonth";
   /* Single salary for all seniority levels. Treat it as a mid salary. */
   salary?: number;
   /* Salary for each seniority level. */

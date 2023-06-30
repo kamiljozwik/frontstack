@@ -30,7 +30,7 @@ export const getByTechnology = (
 
           const perMonth = calcPerMonth(rawSalaryData, salaries.dataType);
 
-          return perMonth ?? null;
+          return perMonth || null;
         },
         footer: (props) => {
           const rowsSalaries = props.table

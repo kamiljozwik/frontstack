@@ -1,7 +1,7 @@
 import { ColumnHelper } from "@tanstack/react-table";
 
-import { Report, Salary, Technology, seniorities } from "../types";
-import { dict } from "./dictionary";
+import { Report, Salary, Technology, seniorities } from "../../types";
+import { techs } from "../../data/dictionary";
 
 export const getByTechnology = (
   columnHelper: ColumnHelper<Report>,
@@ -9,13 +9,12 @@ export const getByTechnology = (
 ) =>
   columnHelper.group({
     id: tech,
-    header: () => dict[tech],
-    // TODO: add general average
-    // footer: () => "Średnia ogólna",
+    header: () => techs[tech],
     columns: seniorities.map((seniority) =>
       columnHelper.accessor((row) => row.salaries, {
         id: `${tech}-${seniority}`,
-        header: () => seniority,
+        header: () => seniority.charAt(0).toUpperCase() + seniority.slice(1),
+        size: 80,
         cell: (info) => {
           const salaries = info.row.original.salaries.find(
             (s) => s.technology === tech
@@ -30,7 +29,7 @@ export const getByTechnology = (
 
           const perMonth = calcPerMonth(rawSalaryData, salaries.dataType);
 
-          return perMonth || null;
+          return perMonth ? `${(perMonth / 1000).toFixed(2)}k` : null;
         },
         footer: (props) => {
           const rowsSalaries = props.table
@@ -61,7 +60,11 @@ export const getByTechnology = (
               0
             ) ?? 0;
 
-          return allSalaries.length ? Math.round(sum / allSalaries.length) : "";
+          const avg = allSalaries.length
+            ? Math.round(sum / allSalaries.length)
+            : 0;
+
+          return avg ? `${(avg / 1000).toFixed(2)}k` : null;
         },
       })
     ),

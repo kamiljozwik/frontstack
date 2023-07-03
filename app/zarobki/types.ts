@@ -14,14 +14,29 @@ export const seniorities = ["junior", "mid", "senior"] as const;
 
 export type Seniority = (typeof seniorities)[number];
 
+const companies = [
+  "dcg",
+  "devire",
+  "hays",
+  "inhire",
+  "justjoinit",
+  "nfj",
+  "ntp",
+  "soda",
+  "grafton",
+] as const;
+
+export type Company = (typeof companies)[number];
+
 type SalaryBySeniority = {
   [key in Seniority]?: number;
 };
 
 export type Report = {
-  company: string;
+  company: Company;
   reportName: string;
   year: number;
+  period?: string;
   url: string;
   salaries: Salary[];
 };

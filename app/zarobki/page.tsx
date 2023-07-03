@@ -3,7 +3,7 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 import { data } from "./data";
-import { columns } from "./data/columns";
+import { columns } from "./components/table/columns";
 import { ReportTable } from "./components";
 import { PageHeader } from "../components/headers/Headers";
 

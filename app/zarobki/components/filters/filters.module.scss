@@ -1,0 +1,12 @@
+.title {
+  margin: 12px 0;
+  font-weight: bold;
+  color: var(--color-strong);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 18px;
+  row-gap: 8px;
+}

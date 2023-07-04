@@ -1,7 +1,7 @@
 import { CellContext } from "@tanstack/react-table";
 
-import { Report } from "../../types";
-import { brands } from "../../data/dictionary";
+import { Report } from "../../../types";
+import { brands } from "../../../data/dictionary";
 import styles from "./ReportName.module.scss";
 
 type Props = {

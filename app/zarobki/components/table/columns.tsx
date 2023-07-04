@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 
 import { Report, technologies } from "../../types";
 import { getByTechnology } from "./getByTechnology";
-import { ReportName } from "../reportName/ReportName";
+import { ReportName } from "./reportName/ReportName";
 
 const columnHelper = createColumnHelper<Report>();
 

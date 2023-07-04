@@ -1,9 +1,20 @@
-import { Table, flexRender } from "@tanstack/react-table";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 
 import { Report } from "../../types";
 import styles from "./Table.module.scss";
+import { columns } from "./columns";
 
-export const ReportTable = ({ table }: { table: Table<Report> }) => {
+export const Table = ({ data }: { data: Report[] }) => {
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <div className={styles.root}>
       <table className={styles.table}>

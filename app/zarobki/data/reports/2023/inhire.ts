@@ -37,3 +37,40 @@ export const inhireQ123: Report = {
     },
   ],
 };
+
+export const inhireQ223: Report = {
+  company: "inhire",
+  reportName: "IT Market Snapshot Q2 2023",
+  year: 2023,
+  period: "Q2",
+  url: "https://inhire.io/pl/insights/it-market-snapshot-q2-2023/",
+  salaries: [
+    {
+      technology: "js",
+      salaryBySeniority: {
+        junior: 9_800,
+        mid: 20_000,
+        senior: 25_500,
+      },
+    },
+    {
+      technology: "ts",
+      salary: 23_918,
+    },
+    {
+      technology: "fe",
+      salaryBySeniority: {
+        junior: 9_000,
+        mid: 20_000,
+        senior: 26_000,
+      },
+    },
+    {
+      technology: "react",
+      salaryBySeniority: {
+        mid: 23_500,
+        senior: 26_500,
+      },
+    },
+  ],
+};

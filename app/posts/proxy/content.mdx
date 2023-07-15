@@ -1,0 +1,137 @@
+export const meta = {
+  title: "Proxy oraz Reverse Proxy - czym są i jak działają?",
+  seo_desc:
+    "Dowiedz się czym są i jak działają servery proxy oraz reverse proxy",
+  short:
+    "Dowiedz się czym są servery proxy oraz reverse proxy i jakie spełniają rolę przy zarządzaniu ruchem sieciowym w aplikacjach webowych. Poza samą teorią, w artykule znajdziesz również kilka praktycznych przykładów użycia obydwu tych narzędzi.",
+  date: "2023-07-15",
+  tags: ["Inne"],
+};
+
+Przy tworzeniu stron internetowych dość kluczowe znaczenie ma zrozumienie, w jaki sposób przepływa ruch sieciowy między klientami (np. przeglądarka, aplikacja mobilna) a serwerami. Ważnymi komponentami w zarządzaniu tym przepływem są serwery **proxy** oraz **reverse proxy**. Serwer proxy (lub _forward proxy_) to tzw. serwer pośredniczący, który wysyła żądania do innych serwerów w imieniu klienta, głównie w celu zachowania prywatności i ominięcia ograniczeń geograficznych. Z kolei reverse proxy to serwer, który kieruje przychodzące żądania klientów do jednego lub więcej serwerów zaplecza i jest używany głównie do równoważenia obciążenia, buforowania, kompresji i ustalania granicy szyfrowania (SSL).
+
+Koncepcje te nie są tylko teoretyczne; mają one praktyczne zastosowanie w rozwoju zarówno frontendu, jak i backendu. W kontekście frontendowym forward proxy mogą pomóc w problemach związanych z CORS, a reverse proxy mogą być wykorzystywane do zarządzania i kontrolowania przychodzących żądań klientów w technologiach serwerowych, takich jak Nginx lub Node.js z Express.js (obecnie frontend ponownie zmierza w kierunku SSR, więc tematy te niedługo powinny być dobrze znane również frontowym developerom). W tym artykule omówimy, czym są serwery proxy i reverse proxy, jak działają i jak można je wykorzystać w praktyce.
+
+## Proxy (Forward Proxy)
+
+Proxy to serwer, który działa jako pośrednik między klientem a innym serwerem. Klient może być dowolnym urządzeniem, które łączy się z internetem, takim jak komputer, tablet lub smartfon. Serwer może być dowolnym serwerem, który udostępnia zasoby, takie jak pliki graficzne, dane lub strony internetowe (pliki HTML, CSS, JS). Proxy działa jako pośrednik między klientem a serwerem, który udostępnia te zasoby. Proxy może być używany do kontroli dostępu do zasobów serwera lub do przyspieszenia dostępu do zasobów serwera poprzez buforowanie.
+
+Serwer proxy lub po prostu proxy to więc serwer, który działa jako pośrednik dla żądań klientów szukających zasobów z innych serwerów.
+
+Oto jak to działa:
+
+- Klient (na przykład przeglądarka internetowa) wysyła żądanie do serwera proxy.
+- Serwer proxy wysyła to żądanie do serwera docelowego.
+- Serwer docelowy wysyła żądane dane z powrotem do serwera proxy.
+- Serwer proxy przekazuje otrzymane dane z powrotem do klienta.
+
+Celem serwera proxy może być zachowanie prywatności lub ominięcie ograniczeń regionalnych.
+
+<img src="/blog/proxy/proxy.png" alt="przykład forward proxy" />
+
+## Reverse Proxy
+
+Z drugiej strony, reverse proxy jest rodzajem serwera proxy, który pobiera zasoby w imieniu klienta z jednego lub więcej serwerów. Zasoby te są zwracane do klienta, wyglądając tak, jakby pochodziły tylko z tego jednego serwera. Oto jak działa reverse proxy:
+
+- Klient wysyła żądanie z zamiarem uzyskania dostępu do zasobów z serwera.
+- Reverse serwer proxy akceptuje to żądanie i na podstawie swoich ustawienia i charakteru żądania decyduje, gdzie wysłać to żądanie w swojej wewnętrznej sieci serwerów.
+- Wybrany serwer wysyła żądane dane z powrotem do reverse proxy.
+- Reverse proxy zwraca otrzymane dane z powrotem do klienta tak jakby pochodziły one z tego właśnie serwera.
+
+Główne powody korzystania z reverse proxy obejmują równoważenie obciążenia, buforowanie, kompresję i zakończenie SSL. Reverse proxy zapewnia dodatkowy poziom abstrakcji i kontroli, aby zapewnić płynny przepływ ruchu sieciowego między klientami a serwerami.
+
+<img src="/blog/proxy/reverse.png" alt="przykład reverse forward proxy" />
+
+## Różnice
+
+Główna różnica między forward proxy i reverse proxy polega na ich wykorzystaniu i stronie modelu klient-serwer, którą obsługują.
+
+**Forward proxy** służy po stronie klienta. Jest jak brama z sieci lokalnej do większego Internetu, używana często do zapewnienia anonimowości i omijania ograniczeń geograficznych. Z perspektywy Internetu wszystkie żądania wydają się pochodzić od serwera proxy, a nie od rzeczywistego klienta, który się za nim znajduje.
+
+**Reverse proxy** obsługuje stronę serwera. Zazwyczaj jest on umieszczany na brzegu sieci, chroniąc, ukrywając i równoważąc obciążenie serwerów. Z perspektywy klientów w Internecie, rozmawiają oni po prostu z serwerem reverse proxy i nie mają pojęcia o wewnętrznej sieci serwerów za nim.
+
+## Przykłady frontendowe
+
+Spójrzmy teraz na kilka przykładów użycia proxy i reverse proxy w kontekście frontendowym.
+
+### 1. Używanie proxy z Axios w aplikacji React (forward proxy)
+
+Kiedy pracujesz z Reactem i musisz wykonywać zapytania API, możesz być w sytuacji, gdzie nie posiadasz API uruchomionego lokalnie, ale znajduje się ono na jakimś serwerze developerskim. Aby nie musieć stawiać API lokalnie i wykorzystać serwer developerski, często konfigurujemy serwer proxy przy użyciu klucza `proxy` w pliku `package.json`:
+
+```json
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "proxy": "http://my-api-server.com"
+}
+```
+
+Gdy wykonujesz zapytanie w swojej aplikacji, będzie ono przechodziło przez tymczasowo uruchomiony lokalny serwer proxy określony w kluczu `proxy`, aby przekierować ruch na jakiś wybrany przez nas serwer:
+
+```js
+axios.get("/api/data").then((response) => {
+  console.log(response.data);
+});
+```
+
+W powyższym przykładzie rzeczywiste żądanie zostanie wysłane na adres `http://my-api-server.com/api/data`, ale dla aplikacji React wygląda to tak, jakby wywoływała `/api/data`. Jest to przykład działania forward proxy.
+
+### 2. Używanie Nginx z aplikacją Node.js
+
+[Nginx](https://www.nginx.com/) jest popularnym wyborem dla reverse proxy. Załóżmy, że na serwerze działa aplikacja Node.js o adresie `http://localhost:5000`. Możesz skonfigurować Nginx tak, aby akceptował żądania pod adresem `http://yourpublicwebsite.com` i przekazywał je do twojej aplikacji.
+
+Oto podstawowy przykład tego, jak może wyglądać konfiguracja Nginx:
+
+```nginx
+server {
+    listen 80;
+    server_name yourpublicwebsite.com;
+
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+W tym przypadku Nginx działa jako reverse proxy. Klienci wysyłają żądania do `http://yourpublicwebsite.com`, a Nginx przekazuje je do aplikacji Node.js działającej na `http://localhost:5000`. Wszelkie odpowiedzi są następnie wysyłane z powrotem przez Nginx do klienta, dając złudzenie, że Nginx jest źródłem odpowiedzi.
+
+### 3. Express.js i http-proxy-middleware
+
+Można również utworzyć reverse proxy przy użyciu Node.js i [Express.js](https://expressjs.com/) z biblioteką [http-proxy-middleware](https://www.npmjs.com/package/http-proxy-middleware). Jest to częsty scenariusz, gdy chcesz ominąć ograniczenia CORS podczas programowania lub rozdzielić obciążenie między różne usługi w architekturze mikro usług.
+
+Oto podstawowa konfiguracja:
+
+```js
+const express = require("express");
+const { createProxyMiddleware } = require("http-proxy-middleware");
+
+const app = express();
+
+app.use(
+  "/api",
+  createProxyMiddleware({
+    target: "http://api.yourserver.com",
+    changeOrigin: true,
+  })
+);
+app.listen(3000);
+```
+
+Teraz gdy wykonasz żądanie do `http://localhost:3000/api`, zostanie ono przekierowane do `http://api.yourserver.com`.
+
+To tylko kilka przykładów. Szczegóły będą zależeć od przypadku użycia, używanych technologii oraz charakteru aplikacji i architektury sieci.
+
+## Podsumowanie
+
+- Serwer proxy (lub forward proxy) to serwer, który znajduje się pomiędzy klientem a innymi serwerami, przekazując żądania klienta do tych serwerów. Jest on używany głównie do zachowania prywatności i omijania ograniczeń geograficznych albo w trakcie developmentu.
+
+- Reverse proxy znajduje się przed jednym lub kilkoma serwerami i kieruje żądania klientów do tych serwerów. Jest używany głównie do równoważenia obciążenia, buforowania, kompresji i ustalenia granicy szyfrowania SSL.
+
+- W kontekście frontendowym, forward proxy mogą być wykorzystywane do unikania problemów związanych z CORS w środowiskach programistycznych lub do przekazywania zapytań API do konkretnego serwera.
+
+- Reverse proxy są często używane z technologiami serwerowymi, takimi jak Nginx lub Node.js z Express.js. Obsługują one przychodzące żądania klientów i kierują je do odpowiednich serwerów na zapleczu, zapewniając dodatkową warstwę abstrakcji i kontroli.

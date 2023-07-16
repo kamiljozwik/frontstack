@@ -1,0 +1,127 @@
+export const meta = {
+  title: "Cookies - przewodnik dla programistów frontendowych",
+  seo_desc:
+    "Poznaj pliki cookies i dowiedz się jak mogą pomóc programistom frontendowym w tworzeniu stron internetowych.",
+  short:
+    "Poznaj świat plików 🍪 cookie w komunikacji klient-serwer. Dowiedz się, w jaki sposób poprawiają one wrażenia użytkownika, jakie są najlepsze praktyki w zakresie bezpiecznego korzystania z nich i jak wypadają one w porównaniu z Local Storage. Spraw, aby Twoje witryny były bezpieczniejsze i bardziej przyjazne dla użytkownika.",
+  date: "2023-07-16",
+  tags: ["JavaScript", "Inne"],
+};
+
+Dzisiaj zapoznamy się z jednym z podstawowych elementów komunikacji klient-serwer, czyli plikami 🍪 cookie. Nie, nie są to pyszne smakołyki, które od razu przychodzą na myśl. Są to raczej małe fragmenty informacji przechowywane po stronie klienta w celu poprawy doświadczenia użytkownika i interakcji ze stronami i aplikacjami internetowymi. Odgrywają one dzisiaj dość istotną rolę w Internecie, a jako programiści frontendowi możemy nimi manipulować na naszą korzyść.
+
+## Czym są pliki cookie?
+
+W kontekście tworzenia stron internetowych plik cookie to niewielki fragment danych przechowywany na komputerze użytkownika przez przeglądarkę internetową podczas przeglądania strony. Pliki cookie zostały zaprojektowane jako mechanizm dla stron internetowych do zapamiętywania informacji specyficznych dla użytkownika lub rejestrowania aktywności przeglądania użytkownika.
+
+Pliki cookie składają się z jednej lub więcej par nazwa-wartość zawierających fragmenty informacji, które mogą być zaszyfrowane w celu zapewnienia prywatności informacji i bezpieczeństwa danych.
+
+## Dlaczego używamy plików cookie?
+
+Pliki cookie mogą służyć wielu celom, takim jak:
+
+- Zarządzanie sesjami: pliki cookie pozwalają witrynom internetowym rozpoznawać użytkowników i zapamiętywać ich indywidualne preferencje, takie jak zawartość koszyka lub identyfikator dostępu do witryny.
+- Personalizacja: strony internetowe wykorzystują pliki cookie do personalizacji doświadczeń użytkowników poprzez dostosowanie prezentacji strony, układu lub opcji dla każdego użytkownika (np. tryb jasny/ciemny).
+- Śledzenie: pliki cookie mogą śledzić zachowanie użytkowników na stronie internetowej, pomagając właścicielom witryn zrozumieć preferencje użytkowników w zakresie ukierunkowanego marketingu lub analiz.
+
+Jak widać więc, pliki cookie są całkiem przydatne.
+
+## Jak działają pliki cookie?
+
+Pliki cookie są przechowywane w przeglądarce internetowej użytkownika. Kiedy użytkownik odwiedza stronę internetową, serwer wysyła plik cookie do przeglądarki, a następnie przeglądarka zapisuje go na komputerze użytkownika. W dalszej części artykułu zobaczymy jak możemy manipulować plikami cookies za pomocą JavaScript. Każdy plik cookie jest unikalny dla danej witryny internetowej, więc nie możemy dzielić ich między różnymi witrynami, podobnie jak ma to miejsce w przypadku `local storage` i `session storage`.
+
+Kiedy użytkownik ponownie odwiedza tę samą stronę internetową, przeglądarka wysyła (zawsze❗) pliki cookie z powrotem do serwera, aby poinformować go o poprzednich aktywnościach użytkownika. Na przykład, jeśli użytkownik zaloguje się na stronie internetowej, serwer może wysłać plik cookie z unikalnym identyfikatorem sesji, który może być używany do śledzenia sesji użytkownika. Pliki cookie mogą być również używane do śledzenia aktywności użytkownika, takich jak kliknięcia przycisków, przeglądane strony i inne zachowania.
+
+## Jak programiści frontendowi mogą korzystać z plików cookie?
+
+Jako programista frontendowy możesz używać plików cookie do różnych zadań, w tym:
+
+- Uwierzytelnianie użytkowników: pliki cookie mogą być wykorzystywane do uwierzytelniania użytkowników. Po udanym logowaniu serwer może wysłać nagłówek `Set-Cookie`, aby zapisać informacje o logowaniu użytkownika.
+- Przechowywanie preferencji użytkownika: pliki cookie mogą przechowywać niewielkie ilości danych w celu zapamiętania preferencji użytkownika i spersonalizowania strony internetowej w oparciu o te preferencje.
+- Śledzenie zachowania użytkownika: pliki cookie mogą śledzić strony odwiedzane przez użytkownika, klikane przez niego przyciski i inne zachowania, co może pomóc zrozumieć nawyki użytkownika i poprawić jego wrażenia.
+
+Przyjrzyjmy się, jak tworzyć, uzyskiwać dostęp i usuwać pliki cookie za pomocą JavaScript:
+
+### Tworzenie plików cookie
+
+Plik cookie w większości przypadków będą tworzone na serwerze, ale można utworzyć je również przy użyciu właściwości `document.cookie`:
+
+```js
+document.cookie =
+  "username=John Doe; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/";
+```
+
+Tutaj utworzyliśmy plik cookie o nazwie `username` z wartością `John Doe`. Cookies możemy podejrzeć w DevToolsach w zakładce "Application". Atrybut `expires` ustawia datę wygaśnięcia w formacie UTC, po której plik cookie zostanie usunięty. Atrybut `path` określa katalog, dla którego plik cookie jest ważny. W tym przypadku jest on ważny dla wszystkich stron (`/`).
+
+<img
+  src="/blog/cookies/devtools.webp"
+  alt="screen pokazujacy lokalizacje plików cookie w DevTools"
+/>
+
+### Uzyskiwanie dostępu do plików cookie
+
+Dostęp do plików cookie powiązanych z witryną można uzyskać przy użyciu tej samej właściwości `document.cookie`. Ta właściwość zwróci wszystkie pliki cookie w jednym ciągu, np.: `cookie1=wartość; cookie2=wartość; cookie3=wartość;`.
+
+```js
+var allCookies = document.cookie;
+```
+
+Niestety nie ma wbudowanej metody do uzyskiwania dostępu do pojedynczych plików cookie. Możesz jednak napisać funkcję, która zwróci wartość pliku cookie o podanej nazwie:
+
+```js
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
+```
+
+### Usuwanie plików cookie
+
+Aby usunąć plik cookie, wystarczy ustawić jego atrybut expires na datę przeszłą:
+
+```js
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+```
+
+Pamiętaj, że bezpieczeństwo jest najważniejsze, gdy masz do czynienia z danymi użytkownika. Zawsze używaj bezpiecznych flag i `HttpOnly` podczas tworzenia plików cookie i unikaj przechowywania poufnych informacji takich jak hasła, w plikach cookie.
+
+## Najlepsze praktyki dotyczące bezpieczeństwa plików cookie
+
+- Używaj bezpiecznych plików cookie: zawsze używaj flagi `Secure` dla plików cookie, jeśli Twoja witryna jest obsługiwana przez HTTPS. Zapewni to, że plik cookie jest wysyłany tylko przez połączenie HTTPS.
+- Ogranicz dostęp do plików cookie: użyj atrybutu `HttpOnly`, aby uniemożliwić dostęp do wartości plików cookie za pośrednictwem JavaScript. Może to pomóc w zapobieganiu atakom XSS.
+- Użyj atrybutu `SameSite`: aby pomóc w ochronie przed atakami CSRF, użyj atrybutu `SameSite`. Atrybut `SameSite=Strict` jest najlepszą opcją, jeśli witryna nie musi udostępniać plików cookie w kontekście stron trzecich.
+- Krótki czas życia plików cookie: im dłuższy czas życia pliku cookie, tym dłużej atakujący może potencjalnie użyć skradzionego pliku cookie do podszycia się pod użytkownika. Dlatego też czas życia plików cookie powinien być jak najkrótszy.
+- Nigdy nie przechowuj poufnych informacji: nigdy nie przechowuj poufnych danych w plikach cookie, takich jak hasła, dane poufne użytkownika lub informacje o karcie kredytowej. Jeśli musisz śledzić sesje użytkowników, rozważ użycie sesji po stronie serwera.
+
+## Porównanie plików cookie z pamięcią lokalną i pamięcią sesji
+
+W jednym ze wcześniejszych wpisów omówiłem dokładniej czym jest Local Stoarge i Session Storage. Wpis znajdziesz pod tym linkiem: [Czym jest Local Storage i jak go używać?](/blog/czym-jest-local-storage-i-jak-uzywac)
+
+### Pliki cookie:
+
+- Mogą przechowywać do 4 KB danych.
+- Wysyłane z każdym żądaniem HTTP, co zwiększa obciążenie.
+- Z flagą `Secure`, mogą być używane tylko przez szyfrowane połączenie.
+- Mogą być manipulowane zarówno przez skrypty po stronie serwera jak i klienta.
+- Mają wbudowany mechanizm wygaśnięcia.
+
+### Pamięć lokalna:
+
+- Może przechowywać do 5MB-10MB danych (zależy od przeglądarki).
+- Nie są wysyłane z każdym żądaniem HTTP.
+- Można nim manipulować tylko za pomocą skryptów po stronie klienta.
+- Trwa do momentu wyraźnego usunięcia.
+
+### Session Storage:
+
+- Może przechowywać do 5MB-10MB danych (w zależności od przeglądarki).
+- Nie jest wysyłany z każdym żądaniem HTTP.
+- Można nim manipulować tylko za pomocą skryptów po stronie klienta.
+- Wygasa po zakończeniu sesji strony (po zamknięciu karty).
+
+Krótko mówiąc, podczas gdy pliki cookie doskonale nadają się do przesyłania niewielkich ilości danych między klientem a serwerem, pamięć lokalna i pamięć sesji zapewniają większą pojemność i nie zwiększają narzutu żądania HTTP. Nie można jednak uzyskać do nich dostępu po stronie serwera, co może ograniczać ich użycie w zależności od wymagań aplikacji.
+
+## Podsumowanie
+
+Pliki cookie są niezwykle przydatnym narzędziem w komunikacji klient-serwer. Pozwalają na lepsze doświadczenia użytkowników i dostarczają nam cennych informacji o tym, jak użytkownicy wchodzą w interakcje z naszymi stronami internetowymi. Podobnie jak w przypadku wszystkich narzędzi, muszą być one jednak używane w sposób odpowiedzialny i bezpieczny.

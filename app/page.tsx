@@ -3,6 +3,7 @@ import { Hero } from "./components/hero/Hero";
 import { PostLink } from "./components/postLink/PostLink";
 import styles from "./page.module.scss";
 import { getPostsMeta } from "./utils/blog";
+import Link from "next/link";
 
 export default function Home() {
   const allPosts = getPostsMeta();
@@ -17,6 +18,9 @@ export default function Home() {
             {allPosts.slice(0, 5).map((post) => (
               <PostLink key={post.slug} post={post} />
             ))}
+          </div>
+          <div className={styles.seeAllPosts}>
+            <Link href="/blog">Zobacz wszystkie wpisy</Link>
           </div>
         </section>
         <div className={styles.side}>

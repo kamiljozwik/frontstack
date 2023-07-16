@@ -22,6 +22,10 @@
   width: 30vw;
 }
 
+.seeAllPosts {
+  margin-bottom: 32px;
+}
+
 @media screen and (max-width: 768px) {
   .main {
     flex-direction: column-reverse;

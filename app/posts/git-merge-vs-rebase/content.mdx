@@ -1,0 +1,168 @@
+import { Figure } from "../../components/posts";
+import { Table } from "./Table";
+
+export const meta = {
+  title: "Git merge vs rebase - różnice i zastosowania",
+  seo_desc:
+    "Git merge vs rebase - poznaj różnice i zastosowania tych dwóch kluczowych poleceń Git.",
+  short:
+    "Poznaj zawiłości dwóch kluczowych, aczkolwiek nietrywialnych poleceń Gita: git merge i git rebase. Odkryj ich cele, przypadki użycia, typowe błędy i praktyczne wskazówki, które pomogą Ci w lepszym zarządzaniu Twoim kodem.",
+  date: "2023-07-17",
+  tags: ["Git"],
+};
+
+Dzisiaj wrócimy do tematów związanych z kontrolą wersji. Dwa często używane polecenia - `git merge` i `git rebase`, dość często powodują problemy ze zrozumieniem ich działania. W tym wpisie porównamy je do siebie oraz omówimy ich przypadki użycia.
+
+## Git Merge
+
+`git merge` to polecenie, które integruje zmiany z jednej gałęzi do drugiej (głównie z gałęzi typu `feature` do gałęzi `master` lub `main`). Jest to powszechna operacja łączenia kodu, zwłaszcza gdy nad projektem pracuje wiele osób.
+
+```bash
+# Przełącz się na gałąź do której chcesz scalić zmiany
+git checkout master
+
+# Scalenie zmian z gałęzi feature do gałęzi master
+git merge feature
+```
+
+W powyższym scenariuszu wszystkie zmiany wprowadzone w gałęzi `feature` zostaną zintegrowane z gałęzią `master`. Git tutaj stworzy niemal zawsze nowego commita, aby połączyć zmiany z obydwu gałęzi. Ten nowy commit jest znany jako `merge commit`.
+
+Merge commit zachowuje historyczne informacje o rozgałęzieniach i pokazują dokładnie, kiedy i gdzie dana gałąź odbiegła od naszej głównej gałęzi. Jest to świetne rozwiązanie do przechowywania szczegółowej historii, ale może skutkować złożoną, trudną do analizy i nieliniową historią commitów.
+
+<Figure
+  src="/blog/git-merge-vs-rebase/merge.png"
+  alt="Git Merge przedstawiony graficznie"
+  caption="Źródło: https://www.atlassian.com/git/tutorials/using-branches/git-merge"
+/>
+
+## Git Rebase
+
+Z kolei `git rebase` to kolejny sposób na integrację zmian z jednej gałęzi do drugiej, ale działa on nieco inaczej. Zamiast tworzyć nowy merge commit, `git rebase` przenosi lub łączy commity, tworząc liniową historię commitów.
+
+```bash
+# Przełącz się na gałąź, którą chcesz zrebase'ować
+git checkout feature
+
+# Zrebase'uj zmiany z gałęzi master do gałęzi feature (czyli aktualizuj gałąź feature o najnowsze zmiany z gałęzi master)
+git rebase master
+```
+
+W tym przykładzie zmiany z gałęzi `feature` są ponownie nakładane na gałąź `master`, a wynikowa historia wygląda tak, jakby zmiany zostały wprowadzone zaczynając od najnowszego commita gałęzi `master`.
+
+Rebasing oferuje czystą, liniową historię. Jest to doskonałe rozwiązanie w sytuacjach, gdy chcesz, aby gałąź danego feature-a była aktualna z najnowszym kodem z innej gałęzi.
+
+<Figure
+  src="/blog/git-merge-vs-rebase/rebase.gif"
+  alt="animacja obrazująca rebase"
+  caption="Źródło: https://blog.mralx.com/git-rebase/"
+/>
+
+## 👍 Kiedy używać merge, a kiedy rebase?
+
+Zarówno komenda `git merge`, jak i `git rebase` służą pewnemu konkretnemu celowi. W zależności od sytuacji należy wybrać jedną z nich.
+
+### Użyj merge, gdy:
+
+Chcesz połączyć kod z dwóch różnych gałęzi i zachować dokładny zapis historyczny. Merge są przydatne do integracji gałęzi długo żyjących (_long-lived feature branch_) z powrotem do głównego kodu (gałęzi `master`, `main` lub `develop`).
+
+### Użyj _rebase_, gdy:
+
+Pracujesz nad gałęzią funkcji i musisz włączyć najnowsze zmiany z głównej gałęzi. Rebasing pomaga zachować aktualność naszej gałęzi bez zaśmiecania historii commitów niepotrzebnymi merge commitami.
+
+## 👎 Kiedy NIE używać merge i rebase
+
+Tak jak mają swoje przypadki użycia, git merge i git rebase mają również sytuacje, w których nie są najlepszym wyborem.
+
+### Unikaj merge, gdy:
+
+Masz do czynienia z krótkotrwałą gałęzią i chcesz mieć czystą, liniową historię. Wielokrotne scalenia w krótkim odstępie czasu mogą sprawić, że historia commitów będzie trudna do zrozumienia.
+
+### Unikaj rebase, gdy:
+
+Masz do czynienia z publiczną, współdzieloną gałęzią, na której inni mogli oprzeć swoją pracę. Rebase przepisuje historię commitów, co może powodować konflikty i problemy dla innych deweloperów.
+
+## Przydatne wskazówki
+
+Mając za sobą jasne zrozumienie `git merge` i `git rebase`, zanurzmy się głębiej i poznajmy kilka przydatnych wskazówek, które mogą usprawnić nam pracę z tymi poleceniami.
+
+### Merge
+
+- Użyj `--no-ff`, aby zachować gałęzie funkcji: Git domyślnie czasami wykonuje szybkie scalanie i usuwa informacje o istnieniu feature brancha. Jeśli chcesz zachować historię swoich feature branchy, użyj opcji `--no-ff`.
+
+  ```bash
+  git merge --no-ff feature
+  ```
+
+- Mądrze rozwiązuj konflikty: Gdy napotkasz konflikt podczas mergowania, Git pozostawi znaczniki (`<<<<`, `====`, `>>>>`) w skonfliktowanych plikach. Część między `<<<<` i `====` pochodzi z bieżącej gałęzi, a część między `====` i `>>>>` pochodzi z gałęzi, którą próbujesz scalić.
+
+- Użyj `git mergetool`: Jeśli nie czujesz się komfortowo podczas ręcznego rozwiązywania konfliktów scalania, możesz użyć narzędzia [mergetool](https://git-scm.com/docs/git-mergetool), które zapewnia graficzny interfejs do rozwiązywania konfliktów.
+
+### Rebase
+
+- Interaktywny rebase: Użyj interaktywnego rebase (`-i` lub `--interactive`), aby scalić wiele commitów w jeden, usunąć niechciane commity lub zmienić tytuły commitów, co jest niezwykle pomocne w utrzymaniu czystej, czytelnej historii commitów.
+
+  ```bash
+  git rebase -i HEAD~3
+  ```
+
+  Spowoduje to otwarcie trzech ostatnich commitów w wybranym edytorze tekstu, umożliwiając wybranie tych, które mają zostać zmienione, scalone lub odrzucone.
+
+- Użyj `autosquash` z `rebase -i`: Jeśli planujesz scalić w jeden commit kilka różnych commitów podczas interaktywnego `rebase`, możesz zautomatyzować ten proces, używając `--autosquash`.
+
+  ```bash
+  git rebase -i --autosquash master
+  ```
+
+- Przerwanie rebase: Jeśli rebase pójdzie źle lub nie jesteś pewien zmian, możesz przerwać operację rebase i powrócić do stanu sprzed jej rozpoczęcia za pomocą `git rebase --abort`.
+
+- Użyj `rerere`, aby zapamiętać rozwiązania konfliktów: `rerere` oznacza "_reuse recorded resolution_" i jest sposobem, aby Git zapamiętał, w jaki sposób rozwiązałeś konflikt. Więc następnym razem, gdy zobaczy ten sam konflikt, Git może automatycznie rozwiązać go za Ciebie.
+
+  Włącz za pomocą `git config --global rerere.enabled true`
+
+## Najczęstsze błędy
+
+Pamiętajmy, że jak każde narzędzie, poznane przez nas polecenia mogą przynieść niepożądane rezultaty, jeśli zostaną niewłaściwie użyte. Rzućmy okiem na kilka typowych błędów popełnianych przez deweloperów za pomocą `git merge` i `git rebase` oraz sposoby ich uniknięcia.
+
+### Merge
+
+- Mergowanie bez commitu: Jednym z częstych błędów jest próba mergowania gałęzi, gdy w bieżącej gałęzi znajdują się niezacommitowane zmiany. Może to prowadzić do konfliktów, których można by uniknąć, gdybyśmy po prostu zrobili commit zmiany przed scaleniem.
+
+  ✅ Zawsze upewnij się, że zacommitowałeś wszelkie wprowadzone zmiany przed scaleniem innej gałęzi z bieżącą.
+
+- Scalanie niewłaściwych gałęzi: Brzmi to oczywisto, ale zdarza się częściej, niż mogłoby się wydawać, zwłaszcza gdy często przełączasz się między wieloma gałęziami funkcji.
+
+  ✅ Zawsze sprawdzaj, w której gałęzi aktualnie się znajdujesz przed wykonaniem operacji scalania. Można to zrobić za pomocą `git branch` lub `git status`.
+
+- Pozostawianie nierozwiązanych konfliktów: Git nie ukończy operacji mergowania, jeśli istnieją konflikty między gałęziami, których nie może rozwiązać automatycznie. Konflikty te pozostają w plikach, których dotyczą i mogą spowodować, że projekt nie będzie działał zgodnie z oczekiwaniami.
+
+  ✅ Zawsze rozwiązuj wszystkie konflikty, gdy tylko się pojawią. Git poinformuje Cię, które pliki mają konflikty i które musisz rozwiązać ręcznie. Następnie można otworzyć te pliki w edytorze tekstu i zdecydować dla każdego konfliktu, który kod należy zachować.
+
+### Rebase
+
+- Rebasowanie gałęzi publicznych: Najczęstszym i potencjalnie katastrofalnym błędem jest rebase gałęzi, które zostały wypchnięte do publicznego repozytorium. Ponieważ rebase przepisuje historię commitów, może to tworzyć sprzeczne historie i dezorientować innych programistów pracujących nad projektem.
+
+  ✅ Wykonuj rebase tylko lokalnych gałęzi, które nie zostały wypchnięte do publicznego repozytorium. Gdy gałąź zostanie upubliczniona, użyj `merge` zamiast `rebase`.
+
+- Brak natychmiastowej obsługi konfliktów: Podczas rebase, jeśli nie obsłużysz konfliktu natychmiast i uruchomisz `git rebase --continue`, możesz stracić pracę nad rozwiązywaniem konfliktów.
+
+  ✅ Zawsze rozwiązuj konflikty natychmiast po ich wystąpieniu podczas rebase, a następnie użyj `git add`, aby umieścić rozwiązane pliki przed uruchomieniem `git rebase --continue`.
+
+- Używanie rebase, gdy merge jest bardziej odpowiednie: Czasami deweloperzy używają rebase, gdy powinni używać merge. Powoduje to liniową historię commitów, ale kosztem utraty kontekstu zapewnianego przez merge commit.
+
+  ✅ Jeśli wielu deweloperów pracuje razem nad funkcją lub jeśli chcesz zachować kontekst gałęzi, użyj merge zamiast rebase.
+
+Kluczem do uniknięcia błędów z `git merge` i `git rebase` jest zrozumienie działania tych poleceń i ich wpływu na historię commitów. Dzięki przemyślanemu podejściu do mergowania i rebasowania można zachować czystą historię commitów, jednocześnie minimalizując zamieszanie w zespole.
+
+Jak zawsze nie bój się eksperymentować i popełniać błędów, ponieważ są one częścią procesu uczenia się. Pamiętaj, że każdy błąd jest okazją do nauczenia się czegoś nowego i nie myli się tylko ten, który nic nie robi 💪
+
+## Porównanie
+
+Zbiorcze porównanie omawianych przez nas poleceń.
+
+<Table />
+
+## Podsumowanie
+
+Zrozumienie `git merge` i `git rebase` jest kluczowe dla efektywnej współpracy i utrzymania czystej bazy kodu. Podczas gdy oba polecenia mogą integrować zmiany z jednej gałęzi do drugiej, robią to na różne sposoby i służą różnym celom.
+
+Pamiętaj, że nie chodzi o to, które z nich jest lepsze — chodzi o to, które jest bardziej odpowiednie w danej sytuacji. Dzięki jasnemu zrozumieniu obu poleceń możesz teraz dokonać właściwego wyboru dla swojego projektu.

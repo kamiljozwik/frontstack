@@ -1,0 +1,28 @@
+@use "/app/styles/mixins.scss" as mixins;
+
+.hero {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  div:first-child {
+    font-size: 80px;
+    font-weight: bold;
+    @include mixins.orangeGradientText;
+  }
+  div:not(:first-child) {
+    font-size: 24px;
+  }
+}
+
+.desc {
+  section {
+    margin: 20px 0;
+  }
+  h2 {
+    @include mixins.yellowGradientText;
+  }
+}

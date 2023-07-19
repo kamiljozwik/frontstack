@@ -1,3 +1,5 @@
+@use "/app/styles/mixins.scss" as mixins;
+
 .root {
   section {
     counter-increment: section -1;
@@ -14,7 +16,7 @@
 
   section h2:before {
     content: "#" counter(section);
-    color: var(--color-headers);
+    @include mixins.yellowGradientText;
     margin-right: 8px;
   }
 }

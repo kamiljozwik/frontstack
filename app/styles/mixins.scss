@@ -1,0 +1,25 @@
+@mixin textGradient {
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@mixin redGradientText {
+  --tw-gradient-from: var(--color-primary);
+  --tw-gradient-to: #d87775;
+  @include textGradient;
+}
+
+@mixin orangeGradientText {
+  --tw-gradient-from: #f97316;
+  --tw-gradient-to: #eab308;
+  @include textGradient;
+}
+
+@mixin yellowGradientText {
+  --tw-gradient-from: var(--color-headers);
+  --tw-gradient-to: #f4e892;
+  @include textGradient;
+}

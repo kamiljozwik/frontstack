@@ -1,4 +1,33 @@
 <section>
+## Typowanie `process.env` w TypeScript
+
+Szybki, czysty i prosty sposób na typowanie `process.env` w TypeScript z użyciem biblioteki [zod](https://zod.dev/).
+
+```ts
+import { z } from "zod";
+
+const envVariables = z.object({
+  DATABASE_URL: z.string(),
+  CUSTOM_STUFF: z.string(),
+});
+
+envVariables.parse(process.env);
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv extends z.infer<typeof envVariables> {}
+  }
+}
+
+process.env.DATABASE_URL;
+//          ^ Auto-completion 🥳
+```
+
+Zobacz więcej [tutaj](https://www.youtube.com/watch?v=q1im-hMlKhM).
+
+</section>
+
+<section>
 ## Loose Autocomplete w TypeScript
 
 Chcesz, aby zdefiniowany przez Ciebie typ [union](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types) przyjmował również ogólnego `string`-a, ale zachował możliwość automatycznego uzupełniania zdefiniowanych wartości? Możesz użyć pewnego tricku, aby to osiągnąć 🪄

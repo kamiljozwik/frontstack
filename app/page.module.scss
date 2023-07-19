@@ -1,3 +1,5 @@
+@use "/app/styles/mixins.scss" as mixins;
+
 .root {
   display: flex;
   flex-direction: column;
@@ -8,8 +10,7 @@
   justify-content: space-between;
   gap: 60px;
   h2 {
-    font-weight: 500;
-    color: var(--color-primary);
+    @include mixins.redGradientText;
     font-size: 1.17rem;
   }
 }

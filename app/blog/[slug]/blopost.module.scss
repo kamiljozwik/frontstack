@@ -1,3 +1,5 @@
+@use "/app/styles/mixins.scss" as mixins;
+
 .root {
   display: flex;
   gap: 10%;
@@ -11,7 +13,8 @@
     margin: 40px 0;
 
     h1 {
-      border: 2px solid white;
+      @include mixins.orangeGradientText;
+      border: 2px solid #4f4f4f;
       border-radius: 6px;
       padding: 10px 20px;
       display: inline-block;
@@ -26,7 +29,7 @@
   }
 
   h2 {
-    color: var(--color-headers);
+    @include mixins.yellowGradientText;
   }
 
   h3 {

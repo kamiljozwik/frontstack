@@ -1,5 +1,7 @@
+@use "/app/styles/mixins.scss" as mixins;
+
 .root {
   h2 {
-    color: var(--color-headers);
+    @include mixins.yellowGradientText;
   }
 }

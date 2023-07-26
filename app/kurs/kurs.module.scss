@@ -1,0 +1,29 @@
+@use "/app/styles/mixins.scss" as mixins;
+
+.hero {
+  margin: 50px 0;
+  text-align: center;
+  h1 {
+    text-transform: uppercase;
+    @include mixins.orangeGradientText;
+  }
+
+  p {
+    strong {
+      @include mixins.redGradientText;
+      font-weight: bold;
+    }
+  }
+}
+
+.chatWrapper {
+  margin: 32px 0;
+}
+
+.mainSection {
+  margin-top: 50px;
+  text-align: center;
+  h2 {
+    @include mixins.orangeGradientText;
+  }
+}

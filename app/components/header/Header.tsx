@@ -21,6 +21,9 @@ export const Header = () => {
             <li>
               <Link href="/zarobki">Zarobki</Link>
             </li>
+            <li>
+              <Link href="/kurs">💥Kurs💥</Link>
+            </li>
           </ul>
         </nav>
       </div>

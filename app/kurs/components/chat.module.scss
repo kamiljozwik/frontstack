@@ -36,6 +36,7 @@ $colorA: var(--color-strong);
 }
 
 .q {
+  margin-top: 12px;
   .tail {
     border-top: $tail1 solid $colorQ;
     border-left: $tail1 solid transparent;
@@ -50,7 +51,7 @@ $colorA: var(--color-strong);
 
 .a {
   align-self: flex-end;
-  margin: 12px 0 24px 0;
+  margin: 12px 0;
   .tail {
     border-top: $tail1 solid $colorA;
     border-left: $tail2 solid $colorA;

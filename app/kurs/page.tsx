@@ -3,6 +3,7 @@ import { Chat } from "./components/Chat";
 import styles from "./kurs.module.scss";
 import { qa } from "./qa";
 import { Icons } from "./components/Icons";
+import { SendButton } from "./components/SendButton";
 
 const Kurs = () => {
   return (
@@ -21,6 +22,7 @@ const Kurs = () => {
           </Button>
         </div>
         <Chat qa={qa} />
+        <SendButton />
       </section>
 
       <div id="tldr" className={styles.tldr}>

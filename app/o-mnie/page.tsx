@@ -15,7 +15,7 @@ const About = () => {
           <div>Twórca treści edukacyjnych</div>
           <SocialLinks />
         </div>
-        <div>
+        <div className={styles.image}>
           <Image
             src="/assets/kam.webp"
             width={300}

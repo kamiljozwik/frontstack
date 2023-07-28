@@ -6,6 +6,9 @@
   h1 {
     text-transform: uppercase;
     @include mixins.orangeGradientText;
+    @media screen and (max-width: 768px) {
+      font-size: 32px;
+    }
   }
 
   p {
@@ -31,6 +34,9 @@
   text-align: center;
   @include mixins.redGradientText;
   font-size: 40px;
+  @media screen and (max-width: 768px) {
+    font-size: 32px;
+  }
 }
 
 .mainSection {
@@ -44,11 +50,17 @@
     text-align: left;
     width: 60%;
     margin: 0 auto;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
 
   .icons {
     margin: 0 auto;
     width: 50%;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
     p {
       margin-top: 12px;
     }

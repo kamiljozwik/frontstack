@@ -11,21 +11,6 @@ $colorA: var(--color-strong);
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-
-  // &:hover {
-  //   .q {
-  //     translate: 3px;
-  //     // .bubble {
-  //     //   background-image: linear-gradient(to right, $colorQ, #40515c);
-  //     // }
-  //   }
-  //   .a {
-  //     translate: -3px;
-  //     // .bubble {
-  //     //   background-image: linear-gradient(to right, #eab308, $colorA);
-  //     // }
-  //   }
-  // }
 }
 
 .q,
@@ -33,6 +18,9 @@ $colorA: var(--color-strong);
   display: flex;
   transition: 0.2s;
   max-width: 70%;
+  @media screen and (max-width: 768px) {
+    max-width: 90%;
+  }
 }
 
 .q {

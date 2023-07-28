@@ -20,6 +20,13 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
+
+// Not working with Next.js and its SSR 🤔
+// initializeAppCheck(app, {
+//   provider: new ReCaptchaV3Provider("6LdxW2AnAAAAAPAM0-AKQsEuzH87t7rm3WIA6yMc"),
+//   isTokenAutoRefreshEnabled: true,
+// });
+
 const db = getFirestore();
 
 export const saveMail = async (mail: string) => {

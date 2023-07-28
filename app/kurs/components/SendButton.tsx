@@ -52,7 +52,9 @@ export const SendButton = () => {
       setInputValue("");
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      alert(
+        "Nie możemy zapisać Twojej wiadomości. Odśwież stronę i spróbuj ponownie."
+      );
     }
   };
 

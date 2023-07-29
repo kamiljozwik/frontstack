@@ -5,6 +5,7 @@ import { PostMeta, getPostBySlug, getPostsMeta } from "@/app/utils/blog";
 import styles from "./blopost.module.scss";
 import Link from "next/link";
 import { NoPost } from "./components/NoPost";
+import { CourseBanner } from "@/app/blog/[slug]/components/courseBanner/CourseBanner";
 
 export async function generateStaticParams() {
   return getPostsMeta();
@@ -52,6 +53,7 @@ const PostPage = ({ params }: { params: PostMeta }) => {
                 </div>
               </div>
             </header>
+            <CourseBanner />
             <PostContent />
           </>
         ) : (

@@ -5,7 +5,7 @@ export const qa: QA[] = [
     a: "Cześć, mam na imię Kamil i przygotowuję dla Ciebie kurs dotyczący technologii frontendowych.",
   },
   {
-    q: "No nie... Po co nam kolejny kurs frontendowy? Przecież jest tego już cała masa na rynku.",
+    q: "No nie... Po co mi kolejny kurs frontendowy? Przecież jest tego już cała masa na rynku.",
     a: 'Wiem, dlatego nie będzie to kolejny "klasyczny" kurs.',
   },
   {
@@ -13,12 +13,12 @@ export const qa: QA[] = [
     a: 'Większość kursów można opisać jako "ekranizacja dokumentacji". Do tego część materiału jest kopiowana albo z innych kursów, albo z dostępnych za darmo blogów czy kanałów na YT. Kurs taki najczęściej jest aktualny w dniu premiery, a potem nie jest aktualizowany przez lata. W efekcie kursy są nieaktualne, a uczący się tracą swój czas.',
   },
   {
-    q: "Co w Twoim kursie będzie inne?",
-    a: 'Nie będę wymyślał koła na nowo. Zamiast nagrywać własny n-ty materiał o tym, czym jest zmienna, "hoisting" czy "event loop", po prostu odeślę Cię do najlepszych aktualnie dostępnych materiałów online. W sieci swoje materiały publikują najlepsi specjaliści w swoich wąskich dziedzinach i nie ma szans, żebym mógł z nimi konkurować. Zamiast tego skupię się na tym, żebyś miał dostęp do tych materiałów w jednym miejscu, w odpowiedniej kolejności i w odpowiednim momencie.',
+    q: "Ok, no to co w Twoim kursie będzie innego?",
+    a: 'Nie będę wymyślał koła na nowo. Zamiast nagrywać własny n-ty materiał o tym, czym jest zmienna, "hoisting" czy "event loop", po prostu odeślę Cię do najlepszych aktualnie dostępnych materiałów online. W sieci swoje materiały publikują najlepsi specjaliści w swoich wąskich dziedzinach i nie ma szans, żebym mógł z nimi konkurować. Zamiast tego skupię się na tym, żebyś miał dostęp do tych materiałów w jednym miejscu, w odpowiedniej kolejności i w odpowiednim momencie Twojej nauki.',
   },
   {
     q: "Czyli Twój kurs to będzie tylko taki spis linków do materiałów online?",
-    a: "Nie. Będzie on również pełen przygotowanych przeze mnie materiałów w miejscach, w których uznam to za przydatne, nie będę mógł znaleźć dobrego, treściwego materiału online, albo po prostu będę chciał coś wyjaśnić na własny sposób. Oczywiście będę również wsłuchiwał się w głos kursantów i dodawał własne materiały przy tematach, które sprawiają im najwięcej trudności.",
+    a: "Nie. Będzie on również pełen przygotowanych przeze mnie materiałów w miejscach, w których uznam to za przydatne, nie będę mógł znaleźć dobrego, treściwego materiału online, albo po prostu będę chciał coś wyjaśnić na własny sposób. Programuję na froncie już od wielu lat i wiem gdzie najczęściej pojawiają się problemy. Oczywiście będę również wsłuchiwał się w głos kursantów i dodawał własne materiały przy tematach, które sprawiają im najwięcej trudności.",
   },
   {
     q: "Czy te zewnętrzne materiały będą skopiowane i wklejone do Twojego kursu?",
@@ -26,15 +26,15 @@ export const qa: QA[] = [
   },
   {
     q: "A co z aktualizacjami?",
-    a: "Z racji tego, że część materiałów będzie pochodzić z zewnętrznych źródeł, to nie będę musiał tracić czasu na ich aktualizację. Zamiast tego będę zamieniał je na nowe, w danej chwili najlepsze i najbardziej aktualne materiały. W ten sposób kurs będzie zawsze aktualny.",
+    a: "Z racji tego, że część materiałów będzie pochodzić z zewnętrznych źródeł, to nie będę musiał tracić czasu na ich aktualizację. Zamiast tego będę zamieniał je na nowe, w danej chwili najlepsze i najświeższe materiały. W ten sposób kurs będzie zawsze aktualny.",
   },
   {
     q: "Czy w kursie będzie coś jeszcze oprócz samych materiałów edukacyjnych?",
-    a: 'Smutna prawda jest taka, że samo oglądanie/czytanie materiałów nie wystarczy. Powiem więcej — taki format nauki nie ma najmniejszego sensu w przypadku programowania. Z racji tego, że nie będę musiał tracić czasu na kolejne "Wprowadzenie do hooków w React", będę mógł skupić się na stworzeniu dla Ciebie jak największej ilości ćwiczeń, zadań i mini-projektów do wykonania. W ten sposób będziesz mógł od razu przetestować nowo nabytą wiedzę w praktyce.',
+    a: 'Smutna prawda jest taka, że samo oglądanie/czytanie materiałów nie wystarczy. Powiem więcej — taki format nauki nie ma najmniejszego sensu w przypadku programowania. Z racji tego, że nie będę musiał tracić czasu na tworzenie kolejnego "Wprowadzenia do hooków w React", będę mógł skupić się na stworzeniu dla Ciebie jak największej ilości ćwiczeń, zadań i mini-projektów do wykonania. W ten sposób będziesz mógł od razu przetestować nowo nabytą wiedzę w praktyce.',
   },
   {
     q: "Mini-projektów?",
-    a: "Tak. Zamiast rzucać się na głęboką wodę i od razu tworzyć jeden duży projekt (co moim zdaniem jest kolejną błędną drogą w obecnych kursach), będziesz mógł tworzyć mini-projekty, w których dokładnie zapoznasz się z każdym omawianym tematem. Ciężko jest wymyślić jeden duży projekt, który pozwoli Ci wykorzystać w praktyce każde poznane przez Ciebie zagadnienie. Dodatkowo każdy kolejny skończony, działający mini-projekt będzie dla Ciebie zarówno motywatorem do nauki, jak i przyniesie Ci dużo frajdy 🎈",
+    a: "Tak. Zamiast rzucać się na głęboką wodę i od razu tworzyć jeden duży projekt (co moim zdaniem jest kolejną błędną drogą w obecnych kursach), będziesz mógł tworzyć mini-projekty, w których dokładnie zapoznasz się z każdym omawianym tematem. Ciężko jest wymyślić jeden duży projekt, który pozwoli Ci wykorzystać w praktyce każde poznane przez Ciebie zagadnienie. Dodatkowo każdy kolejny skończony, działający mini-projekt będzie dla Ciebie zarówno motywatorem do dalszej nauki, jak i przyniesie Ci dużo frajdy 🎈",
   },
   {
     q: "Czyli nie będzie dużych projektów?",
@@ -42,15 +42,15 @@ export const qa: QA[] = [
   },
   {
     q: "Coś jeszcze na temat nauki praktycznej?",
-    a: 'Tak, projekty grupowe. Praca nad własnymi projektami jest wygodna, ponieważ mamy pełną kontrolę nad kodem. Uwierz mi, że jednym z najbardziej stresujących momentów, gdy uda Ci się zdobyć pierwszą pracę jako frontend developer, będzie praca na "grupowym" kodzie. Konflikty, merge, code review, komunikacja z innymi developerami — to wszystko jest bardzo ważne i warto się z tym zapoznać już na etapie nauki. Każdy projekty grupowy będzie przeze mnie od samego początku koordynowany i sprawdzany pod kątem jakości kodu i dobrych praktyk. ',
+    a: 'Tak, projekty grupowe. Praca nad własnymi projektami jest wygodna, ponieważ mamy pełną kontrolę nad kodem. Uwierz mi, że jednym z najbardziej stresujących momentów, gdy uda Ci się zdobyć pierwszą pracę jako frontend developer, będzie praca na "grupowym" kodzie. Konflikty, merge, code review, komunikacja z innymi developerami — to wszystko jest bardzo ważne i warto się z tym zapoznać już na etapie nauki, gdy stresu jeszcze nie ma. Każdy projekty grupowy będzie przeze mnie od samego początku planowany, koordynowany i sprawdzany pod kątem jakości kodu i dobrych praktyk. ',
   },
   {
     q: "A co to będą za projekty i kto będzie mógł wziąć w nich udział?",
-    a: "Teoretycznie każdy uczestnik kursu, ale wszystko będzie zależało od ilości chętnych. Pomysły na projekty będą zgłaszane przez kursantów i będziemy wybierać te najbardziej interesujące i użyteczne. Wszystkie projekty będą realizowane w modelu open-source, więc chętne osoby będą mogły rozwijać je również po zakończeniu kuru. Ktos wie — może jeden z tych projektów rozwinie się w coś większego i stanie się popularny na rynku bądź wśród innych developerów.",
+    a: "Teoretycznie każdy uczestnik kursu, ale wszystko będzie zależało od ilości chętnych. Pomysły na projekty będą zgłaszane przez kursantów i będziemy wybierać te najbardziej interesujące i użyteczne. Wszystkie projekty będą realizowane w modelu open-source, więc chętne osoby będą mogły rozwijać je również po zakończeniu kuru. Ktos wie — może jeden z tych projektów rozwinie się w coś większego i stanie się popularny albo na rynku, albo wśród innych developerów.",
   },
   {
     q: "Czy ten kurs można zakwalifikować jako bootcamp?",
-    a: "W żadnym wypadku! Nie chcę wrzucać wszystkich do jednego worka, ale w większości popularnych bootcampów stosunek ceny do oferowanej wartości wygląda naprawdę bardzo blado.",
+    a: "W żadnym wypadku! Nie chcę wrzucać wszystkich do jednego worka, ale w większości popularnych bootcampów stosunek ceny do oferowanej wartości i jakości wygląda naprawdę bardzo blado.",
   },
   {
     q: "Bootcampy oferują gwarancję zatrudnienia. Jak to wygląda u Ciebie?",
@@ -58,15 +58,15 @@ export const qa: QA[] = [
   },
   {
     q: "Czyli na polu rekrutacji zostaję sam?",
-    a: "Teoretycznie — tak. Jeżeli jednak znalazłeś już na tym blogu moje Bio (stopka), to pewnie zauważyłeś, że prowadzę szkolenia również dla rekruterów IT. Z większością uczestników tych szkoleń utrzymuję cały czas dobre relacje. W miarę możliwości oraz oczywiście dobrych chęci rekruterów planuję regularnie kierować do nich wszelkie wątpliwości związane z rekrutacją i obecną sytuacją na rynku IT, które pojawią się u uczestników kursu. Sam oczywiście również chętnie przejrzę Twoje CV, portfolio i podpowiem, co ewentualnie można poprawić.",
+    a: "Teoretycznie — tak. Jeżeli jednak znalazłeś już na tym blogu moje Bio (stopka), to pewnie zauważyłeś, że prowadzę szkolenia również dla rekruterów IT. Z większością uczestników tych szkoleń utrzymuję cały czas dobry kontakt. W miarę możliwości oraz oczywiście dobrych chęci rekruterów planuję regularnie kierować do nich wszelkie wątpliwości związane z rekrutacją i obecną sytuacją na rynku IT, które pojawią się u uczestników kursu. Sam oczywiście również chętnie przejrzę Twoje CV, portfolio i podpowiem, co ewentualnie można poprawić i czego można się spodziewać na rozmowie kwalifikacyjnej.",
   },
   {
     q: "Wszędzie słyszę, że złote czasy w IT już się skończyły i nie warto już teraz zaczynać kariery w tej branży.",
-    a: "Gdybym potrafił przewidywać przyszłość, to nie zajmowałbym się programowaniem, tylko co tydzień skreślał szóstkę w totka 💵. Branża IT, moim zdaniem, obecnie ma się całkiem dobrze. Faktycznie widzimy teraz spadek liczby ofert pracy, ale wakatów jest w dalszym ciągu całkiem sporo. Wynagrodzenie programisty w dalszym ciągu utrzymuje się na dość wysokim poziomie jak na polskie realia i do tego mamy możliwość pracy zdalnej dla niemal każdego pracodawcy na świecie. Poza tym nawet jeżeli znajdziesz pracę jako programista i Twoje wynagrodzenie mocno się nie zmieni, to branża IT zazwyczaj oferuje większy spokój, komfort i balans między życiem prywatnym i zawodowym. Nie zawsze chodzi tylko o pieniądze 👨🏻‍👩🏻‍👧🏻‍👦🏻",
+    a: "Gdybym potrafił przewidywać przyszłość, to nie zajmowałbym się programowaniem, tylko co tydzień skreślał szóstkę w totka 💵. Branża IT, moim zdaniem, obecnie ma się całkiem dobrze. Faktycznie widzimy teraz spadek liczby ofert pracy, ale wakatów jest w dalszym ciągu całkiem sporo. Wynagrodzenie programisty w dalszym ciągu utrzymuje się na dość wysokim poziomie jak na polskie realia i do tego mamy możliwość pracy zdalnej dla niemal każdego pracodawcy na świecie. Poza tym nawet jeżeli znajdziesz pracę jako programista a Twoje wynagrodzenie (w stosunku do pracy jako nie-programista) mocno się nie zmieni, to branża IT zazwyczaj oferuje większy spokój, komfort i balans między życiem prywatnym i zawodowym. Nie zawsze chodzi tylko o pieniądze 👨🏻‍👩🏻‍👧🏻‍👦🏻",
   },
   {
     q: "A co jeżeli bardzo długo nie będę mógł znaleźć pracy?",
-    a: "Umiejętność ogólnie pojętego programowania jest bardzo przydatna w wielu obszarach życia. Jeżeli nie będziesz mógł na początku znaleźć pracy jako pełnoetatowy programista, to zawsze możesz wykorzystać swoją wiedzę w inny sposób. Możesz stworzyć własną aplikację lub zająć się freelancingiem (może jakiś fryzjer, mechanik, masażysta lub kwiaciarnia z Twojej miejscowości nie mają jeszcze własnej strony?). Możesz też po prostu wykorzystać swoją wiedzę w obecnej pracy i zautomatyzować część z Twoich zadań. Umiejętność programowania to potężna broń, tylko trzeba umieć z niej korzystać.",
+    a: "Umiejętność ogólnie pojętego programowania jest bardzo przydatna w wielu obszarach życia. Jeżeli nie będziesz mógł na początku znaleźć pracy jako pełnoetatowy programista, to zawsze możesz wykorzystać swoją wiedzę w inny sposób. Możesz stworzyć własną aplikację lub zająć się freelancingiem (może jakiś fryzjer, mechanik, masażysta lub kwiaciarnia w Twojej miejscowości nie mają jeszcze własnych strony?). Możesz też po prostu wykorzystać swoją wiedzę w obecnej pracy i zautomatyzować część z Twoich zadań. Umiejętność programowania to potężna broń, tylko trzeba umieć z niej korzystać.",
   },
   {
     q: "No dobra, to czego tak w ogóle nauczę się na tym kursie?",
@@ -74,11 +74,11 @@ export const qa: QA[] = [
   },
   {
     q: "Sporo... i to wszystko w jednym kursie?",
-    a: "Nie, kurs będzie miał formę modułową, więc będziesz mógł wybrać tylko te moduły, które Cię interesują. Jeżeli chcesz nauczyć się tylko JavaScript i Reacta, to nie będziesz musiał płacić za pozostałe moduły. Dostępny będzie również dostęp subskrypcyjny do wszystkich modułów. W ten sposób będziesz mógł uczyć się w swoim tempie i w swoim czasie. Wszelkie szczegóły dotyczące cen i dostępu pojawią się już niedługo.",
+    a: "Nie, kurs będzie miał formę modułową, więc będziesz mógł wybrać tylko te moduły, które Cię interesują. Jeżeli chcesz nauczyć się tylko JavaScript i Reacta, to nie będziesz musiał płacić za pozostałe materiały. Dostępny będzie również model subskrypcyjny. W ten sposób będziesz mógł uczyć się w swoim tempie i w swoim czasie. Wszelkie szczegóły dotyczące cen i dostępu pojawią się już niedługo.",
   },
   {
     q: "Ile będę musiał poświęcić czasu na naukę tego wszystkiego?",
-    a: "Tyle, ile będziesz potrzebował. Każdy moduł będzie miał informację o szacowanym czasie nauki. Będzie to jednak tylko szacunek, ponieważ każdy uczy się w innym tempie. Jeżeli będziesz miał jakieś problemy z nauką, to będziesz mógł liczyć na pomoc zarówno moją, jak i pozostałych kursantów. Wszystko będzie zależało od Twojego zaangażowania.",
+    a: "Tyle, ile będziesz potrzebował. Każdy moduł będzie miał informację o szacowanym czasie nauki. Będzie to jednak tylko szacunek, ponieważ każdy uczy się w innym tempie. Jeżeli będziesz miał jakieś problemy z nauką, to możesz liczyć na pomoc zarówno moją, jak i pozostałych kursantów. Wszystko będzie zależało od Twojego zaangażowania.",
   },
   {
     q: "Od pozostałych kursantów?",
@@ -94,7 +94,7 @@ export const qa: QA[] = [
   },
   {
     q: "Czy kurs będzie prowadzony w języku polskim?",
-    a: "Rekomendowane materiały będę dzielił na polsko- oraz angielsko-języczne. Musisz się jednak przygotować na to, że bez podstawowej znajomości języka angielskiego ciężko będzie Ci zaistnieć w branży IT. Cała dokumentacja oraz najlepsze materiały są tworzone w tym właśnie języku. Nie musisz biegle znać angielskiego, ale musisz umieć dość dobrze czytać i rozumieć czytany tekst. Jeżeli nie znasz angielskiego, to nie jest to powód, żeby nie zacząć nauki programowania. Pamiętaj wtedy o tym, żeby równolegle uczyć się również języka angielskiego. W przeciwnym wypadku będziesz miał bardzo ograniczone możliwości rozwoju w tej branży. ",
+    a: "Rekomendowane materiały będę dzielił na polsko- oraz angielsko-języczne. Musisz się jednak przygotować na to, że bez podstawowej znajomości języka angielskiego ciężko będzie Ci zaistnieć w branży IT. Cała dokumentacja oraz najlepsze materiały są tworzone w tym właśnie języku. Nie musisz biegle znać angielskiego, ale musisz umieć dość dobrze czytać i rozumieć czytany tekst. Jeżeli nie znasz angielskiego, to nie jest to powód, żeby nie zacząć nauki programowania. Pamiętaj wtedy o tym, żeby równolegle uczyć się również tego języka. W przeciwnym wypadku będziesz miał bardzo ograniczone możliwości rozwoju w IT. ",
   },
   {
     q: 'Co to znaczy "dość dobrze znać angielski"?',
@@ -102,6 +102,6 @@ export const qa: QA[] = [
   },
   {
     q: "Kiedy kurs będzie dostępny?",
-    a: "Pierwsze moduły powinny być dostępne już pod koniec września. Jeżeli chcesz być na bieżąco z informacjami o kursie, zostaw mi swojego maila. To nie jest żaden newsletter. Będziesz otrzymywał tylko kluczowe informacje takie jak początek przedsprzedaży i sprzedaży, a także być może czasowy darmowy dostęp dla pierwszych uczestników. Warto.",
+    a: "Pierwsze moduły powinny być dostępne już pod koniec września. Jeżeli chcesz być na bieżąco z informacjami o kursie, zostaw mi swojego maila. To nie jest żaden newsletter. Będziesz otrzymywał tylko kluczowe informacje takie jak początek przedsprzedaży i sprzedaży, a także być może czasowy darmowy dostęp dla pierwszych uczestników. Zachęcam - nie będziesz żałował.",
   },
 ];

@@ -4,6 +4,20 @@ import styles from "./kurs.module.scss";
 import { qa } from "./qa";
 import { Icons } from "./components/Icons";
 import { SendButton } from "./components/SendButton";
+import { TextCarousel } from "../components/textCarousel/TextCarousel";
+
+const arrayOfTech = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "GitHub",
+  "Node.js",
+  "Svelte",
+  "Sass",
+];
 
 const Kurs = () => {
   return (
@@ -11,7 +25,10 @@ const Kurs = () => {
       <header className={styles.hero}>
         <h1>Jedyny kurs, którego potrzebujesz</h1>
         <p>
-          Opanuj w końcu <strong>FRONTEND</strong>, a nie tylko JavaScript.
+          <span>
+            Opanuj w końcu <strong>FRONTEND</strong>, a nie tylko
+          </span>
+          <TextCarousel words={arrayOfTech} />
         </p>
       </header>
 
@@ -75,11 +92,12 @@ const Kurs = () => {
         <h2>Cena</h2>
         <p>Każdy moduł będzie posiadał swoją własną cenę.</p>
         <p>Dostęp będzie zarówno na stałe, jak i w subskrypcji.</p>
+        <p>Więcej informacji pojawi się już wkrótce ⌛</p>
       </section>
 
       <section className={styles.mainSection}>
         <h2>Autor</h2>
-        <p>Sprawdź, kto przygotowuje dla Ciebie cały materiał.</p>
+        <p>Sprawdź, kto przygotowuje dla Ciebie ten kurs.</p>
         <Button as="link" href="/o-mnie" size="sm">
           O mnie
         </Button>

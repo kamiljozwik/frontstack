@@ -1,3 +1,11 @@
+@use "/app/styles/mixins.scss" as mixins;
+
 .root {
   padding: 50px 0;
+  h1 {
+    display: none;
+  }
+  h2 {
+    @include mixins.orangeGradientText;
+  }
 }

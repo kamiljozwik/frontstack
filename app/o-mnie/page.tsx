@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "./page.module.scss";
 import { Bio } from "./components/Bio";
@@ -15,7 +16,7 @@ const About = () => {
           <div>Twórca treści edukacyjnych</div>
           <SocialLinks />
         </div>
-        <div>
+        <div className={styles.image}>
           <Image
             src="/assets/kam.webp"
             width={300}
@@ -97,10 +98,10 @@ const About = () => {
             miał być moją kolejną platformą, na której planowałem publikować
             swoje kursy związane z frontendem. Obecnie znajdują się dwa
             szkolenie - &quot;Tworzenie stron za pomocą HTML i CSS&quot; oraz
-            &quot;Git i Github dla początkujących&quot;. W międzyczasie pojawiła
-            mi się jednak nowa koncepcja dotycząca nauczania sztuki frontendowej
-            i mam nadzieję, że już niedługo będę mógł ukazać ją szerszej
-            publiczności.
+            &quot;Git i Github dla początkujących&quot;. Jednak w międzyczasie
+            pojawiła mi się jednak nowa koncepcja dotycząca nauczania sztuki
+            frontendowej o której można przeczytać{" "}
+            <Link href="/kurs">tutaj</Link>.
           </p>
         </section>
 

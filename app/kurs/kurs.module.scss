@@ -1,0 +1,68 @@
+@use "/app/styles/mixins.scss" as mixins;
+
+.hero {
+  margin: 50px 0;
+  text-align: center;
+  h1 {
+    text-transform: uppercase;
+    @include mixins.orangeGradientText;
+    @media screen and (max-width: 768px) {
+      font-size: 32px;
+    }
+  }
+
+  p {
+    strong {
+      @include mixins.redGradientText;
+      font-weight: bold;
+    }
+  }
+}
+
+.chatWrapper {
+  margin: 32px 0;
+  & > div:first-child {
+    display: flex;
+    justify-content: center;
+    margin: 32px;
+  }
+}
+
+.tldr {
+  margin: 64px;
+  font-weight: bold;
+  text-align: center;
+  @include mixins.redGradientText;
+  font-size: 40px;
+  @media screen and (max-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+.mainSection {
+  margin-top: 50px;
+  text-align: center;
+  h2 {
+    @include mixins.orangeGradientText;
+  }
+
+  ul {
+    text-align: left;
+    width: 60%;
+    margin: 0 auto;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .icons {
+    margin: 0 auto;
+    width: 50%;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+    p {
+      margin-top: 12px;
+    }
+  }
+}

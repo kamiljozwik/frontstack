@@ -22,7 +22,7 @@ export const ReportTable = () => {
 
   return (
     <>
-      <h2>Aktualna tabela wynagrodzeń:</h2>
+      <h2>Aktualna tabela wynagrodzeń</h2>
       <Year years={years} setYears={setYears} />
       <Reports reports={reports} setReports={setReports} years={years} />
       <Table data={reports} />

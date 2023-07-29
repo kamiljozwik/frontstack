@@ -5,16 +5,41 @@
   flex-wrap: wrap-reverse;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 880px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.image {
+  @media screen and (max-width: 880px) {
+    margin-top: 24px;
+  }
 }
 
 .name {
   div:first-child {
-    font-size: 80px;
+    font-size: 70px;
     font-weight: bold;
     @include mixins.orangeGradientText;
+    @media screen and (max-width: 880px) {
+      margin-top: 24px;
+      font-size: 36px;
+      text-align: center;
+    }
   }
   div:not(:first-child) {
     font-size: 24px;
+    @media screen and (max-width: 880px) {
+      text-align: center;
+    }
+  }
+
+  div:last-child {
+    @media screen and (max-width: 880px) {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 

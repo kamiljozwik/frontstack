@@ -19,6 +19,11 @@ const arrayOfTech = [
   "Sass",
 ];
 
+export const metadata = {
+  title: "Kurs - Programista Frontend",
+  description: "Jedyny kurs frontend, którego potrzebujesz.",
+};
+
 const Kurs = () => {
   return (
     <main className={styles.root}>

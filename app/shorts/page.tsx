@@ -3,6 +3,12 @@ import { PageHeader } from "../components/headers/Headers";
 import style from "./shorts.module.scss";
 import { CourseBanner } from "../blog/[slug]/components/courseBanner/CourseBanner";
 
+export const metadata = {
+  title: "Frontend - użyteczne informacje",
+  description:
+    "Krótkie informacje / sztuczki / rozwiązania, które mogą Ci się przydać w codziennej pracy",
+};
+
 const Shorts = () => {
   const sections = Content({}).props.children.filter(
     (c: any) => c.type === "section"

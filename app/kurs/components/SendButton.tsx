@@ -11,7 +11,7 @@ import { Chat, QA } from "./Chat";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const EMAIL_ANSWER =
-  "Cieszę się, że chcesz zostać w kontakcie. Jeżeli masz dodatkowe pytania dotyczące kursu, możesz zadać je, kontynuując ten czas. Do usłyszenia już wkrótce! 🎉";
+  "Cieszę się, że chcesz zostać w kontakcie. Jeżeli masz dodatkowe pytania dotyczące kursu, możesz zadać je, kontynuując ten czat. Do usłyszenia już wkrótce! 🎉";
 
 const BLOCK_TIME = 12;
 

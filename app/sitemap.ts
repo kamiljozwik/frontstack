@@ -18,10 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...postsMap,
     {
+      url: `https://frontstack.pl/shorts`,
+    },
+    {
       url: `https://frontstack.pl/zarobki`,
     },
     {
-      url: `https://frontstack.pl/shorts`,
+      url: `https://frontstack.pl/kurs`,
     },
   ];
 }

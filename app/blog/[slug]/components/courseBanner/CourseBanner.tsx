@@ -10,7 +10,7 @@ export const CourseBanner = ({ variant = "default" }: Props) => {
   return (
     <div className={`${styles.root} ${styles[variant]}`}>
       <Link href="/kurs">
-        <div>Sprawdź jedyny kurs frontendowy, którego potrzebujesz.</div>
+        <p>Sprawdź kompletną ścieżkę nauki frontendu.</p>
       </Link>
     </div>
   );

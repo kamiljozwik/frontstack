@@ -21,14 +21,17 @@ const arrayOfTech = [
 
 export const metadata = {
   title: "Kurs - Programista Frontend",
-  description: "Jedyny kurs frontend, którego potrzebujesz.",
+  description:
+    "Kompletna ścieżka nauki frontendu dla początkujących oraz doświadczonych programistów ",
 };
 
 const Kurs = () => {
   return (
     <main className={styles.root}>
       <header className={styles.hero}>
-        <h1>Jedyny kurs, którego potrzebujesz</h1>
+        <h1>
+          Frontend <span>Kompletna ścieżka nauki</span>
+        </h1>
         <p>
           <span>
             Opanuj w końcu <strong>FRONTEND</strong>, a nie tylko
@@ -39,15 +42,16 @@ const Kurs = () => {
 
       <section className={styles.chatWrapper}>
         <div>
-          <Button as="a" href="#tldr" size="sm">
-            TL;DR
+          <Button as="a" href="#informacje" size="sm">
+            TL;DR <span>👇</span>
           </Button>
+          <small>Pomiń czat i zobacz najważniejsze informacje</small>
         </div>
         <Chat qa={qa} />
         <SendButton />
       </section>
 
-      <div id="tldr" className={styles.tldr}>
+      <div id="informacje" className={styles.info}>
         Najważniejsze informacje
       </div>
 

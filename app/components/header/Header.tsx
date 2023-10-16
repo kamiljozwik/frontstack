@@ -22,7 +22,7 @@ export const Header = () => {
               <Link href="/zarobki">Zarobki</Link>
             </li>
             <li>
-              <Link href="/kurs">💥Kurs💥</Link>
+              <Link href="/kurs">Kursy🎉</Link>
             </li>
           </ul>
         </nav>

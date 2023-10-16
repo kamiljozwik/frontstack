@@ -40,6 +40,17 @@ const Kurs = () => {
         </p>
       </header>
 
+      <section className={styles.kursLive}>
+        <h3>Wczesny dostęp ⏰</h3>
+        <p>
+          Przejdź na nową platformę kursów i otrzymaj darmowy dostęp do
+          pierwszych kursów 🎉
+        </p>
+        <Button as="a" href="https://kursy.frontstack.pl" size="sm">
+          Dostęp do kursów
+        </Button>
+      </section>
+
       <section className={styles.chatWrapper}>
         <div>
           <Button as="a" href="#informacje" size="sm">
@@ -84,12 +95,6 @@ const Kurs = () => {
           <Icons />
           <p>i więcej.</p>
         </div>
-      </section>
-
-      <section className={styles.mainSection}>
-        <h2>Termin</h2>
-        <p>Pierwsze moduły pojawią się pod koniec września.</p>
-        <p>Zostaw nam swojego maila, abyś nie przegapił najlepszej oferty.</p>
       </section>
 
       <section className={styles.mainSection}>

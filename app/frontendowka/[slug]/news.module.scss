@@ -1,0 +1,15 @@
+@use "/app/styles/mixins.scss" as mixins;
+
+.news {
+  h2 {
+    @include mixins.yellowGradientText;
+  }
+
+  h3 {
+    color: orange;
+  }
+
+  img {
+    margin-bottom: 24px;
+  }
+}

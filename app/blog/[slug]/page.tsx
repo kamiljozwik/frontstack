@@ -14,7 +14,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: PostMeta;
+  params: {
+    slug: string;
+  };
 }): Promise<Metadata> {
   const meta = getPostBySlug(params.slug);
   return { title: meta?.title, description: meta?.seo_desc };

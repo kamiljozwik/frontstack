@@ -2,6 +2,7 @@ import { getNewsBySlug, getNewsMeta } from "@/app/utils/news";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import styles from "./news.module.scss";
+import { Discord } from "@/app/components/discord/Discord";
 
 export async function generateStaticParams() {
   return getNewsMeta();
@@ -15,7 +16,10 @@ export async function generateMetadata({
   };
 }): Promise<Metadata> {
   const meta = getNewsBySlug(params.slug);
-  return { title: meta?.title, description: meta?.short };
+  return {
+    title: meta?.title,
+    description: `Podsumowanie najważniejszych wiadomości ze świata frontendu - nr ${params.slug}`,
+  };
 }
 
 const NewsPage = ({
@@ -36,11 +40,19 @@ const NewsPage = ({
   const meta = getNewsBySlug(params.slug);
   return (
     <main className="mt-8">
-      <p className="m-0 ">Frontendówka nr {params.slug}</p>
-      <h1 className="mb-8">{meta?.title}</h1>
+      <p className="m-0 mb-2 flex text-sm">
+        <span>Frontendówka nr {params.slug}</span>
+        <span className="text-orange-400 mx-2">|</span>
+        <span>{meta?.period}</span>
+      </p>
+      <h1 className="mt-4 text-lg">{meta?.title}</h1>
       <section className={styles.news}>
         <NewsContent />
       </section>
+      <div>
+        {/* @ts-ignore */}
+        <Discord />
+      </div>
     </main>
   );
 };

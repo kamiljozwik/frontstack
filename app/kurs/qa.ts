@@ -102,6 +102,6 @@ export const qa: QA[] = [
   },
   {
     q: "Kiedy kurs będzie dostępny?",
-    a: "Pierwsze kursy są już dostępne na platformie i w ramach wczesnego dostępu można uzyskać do nich darmowy dostęp, więc zachęcam do korzystania. Jeżeli chcesz być na bieżąco z informacjami o kursie, zostaw mi swojego maila. To nie jest żaden newsletter. Będziesz otrzymywał tylko kluczowe informacje takie jak początek przedsprzedaży i sprzedaży, a także być może czasowy darmowy dostęp dla pierwszych uczestników. Zachęcam - nie będziesz żałował.",
+    a: "Pierwsze kursy są już dostępne na platformie, więc zachęcam do korzystania. Jeżeli chcesz być na bieżąco z informacjami o kursie, zostaw mi swojego maila. To nie jest żaden newsletter. Będziesz otrzymywał tylko kluczowe informacje takie jak początek przedsprzedaży i sprzedaży, a także być może czasowy darmowy dostęp dla pierwszych uczestników. Zachęcam - nie będziesz żałował.",
   },
 ];

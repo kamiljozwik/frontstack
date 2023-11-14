@@ -5,10 +5,10 @@ const postsDirectory = path.join(process.cwd(), "app", "frontendowka", "news");
 
 export type NewsMeta = {
   title: string;
-  short: string;
   date: string;
   period: string;
   slug: string;
+  ogTitles: string[];
 };
 
 export function getNewsMeta() {

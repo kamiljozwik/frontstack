@@ -41,22 +41,22 @@ const Kurs = () => {
       </header>
 
       <section className={styles.kursLive}>
-        <h3>Wczesny dostęp ⏰</h3>
-        <p>
-          Przejdź na nową platformę kursów i otrzymaj darmowy dostęp do
-          pierwszych kursów 🎉
-        </p>
-        <Button as="a" href="https://kursy.frontstack.pl" size="sm">
-          Dostęp do kursów
+        <Button
+          as="a"
+          href="https://kursy.frontstack.pl"
+          size="md"
+          className="animate-bounce"
+        >
+          Dostęp do kursów 🎉
         </Button>
       </section>
 
       <section className={styles.chatWrapper}>
         <div>
-          <Button as="a" href="#informacje" size="sm">
-            TL;DR <span>👇</span>
-          </Button>
-          <small>Pomiń czat i zobacz najważniejsze informacje</small>
+          <small>
+            Pomiń czat i zobacz{" "}
+            <a href="#informacje">najważniejsze informacje</a> 👇
+          </small>
         </div>
         <Chat qa={qa} />
         <SendButton />
@@ -106,7 +106,6 @@ const Kurs = () => {
         <h2>Cena</h2>
         <p>Każdy moduł będzie posiadał swoją własną cenę.</p>
         <p>Dostęp będzie zarówno na stałe, jak i w subskrypcji.</p>
-        <p>Więcej informacji pojawi się już wkrótce ⌛</p>
       </section>
 
       <section className={styles.mainSection}>

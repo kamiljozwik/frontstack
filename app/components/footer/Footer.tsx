@@ -11,6 +11,7 @@ export const Footer = () => {
       <Link href="/">
         <Logo />
       </Link>
+      <p className="m-0">kontakt🐵frontstack.pl</p>
       <Link href="/o-mnie">Strona o mnie</Link>
       <SocialLinks />
       <p>©frontstack.pl | {new Date().getFullYear()}</p>

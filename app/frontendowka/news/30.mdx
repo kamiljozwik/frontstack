@@ -1,0 +1,146 @@
+export const meta = {
+  title:
+    "Angular 17, RSC bez frameworka, React Query, bezpieczeństwo w Node.js i nowe komponenty Reactowe dla Google Maps.",
+  date: "2023-06-22",
+  period: "06.11.2023 - 12.11.2023",
+  ogTitles: ["Angular 17", "RSC bez frameworka", "React + Google Maps"],
+};
+
+## Angular 17: nowe funkcjonalności i nowy wygląd
+
+Angular obchodzi 13-lecie swojego istnienia z wielkimi zmianami w wersji 17. Ta wersja wprowadza nowe funkcje, znacząco poprawiające wydajność i developer experience. Oto kilka punktów wartych uwagi:
+
+1. **Deferrable Views**: Nowy mechanizm ładowania komponentów, który zwiększa wydajność i ułatwia pracę deweloperom.
+2. **Wbudowane Pętle Kontroli Przepływu**: Oferują do 90% szybsze działanie w benchmarkach.
+3. **Szybsze Budowanie Aplikacji**: Do 87% szybsze budowanie dla renderowania hybrydowego i 67% dla renderowania po stronie klienta.
+4. **Nowy Wygląd**: Odświeżona estetyka, odzwierciedlająca nowoczesne funkcje Angulara.
+5. **Interaktywna Ścieżka Nauki**: Nowe narzędzia edukacyjne oparte na WebContainers, umożliwiające naukę Angulara bezpośrednio w przeglądarce (w Svelte sprawdza się to świetnie).
+
+Angular 17 prezentuje się jako platforma gotowa na przyszłe wyzwania w tworzeniu aplikacji webowych, oferując narzędzia, które znacząco ułatwiają i przyspieszają pracę programistów.
+
+Jak myślicie, czy te nowe funkcje zmienią sposób, w jaki tworzycie aplikacje w Angularze?
+
+<small>
+  Źródło:
+  [https://blog.angular.io/introducing-angular-v17-4d7033312e4b](https://blog.angular.io/introducing-angular-v17-4d7033312e4b)
+</small>
+
+## Czemu potrzebujesz React Query?
+
+Jeśli zajmujecie się tworzeniem aplikacji w React, to prawdopodobnie zetknęliście się z [React Query](https://tanstack.com/query/v3/). To narzędzie jest cenione za upraszczenie operacji asynchronicznych w aplikacjach React podczas pobierania danych. Mimo, że można używać prostego `fetch` w połączeniu z `useEffect` do pobierania danych z serwera, `React Query` oferuje znacznie więcej, w tym cachowanie, ponawianie pobierania, synchronizację danych, prefetching i wiele innych.
+
+Autor artykułu wskazuje, że nawet w prostych przypadkach użycia, kod bez `React Query` może zawierać jakieś ukryte bugi. Na przykład, występuje ryzyko `race conditions`, gdy odpowiedzi sieciowe przychodzą w innej kolejności, niż zostały wysłane. Może to skutkować niekonsystentnym stanem, gdzie na przykład wybieramy kategorię "książki", a wyświetlane są dane dla "filmów".
+
+Dodatkowo, istnieje kilka innych problemów, jak brak stanu ładowania, co nieco utrudnia wyświetlenie interfejsu użytkownika w trakcie oczekiwania na dane. Do tego mamy problem pustego stanu, kiedy nie jesteśmy w stanie odróżnić sytuacji "brak danych jeszcze" od "w ogóle brak danych". A także kwestia braku resetowania danych i błędów przy zmianie kategorii (patrz przykład z książką i filmem), co może prowadzić do nieprawidłowego wyświetlania danych lub błędów.
+
+Wszystkie te kwestie pokazują, jak `React Query` może uprościć i poprawić jakość kodu, nawet w prostych aplikacjach.
+
+Czy uważacie, że warto włączyć React Query do Waszych projektów, aby uniknąć tych problemów? Czy może macie już doświadczenie z tym narzędziem?
+
+<small>
+  Źródło:
+  [https://tkdodo.eu/blog/why-you-want-react-query](https://tkdodo.eu/blog/why-you-want-react-query)
+</small>
+
+## React Server Components bez frameworka
+
+W świecie Reacta pojawia się coraz więcej dyskusji na temat [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components) (RSC), szczególnie po ogłoszeniu możliwości ich wykorzystania bez użycia dodatkowego frameworka. Co to oznacza dla twórców aplikacji? Otóż, komponenty serwerowe React nie mogą być bezpośrednio importowane ani renderowane przez komponenty klienta. Jednak renderowane przez nie dane mogą być pobierane przez klienta z serwera i wstawiane do drzewa komponentów po stronie klienta.
+
+Ciekawym aspektem RSC jest istnienie tzw. `React Shared Components`, które są neutralne i mogą działać zarówno jako komponenty serwerowe, jak i klienckie. Oznacza to, że dany komponent współdzielony w poddrzewie komponentów React ostatecznie staje się albo komponentem serwerowym, albo klienta, w zależności od kontekstu, w którym jest renderowany.
+
+Autor artykułu podjął się wyzwania praktycznego wykorzystania RSC bez frameworka, eksperymentując z migracją aplikacji do notatek (klasyczne `To Do App`) zbudowanej pierwotnie z użyciem Create React App. Celem eksperymentu było zrozumienie, jak działają RSC, oraz pokazanie wartości frameworka, mimo że autor wydaje się być zwolennikiem budowania własnych rozwiązań produkcyjnych.
+
+W ramach tego eksperymentu autor skupił się na kilku aspektach, takich jak funkcjonalność aplikacji do notatek, użycie komponentów serwerowych i klienta, renderowanie po stronie serwera, pobieranie danych za pomocą komponentów serwerowych, routing działający zarówno po stronie klienta, jak i serwera, odświeżanie komponentów serwerowych z klienta oraz stworzenie użytecznego playgrounda dla RSC.
+
+To interesujące podejście pokazuje, jak RSC mogą zmienić sposób tworzenia aplikacji w React, nawet bez użycia dodatkowego frameworka.
+
+Czy Wy też myślicie o eksperymentowaniu z RSC w Waszych projektach?
+
+<small>
+  Źródło:
+  [https://timtech.blog/posts/react-server-components-rsc-no-framework](https://timtech.blog/posts/react-server-components-rsc-no-framework)
+</small>
+
+## Nowe komponenty Reacta dla API (Google) Maps
+
+Google wprowadziło ważną nowość dla deweloperów Reacta: bibliotekę `@vis.gl/react-google-maps` ([link](https://www.npmjs.com/package/@vis.gl/react-google-maps)). Jest to pierwsza biblioteka od Google, ułatwiająca integrację API Google Maps z aplikacjami Reactowymi.
+
+Nowe narzędzie w kilku punktach wygląda następująco:
+
+- **Łatwa Integracja**: Biblioteka zawiera komponenty Reacta odpowiadające elementom API Maps oraz hooki do dostępu do instancji mapy i dodatkowych bibliotek, co przyspieszy nam czas ładowania i ułatwi zarządzanie kodem.
+
+- **Dostępność**: Biblioteka jest dostępna na `npm`.
+
+- **Open Source**: Narzędzie jest oczywiście open source-owe i zarządzane przez OpenJS Foundation. Zespół `vis.gl` będzie zarządzał pull requestami i wydaniami nowych wersji, a Google zobowiązuje się do regularnych aktualizacji paczki.
+
+- **Społeczność**: Deweloperzy mogą znaleźć przykłady i dokumentację na stronie projektu oraz dzielić się swoimi doświadczeniami w kanale `#react` na [serwerze Discord](https://goo.gle/maps-platform-discord) Google Maps Platform.
+
+To duży krok naprzód dla twórców aplikacji, którzy chcą wzbogacić swoje projekty o możliwości stojące za Google Maps.
+
+Czy planujecie wykorzystać te nowe możliwości w swoich projektach?
+
+<small>
+  Źródło:
+  [https://cloud.google.com/blog/products/maps-platform/introducing-react-components-for-the-maps-javascript-api/](https://cloud.google.com/blog/products/maps-platform/introducing-react-components-for-the-maps-javascript-api/)
+</small>
+
+## Generowanie sourcemapów dla artefaktów produkcyjnych w React
+
+Niedawno w React została zmergowana ważna zmiana, dotycząca generowania sourcemapów dla artefaktów produkcyjnych. Oto szczegóły:
+
+1. **Aktualizacja Rollup Build Pipeline**: Ta zmiana aktualizuje pipeline Rollup, aby generować sourcemapy dla artefaktów produkcyjnych, takich jak `react-dom.production.min.js`.
+
+2. **Wymagania**: Zmiana ta wymaga zmian w Rollup v3, które zostały niedawno zmergowane.
+
+3. **Specyfika Sourcemapów**: Sourcemapy są generowane tylko dla artefaktów produkcyjnych. Nie są tworzone dla artefaktów deweloperskich, profilowania, UMD, czy artefaktów `shouldStayReadable`.
+
+4. **Zawartość Sourcemapów**: Wygenerowane sourcemapy zawierają zawartość zgrupowanych źródeł, tuż przed tym, jak zostały zminifikowane przez `Closure`. Nie są to oryginalne pliki źródłowe, ale lepiej odzwierciedlają rzeczywisty kod działający w ramach pakietu, ze wszystkimi feature flagami i transformacjami zastosowanymi do plików źródłowych. Sourcemapy nadal pokazują komentarze i oryginalne nazwy funkcji, co poprawia debuggowanie w aplikacji produkcyjnej.
+
+Pewnie nie wszyscy z nas będą zainteresowani debuggowaniem Reacta, ale warto wiedzieć, że jest to teraz możliwe z sourcemapami 😉
+
+<small>
+  Źródło:
+  [https://github.com/facebook/react/pull/26446](https://github.com/facebook/react/pull/26446)
+</small>
+
+## Bezpieczeństwo z Node.js
+
+Czy wiesz, że bezpieczeństwo aplikacji Node.js to nie tylko hasła i szyfrowanie? Repozytorium `awesome-nodejs-security` na GitHubie oferuje niesamowite zasoby skupiające się na zabezpieczeniach Node.js. Znajdziesz tam narzędzia, artykuły i nawet hackatony edukacyjne!
+
+Spójrzmy na kilka przykładów:
+
+- **Web Framework Hardening**: `helmet` i `koa-helmet` to narzędzia, które pomagają zabezpieczyć aplikacje Express i Koa poprzez ustawianie różnych nagłówków HTTP. Mają one kluczowe znaczenie w ochronie przed atakami takimi jak cross-site scripting (XSS) i clickjacking.
+- **Static Code Analysis**: Narzędzia takie jak [`eslint-plugin-security`](https://www.npmjs.com/package/eslint-plugin-security) i [`NodeJSScan`](https://github.com/ajinabraham/nodejsscan) pomagają w wykrywaniu potencjalnych słabości bezpieczeństwa w kodzie. Są one nieocenione w utrzymaniu wysokiego poziomu bezpieczeństwa aplikacji.
+- **Dynamic Application Security Testing** (DAST): Choć nie wymienione bezpośrednio, DAST jest równie ważne. Jest to proces testowania aplikacji pod kątem luk bezpieczeństwa w środowisku uruchomieniowym.
+
+Ciekawe, jakie narzędzia bezpieczeństwa stosujesz w swoich projektach Node.js?
+
+<small>
+  Źródło:
+  [https://github.com/lirantal/awesome-nodejs-security](https://github.com/lirantal/awesome-nodejs-security)
+</small>
+
+## Komponenty "Headless" w React
+
+W świecie Reacta, gdzie UI staje się coraz bardziej skomplikowane, pojawia się wyzwanie związane z przeplataną logiką i wizualizacją komponentów. To sprawia, że trudniejsze staje się zrozumienie zachowania komponentu, jego testowanie, a także tworzenie podobnych komponentów o różnym wyglądzie. Tutaj z pomocą przychodzi wzorzec Komponentu Bezinterfejsowego (ang. `Headless Component`), który oddziela całą logikę niewizualną i zarządzanie stanem od "wyglądu" komponentu. W praktyce, oznacza to oddzielenie "mózgu" komponentu od jego wyglądu.
+
+### Jakie problemy to rozwiązuje?
+
+Załóżmy, że budujesz prostą listę rozwijaną. Początkowo wydaje się to proste – zarządzasz stanem otwierania/zamykania i projektujesz jej wygląd. Jednak wraz z rozwojem aplikacji, rosną również wymagania dotyczące tej listy, takie jak wsparcie dla dostępności, nawigacja klawiaturą, rozważanie danych asynchronicznych, różnorodność UI i rozbudowa funkcji. Wszystkie te aspekty dodają warstwy złożoności, a mieszanie stanu, logiki i prezentacji UI sprawia, że komponent staje się trudny do utrzymania i ogranicza jego ponowne wykorzystanie.
+
+### Jak to działa?
+
+Wzorzec Headless Component podkreśla oddzielenie logiki od reprezentacji UI. Jest to wzorzec projektowy w React, gdzie komponent - zazwyczaj implementowany jako hooki Reacta - odpowiada wyłącznie za logikę i zarządzanie stanem, nie narzucając specyficznej wizualizacji UI. Oferuje on "mózg" operacji, ale pozostawia "wygląd" deweloperowi implementującemu go. W praktyce, komponent bezinterfejsowy wydaje się być cienką warstwą współpracującą z widokami JSX z jednej strony, a komunikującą się z podstawowymi modelami danych z drugiej, gdy jest to wymagane.
+
+### Przykład: Headless Dropdown
+
+Weźmy na przykład komponent bezinterfejsowy listy rozwijanej. Odpowiadałby on za zarządzanie stanem otwierania/zamykania, wybór elementów, nawigację klawiaturą itp. Gdy nadchodzi czas na renderowanie, zamiast wyświetlać swój własny z góry określony UI listy rozwijanej, dostarcza ten stan i logikę funkcji podrzędnej lub komponentowi, pozwalając deweloperowi zdecydować, jak powinien wyglądać wizualnie.
+
+Jeżeli jeszcze nie spotkałeś się z takim podejściem i chciałbyś dowiedzieć się więcej, to polecam przeczytać artykuł, który znajdziesz w źródle 😉
+
+Czy miałeś/aś już doświadczenie z implementacją wzorca Headless Component w swoich projektach React? Jakie są Twoje przemyślenia na temat jego wpływu na utrzymanie i ponowne wykorzystanie kodu?
+
+<small>
+  Źródło:
+  [https://martinfowler.com/articles/headless-component.html](https://martinfowler.com/articles/headless-component.html)
+</small>

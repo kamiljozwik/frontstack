@@ -1,7 +1,6 @@
 import { ReportTable } from "./components/table/ReportTable";
 import { PageHeader } from "../components/headers/Headers";
 import styles from "./page.module.scss";
-import { CourseBanner } from "../blog/[slug]/components/courseBanner/CourseBanner";
 
 export const metadata = {
   title: "Frontstack - zarobki programistów frontend",
@@ -15,7 +14,6 @@ const Zarobki = () => {
       <PageHeader desc="Zarobki programistów pracujących w technologiach frontend-owych.">
         Zarobki
       </PageHeader>
-      <CourseBanner variant="small" />
       <section>
         <h2>Założenia</h2>
         <p>

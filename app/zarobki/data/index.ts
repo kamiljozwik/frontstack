@@ -7,7 +7,7 @@ import { nfj22 } from "./reports/2022/nfj";
 import { justjoinit22 } from "./reports/2022/justjoinit";
 import { devire22 } from "./reports/2022/devire";
 import { ntp22 } from "./reports/2022/ntp";
-import { inhireQ123, inhireQ223 } from "./reports/2023/inhire";
+import { inhireQ123, inhireQ223, inhireQ323 } from "./reports/2023/inhire";
 import { soda23 } from "./reports/2023/soda";
 import { grafton23 } from "./reports/2023/grafton";
 
@@ -23,4 +23,5 @@ export const data: Report[] = [
   soda23,
   grafton23,
   inhireQ223,
+  inhireQ323,
 ];

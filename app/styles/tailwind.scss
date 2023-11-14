@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-t from-orange-500 to-yellow-500;
+    background-clip: text;
+    color: rgba(0, 0, 0, 0) !important;
+    -webkit-background-clip: text;
+  }
+}

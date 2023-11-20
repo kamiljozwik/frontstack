@@ -19,6 +19,20 @@ export async function generateMetadata({
   return {
     title: meta?.title,
     description: `Podsumowanie najważniejszych wiadomości ze świata frontendu - nr ${params.slug}`,
+    openGraph: {
+      title: meta?.title,
+      description: `Podsumowanie najważniejszych wiadomości ze świata frontendu - nr ${params.slug}`,
+      type: "article",
+      url: `https://www.frontstack.pl/frontendowka/${params.slug}`,
+      images: [
+        {
+          url: `/frontendowka/${params.slug}.png`,
+          width: 1200,
+          height: 630,
+          alt: "Frontendówka",
+        },
+      ],
+    },
   };
 }
 

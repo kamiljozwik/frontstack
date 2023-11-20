@@ -34,7 +34,7 @@ export default function Home() {
             <h2>FRONTENDÓWKA</h2>
             <ul className="list-none p-0">
               {news.map((news) => (
-                <li key={news.date} className="flex flex-col">
+                <li key={news.date} className="flex flex-col mt-2">
                   <small className="text-gray-400">{news.period}</small>
                   <Link
                     className="text-sm text-white"

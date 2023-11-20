@@ -1,0 +1,141 @@
+export const meta = {
+  title:
+    "Vite 5, nowe wersje AWS Amplify oraz Prettiera, Netlify Blobs oraz nowe metryki Core Web Vitals.",
+  date: "2023-11-19",
+  period: "13.11.2023 - 19.11.2023",
+  ogTitles: ["Vite 5", "AWS Amplify 6", "Netlify Blobs"],
+};
+
+## Vite 5.0
+
+[Vite](https://vitejs.dev/), znany i ceniony w świecie frontendu za swoją szybkość i elastyczność, właśnie wkroczył na nowy poziom. Od momentu premiery Vite 4, liczba tygodniowych pobrań na npm wzrosła z 2.5 miliona do imponujących 7.5 miliona 🤯. To świadczy o rosnącym zaufaniu deweloperów dla tego narzędzia.
+
+Co ciekawe, popularne w ekosystemie Reacta frameworki takie jak [RedwoodJS](https://redwoodjs.com/) czy [Remix](https://remix.run/) od niedawna również korzystają z Vite. To otwiera mu drogę do jeszcze szerszej adopcji. Warto też zwrócić uwagę na rosnącą popularność [Vitest](https://github.com/vitest-dev/vitest), czyli narzędzia służącego głównie do testowania, które obecnie rozwija się nawet szybciej niż sam Vite.
+
+Vite 5.0: Co Nowego?
+
+- **Zastosowanie Rollup 4**: Znacząca poprawa wydajności budowania aplikacji.
+- **Optymalizacje Wydajności**: Nowe opcje ulepszają profil wydajności serwera deweloperskiego.
+- **Porządki w API**: Usunięcie przestarzałych funkcji i ulepszenie istniejących.
+- **Wymóg Node.js 18+**: Krok w kierunku jak najlepszej przyszłości Vite.
+
+Migracja do Vite 5 powinna być prosta i nie sprawić większych problemów, ale zalecam dokładne zapoznanie się z [migration guide](https://vitejs.dev/guide/migration).
+
+**Start z Vite 5**
+
+Aby rozpocząć pracę z Vite 5, wystarczy użyć `pnpm create vite`, co pozwala na szybkie rozpoczęcie projektu z preferowanym frameworkiem. Jest też dostępna opcja `pnpm create vite-extra` dla bardziej zaawansowanych szablonów.
+
+**Wydajność jako Priorytet**
+
+Vite 5.0 wprowadza także nowe funkcje poprawiające czas startu serwera, jak `server.warmup`, pozwalający na `pre-transformację` modułów podczas startu. Dodatkowo, nowy przewodnik po wydajności dostępny na [vitejs.dev](https://vitejs.dev/guide/performance) zawiera wskazówki, jak identyfikować i rozwiązywać typowe problemy z wydajnością.
+
+Vite 5.0 to znaczący krok naprzód, przynoszący nie tylko usprawnienia wydajności, ale i otwierający nowe możliwości dla deweloperów.
+
+Czy masz już doświadczenie z Vite w swoich projektach? Jak oceniasz wpływ tych zmian na Twoje projekty?
+
+<small>
+  Źródło:
+  [https://vitejs.dev/blog/announcing-vite5](https://vitejs.dev/blog/announcing-vite5)
+</small>
+
+## AWS Amplify v6
+
+AWS ogłosił wydanie wersji 6 swojej bardzo popularnej biblioteki [Amplify](https://aws.amazon.com/amplify/). To wydanie przynosi wiele oczekiwanych ulepszeń i funkcji, których społeczność developerska wyraźnie domagała się już od dłuższego czasu.
+
+Jednym z kluczowych atutów nowej wersji jest znaczące zmniejszenie rozmiaru paczki. AWS skupiło się na redukcji zależności, poprawie `tree shakingu` oraz optymalizacji swojej architektury, co zaowocowało lepszym dostosowaniem Amplify do najczęściej używanych frameworków i narzędzi.
+
+Kolejnym znaczącym ulepszeniem jest rozbudowa wsparcia dla TypeScript. Publiczne API Amplify posiada teraz intuicyjne typy, które znacznie poprawiają DX.
+
+Dodatkowo Amplify jest teraz niemal w pełni kompatybilne z najnowszymi funkcjonalnościami Next.js poprzez nowy adapter. Umożliwia to wykorzystanie m.in. renderowania po stronie serwera, `app router-a` korzystającego z `Server components` i wiele więcej. Amplify może również skorzystać z każdej opcji renderowania dostępnej w Next.js (`SSR`, `ISR` lub `SSG`).
+
+W skrócie, najnowsza wersja Amplify to krok naprzód w kierunku lepszego wsparcia dla TypeScript i pełnej integracji z Next.js.
+
+Czy już mieliście okazję przetestować te nowości w swoich projektach? Jakie są Wasze pierwsze wrażenia?
+
+<small>
+  Źródło:
+  [https://aws.amazon.com/blogs/mobile/amplify-javascript-v6/](https://aws.amazon.com/blogs/mobile/amplify-javascript-v6/)
+</small>
+
+## Prettier 3.1
+
+Prettier 3.1 przynosi kilka ciekawych nowości o których również warto tutaj wspomnieć. Po pierwsze, poprawiono "wcięcia" dla zagnieżdżonych operatorów warunkowych typu `ternary`. Oznacza to, że teraz kod będzie bardziej przejrzysty i łatwiejszy do zrozumienia, zwłaszcza w przypadku skomplikowanych warunków .
+
+Ponadto, dodano eksperymentalną funkcję `--experimental-ternaries`, która wprowadza nowy sposób formatowania operatorów warunkowych typu `ternary`. Ten sposób formatowania ma uczynić kod jeszcze bardziej czytelnym, szczególnie przy głębokim zagnieżdżeniu.
+
+Kolejną ważną zmianą jest wsparcie dla nowego `control flow` w Angularze v17 (o Angular v17 pisałem w poprzedniej Frontendówce).
+
+Zmian oczywiście jest znacznie więcej, a pełną listę możecie znaleźć w linku do źródła.
+
+A co Wy sądzicie o tych zmianach? Czy uważacie, że nowe formatowanie operatorów `ternary` będzie pomocne w Waszej pracy?
+
+<small>
+  Źródło:
+  [https://prettier.io/blog/2023/11/13/3.1.0](https://prettier.io/blog/2023/11/13/3.1.0)
+</small>
+
+## Netlify Blobs Beta
+
+[Netlify Blobs](https://docs.netlify.com/blobs/overview/) to uniwersalny magazyn danych, stworzony z myślą o ułatwieniu pracy programistom. Jest to rozwiązanie wbudowane oczywiście w całą platformę Netlify.
+
+Netlify Blobs oferuje natywny magazyn danych dla nieustrukturyzowanych i binarnych danych. Dzięki temu, programiści mogą szybciej wprowadzać swoje produkty na rynek bez skomplikowanych konfiguracji czy dużych ograniczeń architektonicznych​​. Dodatkowo, za pomocą Netlify Blobs możemy tworzyć wiele magazynów dla różnych rodzajów danych w aplikacji i uzyskiwać do nich dostęp z każdego miejsca na platformie Netlify​​. Magazyny danych można konfigurować zarówno na poziomie całej witryny, jak i dla konkretnych deploy-ów.
+
+Netlify Blobs to narzędzie o szerokim zakresie zastosowań i jest ono dostępne w wersji beta bez żadnych kosztów, a ostateczny model cenowy zostanie ogłoszony dopiero przed oficjalnym uruchomieniem​​.
+
+Czy już mieliście okazję wypróbować Netlify Blobs? Jakie zastosowania tej technologii widzicie w swoich projektach? Podzielcie się swoimi doświadczeniami i pomysłami! 🌟
+
+<small>
+  Źródło:
+  [https://www.netlify.com/blog/introducing-netlify-blobs-beta/](https://www.netlify.com/blog/introducing-netlify-blobs-beta/)
+</small>
+
+## The web is getting faster 🏎️
+
+Według najnowszych danych z [HTTP Archive](https://httparchive.org/), więcej stron internetowych niż kiedykolwiek wcześniej przechodzi pozytywnie ocenę Core Web Vitals, która analizuje trzy aspekty wydajności stron: prędkość ładowania, reaktywność interakcji oraz stabilność układu​​. W 2023 roku 42,5% stron internetowych spełniało wymagania Core Web Vitals dla urządzeń mobilnych, co jest nowym rekordem​​ w tym badaniu.
+
+Ale uwaga! W 2024 roku zmienia się metryka oceny reaktywności interakcji na **Interaction to Next Paint** (`INP`), zastępując dotychczasową metrykę **First Input Delay** (`FID`)​​. To ważna zmiana, ponieważ `INP` skuteczniej wykrywa problemy z reaktywnością, ale również oznacza, że znacznie mniej stron (głównie mobilnych) spełni aktualne wymagania.
+
+Największym wyzwaniem w Core Web Vitals pozostaje **Largest Contentful Paint** (`LCP`), który mierzy wydajność ładowania strony. W 2023 roku tylko 54,2% stron internetowych miało dobrą ocenę `LCP` na urządzeniach mobilnych​​.
+
+Techniki takie jak `fetchpriority=high` na obrazach, czy wykorzystanie pamięci podręcznej przeglądarki znacząco poprawiają wydajność. Użycie `fetchpriority=high` wzrosło z 0,03% do 9,25% stron w ciągu roku, głównie dzięki wprowadzeniu tej techniki przez WordPress​-a​.
+
+A jakie są Wasze doświadczenia z Core Web Vitals? Kiedy zamierzacie zacząć mierzyć `INP`?
+
+<small>
+  Źródło:
+  [https://rviscomi.dev/2023/11/a-faster-web-in-2024/](https://rviscomi.dev/2023/11/a-faster-web-in-2024/)
+</small>
+
+## Astro: Nowoczesna Prostota w Frontendzie
+
+Czy słyszeliście o [Astro](https://astro.build/)? To framework frontendowy, który radykalnie zmienia podejście do budowy stron internetowych. Stworzony w 2021 roku 🐣, Astro skupia się na prostocie i szybkości ładowania statycznych witryn. Jego główną zaletą jest brak JavaScriptu w domyślnych ustawieniach, co znacznie przyspiesza ładowanie stron. Ale spokojnie, Astro pozwala na elastyczne wykorzystanie JavaScriptu, gdy tylko jest to potrzebne w projekcie. Co więcej, framework ten oferuje routing oparty na plikach oraz rendering po stronie serwera, podobnie jak popularne NextJS.
+
+James Quick, znany twórca treści technicznych i były pracownik firm takich jak Microsoft czy Auth0, jest gorącym zwolennikiem Astro. Podczas rozmowy w "Software Engineering Daily" podkreśla, jak Astro wyróżnia się na tle konkurencji takiej jak NextJS czy SvelteKit. Jego zdaniem, prostota i wydajność Astro to klucz do szybszego i bardziej efektywnego tworzenia stron internetowych. Polecam posłuchać w wolnej chwili ☕.
+
+A jakie jest Twoje zdanie? Czy Astro jest przyszłością frontendu, czy może to tylko chwilowa moda?
+
+<small>
+  Źródło:
+  [https://softwareengineeringdaily.com/2023/11/14/the-astro-framework-with-james-quick-2/](https://softwareengineeringdaily.com/2023/11/14/the-astro-framework-with-james-quick-2/)
+</small>
+
+## Daily.dev rezygnuje z Preacta na rzecz Reacta. Czemu?
+
+[Daily.dev](https://daily.dev), znana platforma dla programistów, niedawno przeszła zmianę, zamieniając [Preacta](https://preactjs.com/) na Reacta. Developerzy początkowo wybrali Preact ze względu na jego rozmiar i całkiem dobrą kompatybilność z Next.js, ale zmiany w świecie frontendowym i potrzeba rozwiązania długoterminowych problemów skłoniły ich jednak do migracji do Reacta.
+
+Głównymi wyzwaniami były tutaj problemy z `hot reloading-em`, obsługą błędów i ogólną słabą wydajnością środowiska deweloperskiego. Te trudności znacznie spowolniły proces rozwoju całej platformy. Podjęcie decyzji o migracji do Reacta było motywowane chęcią poprawy DX i zwiększenia wydajności całego zespołu.
+
+Przejście na React oferuje znacznie lepszą kompatybilność z Next.js, mniej kodu konfiguracyjnego do utrzymania, spójniejsze API oraz wsparcie od dużych firm technologicznych. Migracja nie była łatwym zadaniem. Wymagała zarówno technicznych zmian w projekcie, jak i dokładnego testowania kodu. Kluczowym etapem było również upewnienie się, że wszystkie aplikacje w monorepo Daily.dev nadal będą działać bezproblemowo.
+
+Cały proces migracji przeprowadzono w ramach tygodniowego hackathonu 🍕. Zespół skupił się na usunięciu zależności od Preacta, przeprowadzeniu testów i rozwiązaniu problemów z kompatybilnością. Mimo krótkiego czasu, dzięki dobrze zaplanowanemu podejściu, udało się zakończyć migrację bez większych problemów.
+
+Koniec końców migracja okazała się sukcesem, poprawiając zarówno wydajność jak i środowisko pracy dla zespołu Daily.dev. Otworzyła także drogę do adopcji nowych funkcji i technologii w przyszłości. Jak widać nie wszystko złoto co się świeci, a czasami warto wrócić do sprawdzonych rozwiązań.
+
+Czy Twoja firma lub projekt również rozważał migrację frameworka frontendowego? Jakie są Twoje doświadczenia i przemyślenia na ten temat?
+
+<small>
+  Źródło:
+  [https://daily.dev/blog/moving-back-to-react](https://daily.dev/blog/moving-back-to-react)
+</small>
+
+**PS:** Mam nadzieję, że wraz z kolejnym odcinkiem Frontendówki będę mógł ponownie wrócić do treści audio oraz video. Tym razem w nieco zmienionej formie. Do usłyszenia wkrótce! 🙌

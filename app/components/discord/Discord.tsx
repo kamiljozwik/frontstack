@@ -15,16 +15,14 @@ const load = async () => {
   return res.json();
 };
 
-export const Discord = async () => {
+export const Discord = async ({ title = "" }) => {
   const data = await load();
 
   return (
     <div>
       <div className="mx-auto mb-16 mt-16 h-1 w-24 rounded-full bg-gradient-to-r from-purple-400 to-purple-600" />
       <section className="my-12 flex flex-col items-center justify-between">
-        <p className="mb-4 text-sm">
-          Chcesz podyskutować na jeden z powyższych tematów?
-        </p>
+        <p className="mb-4 text-sm">{title}</p>
         <ExternalLink
           href={`https://discord.gg/${discordLink}`}
           className="bg-purple-600 hover:bg-purple-500 rounded-lg flex p-2 justify-center items-center no-underline"

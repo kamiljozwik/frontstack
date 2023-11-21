@@ -1,0 +1,225 @@
+import { CodePen } from "../../components/posts";
+
+export const meta = {
+  title: "Intersection Observer - kompletny przewodnik",
+  seo_desc:
+    "Intersection Observer - kompletny przewodnik dla developerów frontend",
+  short:
+    "Szukasz szybkiego i prostego sposobu na wykrywanie, kiedy elementy DOM wchodzą w obszar widoczny dla użytkownika? Poznaj Intersection Observer i w kilka minut zmień swoją stronę nie do poznania!",
+  date: "2023-11-21",
+  tags: ["TypeScript", "Inne"],
+};
+
+Czy zastanawiałeś się kiedyś, jak strony internetowe wykrywają, kiedy użytkownik przescrolluje się do określonej sekcji? Odpowiedzią na to pytanie jest [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). Jest to jednocześniej proste i potężne narzędzie w arsenale każdego dewelopera, dzięki któremy możemy dość szybko wprowadzić kilka interesujących funkcjonalności na naszą stronę / do naszej aplikacji.
+
+## Co to jest Intersection Observer?
+
+`Intersection Observer` to natywne API przeglądarki, które pozwala deweloperom na łatwe i wydajne wykrywanie, kiedy element DOM przechodzi przez określone "obszary widoczności", czyli tzw. `intersekcje`.
+
+### Jak to działa?
+
+API wykorzystuje obiekt `IntersectionObserver`, który jako argumenty przyjmuje `callback` oraz obiekt konfiguracyjny. Callback jest wywoływany za każdym razem, gdy obserwowany element wejdzie lub wyjdzie z obszaru określonego przez konfigurację.
+
+```typescript
+const observer = new IntersectionObserver(callback, options);
+```
+
+### Prosty Przykład
+
+Poniżej znajduje się prosty przykład użycia obiektu `Intersection Observer`:
+
+```typescript
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      console.log("Element jest widoczny!");
+    }
+  });
+});
+
+// Zakładając, że mamy w DOM element o ID 'targetElement'
+const target = document.getElementById("targetElement");
+observer.observe(target);
+```
+
+## Zastosowanie w React
+
+W React, `Intersection Observer` może być wykorzystany do tworzenia efektów przewijania, lazy-loadingu obrazów, czy animacji elementów przy pojawianiu się ich na ekranie.
+
+### Przykład z użyciem hooków
+
+Użycie `Intersection Observer` w React jest szczególnie proste dzięki hookom. Oto przykład takiego customowego hooka:
+
+```typescript
+import { useEffect, useState } from "react";
+
+const useIntersectionObserver = (elementRef) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        setIsVisible(entry.isIntersecting);
+      });
+    });
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, [elementRef]);
+
+  return isVisible;
+};
+```
+
+Ten hook może być następnie użyty w dowolnym komponencie React:
+
+```typescript
+const MyComponent = () => {
+  const ref = useRef();
+  const isVisible = useIntersectionObserver(ref);
+
+  return <div ref={ref}>{isVisible ? "Widoczny!" : "Niewidoczny!"}</div>;
+};
+```
+
+## Dostępne opcje
+
+Poza podstawowym zrozumieniem `Intersection Observer`, warto jest zapoznać się z jego różnymi opcjami konfiguracyjnymi. Pozwalają nam one na dostosowanie działania observera do konkretnych potrzeb aplikacji.
+
+Poniżej znajduje się lista dostępnych opcji:
+
+### 👉 root
+
+Opcja `root` pozwala określić element, względem którego ma być wykrywane przecięcie. Jeśli nie jest ustawiona, domyślnie używany jest `viewport`.
+
+```typescript
+const options = {
+  root: document.querySelector("#scrollArea"),
+};
+```
+
+### 👉 rootMargin
+
+`rootMargin` działa podobnie do marginesów w CSS. Pozwala na zdefiniowanie marginesu wokół `root`, który ma być brany pod uwagę przy wykrywaniu przecięć.
+
+```typescript
+const options = {
+  root: null,
+  rootMargin: "50px 0px",
+};
+```
+
+### 👉 threshold
+
+`threshold` określa, jak duża część obserwowanego elementu musi wejść w obszar widoczności `root`, aby została wywołana funkcja `callback`. Może to być pojedyncza wartość lub tablica wartości.
+
+```typescript
+const options = {
+  threshold: 0.5, // 50% elementu musi być widoczne
+};
+```
+
+Zastosowanie tych opcji umożliwia tworzenie bardziej skomplikowanych i dostosowanych do potrzeb zachowań:
+
+- **Lazy-loading grafiki**: Ustawienie `threshold` na niską wartość pozwala na wcześniejsze rozpoczęcie ładowania obrazów, jeszcze zanim będą w pełni widoczne dla użytkownika.
+- **Infinite scroll**: Używając `rootMargin`, możemy wyzwalać ładowania kolejnych treści jeszcze przed dotarciem użytkownika do końca strony.
+- **Animacje przy przewijaniu**: Zmienne wartości `threshold` umożliwiają uruchamianie animacji w różnych punktach wejścia elementu w obszar widoczności.
+
+Przykład z wykorzystaniem opcji `rootMargin`:
+
+```typescript
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        console.log("Element jest teraz widoczny z marginesem!");
+      }
+    });
+  },
+  { rootMargin: "100px" }
+);
+
+const target = document.getElementById("targetElement");
+observer.observe(target);
+```
+
+## Koniec obserwacji
+
+Jednym z kluczowych aspektów efektywnego wykorzystania `Intersection Observer` jest zarządzanie czasem obserwacji elementów. Ważne jest, aby przestać obserwować elementy, które już nie muszą być śledzone, takie jak te usunięte ze strony lub po zakończeniu lazy-loadingu.
+
+Aby przestać obserwować element, należy użyć metody `unobserve` na instancji `IntersectionObserver`. Jest to kluczowe do zapobiegania wyciekom pamięci i problemom z wydajnością, szczególnie w aplikacjach o dużej skali i złożoności.
+
+```typescript
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // Wykonaj potrzebne akcje
+      console.log("Element jest widoczny!");
+
+      // Przestań obserwować element po spełnieniu warunku
+      obs.unobserve(entry.target);
+    }
+  });
+});
+
+const target = document.getElementById("targetElement");
+observer.observe(target);
+```
+
+### Przykład w React:
+
+W React, szczególnie gdy używamy hooków, powinniśmy pamiętać o odłączaniu obserwatora w momencie, gdy komponent jest demontowany.
+
+```typescript
+useEffect(() => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Przestań obserwować, gdy element jest widoczny
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
+  if (ref.current) {
+    observer.observe(ref.current);
+  }
+
+  return () => {
+    if (ref.current) {
+      observer.unobserve(ref.current);
+    }
+  };
+}, []);
+```
+
+W aplikacjach typu SPA elementy mogą być dynamicznie dodawane i usuwane z DOM. Należy paimętać o tym, aby przestać obserwować elementy, które zostały już usunięte.
+
+## Kolejne przykłady
+
+Poniżej znajdziemy dwa w pełni działające przykłady użycia `Intersection Observer`. Pierwszy z nich korzysta z czystego JavaScript a drugi z React. Śmiało możesz z nich skorzystać w swoich projektach lub użyć ich jako punktu wyjścia do tworzenia własnych rozwiązań.
+
+### Vanilla JavaScript
+
+<CodePen id="dyamogg" height="600px" />
+
+### React
+
+Sprawdź przykład na CodeSandbox.
+
+[![Intersection Observer React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/devbox/intersection-observer-react-x7yj24?embed=1&file=%2Fsrc%2FApp.tsx)
+
+## Podsumowanie
+
+`Intersection Observer` to niezwykle potężne narzędzie, które każdy frontend deweloper powinien znać. Umożliwia ono tworzenie w dość prosty i przyjazny sposób interaktywnych i dynamicznych interfejsów użytkownika bez konieczności użycia dodatkowych bibliotek. Zarówno w czystym TypeScript / JavaScript, jak i w połączeniu z frameworkami takimi jak React, otwiera szerokie możliwości w zakresie kontroli nad tym, co i kiedy jest widoczne dla użytkownika.
+
+Dodatkowo, znajomość i właściwe wykorzystanie opcji konfiguracyjnych znacząco rozszerza możliwości tego API, pozwalając na stworzenie bardziej interaktywnych i responsywnych aplikacji webowych. Eksperymentowanie z różnymi kombinacjami tych ustawień może prowadzić do odkrycia nowych, kreatywnych sposobów na wykorzystanie tej technologii w projektach.
+
+Jakie kreatywne zastosowania `Intersection Observer` widziałeś lub zastosowałeś w swoich projektach? Podziel się swoimi doświadczeniami na naszym Discordzie!

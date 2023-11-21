@@ -65,7 +65,7 @@ const NewsPage = ({
       </section>
       <div>
         {/* @ts-ignore */}
-        <Discord />
+        <Discord title="Chcesz podyskutować na jeden z powyższych tematów?" />
       </div>
     </main>
   );

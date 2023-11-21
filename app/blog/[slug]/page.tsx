@@ -6,6 +6,7 @@ import styles from "./blopost.module.scss";
 import Link from "next/link";
 import { NoPost } from "./components/NoPost";
 import { CourseBanner } from "@/app/blog/[slug]/components/courseBanner/CourseBanner";
+import { Discord } from "@/app/components/discord/Discord";
 
 export async function generateStaticParams() {
   return getPostsMeta();
@@ -61,6 +62,8 @@ const PostPage = ({ params }: { params: PostMeta }) => {
         ) : (
           <NoPost />
         )}
+        {/*@ts-ignore */}
+        <Discord title="Masz uwagi lub sugestie do tego wpisu?" />
       </main>
       <section className={styles.side}>{/* <h2>Podobne posty</h2> */}</section>
     </div>

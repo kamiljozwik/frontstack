@@ -33,6 +33,7 @@ export const Discord = async ({ title = "" }) => {
               height="24"
               alt="discord icon"
               src="/assets/icons/discord.svg"
+              className="!mb-0"
             />
           </span>
           <span className="text-gray-200 no-underline">Przejdź na Discord</span>

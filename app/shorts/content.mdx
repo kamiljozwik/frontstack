@@ -1,7 +1,7 @@
 <section>
 ## Nowy składnik `npm query` do selekcji zależności
 
-Zaprezentowano nowe podejście do zarządzania zależnościami w projekcie Node.js, dzięki komendzie `npm query` oraz selektorom zależności, opartych na znanej składni CSS. To narzędzie pozwala nam na szybkie i elastyczne filtrowanie zależności w projekcie.
+Czy wiesz, że dzięki komendzie `npm query` oraz selektorom zależności, opartych na znanej składni CSS możesz szybkio i elastycznie filtrować zależności w projekcie Node.js?
 
 Oto kilka przykładów:
 
@@ -86,7 +86,7 @@ console.log(process.env.npm_package_foo); // 'bar'
 
 Kiedy uruchomisz `yarn start`, plik `index.js` będzie miał dostęp do wartości z `package.json` poprzez `process.env`.
 
-To super pomocne rozwiązanie, które może znacznie upraszczać zarządzanie skryptami i konfiguracją w projektach! 🎉
+To super pomocne rozwiązanie, które może znacznie upraszczać zarządzanie skryptami i konfiguracją w projektach!
 
 </section>
 
@@ -111,12 +111,12 @@ console.log(`Czas wykonania: ${end - start} milisekund`);
 
 W powyższym przykładzie mierzymy czas wykonania pętli `for`. Funkcja `performance.now()` zwraca czas w milisekundach od momentu uruchomienia strony / aplikacji, więc poprzez odjęcie czasu startu od czasu końca, otrzymujemy czas wykonania naszego kodu.
 
-Jest to szczególnie użyteczne podczas optymalizacji wydajności aplikacji, gdy chcemy zrozumieć, które fragmenty kodu są "wąskimi gardłami" naszej aplikacji. Albo gdy chcemy udowodnić, że nasz kod jest szybszy od kodu kolegi 😎.
+Jest to szczególnie użyteczne podczas optymalizacji wydajności aplikacji, gdy chcemy zrozumieć, które fragmenty kodu są "wąskimi gardłami" naszej aplikacji. Albo gdy chcemy udowodnić, że nasz kod jest szybszy od kodu napisanego przez kolegę 😎.
 
 </section>
 
 <section>
-## Kondycjne klasy w Tailwind CSS
+## Kondycyjne klasy w Tailwind CSS
 
 Kondycyjne dodawanie klas w Tailwindzie nie jest tak oczywiste, jak mogłoby się wydawać. Tailwind generuje pliki CSS na podstawie klas które znajdzie w kodzie, więc dodawanie logiki warunkowej do klas może spowodować, że dana klasa nie zostanie uwzględniona przez Tailwinda w trakcie budowania strony. Na szczęście możemy to łatwo rozwiązać za pomocą małego helpera:
 

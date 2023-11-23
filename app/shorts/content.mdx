@@ -1,4 +1,189 @@
 <section>
+## Nowy składnik `npm query` do selekcji zależności
+
+Zaprezentowano nowe podejście do zarządzania zależnościami w projekcie Node.js, dzięki komendzie `npm query` oraz selektorom zależności, opartych na znanej składni CSS. To narzędzie pozwala nam na szybkie i elastyczne filtrowanie zależności w projekcie.
+
+Oto kilka przykładów:
+
+1. Wypisanie wszystkich zależności (podobnie jak `npm list --all`):
+
+   ```bash
+   npm query "*"
+   ```
+
+2. Znalezienie wszystkich wersji `react` i `lodash` w projekcie:
+
+   ```bash
+   npm query "#react, #lodash"
+   ```
+
+3. Wyszukiwanie wersji `react`, które nie są zależnościami typu peer:
+
+   ```bash
+   npm query "#react:not(.peer)"
+   ```
+
+4. Znalezienie zależności z licencją `MIT`:
+
+   ```bash
+   npm query "[license=MIT]"
+   ```
+
+5. Wyszukiwanie zależności z repozytorium git:
+
+   ```bash
+   npm query ":type(git)"
+   ```
+
+6. Sprawdzenie, które zależności transakcyjne używają skryptu `postinstall`:
+
+   ```bash
+   npm query ":attr(scripts, [postinstall]):not(:root > *)"
+   ```
+
+👉 Więcej informacji do znalezienia [tutaj](https://github.blog/changelog/2022-08-03-introducing-the-new-npm-dependency-selector-syntax/), [tutaj](https://docs.npmjs.com/cli/v10/using-npm/dependency-selectors) oraz [tutaj](https://www.youtube.com/watch?v=h_ZpixOgKDY).
+
+</section>
+
+<section>
+## Odnoszenie się do wartości z `package.json` w skryptach `npm`
+
+Czy wiesz, że możesz odnosić się do wartości zdefiniowanych w pliku `package.json` bezpośrednio w definicjach skryptów npm/yarn? To świetne rozwiązanie, które pomaga uniknąć powtórzeń, szczególnie w większych projektach.
+
+Przyjrzyjmy się przykładowi:
+
+```json
+{
+  "name": "my-package",
+  "config": {
+    "src": "./src/*"
+  },
+  "scripts": {
+    "lint": "eslint $npm_package_config_src",
+    "test": "jest $npm_package_config_src"
+  }
+}
+```
+
+W powyższym przykładzie zdefiniowaliśmy ścieżkę `./src/*` jako część konfiguracji i odnosimy się do niej w skryptach `lint` i `test`. Dzięki temu, jeśli ścieżka ulegnie zmianie, wystarczy zaktualizować ją tylko w jednym miejscu.
+
+Dodatkowo, wartości z `package.json` są dostępne również w Node.js poprzez `process.env`, gdy uruchamiasz skrypty za pomocą `yarn`:
+
+```json
+// package.json
+{
+  "foo": "bar",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
+```
+
+```js
+// index.js
+console.log(process.env.npm_package_foo); // 'bar'
+```
+
+Kiedy uruchomisz `yarn start`, plik `index.js` będzie miał dostęp do wartości z `package.json` poprzez `process.env`.
+
+To super pomocne rozwiązanie, które może znacznie upraszczać zarządzanie skryptami i konfiguracją w projektach! 🎉
+
+</section>
+
+<section>
+## Mierzenie wydajności w JavaScript z `performance.now()`
+
+Czy wiesz, że w JavaScript możemy precyzyjnie mierzyć czas wykonania naszego kodu za pomocą funkcji `performance.now()`? Jest ona znacznie dokładniejsza niż `Date.now()` i pozwala na uzyskanie wyniku z dokładnością do mikrosekund.
+
+Spójrzmy na przykład:
+
+```js
+const start = performance.now();
+
+// Tutaj umieść swój kod, którego wydajność chcesz zmierzyć
+for (let i = 0; i < 1000; i++) {
+  console.log(i);
+}
+
+const end = performance.now();
+console.log(`Czas wykonania: ${end - start} milisekund`);
+```
+
+W powyższym przykładzie mierzymy czas wykonania pętli `for`. Funkcja `performance.now()` zwraca czas w milisekundach od momentu uruchomienia strony / aplikacji, więc poprzez odjęcie czasu startu od czasu końca, otrzymujemy czas wykonania naszego kodu.
+
+Jest to szczególnie użyteczne podczas optymalizacji wydajności aplikacji, gdy chcemy zrozumieć, które fragmenty kodu są "wąskimi gardłami" naszej aplikacji. Albo gdy chcemy udowodnić, że nasz kod jest szybszy od kodu kolegi 😎.
+
+</section>
+
+<section>
+## Kondycjne klasy w Tailwind CSS
+
+Kondycyjne dodawanie klas w Tailwindzie nie jest tak oczywiste, jak mogłoby się wydawać. Tailwind generuje pliki CSS na podstawie klas które znajdzie w kodzie, więc dodawanie logiki warunkowej do klas może spowodować, że dana klasa nie zostanie uwzględniona przez Tailwinda w trakcie budowania strony. Na szczęście możemy to łatwo rozwiązać za pomocą małego helpera:
+
+```ts
+import clsx, { type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/** Utility function to add Tailwind classes conditionally */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+Przykład użycia w komponencie Reacta:
+
+```tsx
+import { cn } from "./utils/cn";
+
+export function Button({ variant = "primary" }) {
+  return (
+    <button
+      className={cn("px-4 py-2 rounded-md", {
+        "bg-blue-500 text-white": variant === "primary", // klasy dodane tylko wtedy, gdy "variant" jest równy "primary"
+        "bg-gray-200 text-gray-800": variant === "secondary", // klasy dodane tylko wtedy, gdy "variant" jest równy "secondary"
+      })}
+    >
+      Click me
+    </button>
+  );
+}
+```
+
+👉 Więcej informacji o tym helperze możecie znaleźć [tutaj](https://www.youtube.com/shorts/1Hgc6EU9PSg) oraz [tutaj](https://www.youtube.com/watch?v=re2JFITR7TI).
+
+</section>
+
+<section>
+## document.designMode
+
+Tryb projektowania jest tą funkcjonalnością w przeglądarce, która pozwala nam bezpośrednio edytować dokument (czyli zawartość tekstową strony internetowej). Domyślnie ta właściwość jest oczywiście wyłączona, ale aby uruchomić ten feature, wystarczy otworzyć DevToolsy a następnie wpisać w konsoli:
+
+```
+document.designMode="on"
+```
+
+Oczywiście możemy osiągnąć to samo edytując HTML bezpośrednio w DevToolsach, ale trzeba przyznać, że jest to o wiele wygodniejsze rozwiązanie 😉.
+
+Przykładowe użycie 👉 [https://twitter.com/sulco/status/1177559150563344384](https://twitter.com/sulco/status/1177559150563344384)
+
+</section>
+
+<section>
+## Usuwanie nieużywanych `node_modules`
+
+Wszyscy znamy problem gromadzenia się wielu repozytoriów na naszym dysku. Przy projektach korzystających z Node.js, foldery `node_modules` mogą zajmować setki megabajtów 🤯. Ręczne ich usuwanie to dośc żmudna praca, ale na szczęście istnieje prosty sposób - paczka [npkill](https://www.npmjs.com/package/npkill).
+
+Możemy ją uruchomić bezpośrednio w terminalu:
+
+```
+$ npx npkill
+```
+
+Po uruchomieniu tego polecenia, `npkill` wyświetli listę wszystkich folderów `node_modules` w danym, oraz w zagnieżdżonych katalogach i pozwoli na ich błyskawiczne usunięcie z dysku 🧹.
+
+</section>
+
+<section>
 ## Typowanie `process.env` w TypeScript
 
 Szybki, czysty i prosty sposób na typowanie `process.env` w TypeScript z użyciem biblioteki [zod](https://zod.dev/).

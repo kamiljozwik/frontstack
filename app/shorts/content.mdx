@@ -1,4 +1,67 @@
 <section>
+## React Context - rerenderuj tylko to, co potrzebne
+
+Gdy używamy API Context w React, często popełniamy błąd polegający na tworzeniu kontekstu i dostarczaniu go bezpośrednio w głównym komponencie aplikacji (`App`). W takim przypadku, każda zmiana stanu w kontekście powoduje ponowne renderowanie wszystkich komponentów, nawet tych, które nie używają tego kontekstu.
+
+### Przykład błędnego użycia
+
+```jsx
+const CountContext = React.createContext();
+
+function App() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <CountContext.Provider value={{ count, setCount }}>
+      <ComponentOne />
+      <ComponentTwo />
+    </CountContext.Provider>
+  );
+}
+```
+
+### Jak to zrobić lepiej?
+
+Aby uniknąć niepotrzebnego rerenderowania, należy przenieść logikę stanu i kontekstu do osobnego komponentu typu `Provider`:
+
+```jsx
+// CountContextProvider.jsx
+export const CountContext = React.createContext();
+
+export const CountContextProvider = ({ children }) => {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <CountContext.Provider value={{ count, setCount }}>
+      {children}
+    </CountContext.Provider>
+  );
+};
+```
+
+Następnie używamy `CountContextProvider` w głównym komponencie aplikacji, otaczając tylko te komponenty, które faktycznie potrzebują dostępu do tego kontekstu.
+
+```jsx
+// App.jsx
+import { CountContextProvider } from "./CountContextProvider";
+
+function App() {
+  return (
+    <CountContextProvider>
+      <ComponentOne />
+      <ComponentTwo />
+    </CountContextProvider>
+  );
+}
+```
+
+Dzięki temu tylko te komponenty, które używają kontekstu (za pomocą `useContext`), będą ponownie renderowane przy zmianie stanu, co znacznie poprawia wydajność aplikacji.
+
+Zobacz więc [tutaj](https://www.youtube.com/watch?v=16yMmAJSGek).
+
+</section>
+
+<section>
 ## Nowy składnik `npm query` do selekcji zależności
 
 Czy wiesz, że dzięki komendzie `npm query` oraz selektorom zależności, opartych na znanej składni CSS możesz szybkio i elastycznie filtrować zależności w projekcie Node.js?

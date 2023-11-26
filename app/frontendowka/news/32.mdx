@@ -1,0 +1,187 @@
+export const meta = {
+  title:
+    "TypeScript 5.3, State of JS 2023, Lambda z obsługą Node.js 20.x i CSS4",
+  date: "2023-11-26",
+  period: "20.11.2023 - 26.11.2023",
+  ogTitles: ["TypeScript 5.3", "State of JS 2023", "CSS4"],
+};
+
+## TypeScript 5.3 - co nowego?
+
+TypeScript 5.3 został oficjalnie opublikowany. Nie znajdziemy w tym wydaniu może jakiś nowych super funkcjonalności, ale przynosi nam ono ze sobą sporo interesujących ulepszeń.
+
+Jedną z głównych nowości jest wsparcie dla `import attributes`, co pozwala precyzyjniej określać format importowanych modułów. To znaczy, że teraz możemy wskazać, na przykład, że importowany plik JSON powinien być traktowany wyłącznie jako JSON, a nie jako potencjalnie niebezpieczny kod JavaScript.
+
+Kolejną ciekawą funkcją jest `resolution-mode` w typach importowanych, która została wprowadzona już w TypeScript 4.7, ale teraz otrzymuje stabilne wsparcie. Dzięki temu można kontrolować, czy specyfikator powinien być rozwiązany przy użyciu semantyki `import` czy `require`.
+
+TypeScript 5.3 wprowadza również nowe podejście do zawężania typów w instrukcjach warunkowych, takich jak `switch (true)` czy porównania z wartościami `boolean`, co pozwala na bardziej precyzyjne i czytelne zarządzanie typami.
+
+Interesującą nowością jest również rozszerzenie działania operatora `instanceof` przez `Symbol.hasInstance`, co umożliwia dostosowywanie zachowania tego operatora w bardziej zaawansowanych scenariuszach.
+
+Dla tych, którzy korzystają z `super` w JavaScript, TypeScript 5.3 wprowadza kontrole dostępu do właściwości instancji przez to słowo kluczowe, co pomaga unikać niektórych błędów w runtime-ie.
+
+A jeśli chodzi o ulepszenia w narzędziach developerskich, TypeScript 5.3 oferuje teraz interaktywne wskazówki dotyczące typów.
+
+Wśród innych istotnych ulepszeń znajdziemy również opcje optymalizacyjne, takie jak pomijanie parsowania JSDoc, co skraca czas kompilacji.
+
+Na koniec warto wspomnieć o konsolidacji dwóch bibliotek TypeScriptu - `tsserverlibrary.js` i `typescript.js`, co przyczynia się do zmniejszenia rozmiaru paczki i unikania potencjalnych problemów z korzystaniem z obu bibliotek jednocześnie.
+
+TypeScript 5.3 świata (i stolika 😉) do góry nogami nie wywraca, ale wydaje się być aktualizacją, która może nieco ułatwić nam życie.
+
+A co Ty myślisz o tych nowościach? Czy widzisz coś, co może przydać się w Twoich projektach?
+
+<small>
+  Źródło:
+  [https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/](https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/)
+</small>
+
+## State of JavaScript 2023
+
+Ankieta State of JavaScript 2023 jest już aktywna i czeka na Wasze odpowiedzi 🎉
+
+Nie będę tutaj za bardzo rozpisywał się na ten temat - wrócimy do niego na pewno, gdy tylko pojawią się wyniki. Na razie zachęcam Was tylko do wypełnienia ankiety.
+
+<small>
+  Źródło:
+  [https://survey.devographics.com/en-US/survey/state-of-js/2023](https://survey.devographics.com/en-US/survey/state-of-js/2023)
+</small>
+
+## AWS Lambda z Obsługą Node.js 20.x
+
+W świecie AWS Lambda pojawiła się obsługa Node.js w wersji 20.x. Ta wersja Node.js znajduje się aktualnie w statusie LTS. Developerzy mogą od teraz korzystać m.in. z `Powertools for AWS Lambda (TypeScript)`, czyli zestawu narzędzi do wdrażania najlepszych praktyk serverless i zwiększania wydajności.
+
+**Zmiany w Obsłudze Certyfikatów i Integracji z Lambda@Edge**
+
+Kolejną istotną zmianą jest sposób, w jaki Node.js 20.x obsługuje certyfikaty `CA` (Certificate Authority). Wcześniejsze wersje Node.js w AWS Lambda automatycznie dołączały certyfikaty CA specyficzne dla AWS, ułatwiając tworzenie funkcji współpracujących z innymi usługami AWS. Od teraz, w Node.js 20.x, te dodatkowe certyfikaty nie są ładowane domyślnie, co przekłada się na szybszy `cold start` funkcji. Deweloperzy mogą jednak samodzielnie zarządzać certyfikatami `CA`, co daje większą kontrolę i elastyczność.
+
+Node.js 20.x współpracuje również z `Lambda@Edge`, umożliwiając dostosowywanie treści dostarczanych z niskim opóźnieniem przez `Amazon CloudFront`.
+
+**Amazon Linux 2023 jako Podstawa**
+
+Ciekawym ulepszeniem jest także nowa podstawa systemowa – `Amazon Linux 2023`. Ta minimalistyczna wersja systemu oferuje mniejszy rozmiar obrazu (poniżej 40MB), co jest znaczącą zmianą w porównaniu do poprzedniej wersji opartej na Amazon Linux 2 (ponad 100MB). Nowa wersja zawiera aktualniejszą wersję `glibc` i zmienia menedżera pakietów na `microdnf`, zastępując `yum`.
+
+**Optymalizacja Wydajności i Zarządzanie Pamięcią**
+
+Node.js 20.x w AWS Lambda oferuje również usprawnienia w zakresie wydajności, takie jak strumieniowanie odpowiedzi Lambda, które pozwala na szybsze przesyłanie danych do użytkownika. Ponadto deweloperzy mogą teraz bardziej precyzyjnie zarządzać pamięcią silnika V8.
+
+Wprowadzenie Node.js 20.x do AWS Lambda umożliwia tworzenie bardziej wydajnych, potężnych i skalowalnych aplikacji serverless. Dla deweloperów, którzy chcą wykorzystać te nowości, dostępne są różne narzędzia i metody wdrażania, w tym AWS Management Console, AWS CLI, AWS SDK, AWS SAM, AWS CDK oraz obrazy kontenerowe Node.js 20.
+
+A jak Ty zamierzasz wykorzystać te nowe możliwości w swoich projektach AWS Lambda?
+
+<small>
+  Źródło:
+  [https://aws.amazon.com/blogs/compute/node-js-20-x-runtime-now-available-in-aws-lambda/](https://aws.amazon.com/blogs/compute/node-js-20-x-runtime-now-available-in-aws-lambda/)
+</small>
+
+## CSS4 ???
+
+Zoran Jambor znany z kanału [CSS Weekly](https://www.youtube.com/@CSSWeekly) opublikował ciekawy film, poriszający temat CSS4. Oto kilka punktów z tego filmu.
+
+### Dlaczego CSS4 i dlaczego teraz?
+
+CSS3, wprowadzone około 10 lat temu, było ogromnym przełomem. Jednak od tego czasu CSS rozwinął się znacznie dalej. Początkowo CSS był prostym językiem, ale z czasem rozrósł się, dodając nowe funkcje w CSS2, a później w CSS3. Grupa robocza CSS zdała sobie sprawę, że trzymanie wszystkich tych funkcji w jednym dokumencie staje się niemożliwe, więc zaczęto dzielić CSS na moduły (np. czcionki, kolory, układ stron).
+
+Z tego powodu idea CSS4 została porzucona na rzecz rozwoju osobnych modułów. Ale coś się zmieniło...
+
+### Powrót do koncepcji CSS4
+
+W 2020 roku znaczące postacie w branży takie jak Chris Coyier, Nicole Sullivan, i Peter-Paul Koch, wznowiły dyskusję na temat CSS4. Jen Simmons założyła nawet [wątek na GitHubie](https://github.com/w3c/csswg-drafts/issues/4770), aby omówić możliwość powstania CSS4. Głównym powodem było pragnienie ożywienia entuzjazmu wokół CSS, podobnego do tego, który towarzyszył wprowadzeniu CSS3.
+
+### CSS4 - więcej niż technologia
+
+CSS4 ma być bardziej terminem marketingowym niż technicznym. Chodzi o to, aby pod jednym szyldem zgromadzić istniejące już funkcje, dając tym samym autorom, nauczycielom i studentom jasny obraz tego, czego mogą się uczyć dalej w CSS. CSS4 miałby obejmować kluczowe funkcje z lat 2013-2018, jak Flexbox czy Grid, a później CSS5 i CSS6 wprowadzałyby kolejne nowości. Trochę jak ma to miejsce z kolejnymi wersjami ECMAScript.
+
+### CSS4 - Co nas czeka?
+
+Zdaniem wielu, CSS4 powinien być wyznacznikiem aktualnego stanu CSS, ułatwiającym zrozumienie i naukę tego, co jest teraz istotne. To również sposób na ułatwienie rekruterom i deweloperom JavaScript zrozumienie aktualnego statusu CSS. W przyszłości, CSS4, a później CSS5 i CSS6, będą wyznaczać kolejne kroki w rozwoju CSS.
+
+Jakie są wasze odczucia związane z CSS4? Czy podoba wam się ten pomysł, czy może macie jakieś obawy? Podzielcie się swoimi przemyśleniami na Discordzie – jestem bardzo ciekawy, co myślicie na ten temat 🤔
+
+<small>
+  Źródło:
+  [https://www.youtube.com/watch?v=j4mOm1qic7k](https://www.youtube.com/watch?v=j4mOm1qic7k)
+</small>
+
+## GitHub Copilot dostępny w CLI (Beta)
+
+### GitHub Copilot w Interfejsie Linii Poleceń (CLI)
+
+Czy zastanawialiście się kiedyś, jakby to było, gdybyście mieli własnego asystenta podczas pracy z CLI? Oto GitHub Copilot w CLI, czyli narzędzie, które może zrewolucjonizować sposób, w jaki pracujemy z terminalami.
+
+Copilot w CLI jest narzędziem w fazie publicznej bety, co oznacza, że ciągle się rozwija i może ulec zmianie. Jest dostępny zarówno dla posiadaczy indywidualnej subskrypcji GitHub Copilot, jak i dla organizacji z subskrypcją GitHub Copilot Business.
+
+To, co wyróżnia Copilot w CLI, to interfejs przypominający czat, który pozwala zadawać pytania dotyczące poleceń. Możesz prosić Copilota o sugestie poleceń lub wyjaśnienia dotyczące konkretnych komend.
+
+Jak to działa? Użytkownik wprowadza pytanie, które jest przetwarzane przez Copilot w CLI, a następnie wysyłane do usługi GitHub połączonej z dużym modelem językowym. Model ten generuje odpowiedź na podstawie kontekstu i treści pytania. Odpowiedzi mogą przybrać formę sugerowanych poleceń lub wyjaśnień dotyczących zadanych poleceń - mniej więcej tak jak to działa z klasycznym Copilotem.
+
+Copilot w CLI stara się proponować komendy, które pomogą w realizacji zadań, z którymi się zmagasz. Możesz określić typ szukanego polecenia, np. ogólne polecenie shell, Git lub GitHub CLI. Jeśli wynik nie jest dokładnie tym, czego szukasz, możesz dostosować pytanie, dopóki nie otrzymasz oczekiwanej odpowiedzi.
+
+Interesujące jest to, że Copilot w CLI może również pomóc wyjaśnić działanie nieznanej komendy, generując opis jej funkcjonalności i przeznaczenia w języku naturalnym. To świetna opcja dla tych, którzy chcą zrozumieć zachowanie komendy bez konieczności przeszukiwania dokumentacji. Jednak pamiętaj, że wygenerowane wyjaśnienia mogą nie zawsze być dokładne, dlatego jak zawsze przy tego rodzaju narzędziach, zaleca się weryfikację ich poprawności.
+
+Czy używaliście już Copilota w swojej pracy?
+
+<small>
+  Źródło:
+  [https://docs.github.com/en/copilot/github-copilot-in-the-cli/about-github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli/about-github-copilot-in-the-cli)
+</small>
+
+## Netlify Image CDN (Beta)
+
+Netlify ogłosił wprowadzenie do beta-testów nowego narzędzia o nazwie [Netlify Image CDN](https://docs.netlify.com/image-cdn/overview/). Co to takiego?
+
+Netlify Image CDN to usługa, która pozwala na prostsze zarządzanie obrazami na Twojej stronie. Wiemy, że obrazy to kluczowy element wpływający na wydajność i doświadczenia użytkownika, a ich optymalizacja może być dość trudna. Netlify Image CDN oferuje proste rozwiązania do zmiany rozmiaru, kadrowania i zmiany formatu obrazów. Dzięki temu, zamiast ładować na stronę niepotrzebnie duże obrazy, można dostosować je do potrzeb, zachowując przy tym ich jakość.
+
+Interesujący jest fakt, że Netlify Image CDN automatycznie dostarcza obrazy w najlepszym formacie obsługiwanym przez przeglądarkę użytkownika. Obecnie wspiera formaty takie jak AVIF i WebP, a także planuje wprowadzenie nowych formatów, jak JPEG XL, w miarę jak będą one wspierane przez coraz więcej przeglądarek.
+
+Kolejnym plusem jest to, że Netlify Image CDN obsługuje zarówno lokalne obrazy z Twojej strony, jak i zdalne obrazy z innych serwerów. Aby ułatwić korzystanie z usługi, Netlify zaoferowało proste API, które działa "od ręki" dla wszystkich lokalnych obrazów, a opcje transformacji są przekazywane jako standardowe parametry zapytania.
+
+Ciekawostką jest też, że Netlify współpracuje z takimi platformami jak Cloudinary i Bynder, oferującymi zaawansowane zarządzanie obrazami i wideo, co może być szczególnie przydatne dla aplikacji e-commerce.
+
+Co najlepsze, w czasie trwania bety, korzystanie z Netlify Image CDN jest darmowe. Później planowane jest wprowadzenie opłat, ale Netlify obiecuje 🤞, że będą one uczciwe i będą zawierały hojny darmowy limit.
+
+Co sądzicie o takim rozwiązaniu? Czy Netlify Image CDN może uprościć Waszą pracę przy tworzeniu stron i aplikacji?
+
+<small>
+  Źródło:
+  [https://www.netlify.com/blog/introducing-netlify-image-cdn-beta/](https://www.netlify.com/blog/introducing-netlify-image-cdn-beta/)
+</small>
+
+## CodeSandbox - Unified Development Platform
+
+CodeSandbox, dość dobrze znana platforma developerska, właśnie ogłosiła swoje największe wydanie w 2023 roku, które przynosi znaczące zmiany i ulepszenia. Kluczową nowością są `Devboxes` - ulepszona wersja wcześniejszych Cloud Sandboxes. Zaprojektowane z myślą o elastyczności i skalowalności, `Devboxes` pozwalają tworzyć, recenzować i prototypować projekty dowolnej wielkości i w dowolnym języku. Co więcej, działają one na mikroVMach i wykorzystują technologię `snapshotowania` pamięci, co pozwala uruchomić środowisko w zaledwie 1,5 sekundy, znacznie szybciej niż inne `CDE` oraz lokalne środowiska.
+
+Oprócz `Devboxes`, Sandboxes również przeszły gruntowną transformację. Teraz działają w tej samej przeglądarce co `Devboxes`, ale nadal są przeznaczone do lżejszych zastosowań, takich jak szybkie prototypy czy nauka programowania.
+
+Wraz z tymi zmianami, CodeSandbox wprowadza również zaktualizowany Dashboard, który ma ułatwić rozpoczęcie pracy z nowym kodem. Jest to znaczący krok naprzód dla platformy, która już obsługuje ponad 45 milionów Sandbox-ów, służących zarówno edukacji, jak i prototypowaniu frontendu.
+
+Warto zwrócić uwagę na integrację `Devboxes` z GitHubem, która pozwala na automatyczne tworzenie środowiska dla każdej gałęzi repozytorium, ułatwiając pracę zespołową i Code Review.
+
+Czy widzicie w swoim zespole szanse dla nowości od CodeSandbox?
+
+<small>
+  Źródło:
+  [https://codesandbox.io/blog/introducing-a-unified-development-platform](https://codesandbox.io/blog/introducing-a-unified-development-platform)
+</small>
+
+## AI z Google Cloud
+
+Temat może nie do końca webowy, ale kto wie, gdzie AI na zaprowadzi 🙂. Google Cloud oferuje 45-dniowy, bezpłatny dostęp do platformy Google Cloud Skills Boost od 4 grudnia do 17 stycznia. To świetna okazja, by nie tylko nauczyć się nowych umiejętności, ale też wzbogacić swoje CV.
+
+Czas na rejestrację jest ograniczony tylko do 13 grudnia, a liczba miejsc również jest ograniczona.
+
+Jeśli jesteś na początku swojej drogi z AI, nie przegap również kursu "Introduction to Generative AI", dostępnego bezpłatnie i w języku polskim. To idealne wprowadzenie do świata sztucznej inteligencji, bez konieczności rejestracji w programie.
+
+Wyzwanie Google Cloud to nie tylko nauka, ale praktyczne doświadczenie. Zdobyte umiejętności potwierdzone odznakami Google Cloud mogą być fajnym dodatkiem do Twoje CV, zwłaszcza że 86% liderów IT uważa, że umiejętności w obszarze przetwarzania w chmurze są niezbędne do realizacji ich kluczowych projektów.
+
+Czy umiejętności w obszarze AI będą miały aż tak kluczowe znaczenie w przyszłości, jak teraz nam się wydaje? Podziel się swoją opinią!
+
+<small>
+  Źródło:
+  [https://rsvp.withgoogle.com/events/rozwinkarierezgooglecloud/o-programie](https://rsvp.withgoogle.com/events/rozwinkarierezgooglecloud/o-programie)
+</small>
+
+## Advent of Code
+
+Advent of Code to coroczna inicjatywa, która zachęca programistów do rozwiązywania zadań programistycznych w okresie od 1 do 25 grudnia. Każdego dnia o północy pojawia się nowe zadanie, które można rozwiązać w dowolnym języku programowania. Zadania są zróżnicowane, od prostych po bardzo trudne, ale wszystkie są świetnym sposobem na rozwijanie swoich umiejętności programistycznych. Zadania można rozwiązywać za pomocą dowolnego języka programowania. Dużo bardziej liczy się tutaj umiejętność analitycznego myślenie i znajomość algorytmów niż znajomość konkretnego języka.
+
+Tegoroczna edycja startuje już za kilka dni, więc warto już teraz zapisać się na stronie [https://adventofcode.com/](https://adventofcode.com/), aby nie przegapić startu.

@@ -1,0 +1,119 @@
+export const meta = {
+  title: "Astro 4 Beta, React Forget, Web Components",
+  date: "2023-12-03",
+  period: "27.11.2023 - 03.12.2023",
+  ogTitles: ["Astro 4 Beta", "React Forget", "Web Components"],
+};
+
+## State of Developer Ecosystem 2023
+
+Najnowszy raport "State of Developer Ecosystem 2023" od JetBrains oparty na odpowiedziach ponad 26,000 deweloperów z całego świata rzuca nieco światła na zmieniający się krajobraz technologiczny i jego wpływ na programistów. Oto kilka ciekawszych wniosków z raportu.
+
+- **Sztuczna inteligencja na fali** - aż 77% deweloperów korzysta z ChatGPT, a 46% z Copilota od GitHuba. Jednak aż 59% programistów nie ufa narzędziom AI ze względów bezpieczeństwa, a 42% wyraża etyczne zastrzeżenia co do korzystania z usług AI.
+
+- **Języki programowania** - wśród najwyżej opłacanych deweloperów w 2023 roku znajdują się specjaliści od Scala, Go i Kotlin. JavaScript, mimo że nadal jest jednym z trzech najpopularniejszych języków, stopniowo traci na znaczeniu na rzecz TypeScripta.
+
+- **Demografia** - dane wskazują na brak postępu w zwiększaniu udziału kobiet w branży – stanowią one tylko 5% deweloperów. Dodatkowo, że 73% deweloperów doświadczyło wypalenia zawodowego.
+
+Czy coś w szczególności zaskoczyło was w tym raporcie?
+
+<small>
+  Źródło:
+  [https://blog.jetbrains.com/team/2023/11/20/the-state-of-developer-ecosystem-2023](https://blog.jetbrains.com/team/2023/11/20/the-state-of-developer-ecosystem-2023)
+</small>
+
+## Web Components jako alternatywa dla frameworków
+
+Jake Lazaroff udostępnił niedawno ciekawy artykuł, w którym omawia on koncepcję wykorzystania Web Componentów do redukcji zależności od konkretnych frameworków JavaScript.
+
+Dla niewtajemniczonych, komponenty te pozwalają na tworzenie bardziej uniwersalnych i mniej zależnych od konkretnych technologii rozwiązań. Można je również używać razem z różnymi frameworkami JavaScript, co daje większą elastyczność w projektowaniu aplikacji.
+
+Lazaroff demonstruje to na przykładzie aplikacji typu `todo`, gdzie każdy komponent jest napisany w innym frameworku, takim jak React, Solid, Svelte, Vue a nawet w czystym JavaScript.
+
+Czy uważasz, że taka wieloplatformowa architektura miałaby sens w kontekście Twoich projektów?
+
+<small>
+  Źródło:
+  [https://jakelazaroff.com/words/web-components-eliminate-javascript-framework-lock-in/](https://jakelazaroff.com/words/web-components-eliminate-javascript-framework-lock-in/)
+</small>
+
+## Astro 4 Beta
+
+Astro 4.0 w wersji Beta został właśnie udostępniony i korzysta on już z najnowszej wersją `Vite 5`. Większość obecnych projektów powinna być w stanie przestawić się na Astro 4 bez znaczących zmian w kodzie.
+
+Astro 4.0 nie tylko ulepsza istniejące funkcje, ale też przenosi niektóre nowości ze statusu eksperymentalnego na status produkcyjny. Dla tych, którzy chcą już teraz wypróbować Astro 4.0, dostępne jest narzędzie CLI `@astrojs/upgrade`, które automatycznie instaluje odpowiednią wersję Astro wraz z integracjami.
+
+Oprócz premiery Astro 4.0, warto wspomnieć o Astro 3.6, które wprowadziło nowe zdarzenia w routerze `<ViewTransitions />`, a także alternatywne rozwiązania dla `prefetch`.
+
+Czy widzicie już swoje projekty Astro migrujące się na tę nową wersję w najbliższym czasie?
+
+<small>
+  Źródło:
+  [https://astro.build/blog/astro-4-beta/](https://astro.build/blog/astro-4-beta/)
+</small>
+
+## Nowości w CSS w 2023 roku
+
+Oto szybki przegląd nowości w CSS, które wg. bardzo fajnego artykułu opublikowanego na Smashing Magazine, najbardziej ułatwiają nam życie w 2023 roku:
+
+- **Zwięzłe grupowanie styli**: Użyj `:is()` do eleganckiego łączenia `:hover` i `:focus`.
+- **Łatwe centrowanie**: `margin-inline: auto` upraszcza centrowanie elementów.
+- **Utrzymanie proporcji**: `aspect-ratio` pozwala na łatwe zachowanie proporcji elementów.
+- **Dynamiczne palety kolorów**: `color-mix` i zmienne CSS tworzą bardziej żywe i łatwe w zarządzaniu palety kolorów.
+- **Kontrola długości linii tekstu**: `ch` i `text-wrap: balance` dla lepszej czytelności i estetyki treści.
+
+A Ty jak myślisz, które z tych nowości będzie dla Ciebie najbardziej przydatna?
+
+<small>
+  Źródło:
+  [https://www.smashingmagazine.com/2023/11/few-ways-css-easier-write-2023/](https://www.smashingmagazine.com/2023/11/few-ways-css-easier-write-2023/)
+</small>
+
+## Node 20.10.0 LTS
+
+W nasze ręce trafiła najnowsza wersja Node.js, oznaczona jako `20.10.0`, znaną również pod nazwą "Iron". Ta aktualizacja przynosi kilka ciekawych zmian, które warto omówić.
+
+Po pierwsze, wprowadzono nową flagę `--experimental-default-type`, która umożliwia zmianę domyślnego systemu modułów używanego przez Node.js. Dzięki temu flaga ta pozwala interpretować moduły, które dotychczas były niejawnie traktowane jako CommonJS, jako moduły ES.
+
+Kolejną nowością jest flaga `--experimental-detect-module`, która automatycznie uruchamia moduły ES, gdy zostanie wykryta ich składnia. Ta funkcja jest szczególnie przydatna dla plików "niejednoznacznych", czyli takich, które nie mają określonego typu modułu w `package.json`. Node.js będzie analizować plik, aby wykryć składnię modułu ES - jeśli zostanie ona znaleziona, plik zostanie uruchomiony jako moduł ES, w przeciwnym przypadku jako moduł CommonJS.
+
+Dodatkowo, wprowadzono nową opcję `flush` w funkcjach systemu plików, która gwarantuje, że dane zapisywane do plików są natychmiast przesyłane do trwałego przechowywania. Zmiana ta zapobiega sytuacjom, gdy operacje odczytu mogą napotkać przestarzałe dane.
+
+Na koniec, warto wspomnieć o eksperymentalnym kliencie WebSocket, który dodaje globalny obiekt `--experimental-websocket`, zgodny ze standardami WHATWG.
+
+Co sądzicie o tych aktualizacjach? Czy widzicie potencjał w nowych funkcjach, które Node.js wprowadza do swojego ekosystemu?
+
+<small>
+  Źródło:
+  [https://nodejs.org/en/blog/release/v20.10.0](https://nodejs.org/en/blog/release/v20.10.0)
+</small>
+
+## Nowe funkcje w AWS Lambda
+
+AWS Lambda właśnie mocno przyśpieszyła. Funkcje ter skalują się teraz 12 razy szybciej, zwiększając przepustowość do 1000 równoczesnych wykonawców co 10 sekund. To zmiana istotna szczególnie dla tych, którzy muszą radzić sobie z dużym ruchem, jak w przypadku publikacji ważnych wiadomości (Frontendówce jeszcze stety / niestety to nie straszne 😉) czy błyskawicznych wyprzedaży online.
+
+Co więcej, każda funkcja na koncie AWS teraz skaluje się niezależnie, eliminując problem, gdy jedna przeciążona funkcja wpływała na inne.
+
+A jakie są Wasze doświadczenia z AWS Lambda? Czy te zmiany wpłyną na Wasze obecne projekty?
+
+<small>
+  Źródło:
+  [https://aws.amazon.com/blogs/aws/aws-lambda-functions-now-scale-12-times-faster-when-handling-high-volume-requests](https://aws.amazon.com/blogs/aws/aws-lambda-functions-now-scale-12-times-faster-when-handling-high-volume-requests)
+</small>
+
+## React Forget
+
+"React Forget" to dość nowe narzędzie rozwijane przez zespół Reacta, którym jest kompilator zaprojektowany do analizowania kodu React i automatycznego "memoizowania" komponentów oraz hooków. Jego głównym celem jest eliminacja niepotrzebnych renderów w aplikacji.
+
+React Forget działa na zasadzie jednokierunkowego przepływu danych. W standardowym zachowaniu Reacta, gdy jeden komponent jest renderowany ponownie, wszystkie komponenty, które zwraca, również będą rerenderowane. To może wpływać na wydajność, szczególnie przy dużej liczbie komponentów lub wolno renderujących się elementach. Chociaż React oferuje API takie jak `React.memo`, `useMemo` czy `useCallback`, aby zarządzać memoizacją, ich stosowanie często wywołuje dyskusje na temat równowagi między poprawą wydajności a czytelnością kodu.
+
+React Forget nie jest jeszcze gotowy do produkcji i na razie jest używany wewnętrznie w Meta, na przykład na stronie szczegółów produktu Quest Store czy profilu Instagrama na wersji webowej. Po dalszych testach i analizach, projekt zostanie udostępniony publicznie jako open-source.
+
+Kompilator ten nie używa bezpośrednio wymienionych wcześniej API Reacta, ale stosuje optymalizacje niskopoziomowe, które działają podobnie, a nawet jeszcze bardziej efektywnie.
+
+Jak myślicie, jakie inne aspekty rozwoju frontendu mogłyby skorzystać z podobnego rodzaju automatyzacji?
+
+<small>
+  Źródło:
+  [https://www.code-insights.dev/posts/what-do-we-konw-about-react-forget](https://www.code-insights.dev/posts/what-do-we-konw-about-react-forget)
+</small>

@@ -1,0 +1,110 @@
+export const meta = {
+  title:
+    "Grupowe aktualizacje Reduxa, nowa biblioteka CSS-in-JS od Meta oraz pierwsza stabilna wersja Vitest",
+  date: "2023-12-10",
+  period: "04.12.2023 - 10.12.2023",
+  ogTitles: ["Redux Toolkit", "StyleX", "Vitest"],
+};
+
+## Redux Toolkit 2.0 i zbiorowe aktualizacje Reduxa
+
+Redux Toolkit doczekał się znaczącej aktualizacji do wersji 2.0, która jest częścią fali dużych zmian obejmujących cały ekosystem Reduxa: Redux core 5.0, React-Redux 9.0, Reselect 5.0, i Redux Thunk 3.0.
+
+Co nowego przynosi nam Redux Toolkit 2.0?
+
+- Usunięto przestarzałą składnię obiektową z `createSlice` i `createReducer`.
+- Zaktualizowano opcje `middleware` i `enhancers` w `configureStore`, wymagając teraz użycia funkcji zwrotnych.
+- Ulepszono kompatybilność pakietów ESM/CJS, modernizując wyniki kompilacji.
+- Wprowadzono nową metodę `combineSlices`, wspierającą leniwe ładowanie reduktorów.
+- Dodano tzw. "dynamic middleware", umożliwiające dodawanie middleware w czasie rzeczywistym.
+- Zaimplementowano nową składnię zwrotną w `createSlice.reducers`, umożliwiającą opcjonalne definiowanie thunków wewnątrz `createSlice`.
+
+Warto zaznaczyć, że ta aktualizacja wprowadza zmiany, które mogą być niekompatybilne z poprzednimi wersjami, więc przygotujcie się na breaking changes podczas migracji.
+
+Jak zapatrujecie się na te zmiany?
+
+<small>
+  Źródło:
+  [https://github.com/reduxjs/redux-toolkit/releases/tag/v2.0.0](https://github.com/reduxjs/redux-toolkit/releases/tag/v2.0.0)
+</small>
+
+## StyleX - nowy gracz w świecie CSS-in-JS
+
+StyleX to nowatorski system stylizacji, który łączy doświadczenia programistów z CSS-in-JS z wydajnością i skalowalnością statycznego CSS. Unika on skomplikowanych selektorów i konfliktów specyficzności w generowanym CSS, transformuje style w „atomowe” nazwy klas CSS, umożliwia scalanie styli między plikami i komponentami oraz jest w pełni typowany, dając deweloperom pełną kontrolę nad akceptowanymi właściwościami i wartościami. Przynajmniej tak twierdzi twórca StyleX, czyli firma Meta 😉
+
+StyleX to zestaw narzędzi, w tym plugin do Babel, mała biblioteka runtime i plugin ESLint. Najważniejszym elementem jest plugin Babel, który znajduje i ekstrahuje wszystkie style zdefiniowane w kodzie źródłowym i konwertuje je na atomowe nazwy klas w czasie kompilacji.
+
+StyleX powstał jako odpowiedź na problemy związane ze stylizacją na poprzedniej stronie Facebooka. Zainspirowany problemami z dużymi ilościami niewykorzystanego CSS i konfliktami specyficzności, StyleX został stworzony podczas przebudowy strony Facebooka przy użyciu Reacta.
+
+StyleX stał się preferowanym sposobem stylizacji komponentów we wszystkich serwisach webowych Meta, w tym Facebook, WhatsApp, Instagram, Workplace i Threads. StyleX jest również używany do tworzenia „uniwersalnych” komponentów z różnymi systemami projektowania używanymi w różnych produktach Mety.
+
+Chociaż StyleX został stworzony przez i dla Meta, jest teraz dostępny jako open source i jest rozwijany z udziałem społeczności. Meta ma nadzieję na dalsze optymalizacje i integracje z udziałem społeczności programistów.
+
+A jak Ty radzisz sobie ze stylizacją w swoich projektach? Czy StyleX może być dla Ciebie rozwiązaniem?
+
+<small>
+  Źródło:
+  [https://stylexjs.com/blog/introducing-stylex/](https://stylexjs.com/blog/introducing-stylex/)
+</small>
+
+## Vitest 1.0
+
+Vitest 1.0 ("Next generation testing framework powered by Vite") oficjalnie wydany.
+
+Najnowsza alternatywa dla popularnego narzędzia [Jest](https://jestjs.io/) doczekała się pierwszej stabilnej wersji. Czy Vitest zdetronizuje Jest? Czas pokaże. Czas pokaże 🙂
+
+Ciekawi mnie, jakie są wasze doświadczenia z Vitestem? Czy korzystaliście już z niego w swoich projektach?
+
+<small>
+  Źródło:
+  [https://github.com/vitest-dev/vitest/releases/tag/v1.0.0](https://github.com/vitest-dev/vitest/releases/tag/v1.0.0)
+</small>
+
+## XState v5
+
+Światło dzienne ujrzał również XState w wersji 5. Ta aktualizacja skupia się na tzw. **aktorach** (ang. actors), usprawniając proces tworzenia i zarządzania stanem w jeszcze bardziej intuicyjny sposób niż poprzednie wersje.
+
+Pierwotnie XState służyło do modelowania logiki za pomocą maszyn stanu i wykresów stanów. Jednak rosnące potrzeby i złożoność projektów wymusiły ewolucję tej biblioteki. W wersji piątej, **aktory stały się głównym elementem**, z możliwością modelowania ich zachowania nie tylko przez maszyny stanów, ale także w innych, elastycznych sposobach.
+
+Co nowego w XState v5?
+
+- Uproszczony API i zmniejszony rozmiar biblioteki
+- Lepsze wsparcie dla TypeScript
+- Wszechstronne aktory
+- Nowe funkcje w maszynach stanów
+- Lepsza integracja i wizualizacje
+
+Jeżeli korzystasz z XState w swoich projektach, daj nam znać na Discordzie jak zapatrujesz się na tę aktualizację?
+
+<small>
+  Źródło:
+  [https://stately.ai/blog/2023-12-01-xstate-v5](https://stately.ai/blog/2023-12-01-xstate-v5)
+</small>
+
+## "Dlaczego Wybraliśmy AWS Zamiast Vercel do Hostowania Naszej Aplikacji Next.js"
+
+W poprzednim tygodniu natknąłem się również na artykuł o interesującej decyzji firmy Graphite dotyczącej hostingu ich aplikacji Next.js. Otóż, choć Vercel jest popularnym wyborem do hostowania aplikacji Next.js ze względu na prostotę i wydajność, Graphite zdecydowało się pójść inną drogą. Zamiast tego, wybrali AWS, a dokładniej usługę AWS ECS (Elastic Container Service). Dlaczego? Otóż, chodziło im o lepszą kontrolę, skalowalność i efektywność kosztową.
+
+Wcześniej Graphite korzystało z prostych Single-Page Applications (SPA), hostowanych w S3 i dystrybuowanych przez CloudFront. Jednak z czasem zauważyli ograniczenia tego rozwiązania i postanowili przejść na Next.js. Vercel wydawał się oczywistym wyborem, ale nie pasował do ich preferencji dotyczących hostingu w AWS VPC (Virtual Private Cloud). Koszty również były czynnikiem decydującym.
+
+W końcu zdecydowali się na konteneryzację swojej aplikacji Next.js w AWS ECS. Dzięki temu zyskali jednolitość w hostingu frontendu i backendu, co uprościło ich infrastrukturę. Osiągnęli również elastyczność wdrażania i zwiększoną bezpieczeństwo, a także zgodność z wymogami korporacyjnymi. Co więcej, wydajność ich aplikacji hostowanej w kontenerach na ECS była porównywalna z rozwiązaniami Vercela (który za kulisami również korzysta z AWS).
+
+A jakie są wasze doświadczenia z hostingiem aplikacji Next.js? Zdecydowaliście się na platformę Vercel, czy może znaleźliście lepsze sposoby?
+
+<small>
+  Źródło:
+  [https://graphite.dev/blog/why-we-use-aws-instead-of-vercel](https://graphite.dev/blog/why-we-use-aws-instead-of-vercel)
+</small>
+
+## Koniec wsparcia dla Node 16 w Vercel
+
+Pozostajemy jeszcze na chwilę z Vercelem. Pamiętajcie, że Node.js 16 zostanie wycofany z użytku w buildach i funkcjach od 6 lutego 2024 roku. Obecne wdrożenia nie zostaną tym dotknięte.
+
+Jednak od 6 lutego 2024 roku, próby utworzenia nowego wdrożenia przy użyciu Node.js 16 zakończą się błędem. Najlepszym rozwiązaniem jest aktualizacja do Node.js 18.
+
+Jak to zrobić? Można skonfigurować wersję Node.js w ustawieniach projektu lub poprzez pole `engines` w `package.json`.
+
+<small>
+  Źródło:
+  [https://vercel.com/changelog/node-js-16-deprecation](https://vercel.com/changelog/node-js-16-deprecation)
+</small>

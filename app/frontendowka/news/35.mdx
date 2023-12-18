@@ -1,0 +1,134 @@
+export const meta = {
+  title:
+    "Podsumowanie CSS w 2023, SvelteKit 2.0, stan web developmentu w 2023 i Storybook dla React Server Components ",
+  date: "2023-12-18",
+  period: "11.12.2023 - 17.12.2023",
+  ogTitles: [
+    "CSS Wrapped",
+    "SvelteKit 2.0",
+    "Stan Web Developmentu w 2023 roku",
+  ],
+};
+
+## CSS Wrapped: 2023!
+
+Ten rok był przełomowy dla CSS, wprowadzając mnóstwo nowości, które jeszcze niedawno wydawały się niemożliwe do osiągnięcia.
+
+Modernizacja przeglądarek internetowych przyniosła wsparcie dla takich funkcji jak `container queries`, `subgrid`, selektor `:has()` oraz bogactwo nowych przestrzeni kolorów i funkcji. Chrome wprowadził wsparcie dla animacji sterowanych przez przewijanie CSS oraz płynnych przejść między widokami stron internetowych (`view transitions`).
+
+A to tylko kilka z wielu nowości, które pojawiły się w 2023 roku. Więcej informacji znajdziecie w świetnym artykule od Chrome.
+
+<small>
+  Źródło:
+  [https://developer.chrome.com/blog/css-wrapped-2023](https://developer.chrome.com/blog/css-wrapped-2023)
+</small>
+
+## SvelteKit 2.0
+
+**SvelteKit 2**, najnowsza wersja oficjalnego frameworka do tworzenia aplikacji w Svelte, właśnie zadebiutowała. Wersja ta przynosi nam wsparcie dla świeżo wydanego `Vite 5` oraz szereg mniejszych udoskonaleń.
+
+Aktualizacja do SvelteKit 2 ułatwi nam przejście do nadchodzącego Svelte 5, który to będzie wydany w następnym roku.
+
+Kilka ciekawych nowości:
+
+- Przejście na SvelteKit 2 można zrealizować dzięki narzędziu automatycznej migracji (`npx svelte-migrate sveltekit-2`).
+- Jedną z nowości jest `shallow routing`, pozwalający na kojarzenie stanu z wpisem w historii bez konieczności nawigacji. To bardzo przydatne dla tworzenia np. modali, które można teraz zamknąć np. gestem `swipe` lub widoków z popupami bez konieczności wykonywania pełnej nawigacji.
+- Wprowadzono również wsparcie dla nowych projektów pomocniczych, takich jak `Svelte DevTools` i `Svelte Inspector`, oraz eksperymentalne wsparcie dla optymalizacji grafiki.
+- Trwają prace nad ulepszeniem wsparcia dla Svelte 5 i internacjonalizacji, z pierwszymi efektami widocznymi już w SvelteKit 2, w tym lepsze wsparcie dla prerenderowania URL-i z opcjonalnymi segmentami ścieżki, często używanymi właśnie do określenia języka.
+
+Czy już korzystaliście z `SvelteKit` w swoich projektach? Jakie są Wasze doświadczenia z tym frameworkiem?
+
+<small>
+  Źródło:
+  [https://svelte.dev/blog/sveltekit-2](https://svelte.dev/blog/sveltekit-2)
+</small>
+
+## Stan Web Developmentu w 2023 roku
+
+Rzućmy teraz okiem się najnowszy raport Netlify, dotyczący stanu web developmentu w 2023 roku. Raport ten dostarcza kilka ciekawych wniosków i prognoz na przyszłość, choć nie jest on jakoś szokująco odkrywczy.
+
+### Co się działo w 2023 roku?
+
+- **Praca zdalna vs. powrót do biura**: W 2022 roku wiele osób entuzjastycznie odnosiło się do pracy zdalnej, ale 2023 przyniósł niespodziewane zmiany. Wiele firm na całym świecie wprowadziło obowiązkowe powrotu do biur (RTO, Return To Office), co było niespodzianką dla wielu developerów.
+- **Systemy Zarządzania Treścią (CMS)**: `Sanity`, CMS, który w zeszłym roku miał najwyższe oceny satysfakcji, kontynuuje swój wzrost. Oczekuje się, że w 2024 roku jego popularność wzrośnie jeszcze bardziej.
+- **Wzrosty Reacta**: W 2023 roku `React` osiągnął rekordowy 71% udział w rynku i wynik ten nadal rośnie 📈
+
+### Prognozy na 2024 rok:
+
+- **Architektura złożona (Composable Architecture)**: Jest to naturalny krok w ewolucji nowoczesnego webu, polegający na oddzieleniu od siebie systemów backendowych.
+- **ML/AI**: Narzędzia AI, takie jak ChatGPT OpenAI, nieustannie zmieniają sposób pracy deweloperów, co oczywiście może mieć znaczący wpływ na rozwój web developmentu w przyszłym roku.
+- **Szybki wzrost `Astro`**: Ten framework zanotował najwyższe wzrosty i wysokie oceny satysfakcji w raporcie z 2023 roku.
+- **Wzrost `Sanity`**: Dzięki wysokiej satysfakcji użytkowników, `Sanity` ma duże szanse na dalszy rozwój w 2024 roku.
+
+Całość raportu jest dostępna na stronie Netlify, pod poniższym linkiem.
+
+<small>
+  Źródło:
+  [https://www.netlify.com/blog/unveiling-the-state-of-web-development-and-predictions-for-2024-and-beyond/](https://www.netlify.com/blog/unveiling-the-state-of-web-development-and-predictions-for-2024-and-beyond/)
+</small>
+
+## Storybook dla React Server Components
+
+Storybook, popularne narzędzie do tworzenia i testowania komponentów UI, wprowadza wsparcie dla React Server Components (RSC) w swojej najnowszej alfa wersji 8.0.
+
+### Jak to działa?
+
+RSC różnią się od tradycyjnych komponentów klienta. Są asynchroniczne i mogą bezpośrednio korzystać z kodu Node.js, co jest niewykonalne po stronie klienta. Kod RSC jest uruchamiany wyłącznie na serwerze i generuje statyczną strukturę podobną do JSON, która jest przesyłana do klienta.
+
+### Wykorzystanie w Storybook
+
+Storybook, będąc aplikacją kliencką, musiał znaleźć sposób na obsługę RSC. Rozwiązanie polega na wykorzystaniu `Suspense` z Reacta i specjalnej flagi `experimentalNextRSC` w konfiguracji Storybook. Pozwala to na testowanie komponentów RSC w środowisku Storybook bez konieczności przerabiania samego narzędzia na serwerowe.
+
+### Jak zacząć?
+
+Aby skorzystać z nowych możliwości, należy zaktualizować Storybook do wersji `8.0-alpha` i włączyć eksperymentalne funkcje RSC w konfiguracji.
+
+Co sądzisz o tym nowym podejściu? Czy uważasz, że RSC zmienią sposób, w jaki pracujemy z Reactem?
+
+<small>
+  Źródło:
+  [https://storybook.js.org/blog/storybook-react-server-components/](https://storybook.js.org/blog/storybook-react-server-components/)
+</small>
+
+## ngrok SDK dla JavaScript
+
+`ngrok-javascript` to nowa biblioteka Node.js od ngrok, dzięki której zamiast bawić się w niskopoziomowe elementy sieciowe jak IP, NAT, certyfikaty czy porty, możesz teraz z łatwością udostępnić swoją uruchomioną lokalnie aplikacje za pomocą jednej linijki kodu.
+
+### Jak to działa?
+
+Podobnie jak inne SDK ngrok, `ngrok-javascript` tworzy bezpieczne i trwałe połączenie TLS z platformą ngrok. Po ustanowieniu połączenia, konfiguracja jest przesyłana przez najbliższy Punkt Obecności (PoP), a nieautoryzowane żądania są blokowane na krawędziach sieci ngrok, zapewniając, że do aplikacji docierają tylko autoryzowane żądania.
+
+`ngrok-javascript` pozwala deweloperom definiować polityki dostępu do aplikacji na wyższym poziomie abstrakcji, bez kompromisów w zakresie bezpieczeństwa i kontroli.
+
+Co więcej, używając `ngrok-javascript`, twoja aplikacja staje się przenośna, niezależnie od środowiska, w którym jest uruchamiana - czy to na lokalnym sprzęcie, w VM, na AWS, Azure, Kubernetes, czy nawet na Raspberry Pi.
+
+Biblioteka ta została zaprojektowana tak, aby bezproblemowo integrować się z ekosystemem JavaScript i TypeScript. Łatwa instalacja z npm, prosta integracja, możliwość przekierowania do standardowego serwera NodeJS - to tylko niektóre z cech tegoż narzędzia.
+
+<small>
+  Źródło:
+  [https://ngrok.com/blog-post/ngrok-js](https://ngrok.com/blog-post/ngrok-js)
+</small>
+
+## Design Systems Surf
+
+Fajne znalezisko, którym myślę, że warto się podzielić 🙂
+
+Design Systems Surf to baza danych najlepszych w swojej klasie Design Systemó, zorganizowanych i posortowanych według komponentów i katalogów. Przydatne zarówno dla developerów, jak i designerów.
+
+<small>
+  Źródło: [https://designsystems.surf/](https://designsystems.surf/)
+</small>
+
+## Autopromocja
+
+Mam nadzieję, że w tym tygodniu uda mi się uruchomić nowy kurs na mojej platformie [https://kursy.frontstack.pl/](https://kursy.frontstack.pl/), który to będzie dotyczył solidnych podstaw JavaScript 💪.
+
+Jako, że kurs ten tworzę w nieco niestandardowym modelu, będę wdzięczny za wszelkie uwagi i sugestie, które pomogą mi go ulepszyć. Dlatego też kurs ten będzie **dostępny za darmo** do końca roku, właśnie po to, abym mógł usłyszeć wasz feedback 🙂
+
+Jeżeli jesteś zainteresowany / zainteresowana darmowym dostępem do kursu, to zapraszam na nasz kanał na Discordzie.
+
+Jeżeli założysz konto na ww. platformie i podasz mi w wiadomości prywatnej adres mailowy, na którym założyłeś/-aś konto, to przydzielę Ci dostęp do kursu i dam znać o jego uruchomieniu.
+
+## Wesolych Świąt
+
+Na zakończenie, chciałbym życzyć Wam wszystkim Wesołych Świąt Bożego Narodzenia 🎄 i do zobaczenia / usłyszenia już w Nowym, 2024 Roku 🎉

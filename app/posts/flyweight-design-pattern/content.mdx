@@ -1,3 +1,5 @@
+import { Figure } from "../../components/posts";
+
 export const meta = {
   title: "Wzorzec: Flyweight Design Pattern",
   seo_desc:
@@ -132,22 +134,17 @@ const car2 = cars.get("JH4KA7660NC003110");
 console.log(car1.flyweight === car2.flyweight); // true (ten sam obiekt w pamięci)
 ```
 
-<figure>
-  <img src="/blog/flyweight-design-pattern/capture1.webp" />
-  <figcaption>
-    Screen nr 1: Stworzone przez nas pyłki, czyli re-używane obiekty podczas
-    tworzenia samochodów
-  </figcaption>
-</figure>
+<Figure
+  src="/blog/flyweight-design-pattern/capture1.webp"
+  alt="Stworzone przez nas pyłki"
+  caption="Screen nr 1: Stworzone przez nas pyłki, czyli re-używane obiekty podczas tworzenia samochodów"
+/>
 
-<figure>
-  <img src="/blog/flyweight-design-pattern/capture2.webp" />
-  <figcaption>
-    Screen nr 2: Stworzone obiekty z danymi samochodów. Numer VIN występuje w
-    roli klucza. Widzimy, iż jedną z własności obiektu jest flyweight, czyli
-    współdzielony obiekt
-  </figcaption>
-</figure>
+<Figure
+  src="/blog/flyweight-design-pattern/capture2.webp"
+  alt="Stworzone obiekty z danymi samochodów"
+  caption="Screen nr 2: Stworzone obiekty z danymi samochodów. Numer VIN występuje w roli klucza. Widzimy, iż jedną z własności obiektu jest flyweight, czyli współdzielony obiekt"
+/>
 
 ## DOM events
 

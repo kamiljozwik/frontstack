@@ -13,7 +13,6 @@ const withMDX = require("@next/mdx")({
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
-    appDir: true,
     mdxRs: false,
   },
   async redirects() {

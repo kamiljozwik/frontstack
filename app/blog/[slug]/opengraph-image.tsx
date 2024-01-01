@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 import { OgImage } from "@/app/components/og/OgImage";
 import { getPostBySlug } from "@/app/utils/blog";
 

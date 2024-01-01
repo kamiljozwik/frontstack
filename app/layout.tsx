@@ -7,6 +7,7 @@ import { Footer } from "./components/footer/Footer";
 const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
+  metadataBase: new URL("https://www.frontstack.pl"),
   title: "Frontstack",
   description: "Blog o programowaniu i technologiach webowych",
 };

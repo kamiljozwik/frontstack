@@ -2,6 +2,7 @@ import Link from "next/link";
 import styles from "./header.module.scss";
 
 import { Logo } from "../logo/Logo";
+import { ExternalLink } from "../externalLink/ExternalLink";
 
 export const Header = () => {
   return (
@@ -25,7 +26,9 @@ export const Header = () => {
               <Link href="/zarobki">Zarobki</Link>
             </li>
             <li>
-              <Link href="/kurs">Kursy🎉</Link>
+              <ExternalLink href="https://kursy.frontstack.pl/">
+                Kursy🎉
+              </ExternalLink>
             </li>
           </ul>
         </nav>

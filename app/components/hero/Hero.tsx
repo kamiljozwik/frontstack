@@ -8,8 +8,8 @@ export const Hero = () => {
       <h1>Blog frontstack.pl</h1>
       <div className={styles.course}>
         <div>
-          <p className={styles.courseSubTitle}>Kompletna ścieżka rozwoju</p>
-          <p className={styles.courseTitle}>Frontend developera</p>
+          <p className={styles.courseSubTitle}>Sprawdź również</p>
+          <p className={styles.courseTitle}>kursy i szkolenia</p>
           <div className="animate-bounce">
             <Button as="a" href="https://kursy.frontstack.pl" size="sm">
               Zobacz więcej

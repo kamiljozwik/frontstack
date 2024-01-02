@@ -1,0 +1,100 @@
+export const meta = {
+  title:
+    "Vue 3.4, Baseline + Can I Use, Chrome 121 DevTools, przepowiednie frontendowe na 2024 rok",
+  date: "2024-01-02",
+  period: "18.12.2023 - 02.01.2024",
+};
+
+## Vue 3.4 "Slam Dunk"
+
+Vue 3.4, znanym jako "Slam Dunk", przynosi znaczące ulepszenia, które na pewno przypadną wielu osobom do gustu.
+
+Po pierwsze, dostaliśmy nowy parser szablonów, który jest aż 2 razy szybszy niż poprzedni. Wykorzystuje on mechanizm state-machine tokenizer, co oznacza, że przejście przez cały szablon odbywa się tylko raz.
+
+Kolejna istotna zmiana to przebudowany system reaktywności. Teraz jest on bardziej efektywny w obliczaniu właściwości obliczanych (`computed properties`), co przekłada się na mniejszą ilość niepotrzebnych renderowań komponentów.
+
+Ważną nowością jest też stabilizacja `defineModel`. To macro w `<script setup>` ułatwia implementację komponentów wspierających `v-model`.
+
+Dodatkowo, wprowadzono skrót `v-bind` dla atrybutów o tej samej nazwie. Dzięki temu, kod staje się bardziej zwięzły i czytelny.
+
+Warto także wspomnieć o usprawnieniach w obsłudze błędów związanych z niespójnością hydracji
+
+Na koniec, istotną zmianą jest to, że Vue 3.4 nie rejestruje już domyślnie globalnej przestrzeni nazw `JSX`. To zmiana wprowadzona, aby uniknąć konfliktów z Reactem.
+
+<small>
+  Źródło:
+  [https://blog.vuejs.org/posts/vue-3-4](https://blog.vuejs.org/posts/vue-3-4)
+</small>
+
+## Koniec ery Vue 2
+
+Zostajemy jeszcze na chwilę przy Vue. Vue 2 zbliża się do swojego "End of Life" (EOL), czyli końca wsparcia. Od 31 grudnia 2023 roku Vue 2 nie będzie już otrzymywać nowych funkcji, aktualizacji ani poprawek. Oznacza to, że wszelkie aplikacje oparte na Vue 2 nadal będą działać, ale nie będą już rozwijane ani wspierane przez twórców.
+
+Od wydania Vue 2 w 2016 roku minęło ponad 7 lat. Przez ten czas Vue 2 stał się jednym z głównych narzędzi w świecie frontendu. Jednak zespół Vue postanowił skupić się na rozwijaniu Vue 3, które od 2022 roku jest główną wersją tegoż frameworka.
+
+Co to oznacza dla deweloperów Vue? Przede wszystkim, jeśli jeszcze tego nie zrobili, powinni rozważyć migrację do Vue 3. Vue 3 oferuje lepszą wydajność, wsparcie dla TypeScript, nowy system reaktywności oparty na Proxy oraz nowe wbudowane komponenty, takie jak Fragment, Teleport i Suspense.
+
+Dla tych, którzy nie mogą od razu przejść na Vue 3, twórcy Vue zaproponowali kilka opcji. Pierwszą z nich jest aktualizacja do ostatecznej wersji Vue 2 (2.7.16), która ma być wydana 23 grudnia 2023 roku. Drugą opcją jest zakup rozszerzonego wsparcia dla Vue 2 od firmy HeroDevs, co zapewni ciągłe aktualizacje i łatki bezpieczeństwa nawet po zakończeniu oficjalnego wsparcia.
+
+<small>
+  Źródło:
+  [https://blog.vuejs.org/posts/vue-2-eol](https://blog.vuejs.org/posts/vue-2-eol)
+</small>
+
+## Baseline 2023
+
+[Baseline](https://web.dev/blog/introducing-baseline) wkracza na platformę "Can I Use". To dość ważny krok, który ułatwi nam śledzenie dostępności nowych funkcjonalności w przeglądarkach, pomagając w podejmowaniu decyzji o adopcji nowych funkcji w projektach.
+
+Co to oznacza?
+
+- Na "Can I Use" pojawią się odznaki informujące, czy dana funkcjonalność jest już szeroko dostępna w Baseline.
+- Nowe funkcjonalności będą teraz przechodzić przez dwa etapy: początkową dostępność, a następnie powszechną dostępność po 30 miesiącach od wprowadzenia​​.
+
+<small>
+  Źródło:
+  [https://web.dev/blog/baseline2023?hl=en](https://web.dev/blog/baseline2023?hl=en)
+</small>
+
+## Chrome 121 DevTools
+
+W najnowszej aktualizacji narzędzi deweloperskich Chrome (wersja 121), możemy znaleźć kilka ciekawych ulepszeń i nowości. Oto najważniejsze z nich:
+
+- **Wsparcie dla `@font-palette-values`**: Panel `Elements` teraz obsługuje tę `at-rules CSS`, co pozwala na dostosowanie domyślnych wartości właściwości `font-palette`.
+- **Rozwiązywanie własności CSS jako zapasowych**: W sekcji `Elements > Styles` możliwe jest teraz rozwiązywanie własności CSS, która jest zapasową (fallback) dla innej własności.
+- **Ulepszona obsługa map źródłowych**: W ustawieniach `Settings > Experiments` domyślnie włączono opcję rozpoznawania nazw zmiennych w wyrażeniach przy użyciu map źródłowych. Ułatwia to debugowanie oryginalnego kodu nawet po jego połączeniu, zminimalizowaniu lub skompilowaniu.
+- **Udoskonalenia w panelu `Performance`**: Ścieżka `Interactions` w panelu `Performance` została wzbogacona o wskaźniki (tzw. `whiskers`), które wskazują opóźnienia wejścia i prezentacji w granicach czasu przetwarzania.
+
+<small>
+  Źródło:
+  [https://developer.chrome.com/blog/new-in-devtools-121](https://developer.chrome.com/blog/new-in-devtools-121)
+</small>
+
+## TanStack Router 1.0
+
+`TanStack Router` w ramach prezentu świątecznego doczekał się swojego pierwszego stabilnego releasu 🎁.
+
+Miejmy nadzieję, że router ten nie będzie odbiegał jakością od innych, świetnych narzędzi ze stajni Tannera Linsleya.
+
+<small>
+  Źródło:
+  [https://github.com/TanStack/router/releases/tag/v1.0.1](https://github.com/TanStack/router/releases/tag/v1.0.1)
+</small>
+
+## Przepowiednie frontendowe na 2024 rok
+
+Na koniec ciekawy post na temat przyszłości frontendu.
+
+Autor, Jamie, dokonuje przeglądu ważnych wydarzeń z 2023 roku i przedstawia swoje przewidywania na 2024 rok. Skupia się na różnych aspektach, takich jak Server-Side Rendering (SSR), wpływ AI na rozwój frontendu, ewolucja silników przeglądarek internetowych i JavaScript, a także na rozwijających się frameworkach cross-platformowych.
+
+Jamie analizuje również, jak te zmiany mogą wpłynąć na przyszłość tworzenia aplikacji webowych i mobilnych.
+
+Myślę, że zdecydowanie warto zapoznać się z tym artykułem.
+
+<small>
+  Źródło:
+  [https://buttondown.email/whatever_jamie/archive/frontend-predictions-for-2024/](https://buttondown.email/whatever_jamie/archive/frontend-predictions-for-2024/)
+</small>
+
+EDIT: natknąłem się również na kolejne wróżenie z fusów, które również porusza kilka ciekawych tematów:
+
+👉 [OUR 2024 PREDICTIONS](https://bytes.dev/archives/250)

@@ -12,7 +12,7 @@ const About = () => {
       <section className={styles.hero}>
         <div className={styles.name}>
           <div>KAMIL JÓZWIK</div>
-          <div>Frontend developer</div>
+          <div>Web developer</div>
           <div>Twórca treści edukacyjnych</div>
           <SocialLinks />
         </div>
@@ -56,7 +56,7 @@ const About = () => {
         </section>
 
         <section>
-          <h2>Blog Fronstack.pl</h2>
+          <h2>Blog fronstack.pl</h2>
           <p>
             Mojego bloga programistycznego założyłem w 2018 roku i od tego czasu
             w miarę możliwości staram się nieustannie dzielić swoją wiedzą z
@@ -90,18 +90,15 @@ const About = () => {
           </p>
         </section>
         <section>
-          <h2>Frontschool</h2>
+          <h2>Kursy i szkolenia</h2>
           <p>
-            <ExternalLink href="https://frontschool.pl/">
-              Frontschool{" "}
+            W międzyczasie, tworzę również kursy online dotyczące technologii
+            frontendowych. Lista tych kursów jest regularnie powiększana i można
+            je znaleźć pod adresem{" "}
+            <ExternalLink href="https://kursy.frontstack.pl">
+              kursy.frontstack.pl
             </ExternalLink>
-            miał być moją kolejną platformą, na której planowałem publikować
-            swoje kursy związane z frontendem. Obecnie znajdują się dwa
-            szkolenie - &quot;Tworzenie stron za pomocą HTML i CSS&quot; oraz
-            &quot;Git i Github dla początkujących&quot;. Jednak w międzyczasie
-            pojawiła mi się jednak nowa koncepcja dotycząca nauczania sztuki
-            frontendowej o której można przeczytać{" "}
-            <Link href="/kurs">tutaj</Link>.
+            .
           </p>
         </section>
 

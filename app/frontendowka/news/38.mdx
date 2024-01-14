@@ -1,0 +1,94 @@
+export const meta = {
+  title:
+    "FSX, a11y w 2023 roku, banery cookies jednak nie takie fajne, website vs. web app",
+  date: "2024-01-14",
+  period: "08.01.2024 - 14.01.2024",
+};
+
+## FSX - nowe API do obsługi systemu plików w JavaScript
+
+Na samym początku dzisiejszego wydania, przenosimy się do świata JavaScript i jego systemu plików.
+
+Poznajcie `fsx` - nowoczesne API do obsługi systemu plików w JavaScript, stworzone przez Nicholasa C. Zakasa, twórcę ESLint.
+
+Przez lata, zarówno Node.js, jak i jego następca Deno, bazowały na dość archaicznych podejściach do obsługi plików. Zakas postanowił to zmienić, czerpiąc inspirację z prostoty `fetch()`. Jego celem było stworzenie API, które byłoby nie tylko wydajne, ale i intuicyjne w obsłudze.
+
+`fsx` ułatwia typowe operacje, takie jak czytanie i zapisywanie plików oraz minimalizuje ryzyko wystąpienia błędów. Jego API jest dostępne w różnych środowiskach uruchomieniowych - `fsx-node`, `fsx-deno` i `fsx-memory` (dla przeglądarek internetowych).
+
+Co sprawia, że `fsx` jest wyjątkowe? Przede wszystkim, jeśli plik nie istnieje, metody do czytania zwracają `undefined` zamiast rzucać błędem, co sprawia, że kod jest czytelniejszy i łatwiejszy w obsłudze. Ponadto, zapisywanie plików jest uproszczone, gdyż `fsx` samodzielnie tworzy niezbędne katalogi.
+
+`fsx` ułatwia również testowanie operacji na systemie plików, dzięki wbudowanemu systemowi logowania i łatwemu mockowaniu.
+
+<small>
+  Źródło:
+  [https://humanwhocodes.com/blog/2024/01/fsx-modern-filesystem-api-javascript/](https://humanwhocodes.com/blog/2024/01/fsx-modern-filesystem-api-javascript/)
+</small>
+
+## Najczęstsze błędy związane z dostępnością w 2023 roku
+
+W najnowszym artykule na stronie TPGi, eksperci ds. dostępności omawiają najczęstsze błędy związane z dostępnością, jakie znaleźli w 2023 roku.
+
+Pierwszym z błędów jest brak tekstu dla linku. Często deweloperzy używają elementu `<a>` do różnych funkcji interaktywnych, ale zapominają dodać tekst linku, co sprawia, że technologie wspomagające, jak czytniki ekranu, nie są w stanie przekazać użytkownikowi, co się stanie po kliknięciu w dany link.
+
+Drugi błąd dotyczy dodawania nieaktywnych elementów do kolejności tabulacji, co utrudnia nawigację za pomocą klawiatury. Trzeci to brakujący atrybut `alt` w linkach obrazkowych, a czwarty - brak tekstu alternatywnego dla obrazów, co jest fundamentalnym wymogiem dostępności.
+
+Inne problemy obejmują niepoprawnie zagnieżdżone listy, powtarzające się etykiety, nadużywanie atrybutu `tabindex`, niewłaściwe użycie `aria-describedby`, brak etykiety dla elementu `button` oraz błędne `aria-labelledby`.
+
+Te błędy mogą wydawać się drobne, ale mają wielki wpływ na użytkowników korzystających z technologii wspomagających. Dlatego tak ważne jest, by deweloperzy (czyli my, to na nas ciąży ta odpowiedzialność) byli świadomi tych problemów i pracowali nad ich eliminacją.
+
+<small>
+  Źródło:
+  [https://www.tpgi.com/the-top-accessibility-errors-found-in-2023/](https://www.tpgi.com/the-top-accessibility-errors-found-in-2023/)
+</small>
+
+## Banery cookies jednak nie takie fajne?
+
+Czy nie macie już dosyć tych wszechobecnych banerów z ciasteczkami? Dobra wiadomość nadchodzi prosto z Unii Europejskiej - mogą one wkrótce stać się mniej uciążliwe.
+
+Unia Europejska rozważa zmianę przepisów dotyczących cookies, co jest odpowiedzią na powszechną frustrację użytkowników internetu.
+
+Komisarz UE ds. Sprawiedliwości, Didier Reynders, podzielił się z niemiecką gazetą "Welt am Sonntag" swoimi przemyśleniami na ten temat. Chodzi o to, że choć strony internetowe muszą informować użytkowników o używaniu ciasteczek i uzyskać na to ich zgodę, nie powinno to zamieniać przeglądania internetu w męczący obowiązek. Często zdarza się, że strony wymagają wielu kliknięć, aby odrzucić cookies, co skłania użytkowników do wybierania opcji "zaakceptuj wszystko" dla wygody. Właśnie to chce zmienić UE.
+
+Jedno z proponowanych rozwiązań to wymaganie od stron internetowych, aby zapamiętywały preferencje użytkowników i prezentowały formularz zgody tylko raz w roku. Komisja ma nadzieję, że duże platformy, takie jak Meta czy Google, dobrowolnie zobowiążą się do "przyrzeczenia dotyczącego ciasteczek". Oznacza to bardziej przejrzyste informacje o użyciu ciasteczek i unikanie irytowania użytkowników.
+
+Warto zauważyć, że Google już pracuje nad wyeliminowaniem ciasteczek stron trzecich w Chrome, wprowadzając takie innowacje jak `Trust Tokens` i `Privacy Sandbox`. Choć celem jest ochrona danych osobowych, istnieją obawy, że Google może wykorzystać te systemy do ograniczenia funkcjonalności przeglądarki. Inne firmy, takie jak Mozilla czy Apple, które nie są tak zależne od przychodów z reklam, podjęły już wcześniej bardziej zdecydowane kroki przeciwko reklamowym ciasteczkom.
+
+<small>
+  Źródło:
+  [https://www.techspot.com/news/101396-european-union-set-revise-cookie-law-admits-cookie.html](https://www.techspot.com/news/101396-european-union-set-revise-cookie-law-admits-cookie.html)
+</small>
+
+## Website vs. Web App
+
+W najnowszym wpisie na blogu Jake'a Lazaroffa zagłębiamy się w świat rozwoju stron internetowych i aplikacji webowych. Czy kiedykolwiek zastanawialiście się, co dokładnie różni stronę internetową od aplikacji webowej? 🤔 Czy jest to prosta różnica, czy też może bardziej skomplikowana kwestia?
+
+Lazaroff argumentuje, że tradycyjne rozróżnienie między stronami internetowymi a aplikacjami webowymi jest znacznie bardziej skomplikowane, niż mogłoby się wydawać. Zamiast prostego podziału na "dokumenty" i "aplikacje", proponuje on rozważenie spektrum możliwości, które uwzględnia dynamikę interakcji użytkowników i wymagania dotyczące połączenia internetowego.
+
+W swoim artykule Lazaroff przedstawia model oparty na dwóch osiach:
+
+- statyczna vs. dynamiczna,
+- online vs. offline,
+
+aby lepiej zrozumieć różne rodzaje stron internetowych i aplikacji webowych. Przez tę pryzmat, omawia różne typy stron, takie jak informatywne, transakcyjne, czasu rzeczywistego i lokalne, wskazując na to, jak różnorodne mogą być wymagania i technologie stosowane w ich tworzeniu.
+
+To podejście podważa klasyczne rozumienie tego, co stanowi stronę internetową, a co aplikację webową, sugerując, że większość projektów webowych znajduje się gdzieś pośrodku tego spektrum, zamiast na jego krańcach.
+
+<small>
+  Źródło:
+  [https://jakelazaroff.com/words/the-website-vs-web-app-dichotomy-doesnt-exist/](https://jakelazaroff.com/words/the-website-vs-web-app-dichotomy-doesnt-exist/)
+</small>
+
+## Next.js i `https` na `localhost`
+
+Krótka informacja o tym, że za pomocą komendy `next dev --experimental-https` możemy już uruchomić naszą aplikację Next.js na localhost z `https` 🔐
+
+<small>
+  Źródło:
+  [https://twitter.com/leeerob/status/1743709145386131906](https://twitter.com/leeerob/status/1743709145386131906)
+</small>
+
+## Autopromocja
+
+Mój nowy kurs dotyczący solidnych podstaw JavaScript jest już dostępny online 🙂
+
+👉 [https://kursy.frontstack.pl/online/js-podstawy](https://kursy.frontstack.pl/online/js-podstawy)

@@ -1,0 +1,104 @@
+export const meta = {
+  title: "React Libraries 2024, npm w 2023, Bun Shell, Next.js 14.1",
+  date: "2024-01-21",
+  period: "15.01.2024 - 21.01.2024",
+};
+
+## React Libraries for 2024
+
+Doskonały artykuł napisany i aktualizowany każdego roku przez Robina Wierucha. Są to oczywiście osobiste preferencje autora, ale sam regularnie wracam do tego artykułu, aby sprawdzić, czy aby nie przegapiłem jakiejś ciekawej biblioteki, która w ostatnim czasie pojawiła się w ekosystemie React.
+
+Prawdziwa kopalnia wiedzy 💪
+
+<small>
+  Źródło:
+  [https://www.robinwieruch.de/react-libraries/](https://www.robinwieruch.de/react-libraries/)
+</small>
+
+## `npm` w 2023 roku
+
+Artykuł na stronie Socket.dev podsumowuje rok 2023 w świecie `npm`. Mamy już tam aż 2,5 miliona aktywnych pakietów i ponad 184 miliardy pobrań miesięcznie. Wzrost ten jednak wiązał się z wyzwaniami, takimi jak malware i spam. Socket zidentyfikował ponad 5000 złośliwych pakietów, które zostały usunięte z `npm`.
+
+TypeScript zyskał na znaczeniu, stając się standardem w tworzeniu dużych aplikacji, a React utrzymał swoją dominującą pozycję w ekosystemie UI.
+
+Bezpieczeństwo było kluczowym zagadnieniem, z którym `npm` musiał się zmierzyć w 2023 r. i zapewnie za dużo się nie zmieni w roku 2024.
+
+Z ciekawostek, największy pakiet na `npm` miał rozmiar 5.96 GB, a najdłuższa nazwa pakietu składała się z 214 znaków.
+
+<small>
+  Źródło:
+  [https://socket.dev/blog/2023-npm-retrospective](https://socket.dev/blog/2023-npm-retrospective)
+</small>
+
+## Bun Shell
+
+Z ostatniego wpisu na blogu Bun dowiadujemy się o Bun Shell. To nowy eksperymentalny język i interpreter osadzony w Bun, który umożliwia uruchamianie skryptów powłoki (shell scripts) napisanych w języku JavaScript lub TypeScript.
+
+Autor wpisu podkreśla, że tradycyjne powłoki, takie jak `bash` czy `sh`, nie są dobrze przystosowane do pracy z JavaScriptem. Różnice w składni i dostępnych poleceniach na różnych systemach operacyjnych, jak macOS, Linux czy Windows, sprawiają, że używanie JavaScripta w powłoce jest dość problematyczne. Do tej pory rozwiązaniem `npm` było poleganie na społeczności w celu wypełnienia brakujących poleceń implementacjami w JavaScript.
+
+Bun Shell zapewnia prostsze rozwiązanie, umożliwiając bezpośrednie uruchamianie skryptów powłoki przy użyciu składni JavaScript i TypeScript. Dzięki temu można łatwo używać zmiennych JavaScript, przekierowywać wyjście stdout do buforów czy plików, a nawet łączyć polecenia za pomocą potoków (pipes). Bun Shell działa na Windows, macOS i Linuxie, oferując takie wbudowane polecenia jak `cd`, `echo`, czy `rm`.
+
+Ciekawe czym na to odpowie [zx od Google](https://github.com/google/zx)?
+
+<small>
+  Źródło: [bun.sh/blog/the-bun-shell](https://bun.sh/blog/the-bun-shell)
+</small>
+
+## Declarative shadow DOM w kolejnym wydaniu Firefoxa
+
+W drugiej połowie lutego spodziewamy się releasu Firefoxa, który wprowadzi wsparcie dla [deklaratywnego shadow DOM](https://developer.chrome.com/docs/css-ui/declarative-shadow-dom).
+
+Jest to kolejny krok w standaryzacji i kompatybilności Web Componentów w najważniejszych przeglądarkach.
+
+Deklaratywny Shadow DOM pozwala programistom definiować shadow DOM w HTML za pomocą znaczników, zamiast robić to koniecznie tylko za pomocą JavaScript, więc możemy z niego skorzystać również w trakcie SSR.
+
+Dla zainteresowanych, więcej informacji do znalezienia [pod tym linkiem](https://developer.chrome.com/docs/css-ui/declarative-shadow-dom#building_a_declarative_shadow_root).
+
+<small>
+  Źródło:
+  [https://twitter.com/stefanjudis/status/1748375269679788195](https://twitter.com/stefanjudis/status/1748375269679788195)
+</small>
+
+## Next.js 14.1
+
+Next.js 14.1 wydany. Wraz z tym releasem ulepszona została dokumentacja i obsługa niestandardowych procedur obsługi pamięci podręcznej, co ma znaczenie przy samodzielnym hostowaniu aplikacji Next.js.
+
+Następna istotna aktualizacja dotyczy `Turbopack`, który to przynosi większą niezawodność i wydajność w lokalnym developmencie.
+
+Pod kątem ulepszeń DX, Next.js 14.1 wprowadza bardziej przejrzyste komunikaty o błędach oraz wsparcie dla `pushState` i `replaceState`, co umożliwia aktualizowanie stosu historii przeglądarki bez przeładowywania strony.
+
+Ponadto, mamy sporo poprawek dla `Parallel` i `Intercepted Routes` (można natknąć się na sporo artykułów i materiałów na YT wskazujących, że te funkcjonalności nie działały do tej pory zbyt dobrze).
+
+Zmiany i nowe funkcjonalności nie są może jakieś przełomowe, ale na pewno warto zaktualizować swoje aplikacje Next.js do najnowszej wersji.
+
+<small>
+  Źródło: [https://nextjs.org/blog/next-14-1](https://nextjs.org/blog/next-14-1)
+</small>
+
+## React 19
+
+Wszystko wskazuje na to, że w niedługim czasie możemy spodziewać się pierwszych (oczywiście testowych) releasów Reacta 19. Reacta 18.3 prawdopodobnie w ogóle nie zobaczymy.
+
+<small>
+  Źródło:
+  [https://twitter.com/sebastienlorber/status/1747633798374625525](https://twitter.com/sebastienlorber/status/1747633798374625525)
+</small>
+
+## Quo vadis, React?
+
+W najnowszym wpisie na blogu Cassidy Williams, pojawia się wyraźna frustracja związana z obecnym stanem Reacta.
+
+Cassidy, z wieloletnim doświadczeniem w pracy z Reactem, zauważa, że stał się on zbyt skomplikowany i frustrujący. Główną przyczyną tej frustracji jest brak odpowiedniej komunikacji ze społecznością, zarówno w kwestii treści edukacyjnych, jak i przejrzystości procesu rozwoju tej biblioteki.
+
+Krytykuje ona brak nowych wydań od czerwca 2022 roku, zmiany w zespole Reacta, oraz to, że nowa dokumentacja jest trudno dostępna i niedostatecznie wspierana.
+
+Mimo tych frustracji, nadal uznaje Reacta za swoją główną bibliotekę do tworzenia skomplikowanych projektów, wyrażając nadzieję na lepszą przyszłość.
+
+Macie podobne zdanie?🤔
+
+Czy syndrom sztokholmski dla Reacta jest u was równie silny? 😉
+
+<small>
+  Źródło:
+  [blog.cassidoo.co/post/annoyed-at-react](https://blog.cassidoo.co/post/annoyed-at-react/)
+</small>

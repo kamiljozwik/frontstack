@@ -10,6 +10,12 @@ ol {
   }
 }
 
+ul li {
+  &::marker {
+    color: var(--color-strong);
+  }
+}
+
 a {
   color: var(--color-links);
   text-decoration: none;
@@ -26,7 +32,7 @@ button {
 
 small,
 time {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .table-wrapper {
@@ -55,13 +61,9 @@ table {
   }
 }
 
-strong {
-  color: var(--color-strong);
-}
-
 figure {
   figcaption {
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-align: left;
     margin-top: 8px;
   }

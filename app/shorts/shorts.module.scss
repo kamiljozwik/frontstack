@@ -16,7 +16,7 @@
 
   section h2:before {
     content: "#" counter(section);
-    @include mixins.yellowGradientText;
+    @include mixins.orangeGradientText;
     margin-right: 8px;
   }
 }

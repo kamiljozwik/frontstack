@@ -1,11 +1,27 @@
-const rehypePrettyCode = require("rehype-pretty-code");
-const rehypePrettyCodeOptions = require("./pretty-code.js");
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypePrettyCodeOptions from "./pretty-code.js";
+import createMDX from "@next/mdx";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-const withMDX = require("@next/mdx")({
+const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
-    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behaviour: "append",
+          properties: {
+            ariaHidden: true,
+            tabIndex: -1,
+          },
+        },
+      ],
+      [rehypePrettyCode, rehypePrettyCodeOptions],
+    ],
   },
 });
 
@@ -27,7 +43,7 @@ const nextConfig = {
   },
 };
 
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);
 
 const oldPosts = [
   "adapter-design-pattern",

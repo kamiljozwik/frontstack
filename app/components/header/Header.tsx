@@ -11,7 +11,7 @@ export const Header = () => {
           <Logo />
         </Link>
         <nav>
-          <ul className="p-0 flex justify-center flex-wrap gap-x-8 list-none m-0 text-xl">
+          <ul className="p-0 flex justify-center flex-wrap gap-x-4 md:gap-x-8 list-none m-0 text-md md:text-xl">
             <li>
               <Link className="text-white hover:no-underline" href="/blog">
                 Posty

@@ -1,27 +1,30 @@
-.root {
-  display: flex;
-  gap: 10%;
+@mixin tocLink {
+  text-decoration: none;
+  &::before {
+    content: "#";
+    color: white;
+    margin-right: 4px;
+    opacity: 0.2;
+  }
+  &:hover {
+    &::before {
+      opacity: 0.6;
+    }
+  }
 }
 
-.main {
-  width: clamp(600px, 75%, 800px);
-  max-width: 800px;
-  font-size: 1.125rem;
+.post {
+  padding-right: 8px;
+  h1 {
+    padding: 10px 0;
+    display: inline-block;
+    font-size: 3rem;
+    line-height: 1.25;
 
-  header {
-    margin: 40px 0;
-
-    h1 {
-      padding: 10px 0;
-      display: inline-block;
-      font-size: 3rem;
-      line-height: 1.25;
-
-      @media screen and (max-width: 480px) {
-        & {
-          text-align: center;
-          font-size: 2rem;
-        }
+    @media screen and (max-width: 480px) {
+      & {
+        text-align: center;
+        font-size: 2rem;
       }
     }
   }
@@ -36,10 +39,14 @@
     &::after {
       content: "";
       display: block;
-      width: 40px;
+      width: 50px;
       height: 2px;
       margin-top: 4px;
       background-color: var(--color-strong);
+    }
+
+    a {
+      @include tocLink;
     }
   }
 
@@ -49,6 +56,10 @@
     margin-top: 36px;
     margin-bottom: 24px;
     letter-spacing: -0.01rem;
+
+    a {
+      @include tocLink;
+    }
   }
 
   img {
@@ -56,23 +67,11 @@
   }
 }
 
-.meta {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  @media screen and (max-width: 480px) {
-    & {
-      flex-direction: column;
-      gap: 8px;
-    }
-  }
-}
-
 .time {
   display: flex;
   gap: 8px;
   time {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 
@@ -84,15 +83,8 @@
   }
 }
 
-.side {
-  width: 15%;
-}
-
 @media screen and (max-width: 1200px) {
-  .main {
+  .post {
     width: 100%;
-  }
-  .side {
-    display: none;
   }
 }

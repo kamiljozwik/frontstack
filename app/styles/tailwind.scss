@@ -9,4 +9,26 @@
     color: rgba(0, 0, 0, 0) !important;
     -webkit-background-clip: text;
   }
+
+  .scrollbar {
+    /* width */
+    &::-webkit-scrollbar {
+      @apply h-1.5 w-1.5;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      @apply bg-neutral-800;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      @apply rounded-sm bg-neutral-700;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      @apply bg-neutral-500 bg-opacity-90;
+    }
+  }
 }

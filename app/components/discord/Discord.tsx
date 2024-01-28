@@ -16,7 +16,7 @@ const load = async () => {
 };
 
 export const Discord = async ({ title = "" }) => {
-  const data = await load();
+  // const data = await load();
 
   return (
     <div>
@@ -39,7 +39,7 @@ export const Discord = async ({ title = "" }) => {
           <span className="text-gray-200 no-underline">Przejdź na Discord</span>
         </ExternalLink>
 
-        <div className="mt-2">
+        {/* <div className="mt-2">
           <span className="relative inline-flex h-3 w-3 mx-1">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
@@ -48,7 +48,7 @@ export const Discord = async ({ title = "" }) => {
             {data.presence_count}
           </span>
           <span className="text-gray-200">osoby online</span>
-        </div>
+        </div> */}
       </section>
     </div>
   );

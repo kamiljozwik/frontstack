@@ -1,0 +1,63 @@
+export const meta = {
+  title:
+    "Nowy projekt w React w 2024, nowe hooki w React 19, Temporal w Deno 1.4, Next.js App Router Training",
+  date: "2024-01-28",
+  period: "22.01.2024 - 28.01.2024",
+};
+
+## Nowy projekt w React w 2024
+
+Robin Wieruch przedstawia przegląd sposobów rozpoczęcia projektu w React w 2024 roku, analizując trzy główne podejścia:
+
+- [Vite](https://vitejs.dev/),
+- [Next.js](https://nextjs.org/),
+- [Astro](https://astro.build/).
+
+Vite, następca create-react-app, oferuje szybkość i elastyczność, umożliwiając tworzenie aplikacji SPA z opcjonalnym SSR. Jest przyjazny dla początkujących i nie narzuca konkretnego frameworku.
+
+Next.js to dojrzałe, _opinionated_ (nigdy nie wiem jak można to ładnie przetłumaczyć na język polski 😉) środowisko z zaawansowanymi technikami renderowania, jak SSR, SSG, ISR oraz RSC, które wymagają już nieco bardziej zaawansowanej wiedzy.
+
+Astro natomiast świetnie nadaje się do tworzenia stron statycznych, korzystając z architektury wyspowej i selektywnej hydratacji, zwracając uwagę na wydajność i SEO.
+
+Każde z tych narzędzi ma swoje specyficzne zalety i ograniczenia, a wybór (nie będzie to niespodzianka) zależy od konkretnych wymagań i preferencji projektu.
+
+<small>
+  Źródło:
+  [www.robinwieruch.de/react-starter](https://www.robinwieruch.de/react-starter/)
+</small>
+
+## Nowe hooki w React 19
+
+React 19 wprowadzi (?) nowe hooki po stronie klienta, które skupiają się na uproszczeniu obsługi danych i formularzy.
+
+Najważniejsze nowości to `use(Promise)` do zawieszania (_suspend_) promisów, `use(Context)` do lepszego odczytu kontekstu Reacta, oraz funkcje związane z formularzami: `useFormState`, `useFormStatus` i `useOptimistic`.
+
+React 19 obiecuje również usprawnienia w obszarze asynchronicznych przejść (`Async Transitions`).
+
+Patrząc na tempo releasów Reacta w ostatnim czasie, pewnie jeszcze trochę na te funkcje poczekamy, ale warto mieć je na uwadze.
+
+<small>
+  Źródło:
+  [marmelab.com/blog/2024/01/23/react-19-new-hooks](https://marmelab.com/blog/2024/01/23/react-19-new-hooks.html)
+</small>
+
+## Temporal w Deno 1.4
+
+W nowej wersji Deno 1.40 pojawia się `Temporal API`.
+
+[Temporal API](https://tc39.es/proposal-temporal/docs/) to nowy zestaw narzędzi w JavaScript, który sprawia, że praca z datami i czasem jest łatwiejsza i bardziej intuicyjna, niż ma to miejscew przypadku dobrze nam znanego obiektu `Date`.
+
+Temporal oferuje nowe obiekty i metody, które pozwalają na bardziej precyzyjne i elastyczne zarządzanie datami, czasem i strefami czasowymi, unikając przy tym typowych błędów i niejasności, które często występują przy użyciu `Date`.
+
+Ruch ten jest dość ciekawy, ponieważ Temporal API jest naprawdę mocno [eksperymentalną technologią](https://caniuse.com/mdn-javascript_builtins_temporal), więc Deno wychodzi przed szereg i próbuje wprowadzić nowe rozwiązania, które mogą w przyszłości stać się standardem 👏
+
+<small>Źródło: [deno.com/blog/v1.40](https://deno.com/blog/v1.40)</small>
+
+## Next.js App Router Training
+
+Ciekawy zestaw lekcji i mini tutoriali z dużą ilością przykładów do nauki routingu w Next.js 💪
+
+<small>
+  Źródło:
+  [nextjs-app-router-training.vercel.app/](https://nextjs-app-router-training.vercel.app/)
+</small>

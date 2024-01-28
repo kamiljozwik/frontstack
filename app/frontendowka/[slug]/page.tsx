@@ -54,12 +54,14 @@ const NewsPage = ({
   const meta = getNewsBySlug(params.slug);
   return (
     <main className="mt-8">
-      <p className="m-0 mb-2 flex text-sm">
-        <span>Frontendówka nr {params.slug}</span>
-        <span className="text-orange-400 mx-2">|</span>
-        <span>{meta?.period}</span>
+      <p className="m-0 mb-2 text-sm">
+        <p className="mb-2">📅 {meta?.period}</p>
+        <h1 className="text-2xl md:text-4xl mt-0">
+          Frontendówka <span className="gradient-text">#</span>
+          {params.slug}
+        </h1>
+        {/* <span className="text-orange-400 mx-2">|</span> */}
       </p>
-      <h1 className="mt-4 text-lg">{meta?.title}</h1>
       <section className={styles.news}>
         <NewsContent />
       </section>

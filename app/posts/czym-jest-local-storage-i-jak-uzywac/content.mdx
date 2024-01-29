@@ -10,7 +10,7 @@ export const meta = {
 
 W dzisiejszym artykule zastanowimy się nad tym czym jest Local Storage oraz gdzie i jak należy go używać. Temat jest stosunkowo łatwy i przyjemny. Jeżeli dopiero zaczynasz swoją przygodę z frontendem, to po przeczytaniu tego artykułu na pewno dostrzeżesz wiele nowych możliwości.
 
-## Czym jest Local Storage ?
+## Czym jest Local Storage?
 
 Jak sama nazwa wskazuje, jest pewnego rodzaju „magazynem danych” w przeglądarce. Możemy z niego korzystać w naszych aplikacjach webowych. Z racji tego, iż aplikacja taka będzie napisana w JavaScript dane w tym przypadku będą przechowywane w formacie key-value. Dokładnie tak jak ma to miejsce w przypadku obiektów JavaScript:
 
@@ -36,7 +36,7 @@ W jakim celu możemy więc wykorzystywać ten mechanizm:
 
 nformacje trzymane w Local Storage są dostępne per domena. Dane zapisane przez domenę frontstack.pl nie będą mogły być odczytane przez kod na stronie example.com. Nawet gdy w naszej przeglądarce będziemy mieli otwarte w dwóch kartach obie w/w strony.
 
-## Jak korzystać z Local Storage ?
+## Jak korzystać z Local Storage?
 
 Dostęp do Local Storege jest możliwy poprzez tzw. `WEB Storage API` przeglądarki. Ważną rzeczą o której musimy pamiętać jest fakt, iż nasze dane, zarówno klucze jak i wartości, muszą być typu `string` (dane typu `integer` są automatycznie konwertowane na `string`).
 
@@ -48,7 +48,7 @@ Dostęp do Local Storage umożliwia nam 5 głównych metod:
 - `clear()` - usuwa wszystkie dane zapisane w Local Storage,
 - `key(index)` - zwraca klucz znajdujący się pod danym indeksem.
 
-### `setItem(key, value)`
+### setItem(key, value)
 
 Pierwsza z metod pozwala nam na zapisywanie danych. Przyjmuje ona dwa argumenty – klucz i wartość. Poprzez klucz możemy później odczytać przypisaną do niego wartość:
 
@@ -67,7 +67,7 @@ const person = {
 window.localStorage.setItem("user", JSON.stringify(person));
 ```
 
-### `getItem(key)`
+### getItem(key)
 
 Dzięki tej metodzie możemy odczytać zapisane przez nas wcześniej dane. W tym przypadku podajemy tylko jeden argument – klucz, dzięki któremu możemy odczytać przypisaną do niego wartość.
 
@@ -81,15 +81,15 @@ Wartość jaką otrzymamy z powyższego wyrażenia jest typu `string`: `“{“n
 JSON.parse(window.localStorage.getItem("user"));
 ```
 
-### `removeItem(key)`
+### removeItem(key)
 
 Gdy zdecydujemy się na usunięcie z Local Storage dowolnej pozycji, możemy zrobić to używając metody `removeItem()`, przekazując jako argument klucz pozycji do usunięcia. Gdy jako argument podamy nieistniejącą wartość klucza, metoda ta nic nie zrobi (nie pojawią nam się komunikaty błędu).
 
-### `clear()`
+### clear()
 
 Metoda `clear()` usuwa wszystkie dane zapisane w Local Storage.
 
-### `key(index)`
+### key(index)
 
 Metoda ta jest przydatna w przypadku, gdy musimy iterować po kluczach. Pozwala nam podać jako argument numer bądź index elementu Local Storage w celu wyciągnięcia jego nazwy:
 
@@ -97,7 +97,7 @@ Metoda ta jest przydatna w przypadku, gdy musimy iterować po kluczach. Pozwala 
 const KeyName = window.localStorage.key(index);
 ```
 
-### `length`
+### length
 
 Dodatkową, bardzo przydatną property jest `length` – pozwala nam ona sprawdzić, czy posiadamy jakieś dane zapisane w Local Storage: `localStorage.length` (gdy = 0, nasz Local Storage jest pusty).
 

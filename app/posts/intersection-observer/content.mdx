@@ -24,7 +24,7 @@ API wykorzystuje obiekt `IntersectionObserver`, który jako argumenty przyjmuje 
 const observer = new IntersectionObserver(callback, options);
 ```
 
-### Prosty Przykład
+### Przykład
 
 Poniżej znajduje się prosty przykład użycia obiektu `Intersection Observer`:
 
@@ -95,7 +95,7 @@ Poza podstawowym zrozumieniem `Intersection Observer`, warto jest zapoznać się
 
 Poniżej znajduje się lista dostępnych opcji:
 
-### 👉 root
+### root
 
 Opcja `root` pozwala określić element, względem którego ma być wykrywane przecięcie. Jeśli nie jest ustawiona, domyślnie używany jest `viewport`.
 
@@ -105,7 +105,7 @@ const options = {
 };
 ```
 
-### 👉 rootMargin
+### rootMargin
 
 `rootMargin` działa podobnie do marginesów w CSS. Pozwala na zdefiniowanie marginesu wokół `root`, który ma być brany pod uwagę przy wykrywaniu przecięć.
 
@@ -116,7 +116,7 @@ const options = {
 };
 ```
 
-### 👉 threshold
+### threshold
 
 `threshold` określa, jak duża część obserwowanego elementu musi wejść w obszar widoczności `root`, aby została wywołana funkcja `callback`. Może to być pojedyncza wartość lub tablica wartości.
 

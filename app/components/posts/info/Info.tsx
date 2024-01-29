@@ -1,6 +1,5 @@
 import { PropsWithChildren, CSSProperties } from "react";
 import styles from "./infox.module.scss";
-/* TODO: Not working with MDX - why? */
 
 type Props = {
   type?: "info" | "warning" | "danger";
@@ -37,7 +36,7 @@ export const Info = ({
   };
 
   return (
-    <div className={styles.root} style={style.root}>
+    <div className="border-solid border-blue-400 border-t-4 border-r border-l py-2 px-4 mb-6">
       {title ? <h4>{title}</h4> : null}
       {children}
     </div>

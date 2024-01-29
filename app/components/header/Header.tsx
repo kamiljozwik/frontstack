@@ -1,32 +1,45 @@
 import Link from "next/link";
-import styles from "./header.module.scss";
 
 import { Logo } from "../logo/Logo";
 import { ExternalLink } from "../externalLink/ExternalLink";
 
 export const Header = () => {
   return (
-    <header className={styles.root}>
-      <div className={styles.links}>
+    <header className="mt-6 md:mt-0 h-24 flex justify-center md:justify-between items-center">
+      <div className="mt-6 md:m-0 flex flex-col md:flex-row items-center gap-6 md:gap-12">
         <Link href="/">
           <Logo />
         </Link>
         <nav>
-          <ul>
+          <ul className="p-0 flex justify-center flex-wrap gap-x-4 md:gap-x-8 list-none m-0 text-md md:text-xl">
             <li>
-              <Link href="/blog">Posty</Link>
+              <Link className="text-white hover:no-underline" href="/blog">
+                Posty
+              </Link>
             </li>
             <li>
-              <Link href="/shorts">Shorts</Link>
+              <Link className="text-white hover:no-underline" href="/shorts">
+                Shorts
+              </Link>
             </li>
             <li>
-              <Link href="/frontendowka">Newsy</Link>
+              <Link
+                className="text-white hover:no-underline"
+                href="/frontendowka"
+              >
+                Newsy
+              </Link>
             </li>
             <li>
-              <Link href="/zarobki">Zarobki</Link>
+              <Link className="text-white hover:no-underline" href="/zarobki">
+                Zarobki
+              </Link>
             </li>
             <li>
-              <ExternalLink href="https://kursy.frontstack.pl/">
+              <ExternalLink
+                className="text-white hover:no-underline"
+                href="https://kursy.frontstack.pl/"
+              >
                 Kursy🎉
               </ExternalLink>
             </li>

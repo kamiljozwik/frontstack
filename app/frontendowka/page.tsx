@@ -20,7 +20,7 @@ const Frontendowka = () => {
             <header className="flex items-start lg:w-[90%]">
               <span className="gradient-text text-xl mr-2">{meta.slug}.</span>
               <Link href={`/frontendowka/${meta.slug.split(".")[0]}`}>
-                <h2 className="m-0 text-white hover:text-blue-400 text-base font-normal">
+                <h2 className="m-0 text-white hover:text-blue-400 text-xl font-normal">
                   {meta.title}
                 </h2>
               </Link>

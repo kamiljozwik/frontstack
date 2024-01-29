@@ -14,13 +14,11 @@ export default function Home() {
     <div className={styles.root}>
       <Hero />
       <main className={styles.main}>
-        <section className={styles.postsList}>
+        <section className="w-[60vw]">
           <h2>NAJNOWSZE WPISY</h2>
-          <div>
-            {allPosts.slice(0, 5).map((post) => (
-              <PostLink key={post.slug} post={post} />
-            ))}
-          </div>
+          {allPosts.slice(0, 5).map((post) => (
+            <PostLink key={post.slug} post={post} />
+          ))}
           <div className={styles.seeAllPosts}>
             <Link href="/blog">Zobacz wszystkie wpisy</Link>
           </div>
@@ -37,7 +35,7 @@ export default function Home() {
                 <li key={news.date} className="flex flex-col mt-2">
                   <small className="text-gray-400">{news.period}</small>
                   <Link
-                    className="text-sm text-white"
+                    className="text-white"
                     href={`/frontendowka/${news.slug}`}
                   >
                     {news.title}

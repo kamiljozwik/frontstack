@@ -2,7 +2,6 @@
 @import "styles/tailwind.scss";
 @import "styles/base.scss";
 @import "styles/code.scss";
-@import "styles/utils.scss";
 @import "styles/animation.scss";
 
 :root {
@@ -20,7 +19,6 @@
 }
 
 html {
-  font-size: 20px;
   height: 100%;
   scroll-behavior: smooth;
 }
@@ -32,6 +30,17 @@ body {
   margin: 0 auto;
   padding: 0 40px;
   height: 100%;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+h3 {
+  font-size: 1.4rem;
+}
+
+p {
+  font-size: 1.125rem;
 }
 
 body > footer {

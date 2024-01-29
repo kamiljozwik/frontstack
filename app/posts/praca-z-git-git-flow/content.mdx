@@ -28,7 +28,7 @@ Nie wchodząc w szczegóły dotyczących metodyk wytwarzania oprogramowania, zob
 
 ## Jak działa Git Flow?
 
-### Gałęzie (_Branching_)
+### Gałęzie
 
 Pierwsza rzecz, którą należy zrobić, aby wdrożyć model Git Flow, to odpowiednio uporządkować gałęzie w swoim repozytorium. W tym przypadku będziemy operować na pięciu rodzajach _branchy_:
 
@@ -42,7 +42,7 @@ Zakładamy, że wszystkie wymienione branche są już stworzone i w masterze zna
 
 Jak powinna wyglądać praca nad taką funkcjonalnością przy użyciu Git Flow? Prześledźmy poszczególne kroki.
 
-### **1. Przygotowanie zadań**
+### 1. Przygotowanie zadań
 
 Jak widać będziemy mieli tutaj zarówno prace na "froncie" jak i na "backendzie". Czeka nas przygotowanie formularza, zapis zapytania oraz wysyłka maila. Oczywiście jest to tylko przykładowe rozwiązanie – interesuje nas tylko jak to poprawnie przeprowadzić w Gicie.
 
@@ -50,13 +50,13 @@ Upewniamy się, czy nasz obecny **develop** zawiera aktualną wersję aplikacji 
 
 <img src="/blog/praca-z-git-git-flow/flow1.webp" />
 
-### **2. Praca nad zadaniami**
+### 2. Praca nad zadaniami
 
 Mamy trzy zadania i trzech programistów, więc każdy z nich tworzy własną gałąź roboczą i implementuje swoją część zadania. W międzyczasie oczywiście aktualizuje swoje branche o nowe commity, które pojawiły się w gałęzi develop.
 
 <img src="/blog/praca-z-git-git-flow/flow2.webp" />
 
-### **3. Pożar 🔥🔥🔥**
+### 3. Pożar 🔥🔥🔥
 
 Nasza praca nad nowym releasem idzie zgodnie z planem, ale w międzyczasie okazało się, że nasz formularz rejestracji z jakiegoś powodu nie przyjmuje adresów e-mail z poczty _@gmail.com_. Jest to błąd, który nie został wyłapany podczas tworzenia poprzedniego releasu i uniemożliwia stworzenia konta bardzo dużej liczbie użytkowników. Musimy to szybko naprawić. Odstawiamy więc na chwilę pracę nad formularzem i przenosimy się na branch **hotfixes**. Zaczynamy pracę, wychodząc z **mastera**, naprawiamy wszystkie błędy i umieszczamy poprawioną już wersję aplikacji na serwerach produkcyjnych. Po zakończeniu prac nie zapominamy o tym, aby nasza poprawka trafiła do **mastera** oraz do **developa**. Pożar został ugaszony możemy wracać do pracy nad releasem.
 
@@ -64,13 +64,13 @@ Nasza praca nad nowym releasem idzie zgodnie z planem, ale w międzyczasie okaza
 
 <img src="/blog/praca-z-git-git-flow/flow3.webp" />
 
-### **4. Przygotowanie release-u**
+### 4. Przygotowanie release-u
 
 Gdy wszyscy już ukończą pracę nad swoimi zadaniami i w branchu **develop** znajduje się już działający formularz kontaktowy, przechodzimy do przygotowania _release-u_. Z **developa** tworzymy nową gałąź np. `release/3.3.0` i od teraz wszystko, co związane jest z funkcjonalnościami wymaganymi w tym _release-ie_ dzieje się już na tym branchu. Wliczamy w to również wszelkie poprawki i bugfixy.
 
 <img src="/blog/praca-z-git-git-flow/flow4.webp" />
 
-### **5. Release branch**
+### 5. Release branch
 
 Kod, który znajduje się na branchu release-owym powinien zostać umieszczony i testowany na środowisku, które jest jak najbardziej zbliżone do środowiska produkcyjnego. W przypadku wykrycia jakichś błędów (bugów) są one naprawiane bezpośrednio na tym samym branchu. Przechodzimy teraz przez fazy **test** ➡️ **fix** ➡️ **deploy** tak długo, aż nasz release będzie w końcu gotowy do wprowadzenia go na produkcję.
 
@@ -84,11 +84,11 @@ Co w tym czasie robią pozostali członkowie zespołu?
 
 <img src="/blog/praca-z-git-git-flow/sleep.gif" />
 
-### **6. Nowy release**
+### 6. Nowy release
 
 Oczywiście, że mogą już zacząć pracować nad kolejnym release-m 🙂. Branch **develop** zawiera najnowszą wersję aplikacji, więc spokojnie można zacząć już pracę nad kolejnymi funkcjonalnościami. Wszelkie poprawki, które zostaną ewentualnie wprowadzone na release branchu i tak trafią do **developa** po udanym deployu na produkcję. Jako że będą to pewnie małe zmiany, nie powinny nam jakoś bardzo przeszkodzić w pracy (czyt. konflikty będą łatwe do rozwiązania 🙂).
 
-### **7. Wyjście na produkcję**
+### 7. Wyjście na produkcję
 
 Aplikacja działa poprawnie, wszystkie testy świecą się na zielono i nie mamy piątkowego popołudnia, więc możemy wychodzić z naszą najnowszą funkcjonalnością na produkcję. W momencie, gdy **deploy odbył się bez problemów** oraz aplikacja działa w porządku, możemy przejść do ostatniej fazy Git Flow.
 

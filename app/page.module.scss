@@ -11,12 +11,8 @@
   gap: 60px;
   h2 {
     @include mixins.redGradientText;
-    font-size: 1.17rem;
+    font-size: 1.4rem;
   }
-}
-
-.postsList {
-  width: 60vw;
 }
 
 .side {

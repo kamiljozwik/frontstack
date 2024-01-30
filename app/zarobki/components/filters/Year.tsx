@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import styles from "./filters.module.scss";
 import { Checkbox } from "./Checkbox";
@@ -10,6 +10,10 @@ type Props = {
 
 export const Year = ({ years, setYears }: Props) => {
   const allYears = useRef(years);
+
+  useEffect(() => {
+    setYears([2023]);
+  }, [setYears]);
 
   const updateYears = (year: number) => {
     if (years.includes(year)) {

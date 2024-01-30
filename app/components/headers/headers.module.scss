@@ -1,7 +1,0 @@
-@use "/app/styles/mixins.scss" as mixins;
-
-.h1 {
-  @include mixins.redGradientText;
-  margin-top: 30px;
-  font-size: 40px;
-}

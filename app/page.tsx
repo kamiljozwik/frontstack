@@ -5,6 +5,7 @@ import styles from "./page.module.scss";
 import { getPostsMeta } from "./utils/blog";
 import Link from "next/link";
 import { getNewsMeta } from "./utils/news";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const allPosts = getPostsMeta();
@@ -20,7 +21,9 @@ export default function Home() {
             <PostLink key={post.slug} post={post} />
           ))}
           <div className={styles.seeAllPosts}>
-            <Link href="/blog">Zobacz wszystkie wpisy</Link>
+            <Button asChild>
+              <Link href="/blog">Zobacz wszystkie wpisy</Link>
+            </Button>
           </div>
         </section>
         <div className={styles.side}>

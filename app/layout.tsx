@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pl" className={outfit.className}>
+    <html lang="pl" className={`${outfit.className} dark`}>
       <body>
         <Header />
         {children}

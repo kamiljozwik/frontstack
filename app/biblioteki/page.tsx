@@ -7,7 +7,7 @@ const Bibloteki = () => {
     <main>
       <PageHeader desc="Lista kategorii">Biblioteki</PageHeader>
       <section>
-        <Link href="biblioteki/ui">Frameworki UI</Link>
+        <Link href="biblioteki/frameworks">Frameworki UI</Link>
       </section>
     </main>
   );

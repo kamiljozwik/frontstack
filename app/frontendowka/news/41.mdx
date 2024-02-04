@@ -1,0 +1,96 @@
+export const meta = {
+  title:
+    "TypeScript 5.4 Beta, migracja Next.js, Open Source Zed i NPM jako torrent",
+  date: "2024-02-04",
+  period: "29.01.2024 - 04.02.2024",
+};
+
+## TypeScript 5.4 Beta
+
+Microsoft ogłosił wydanie TypeScript 5.4 Beta, wprowadzając szereg usprawnień i nowych funkcji.
+
+Wśród nich znalazło się lepsze typowanie w domknięciach (_closures_), nowy typ narzędziowy `NoInfer`, lepsze wsparcie dla `require()`, a także deklaracje dla `Object.groupBy` i `Map.groupBy`.
+
+TypeScript 5.4 wprowadza również precyzyjniejsze ograniczenia typów warunkowych i planuje wycofanie niektórych opcji w wersji 5.5 (planowanej na czerwiec 2024).
+
+Pamiętajcie, że to wersja beta, więc jeszcze trochę może się zmienić.
+
+<small>
+  Źródło:
+  [devblogs.microsoft.com/typescript/announcing-typescript-5-4-beta/](https://devblogs.microsoft.com/typescript/announcing-typescript-5-4-beta/)
+</small>
+
+## Next.js - migracja do `app router`
+
+Czy Next.js można określić już jako _production ready?_ Zdania są bardzo podzielone.
+
+Przejście firmy FlightControl na Next.js App Router przyniosło programistom mieszane uczucia, podkreślając zarówno jego zalety, jak i wady.
+
+Pozytywne strony, takie jak łatwy i elastyczny routing i możliwość łatwego zarządzania stanami ładowania, zostały zniwelowane przez szereg problemów. Wśród nich znalazły się kwestie związane z wydajnością serwera deweloperskiego, trudności z debugowaniem błędów i brak wsparcia dla animacji przy zamykaniu stron.
+
+Firma ostatecznie stwierdziła, że gdyby mogła, wybrałaby Remix zamiast Next.js ze względu na lepszą architekturę i wydajność deweloperską.
+
+Pełen opis migracji i problemów znajdziecie w źródle 👇
+
+<small>
+  Źródło:
+  [flightcontrol.dev/blog/nextjs-app-router-migration-the-good-bad-and-ugly](https://www.flightcontrol.dev/blog/nextjs-app-router-migration-the-good-bad-and-ugly)
+</small>
+
+## Zed staje się open source
+
+Zed, dość popularny w ostatnim czasie edytor kodu, stał się projektem open source.
+
+Głównym celem tej zmiany jest przyciągnięcie większej liczby programistów do współpracy nad projektem, co ma na celu stworzenie najlepszego produktu na rynku.
+
+Dodatkowo, wprowadzono tzw. _Zed Channels_, nową funkcję umożliwiającą programistom na całym świecie wspólne kodowanie w czasie rzeczywistym.
+
+Otwarcie kodu źródłowego Zed jest na pewno krokiem ku rozwijaniu społeczności i innowacji, a także sposobem na zbudowanie zrównoważonego modelu biznesowego poprzez oferowanie płatnych usług integrujących się z edytorem.
+
+Czy Zed będzie godnym przeciwnikiem dla Visual Studio Code? Czas pokaże.
+
+<small>
+  Źródło:
+  [zed.dev/blog/zed-is-now-open-source](https://zed.dev/blog/zed-is-now-open-source)
+</small>
+
+## NPM torrent
+
+W ostatnim czasie na NPM pojawiły się 748 pakiety zawierające fragmenty filmów.
+
+Te nietypowe "pakiety" zawierały klipy wideo, które po złożeniu tworzyły całe filmy, naruszając tym samym zasady korzystania z npm.
+
+Te działania, choć nie zawierały złośliwego oprogramowania, pokazują, jak użytkownicy i atakujący mogą nadużywać otwartych rejestrów oprogramowania.
+
+<small>
+  Źródło:
+  [blog.sonatype.com/npm-flooded-with-748-packages-that-store-movies](https://blog.sonatype.com/npm-flooded-with-748-packages-that-store-movies)
+</small>
+
+## Event Loop. Myths and reality
+
+Dość ciekawy artykuł, który rozwiewa powszechne nieporozumienia dotyczące Event Loop w JavaScript, podkreślając, że nie znajduje się on w specyfikacji ECMAScript, lecz jest częścią środowiska wykonawczego.
+
+Znaczenie Event Loop rozciąga się poza wykonanie kodu JS, obejmując operacje wejścia/wyjścia, rendering i wiele więcej.
+
+Autor wskazuje również na różnice w implementacji Event Loop w środowiskach opartych na przeglądarkach i poza nimi.
+
+Artykuł jest dość długi i miejscami ciężki do zrozumienia, ale myślę, że warto się z nim zapoznać.
+
+<small>
+  Źródło:
+  [blog.frontend-almanac.com/event-loop-myths-and-reality](https://blog.frontend-almanac.com/event-loop-myths-and-reality)
+</small>
+
+## Dobre słowo na koniec
+
+W obliczu rosnących obaw dotyczących wpływu AI generatywnego na przyszłość programowania, badanie przeprowadzone przez naukowców z Princeton i Uniwersytetu Chicagowskiego rzuca nowe światło na tę kwestię.
+
+Analiza prawie 2300 typowych problemów inżynierii oprogramowania z GitHuba wykazała, że duże modele językowe (LLM) radzą sobie z generowaniem skutecznych rozwiązań tylko w... 4% przypadków 🥳
+
+To podważa powszechny strach przed zastąpieniem programistów przez AI, podkreślając, że narzędzia te są raczej pomocnikami niż zamiennikami. Wyniki badania sugerują, że rola inżyniera oprogramowania ewoluuje w kierunku bardziej skoncentrowanego przeglądu i weryfikacji kodu generowanego przez AI, a nie jego pisania od zera.
+
+<small>
+  Źródło:
+  [leaddev.com/tech/researchers-say-generative-ai-isnt-replacing-devs-any-time-soon](https://leaddev.com/tech/researchers-say-generative-ai-isnt-replacing-devs-any-time-soon)
+</small>

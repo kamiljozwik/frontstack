@@ -2,7 +2,7 @@ import React from "react";
 
 export const Table = () => {
   return (
-    <table>
+    <table className="table-simple">
       <thead>
         <tr>
           <th>Skąd</th>

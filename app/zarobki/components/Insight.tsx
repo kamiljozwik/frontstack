@@ -30,7 +30,7 @@ export const Insight = () => {
       </ul>
 
       <div className="my-12">
-        <table className="w-full md:w-2/3">
+        <table className="w-full md:w-2/3 table-simple">
           <thead>
             <tr>
               <th>Technologia</th>

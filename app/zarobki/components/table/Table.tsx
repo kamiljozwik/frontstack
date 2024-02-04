@@ -17,7 +17,7 @@ export const Table = ({ data }: { data: Report[] }) => {
 
   return (
     <div className={styles.root}>
-      <table className={styles.table}>
+      <table className={`${styles.table} table-simple`}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

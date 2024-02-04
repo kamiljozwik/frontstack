@@ -1,6 +1,6 @@
 export const Table = () => (
   <div className="table-wrapper">
-    <table>
+    <table className="table-simple">
       <thead>
         <tr>
           <th>Cecha</th>

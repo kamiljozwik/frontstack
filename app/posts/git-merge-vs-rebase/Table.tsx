@@ -1,5 +1,5 @@
 export const Table = () => (
-  <table style={{ margin: "32px 0" }}>
+  <table className="table-simple" style={{ margin: "32px 0" }}>
     <thead>
       <tr>
         <th>Aspekt</th>

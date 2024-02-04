@@ -1,132 +1,48 @@
-"use client";
+import { Payment, columns } from "./table/columns";
+import { DataTable } from "./table/DataTable";
 
-import { PageHeader } from "@/app/components/headers/Headers";
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import React from "react";
-
-const List = () => {
-  const [data, setData] = React.useState(() => [...defaultData]);
-
-  const columnHelper = createColumnHelper<Person>();
-
-  const columns = [
-    columnHelper.accessor("firstName", {
-      cell: (info) => info.getValue(),
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor((row) => row.lastName, {
-      id: "lastName",
-      cell: (info) => <i>{info.getValue()}</i>,
-      header: () => <span>Last Name</span>,
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor("age", {
-      header: () => "Age",
-      cell: (info) => info.renderValue(),
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor("visits", {
-      header: () => <span>Visits</span>,
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor("status", {
-      header: "Status",
-      footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor("progress", {
-      header: "Profile Progress",
-      footer: (info) => info.column.id,
-    }),
+async function getData(): Promise<Payment[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    {
+      id: "a8a8edd1e3",
+      amount: 200,
+      status: "processing",
+      email: "wer@example.com",
+    },
+    {
+      id: "f8ass8e1e3",
+      amount: 300,
+      status: "success",
+      email: "c@example.com",
+    },
+    {
+      id: "f8a8edd1e3",
+      amount: 300,
+      status: "pending",
+      email: "werwerwe@example.com",
+    },
+    {
+      id: "f8a238e1e3",
+      amount: 300,
+      status: "success",
+      email: "b@example.com",
+    },
   ];
+}
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+export default async function DemoPage() {
+  const data = await getData();
 
   return (
-    <main>
-      <PageHeader desc="Lista kategorii > UI">Biblioteki</PageHeader>
-      <section>
-        <div className="p-2">
-          <table>
-            <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
+    <div className="container mx-auto py-10">
+      <DataTable columns={columns} data={data} />
+    </div>
   );
-};
-
-export default List;
-
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
-};
-
-const defaultData: Person[] = [
-  {
-    firstName: "tanner",
-    lastName: "linsley",
-    age: 24,
-    visits: 100,
-    status: "In Relationship",
-    progress: 50,
-  },
-  {
-    firstName: "tandy",
-    lastName: "miller",
-    age: 40,
-    visits: 40,
-    status: "Single",
-    progress: 80,
-  },
-  {
-    firstName: "joe",
-    lastName: "dirte",
-    age: 45,
-    visits: 20,
-    status: "Complicated",
-    progress: 10,
-  },
-];
+}

@@ -11,6 +11,7 @@ type Props = {
 };
 
 const getLibsData = async (tools: Tool[]) => {
+  // TODO: handle duplicates
   const data = await Promise.all(
     tools.map(async (tool) => {
       const githubData = await githubClient(tool.github);
@@ -24,7 +25,6 @@ const getLibsData = async (tools: Tool[]) => {
     })
   );
 
-  // TODO: handle duplicates
   return data;
 };
 

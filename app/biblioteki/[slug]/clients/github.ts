@@ -1,4 +1,4 @@
-import { GithubReleases, GithubRepoData } from "../../data/type";
+import { GithubReleases, GithubRepoData } from "../../type";
 
 export const githubClient = async (url?: string) => {
   if (!url) return undefined;
@@ -9,7 +9,13 @@ export const githubClient = async (url?: string) => {
   const owner = splitted[length - 2];
   const name = splitted[length - 1];
 
-  // TODO: use mock data for development
+  if (
+    process.env.NODE_ENV !== "production" ||
+    process.env.VERCEL_ENV !== "production"
+  ) {
+    return mockData(name);
+  }
+
   try {
     const repoData = await fetch(
       `https://api.github.com/repos/${owner}/${name}`,
@@ -29,7 +35,6 @@ export const githubClient = async (url?: string) => {
 
     const githubRepoData = (await repoData.json()) as GithubRepoData;
 
-    // TODO: use mock data for development
     const releases = await fetch(
       `https://api.github.com/repos/${owner}/${name}/releases?per_page=10`,
       {
@@ -54,3 +59,31 @@ export const githubClient = async (url?: string) => {
     return undefined;
   }
 };
+
+const mockData = (name: string) => {
+  return {
+    name,
+    description: "Lorem Ipsum",
+    stargazers_count: Math.floor(Math.random() * 1000),
+    language: "TypeScript",
+    homepage: "https://google.com",
+    open_issues_count: Math.floor(Math.random() * 100),
+    license: {
+      key: "mit",
+      name: "MIT License",
+      spdx_id: "MIT",
+      url: "https://api.github.com/licenses/mit",
+    },
+    releases: [
+      {
+        published_at: randomDate(),
+      },
+    ],
+  } as GithubRepoData;
+};
+
+function randomDate(start = new Date(2021, 0, 1), end = new Date()) {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  ).toISOString();
+}

@@ -1,14 +1,21 @@
 import React from "react";
-import { PageHeader } from "../components/headers/Headers";
 import Link from "next/link";
+import { getFilenames } from "./utils/getFilenames";
+import { toolsNames } from "./dictionary";
 
 const Bibloteki = () => {
+  const tools = getFilenames();
+
   return (
     <main>
-      <PageHeader desc="Lista kategorii">Biblioteki</PageHeader>
       <section className="flex gap-4">
-        <Link href="biblioteki/frameworks">Frameworki UI</Link>
-        <Link href="biblioteki/tests">Testowanie</Link>
+        {tools.map((tool) =>
+          tool in toolsNames ? (
+            <Link href={`biblioteki/${tool}`} key={tool}>
+              <div className="p-12 border">{toolsNames[tool]}</div>
+            </Link>
+          ) : null
+        )}
       </section>
     </main>
   );

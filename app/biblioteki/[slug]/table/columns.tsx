@@ -6,7 +6,7 @@ import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { roundNumber } from "@/utils/numbers";
-import { GithubReleases, Tool } from "../../data/type";
+import { GithubReleases, Tool } from "../../type";
 import { ExternalLink } from "@/app/components/externalLink/ExternalLink";
 
 export const columns: ColumnDef<Tool>[] = [
@@ -87,13 +87,33 @@ export const columns: ColumnDef<Tool>[] = [
     },
     cell: ({ row }) => {
       const issues = (row.getValue("issues") as number) || undefined;
-      return (
+      return row.original.github ? (
         <ExternalLink
           href={`${row.original.github}/issues`}
           className="text-white"
         >
           {roundNumber(issues)}
         </ExternalLink>
+      ) : (
+        "—"
+      );
+    },
+  },
+  {
+    id: "license",
+    accessorFn: (originalRow: Tool) => {
+      return originalRow.githubData?.license?.name;
+    },
+    header: "License",
+    cell: ({ row }) => {
+      const license = row.original.githubData?.license;
+
+      return license?.url ? (
+        <ExternalLink href={license?.url} className="text-white">
+          {license?.spdx_id || license?.name}
+        </ExternalLink>
+      ) : (
+        "—"
       );
     },
   },

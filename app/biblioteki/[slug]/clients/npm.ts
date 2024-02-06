@@ -1,9 +1,17 @@
-import { NpmData } from "../../data/type";
+import { NpmData } from "../../type";
 
 export const npmClient = async (npm?: string) => {
   if (!npm) return undefined;
 
-  // TODO: use mock data for development
+  if (
+    process.env.NODE_ENV !== "production" ||
+    process.env.VERCEL_ENV !== "production"
+  ) {
+    return {
+      downloads: Math.floor(Math.random() * 1000),
+    } as NpmData;
+  }
+
   try {
     const npmData = await fetch(
       `https://api.npmjs.org/downloads/point/last-week/${npm}`

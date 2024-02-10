@@ -1,0 +1,306 @@
+export const meta = {
+  title: "Frontend i autoryzacja",
+  seo_desc: "",
+  short: "",
+  date: "2024-02-08",
+  tags: ["Security"],
+};
+
+Z racji tego, że musiałem w ostatnim czasie odświeżyć swoją wiedzę dotyczącą autoryzacji, postanowiłem, że jest to dobry moment, aby podzielić się swoją wiedzą na ten temat.
+
+W artykule tym omówię teoretyczne podstawy, rozważania dotyczące bezpieczeństwa i najlepsze praktyki związane z uwierzytelnianiem użytkowników po stronie frontendu.
+
+Nie będziemy tutaj niczego implementować, bardziej skupię się na przeglądzie różnych technologii i protokołów, które powinniśmy znać i rozumieć, nawet wtedy, gdy korzystamy z gotowych rozwiązań.
+
+## Podstawy
+
+Zrozumienie protokołów uwierzytelniania, takich jak OAuth, OpenID Connect i SAML, jest niezwykle ważne dla zaprojektowania bezpiecznego i wydajnego systemu uwierzytelniania. Każdy z tych protokołów oferuje różne mechanizmy kontroli dostępu, które mogą być dostosowane do specyficznych potrzeb aplikacji. Ponadto, zasady zapewnienia bezpiecznego uwierzytelniania - poufność, integralność i dostępność - muszą być ściśle przestrzegane, aby zminimalizować ryzyko naruszeń bezpieczeństwa.
+
+Co więcej, zabezpieczenie przed atakami typu Cross-Site Scripting (XSS) i Cross-Site Request Forgery (CSRF) jest dzisiaj praktycznie niezbędne dla każdego systemu uwierzytelniania. Do tego dochodzi nam zabezpieczenie przed kradzieżą tokenów i atakami typu [replay](https://www.youtube.com/watch?v=ai6qS13gKRo).
+
+Niestety nie ma tutaj miejsca na kompromisy
+
+## Znaczenie uwierzytelniania
+
+Uwierzytelnianie użytkownika pełni w naszych aplikacjach podwójną rolę. Z jednej strony, jest to pierwsza linia obrony przed nieautoryzowanym dostępem do zasobów i danych. Z drugiej strony, sposób, w jaki użytkownicy są uwierzytelniani, ma bezpośredni wpływ na ich doświadczenia (UX) podczas korzystania z aplikacji. Skuteczne systemy uwierzytelniania muszą znaleźć równowagę między rygorystycznym bezpieczeństwem a płynnością i prostotą użytkowania.
+
+### Uwierzytelnianie po stronie klienta i serwera
+
+Tradycyjnie, uwierzytelnianie realizowane było po stronie serwera, gdzie aplikacje internetowe polegały na sesjach i ciasteczkach do zarządzania stanem zalogowania użytkownika. Jednakże, z rozwojem aplikacji jednostronicowych (SPA) i frameworków JavaScript, uwierzytelnianie po stronie klienta stało się nieco bardziej skomplikowane. Ta zmiana paradygmu wymaga od deweloperów głębszego zrozumienia zabezpieczeń po stronie klienta, w tym sposobów przechowywania tokenów uwierzytelniających i zarządzania stanem sesji.
+
+### Tokeny i sesje
+
+Tokeny (np. `JWT` ([_JSON Web Tokens_](https://jwt.io/))) i sesje są dwoma dominującymi metodami zarządzania stanem uwierzytelnienia w aplikacjach webowych.
+
+Tokeny JWT, przechowywane po stronie klienta, oferują sposób na bezstanową weryfikację i autoryzację użytkownika. Z drugiej strony, sesje, zarządzane po stronie serwera, tradycyjnie wykorzystują ciasteczka do przechowywania identyfikatorów sesji. Wybór między tokenami a sesjami zależy od wielu czynników, w tym wymagań bezpieczeństwa, skalowalności aplikacji i doświadczenia użytkownika.
+
+[Session vs Token Authentication in 100 Seconds](https://www.youtube.com/watch?v=UBUNrFtufWo)
+[Difference between cookies, session and tokens](https://www.youtube.com/watch?v=GhrvZ5nUWNg)
+[What Is JWT and Why Should You Use JWT](https://www.youtube.com/watch?v=7Q17ubqLfaM)
+
+## Protokoły uwierzytelniania
+
+Kolejnym ważnym tematem jest zrozumienie teoretycznych podstaw protokołów, na których opierają się współczesne systemy uwierzytelniania.
+
+Pozwoli nam to nie tylko tworzyć bezpieczne i efektywne rozwiązania, ale także na świadome wybieranie i dostosowywanie technologii do specyficznych potrzeb naszych projektów.
+
+### OAuth
+
+[OAuth](https://oauth.net/2/) jest otwartym standardem autoryzacji, który umożliwia bezpieczny dostęp do zasobów użytkownika bez konieczności ujawniania danych uwierzytelniających. Wykorzystywany głównie do delegowania dostępu, znajduje zastosowanie w sytuacjach, gdzie aplikacje żądają dostępu do zasobów użytkownika na innym serwisie.
+
+[OAuth 2 Explained In Simple Terms](https://www.youtube.com/watch?v=ZV5yTm4pT8g)
+
+### OpenID Connect
+
+[OpenID Connect](https://openid.net/developers/how-connect-works/) (OIDC) działa na bazie OAuth 2.0 i dodaje warstwę uwierzytelniania do procesu autoryzacji. Pozwala klientom na weryfikację tożsamości użytkownika końcowego na podstawie uwierzytelnienia przeprowadzonego przez serwer autoryzacji.
+
+[What is OpenID Connect?](https://www.youtube.com/watch?v=CHczpasUEIc)
+
+### OAuth + OIDC
+
+Jak można zauważyć, OAuth i OIDC są często używane razem w architekturze systemów uwierzytelniania, ponieważ uzupełniają się, oferując zarówno bezpieczne delegowanie uprawnień, jak i uwierzytelnianie użytkowników. Mimo że oba standardy są ze sobą powiązane, służą różnym celom i rozwiązują różne problemy w procesie uwierzytelniania i autoryzacji. Spójrzmy na to jeszcze raz.
+
+OAuth 2.0 jest protokołem autoryzacji, który umożliwia aplikacjom uzyskanie ograniczonego dostępu do zasobów użytkownika na innym serwerze. Jest to realizowane za pomocą tokenu dostępu, który aplikacja może użyć do żądania zasobów w imieniu użytkownika bez konieczności poznawania jego danych uwierzytelniających. OAuth 2.0 jest szeroko stosowany do delegowania uprawnień, umożliwiając użytkownikom udzielanie aplikacjom dostępu do swoich danych bez dzielenia się swoimi hasłami.
+
+OpenID Connect, zbudowany na fundamencie OAuth 2.0, dodaje warstwę uwierzytelniania do procesu autoryzacji. OIDC umożliwia klientom (aplikacjom) weryfikację tożsamości użytkownika końcowego oraz uzyskanie podstawowych informacji o profilu użytkownika na podstawie uwierzytelnienia przeprowadzonego przez serwer autoryzacji. OIDC wprowadza pojęcie _ID tokenu_, który zawiera informacje o tożsamości użytkownika oraz jest podpisany przez serwer autoryzacji, co umożliwia jego weryfikację przez aplikację.
+
+- **OAuth 2.0** zajmuje się bezpiecznym delegowaniem dostępu do zasobów, umożliwiając aplikacjom działanie w imieniu użytkownika bez konieczności poznawania jego danych uwierzytelniających.
+- **OpenID Connect** dodaje funkcjonalność uwierzytelniania, umożliwiając aplikacjom weryfikację tożsamości użytkownika i uzyskanie informacji o jego profilu.
+
+Ta synergia pozwala na budowanie systemów, które nie tylko bezpiecznie zarządzają dostępem do zasobów, ale również efektywnie uwierzytelniają użytkowników i zarządzają ich tożsamością. Dzięki temu deweloperzy mogą skupić się na tworzeniu wartościowych funkcji aplikacji, korzystając z gotowych, bezpiecznych i sprawdzonych metod uwierzytelniania i autoryzacji, zamiast budować te mechanizmy od podstaw.
+
+[An Illustrated Guide to OAuth and OpenID Connect](https://www.youtube.com/watch?v=t18YB3xDfXI)
+
+### SAML
+
+[SAML](https://www.microsoft.com/pl-pl/security/business/security-101/what-is-security-assertion-markup-language-saml) (Security Assertion Markup Language) to standard oparty na XML służący do wymiany danych uwierzytelniających i autoryzacyjnych między różnymi domenami. SAML jest często stosowany w korporacyjnych środowiskach federacyjnych, gdzie wymagana jest integracja systemów identyfikacji z różnych organizacji.
+
+Jednak w swojej codziennej pracy zdecydowanie najczęściej będziecie spotykać się z OAuth i OpenID Connect.
+
+[SAML vs. OpenID (OIDC): What's the Difference?](https://www.youtube.com/watch?v=A7GVeqFvqFM)
+
+## Bezpieczeństwo
+
+Bezpieczeństwo uwierzytelniania na froncie polega nie tylko na zabezpieczaniu danych uwierzytelniających, ale także o ochronie całej aplikacji i danych użytkowników przed potencjalnymi atakami. Spójrzmy na te najczęściej spotykane.
+
+### Cross-Site Scripting (XSS)
+
+Ataki XSS wykorzystują luki bezpieczeństwa w aplikacjach webowych, pozwalając atakującym na wstrzyknięcie złośliwego kodu JavaScript do stron oglądanych przez inne osoby.
+
+Ochrona przed XSS wymaga [_sanitacji_](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Sanitizer_API) danych wejściowych użytkownika oraz stosowania odpowiednich polityk bezpieczeństwa zawartości ([CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)), które ograniczają źródła skryptów i innych zasobów.
+
+Przykładem _sanitacji_ może być tekst wpisywany w polu komentarza. Jeżeli damy radę w tym tekście umieścić złośliwy skrypt, to uruchomi się on w przeglądarce użytkownika przeglądającego tą samą stronę / czytającego ten sam komentarz.
+
+[Cross-Site Scripting (XSS) Explained in 7 minutes](https://www.youtube.com/watch?v=DqK_OYat-3M)
+
+### Cross-Site Request Forgery (CSRF)
+
+CSRF polega na wykorzystaniu zaufanej sesji użytkownika przez atakującego do wykonania nieautoryzowanych działań. Zapobieganie atakom CSRF wymaga stosowania tokenów CSRF, które zapewniają, że każde żądanie pochodzi od zaufanego użytkownika i nie zostało sfałszowane.
+
+[Cross-Site Request Forgery (CSRF) Explained](https://www.youtube.com/watch?v=eWEgUcHPle0)
+
+### Bezpieczne przechowywanie tokenów i sesji
+
+Bezpieczne przechowywanie tokenów uwierzytelniających i sesji ma kluczowe znaczenie dla ochrony aplikacji i danych użytkownika przed nieautoryzowanym dostępem. Tokeny, takie jak tokeny dostępu OAuth, JWT (JSON Web Tokens) czy inne rodzaje tokenów sesji, muszą być przechowywane w sposób, który minimalizuje ryzyko wykradzenia i nadużycia.
+
+Oto kilka strategii przechowywania tokenów po stronie klienta:
+
+**Tokeny w pamięci**
+
+Przechowywanie tokenów uwierzytelniających bezpośrednio w pamięci aplikacji jest jedną z bezpieczniejszych metod. Ta technika ogranicza ryzyko kradzieży tokenów przez skrypty XSS, ponieważ dane nie są dostępne w stałej formie w przeglądarce (takiej jak `localStorage` czy `sessionStorage`), a zatem są trudniejsze do wydobycia przez atakującego. Wadą jest to, że tokeny przechowywane w pamięci są tracone przy odświeżeniu strony, co może wymagać ponownego uwierzytelnienia użytkownika. Takie rozwiązania spotykamy stosunkowo rzadko.
+
+**Wykorzystanie pamięci przeglądarki (Web Storage) z rozwagą**
+
+Choć przechowywanie tokenów w pamięci przeglądarki, takiej jak `localStorage` lub `sessionStorage`, może wydawać się wygodne, niesie to pewne ryzyko bezpieczeństwa, zwłaszcza w przypadku ataków XSS. Jeśli jednak decydujesz się na tę metodę, upewnij się, że aplikacja jest zabezpieczona przed atakami XSS i rozważ dodatkowe mechanizmy ochrony, takie jak szyfrowanie tokenów.
+
+**`HttpOnly` i `Secure Cookies`**
+
+Atrybuty ciasteczek `HttpOnly` i `Secure` znacznie [zwiększają bezpieczeństwo](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies) przechowywania tokenów. `HttpOnly` uniemożliwia dostęp do ciasteczka za pomocą skryptów klienta, co zmniejsza ryzyko ataków XSS. Atrybut `Secure` zapewnia, że ciasteczka są wysyłane tylko przez bezpieczne połączenia (`HTTPS`), co chroni przed przechwyceniem danych przez atakujących w niezabezpieczonych sieciach.
+
+**Atrybut `SameSite`**
+
+Atrybut `SameSite` dla ciasteczek pozwala na [ograniczenie wysyłania ciasteczek](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#samesite_attribute) w zapytaniach _cross-site_, co może znacznie zmniejszyć ryzyko ataków CSRF. Ustawienie `SameSite=Strict` zapewnia, że ciasteczko jest wysyłane tylko wtedy, gdy żądanie pochodzi z tego samego źródła, co ciasteczko, co jest przydatne dla tokenów sesji.
+
+**Odnawianie tokenów**
+
+Odnawianie i rotacja tokenów to proces, w którym tokeny są regularnie wymieniane na nowe, nawet w trakcie aktywnej sesji użytkownika. To zmniejsza okno czasowe, w którym wykradziony token może być wykorzystany przez atakującego. Praktyka ta, w połączeniu z krótkim czasem życia tokenów, znacznie zwiększa bezpieczeństwo.
+
+**Content Security Policy (`CSP`)**
+
+Implementacja polityki bezpieczeństwa zawartości ([CSP](https://www.youtube.com/watch?v=txHc4zk6w3s)) może dodatkowo zabezpieczyć aplikację przed atakami XSS, ograniczając źródła, z których mogą być ładowane zasoby, oraz blokując wykonanie niezaufanych skryptów. Chociaż `CSP` nie jest bezpośrednio związane z przechowywaniem tokenów, może znacznie zwiększyć ogólny poziom bezpieczeństwa aplikacji, w tym ochronę przechowywanych tokenów.
+
+Każda z tych strategii ma swoje specyficzne zastosowania i najlepiej sprawdza się w połączeniu z innymi praktykami, tworząc wielowarstwowy system obrony. Pamiętajcie, aby nie polegać na pojedynczej metodzie zabezpieczeń, ale zamiast tego stosujcie różne kombinacje technik, aby maksymalnie zabezpieczyć wrażliwe dane 🔐
+
+### MFA (Multi-Factor Authentication)
+
+Pisząc o bezpieczeństwie, nie sposób pominać MFA.
+
+MFA znacząco zwiększa bezpieczeństwo poprzez wymaganie od użytkownika potwierdzenia tożsamości za pomocą więcej niż jednej metody uwierzytelniania, na przykład hasła i kodu z aplikacji lub wiadomości SMS. Wdrażanie MFA może skutecznie zredukować ryzyko nieautoryzowanego dostępu, nawet jeśli dane uwierzytelniające zostały skompromitowane.
+
+[How does Multifactor Authentication work?](https://www.youtube.com/watch?v=lEHhivPJQ5w)
+
+## Projektowanie UI
+
+Projektowanie systemów uwierzytelniania, które są jednocześnie bezpieczne i łatwe w obsłudze, jest nie lada wyzwaniem. Poniżej umieściłem kilka głównych zasad pomagających w tworzeniu rozwiązań, które nie tylko chronią przed potencjalnymi atakami, ale także zapewniają płynność i intuicyjność użytkowania.
+
+- **Prostota i intuicyjność**: Interfejsy uwierzytelniania powinny być proste i intuicyjne, aby maksymalnie ułatwić użytkownikom proces autoryzacji. Kompleksowe formularze i procesy mogą zniechęcać i prowadzić do błędów, które z kolei mogą wpływać na bezpieczeństwo.
+- **Komunikaty o błędach**: Jasne i pomocne komunikaty o błędach mogą znacząco poprawić doświadczenie użytkownika. Komunikaty te powinny być dostatecznie informacyjne, aby użytkownik wiedział, jak poprawić błąd, ale bez ujawniania informacji, które mogłyby zostać wykorzystane przez potencjalnych atakujących. _Ups, coś poszło nie tak..._ nie wystarczy 😉
+- **Dostępność**: Projektując systemy uwierzytelniania, należy wziąć pod uwagę dostępność, aby osoby z różnymi potrzebami mogły bez problemu korzystać z aplikacji. Obejmuje to czytelność tekstu, kontrast kolorów, wsparcie dla czytników ekranu i możliwość nawigacji za pomocą klawiatury.
+
+[📄12 Best Practices for Sign-Up and Login Page Design](https://uxdworld.com/2021/12/22/12-best-practices-for-sign-up-and-login-page-design/)
+
+[📄Designing UX Login Form and Process](https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9)
+
+## Single Sign-On (SSO)
+
+Single Sign-On (SSO), czyli jednokrotne logowanie, to strategia uwierzytelniania, która umożliwia użytkownikom dostęp do wielu aplikacji i zasobów po jednym zalogowaniu. Zamiast konieczności ponownego logowania do każdej aplikacji, użytkownik loguje się tylko raz, a następnie uzyskuje dostęp do wszystkich powiązanych zasobów bez konieczności ponownej autoryzacji.
+
+[What is Single Sign On (SSO)](https://www.youtube.com/watch?v=Bv6NZlqqn48)
+
+[What Is Single Sign-on (SSO)? How It Works](https://www.youtube.com/watch?v=O1cRJWYF-g4)
+
+Korzyści płynące z SSO:
+
+- **Ułatwienie dla użytkowników**: Eliminuje potrzebę zapamiętywania wielu haseł i ponownego logowania do różnych aplikacji.
+- **Zwiększone bezpieczeństwo**: Dzięki jednokrotnemu zalogowaniu można zastosować bardziej skomplikowane mechanizmy uwierzytelniania i kontroli dostępu.
+- **Efektywność**: Administracja użytkownikami i zarządzanie dostępem jest uproszczone, co prowadzi do obniżonych kosztów i mniejszego obciążenia dla zespołów IT.
+
+### Architektura SSO
+
+System SSO składa się z kilku kluczowych elementów:
+
+- **Identyfikator tożsamości (_Identity Provider_, _IdP_)**: Jest to centralna platforma, która zarządza procesem uwierzytelniania i autoryzacji użytkowników. IdP przechowuje dane uwierzytelniające, takie jak hasła użytkowników, i udziela autoryzacji dla różnych aplikacji.
+- **Usługi dostawcy usług (Service Providers, SP)**: To aplikacje lub zasoby, do których użytkownik ma dostęp po zalogowaniu się. Każdy SP musi mieć integrację z IdP, aby uzyskać autoryzację użytkownika.
+
+Rodzaje SSO:
+
+- **Federated SSO**: Użytkownik autoryzuje się za pośrednictwem swojego domowego IdP, który następnie udziela autoryzacji dla różnych aplikacji, nawet jeśli są one hostowane przez różne organizacje.
+- **Enterprise SSO**: W tym przypadku IdP jest zarządzany wewnętrznie przez organizację i udziela autoryzacji dla aplikacji w ramach tej samej infrastruktury IT.
+
+### Implementacja SSO
+
+Implementacja SSO może odbywać się za pomocą różnych protokołów i standardów, takich jak znane nam już OAuth2 i OpenID Connect czy SAML. Wybór odpowiedniego protokołu zależy od potrzeb i infrastruktury organizacji.
+
+Mimo licznych korzyści SSO może napotkać na pewne wyzwania, takie jak złożoność integracji z różnymi aplikacjami i platformami, zarządzanie tożsamością użytkowników oraz zabezpieczenie systemu przed atakami typu _man-in-the-middle_.
+
+Wdrożenie SSO wymaga starannego planowania, analizy wymagań biznesowych i technicznych, a także współpracy między różnymi zespołami w organizacji. Jednak, jeśli zostanie poprawnie zaimplementowane, SSO może przynieść znaczące korzyści zarówno dla użytkowników, jak i organizacji, poprawiając zarówno bezpieczeństwo, jak i wydajność w zakresie zarządzania dostępem.
+
+## WebAuthn i uwierzytelnianie bezhasłowe
+
+W miarę ewolucji standardów bezpieczeństwa cyfrowego uwierzytelnianie bezhasłowe zyskuje na popularności, oferując użytkownikom bezpieczniejszą i bardziej wygodną alternatywę dla tradycyjnych haseł.
+
+[WebAuthn](https://webauthn.io/) (Web Authentication) jest istotnym graczem w tej zmianie, zapewniając standard dla uwierzytelniania bezhasłowego w aplikacjach webowych.
+
+[What Is WebAuthn?](https://www.youtube.com/watch?v=zJPNuORkvvk)
+
+### Co to jest WebAuthn?
+
+WebAuthn to standard API dla przeglądarek internetowych, który umożliwia użytkownikom bezpieczne uwierzytelnianie na stronach internetowych i w aplikacjach webowych, używając biometrii (takiej jak odciski palców lub rozpoznawanie twarzy), kluczy bezpieczeństwa lub urządzeń mobilnych. Standard ten jest promowany przez [World Wide Web Consortium](https://www.w3.org/) (_W3C_) oraz [FIDO Alliance](https://fidoalliance.org/), mając na celu zwiększenie bezpieczeństwa i ułatwienie procesu logowania.
+
+Uwierzytelnianie bezhasłowe oferuje kilka istotnych korzyści w porównaniu do tradycyjnych metod uwierzytelniania:
+
+- **Zwiększone bezpieczeństwo**: Eliminuje ryzyko związane z phishingiem, atakami siłowymi i odsprzedażą skompromitowanych haseł.
+- **Lepsze doświadczenie użytkownika**: Użytkownicy nie muszą pamiętać skomplikowanych haseł, co sprawia, że proces logowania jest szybszy i bardziej intuicyjny.
+- **Uniwersalność**: WebAuthn wspiera szeroki zakres metod uwierzytelniania, co pozwala użytkownikom na wybór preferowanej metody.
+
+### Jak działa WebAuthn?
+
+Proces uwierzytelniania z WebAuthn można podzielić na dwa główne etapy: rejestrację i logowanie.
+
+- **Rejestracja**: Użytkownik rejestruje urządzenie uwierzytelniające na stronie internetowej, na przykład poprzez skanowanie odcisku palca lub podłączenie klucza bezpieczeństwa. Strona generuje unikalny klucz publiczny i prywatny dla tej sesji, gdzie klucz prywatny pozostaje na urządzeniu użytkownika, a klucz publiczny jest przechowywany na serwerze.
+- **Logowanie**: Podczas procesu logowania, strona internetowa wysyła _wyzwanie_ do urządzenia użytkownika. Urządzenie używa zapisanego klucza prywatnego do podpisania _wyzwania_, a odpowiedź jest wysyłana z powrotem do strony do weryfikacji za pomocą klucza publicznego. Jeśli podpis zostanie pomyślnie zweryfikowany, użytkownik zostaje zalogowany.
+
+## Passkey
+
+Passkey to nowe i innowacyjne rozwiązanie opracowane przez Google w celu zastąpienia tradycyjnych haseł. Jest to część szerszego trendu w branży technologicznej mającego na celu wprowadzenie bardziej bezpiecznych i wygodnych metod uwierzytelniania, które mogą skutecznie zredukować ryzyko związane z kradzieżą danych i atakami phishingowymi.
+
+Passkey to forma uwierzytelniania bezhasłowego, która wykorzystuje klucze kryptograficzne do weryfikacji tożsamości użytkownika. W przeciwieństwie do tradycyjnych haseł, które mogą być podatne na ataki phishingowe i łatwo skompromitowane, passkey oferuje znacznie bezpieczniejszą alternatywę. Użytkownik autoryzuje się za pomocą urządzenia, na którym jest już uwierzytelniony, takiego jak smartfon, za pomocą metod biometrycznych (np. odcisk palca lub skan twarzy) lub PIN-u.
+
+[Understand passkeys in 4 minutes](https://www.youtube.com/watch?v=2xdV-xut7EQ)
+
+### Jak działa Passkey?
+
+Proces uwierzytelniania z użyciem Passkey rozpoczyna się, gdy użytkownik próbuje zalogować się do serwisu lub aplikacji. Zamiast wpisywania hasła, użytkownik wykorzystuje zarejestrowane urządzenie, na przykład smartfon, do potwierdzenia swojej tożsamości. Urządzenie to komunikuje się z serwisem za pomocą bezpiecznych protokołów kryptograficznych, wymieniając klucze, które potwierdzają tożsamość użytkownika bez przekazywania wrażliwych danych, takich jak hasło.
+
+### Korzyści z użycia Passkey
+
+- **Zwiększone bezpieczeństwo**: Wykorzystanie kryptografii asymetrycznej i uwierzytelniania dwuskładnikowego znacząco utrudnia atakom przejęcie konta.
+- **Eliminacja haseł**: Passkey eliminuje potrzebę zapamiętywania i wprowadzania haseł, co nie tylko poprawia wygodę użytkowania, ale także redukuje ryzyko phishingu.
+- **Wszechstronność**: Passkey można używać na różnych urządzeniach i platformach, zapewniając spójne doświadczenie użytkownika niezależnie od kontekstu logowania.
+- **Łatwość w zarządzaniu**: Dla administratorów systemów passkey upraszcza zarządzanie tożsamościami i dostępem, eliminując konieczność resetowania zapomnianych haseł czy zarządzania bazami haseł.
+
+### Wyzwania
+
+Mimo licznych korzyści, wprowadzenie Passkey jako standardu uwierzytelniania może napotkać na wyzwania, takie jak potrzeba aktualizacji infrastruktury technologicznej, konieczność edukacji użytkowników na temat nowych metod uwierzytelniania oraz zapewnienie kompatybilności z różnorodnymi urządzeniami i systemami operacyjnymi.
+
+## Magic Links
+
+Logowanie za pomocą magicznych linków (ang. magic links) stanowi prostą, a zarazem bezpieczną metodę uwierzytelniania, która eliminuje potrzebę tworzenia i zapamiętywania haseł. Jest to podejście oparte na jednorazowym, unikalnym linku wysyłanym bezpośrednio do użytkownika, zazwyczaj za pośrednictwem wiadomości e-mail. Użytkownik, klikając w ten link, jest automatycznie uwierzytelniany w aplikacji.
+
+### Jak to działa?
+
+- **Żądanie logowania**: Użytkownik wprowadza swój adres e-mail na stronie logowania.
+- **Wysyłanie magicznego linku**: System generuje unikalny, jednorazowy link uwierzytelniający i wysyła go na adres e-mail użytkownika.
+- **Uwierzytelnianie**: Użytkownik klika link w e-mailu, co skutkuje jego uwierzytelnieniem i przekierowaniem do aplikacji.
+
+### Zalety:
+
+- **Bezpieczeństwo**: Unikalne linki zmniejszają ryzyko ataków brute force i phishingu, ponieważ nie opierają się na tradycyjnych hasłach.
+- **Prostota**: Użytkownicy nie muszą pamiętać haseł, co ułatwia proces logowania.
+- **Wygodne odzyskiwanie dostępu**: W przypadku zapomnienia „hasła”, proces odzyskiwania dostępu jest taki sam jak proces logowania.
+
+### Wyzwania:
+
+- **Zależność od e-maila**: Skuteczność metody zależy od dostępności i bezpieczeństwa skrzynki e-mailowej użytkownika.
+- **Potencjalne ryzyko bezpieczeństwa**: Jeśli konto e-mail użytkownika zostanie skompromitowane, atakujący może uzyskać dostęp do wszystkich aplikacji, które używają logowania za pomocą magicznego linku.
+- **Wygaśnięcie linku**: Konieczność monitorowania i zarządzania czasem ważności magicznych linków może wprowadzać dodatkową złożoność.
+
+Logowanie za pomocą magicznych linków jest szczególnie przydatne w aplikacjach, gdzie priorytetem jest prostota użytkowania i minimalizacja barier przy logowaniu. Mimo pewnych wyzwań jest to skuteczna alternatywa dla tradycyjnych metod uwierzytelniania, oferująca dobry balans między bezpieczeństwem a wygodą użytkowania.
+
+Magic linki możecie zobaczyć w praktyce na mojej [stronie z kursami](https://kursy.frontstack.pl/login). Zdecydowałem się na skorzystanie z tej opcji właśnie ze względu na wygodę użytkowników. Chociaż muszę przyznać, że zdarzały mi się sytuacje, gdzie użytkownicy nie do końca rozumieli, jak to działa i czemu nie mogą po prostu wpisać swojego hasła 😉
+
+## Dodatkowe tematy
+
+### Uwierzytelnianie w aplikacjach SPA
+
+Aplikacje jednostronicowe oferują dynamiczny UX, niemalże natychmiastowe ładowanie treści i płynne interakcje bez przeładowywania strony. Uwierzytelnianie w SPA wymaga zastosowania bezstanowych tokenów, takich jak JWT, które mogą być bezpiecznie przechowywane po stronie klienta i używane do komunikacji z serwerem. Ważne jest, aby zabezpieczyć te tokeny przed potencjalnymi atakami, w tym przed XSS, oraz zapewnić ich odnowienie w bezpieczny sposób, aby uniknąć przechwycenia przez nieuprawnione osoby.
+
+### PWA
+
+PWA łączą w sobie najlepsze cechy stron internetowych i natywnych aplikacji mobilnych, oferując funkcjonalności takie jak praca offline, szybkie ładowanie i dostęp do API sprzętowych. Uwierzytelnianie w PWA musi uwzględniać scenariusze pracy offline, co może wymagać synchronizacji danych uwierzytelniających po ponownym nawiązaniu połączenia.
+
+### Serverless
+
+Architektury bezserwerowe (serverless) umożliwiają deweloperom skupienie się na kodzie aplikacji bez konieczności zarządzania infrastrukturą serwerową. W kontekście uwierzytelniania, funkcje serverless często korzystają z zewnętrznych usług uwierzytelniania (np. Auth0, AWS Cognito), które zarządzają procesami uwierzytelniania i autoryzacji. Kluczowe jest zapewnienie, że komunikacja między aplikacją klienta a funkcjami bezserwerowymi jest zabezpieczona i że tokeny są odpowiednio walidowane.
+
+### Kontrola dostępu: RBAC i ABAC
+
+Kontrola dostępu jest nieodłącznym elementem systemów uwierzytelniania, zapewniając, że użytkownicy mają dostęp tylko do zasobów, do których posiadają uprawnienia. _Role-Based Access Control_ (`RBAC`) i _Attribute-Based Access Control_ (`ABAC`) to dwa popularne podejścia do zarządzania dostępem. RBAC opiera się na przydzielaniu dostępu na podstawie roli użytkownika, natomiast ABAC umożliwia bardziej szczegółową kontrolę dostępu, bazując na atrybutach użytkownika, zasobu oraz kontekście żądania.
+
+## Popularne narzędzia i usługi
+
+Autoryzacja jest kluczowym elementem większości aplikacji, dlatego też bardzo często będziemy korzystać z gotowych, sprawdzonych w boju rozwiązań.
+
+Teraz gdy mamy już solidne podstawy wiedzy na temat uwierzytelniania, będziemy w stanie dużo świadomiej podchodzić do wyboru narzędzi i usług, które będą spełniały nasze wymagania biznesowe i techniczne.
+
+Poniżej znajdziecie listę popularnych narzędzi i usług do uwierzytelniania, które warto mieć na uwadze podczas projektowania aplikacji:
+
+- [Auth0](https://auth0.com/)
+- [AWS Cognito](https://aws.amazon.com/cognito/)
+- [Okta](https://www.okta.com/)
+- [Firebase Authentication](https://firebase.google.com/products/auth)
+- [oidc-client-ts](https://authts.github.io/oidc-client-ts/)
+- [Netlify Identity](https://docs.netlify.com/security/secure-access-to-sites/identity/)
+- [Auth.js](https://authjs.dev/)
+- [Passport.js](http://www.passportjs.org/)
+- [Supabase](https://supabase.io/)
+- [Microsoft Authentication Library (MSAL)](https://learn.microsoft.com/en-us/entra/identity-platform/msal-overview)
+- [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/)
+- [Google Identity Platform](https://developers.google.com/identity)
+- [Keycloak](https://www.keycloak.org/)
+- [Ory](https://www.ory.sh/)
+- [OneLogin](https://www.onelogin.com/)
+- [Authlete](https://www.authlete.com/)
+- [FusionAuth](https://fusionauth.io/)
+- [Hanko](https://www.hanko.io/)
+- [SuperTokens](https://supertokens.com/)

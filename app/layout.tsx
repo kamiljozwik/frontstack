@@ -1,4 +1,5 @@
 import { Outfit } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "./globals.scss";
 import { Header } from "./components/header/Header";
@@ -24,6 +25,7 @@ export default function RootLayout({
         {children}
         <Footer />
       </body>
+      <GoogleAnalytics gaId="G-4DSZ34N3CL" />
     </html>
   );
 }

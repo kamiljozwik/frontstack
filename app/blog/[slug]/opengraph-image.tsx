@@ -13,21 +13,37 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default function Image({ params }: { params: { slug: string } }) {
+export default async function Image({ params }: { params: { slug: string } }) {
   const meta = getPostBySlug(params.slug);
 
+  const getInterSemiBold = async () => {
+    const response = await fetch(
+      "https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.13.1/Inter (web hinted latin)/Inter-Bold.woff"
+    );
+    const interSemiBold = await response.arrayBuffer();
+
+    return interSemiBold;
+  };
+
+  // const interSemiBold = fetch("./Outfit-Bold.ttf").then((res) =>
+  //   res.arrayBuffer()
+  // );
+
   return new ImageResponse(
-    (
-      <OgImage>
-        <p style={{ fontSize: 20, color: "#fce746" }}>BLOG</p>
-        <p style={{ fontSize: 60 }}>{meta?.title}</p>
-      </OgImage>
-    ),
+    <OgImage>{meta?.title}</OgImage>,
     // ImageResponse options
     {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageResponse's width and height.
       ...size,
+      fonts: [
+        {
+          name: "Outfit",
+          data: await getInterSemiBold(),
+          style: "normal",
+          weight: 700,
+        },
+      ],
     }
   );
 }

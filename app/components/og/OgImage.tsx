@@ -6,13 +6,11 @@ export const OgImage = ({ children }: PropsWithChildren) => {
     <div
       style={{
         backgroundColor: "rgb(20,30,48)",
-        backgroundImage:
-          "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(24,24,24,1) 80%)",
+        backgroundImage: `url(https://www.frontstack.pl/blog/og/og-image-background.jpg)`,
         color: "#fff",
         width: "100%",
         height: "100%",
         display: "flex",
-        // justifyContent: "center",
       }}
     >
       <div
@@ -36,7 +34,7 @@ export const OgImage = ({ children }: PropsWithChildren) => {
             top: "20%",
           }}
         >
-          <p style={{ fontSize: (children as string).length < 30 ? 80 : 60 }}>
+          <p style={{ fontSize: (children as string).length < 30 ? 90 : 70 }}>
             {children}
           </p>
         </div>

@@ -18,7 +18,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 
   const getInterSemiBold = async () => {
     const response = await fetch(
-      "https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.13.1/Inter (web hinted latin)/Inter-Bold.woff"
+      "https://www.frontstack.pl/blog/og/Outfit-Bold.ttf"
     );
     const interSemiBold = await response.arrayBuffer();
 

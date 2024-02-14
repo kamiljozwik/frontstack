@@ -1,5 +1,7 @@
+import { Figure } from "../../components/posts";
+
 export const meta = {
-  title: "Frontend i autoryzacja",
+  title: "Uwierzytelnianie i autoryzacja po stronie frontendu",
   seo_desc:
     "Teoretyczne podstawy, rozważania dotyczące bezpieczeństwa i najlepsze praktyki związane z uwierzytelnianiem użytkowników po stronie frontendu.",
   short:
@@ -8,23 +10,37 @@ export const meta = {
   tags: ["Security"],
 };
 
-Z racji tego, że musiałem w ostatnim czasie odświeżyć swoją wiedzę dotyczącą autoryzacji, postanowiłem, że jest to dobry moment, aby podzielić się swoją wiedzą na ten temat.
+Z racji tego, że musiałem w ostatnim czasie odświeżyć swoją wiedzę dotyczącą uwierzytelniania, pomyślałem, że jest to dobry moment, aby przygotować z tej powtórki tego posta.
 
 W artykule tym omówię teoretyczne podstawy, rozważania dotyczące bezpieczeństwa i najlepsze praktyki związane z uwierzytelnianiem użytkowników po stronie frontendu.
 
 Nie będziemy tutaj niczego implementować, bardziej skupię się na przeglądzie różnych technologii i protokołów, które powinniśmy znać i rozumieć, nawet wtedy, gdy korzystamy z gotowych rozwiązań.
 
+## Uwierzytelnianie i autoryzacja
+
+Uwierzytelnianie (autentykacja, _authentication_) i autoryzacja (_authorization_) to dwa fundamentalne aspekty bezpieczeństwa systemów informatycznych, które często są mylone, ale odnoszą się do różnych procesów.
+
+- **Uwierzytelnianie** jest procesem weryfikacji tożsamości użytkownika. Polega na potwierdzeniu, że osoba próbująca uzyskać dostęp do systemu jest tym, za kogo się podaje. Może to być realizowane za pomocą hasła, danych biometrycznych, klucza bezpieczeństwa lub innego mechanizmu. Celem uwierzytelniania jest odpowiedź na pytanie: „Kim jesteś?”
+
+- **Autoryzacja** następuje po uwierzytelnieniu i określa, do jakich zasobów i operacji użytkownik ma dostęp w systemie. Jest to proces przyznawania lub odbierania uprawnień do określonych danych lub funkcji. Autoryzacja odpowiada na pytanie: „Co możesz zrobić?”
+
+<Figure
+  src="/blog/autoryzacja/compare.webp"
+  alt="Różnice między autoryzacją a autentykacją"
+  caption="Źródło: https://www.okta.com/identity-101/authentication-vs-authorization/"
+/>
+
 ## Podstawy
 
-Zrozumienie protokołów uwierzytelniania, takich jak OAuth, OpenID Connect i SAML, jest niezwykle ważne dla zaprojektowania bezpiecznego i wydajnego systemu uwierzytelniania. Każdy z tych protokołów oferuje różne mechanizmy kontroli dostępu, które mogą być dostosowane do specyficznych potrzeb aplikacji. Ponadto, zasady zapewnienia bezpiecznego uwierzytelniania - poufność, integralność i dostępność - muszą być ściśle przestrzegane, aby zminimalizować ryzyko naruszeń bezpieczeństwa.
+Zrozumienie protokołów uwierzytelniania, takich jak OAuth, OpenID Connect i SAML, jest niezwykle ważne dla zaprojektowania bezpiecznego i wydajnego systemu. Każdy z tych protokołów oferuje różne mechanizmy kontroli dostępu, które mogą być dostosowane do specyficznych potrzeb aplikacji. Ponadto, zasady zapewnienia bezpiecznego uwierzytelniania - poufność, integralność i dostępność - muszą być ściśle przestrzegane, aby zminimalizować ryzyko naruszeń bezpieczeństwa.
 
 Co więcej, zabezpieczenie przed atakami typu Cross-Site Scripting (XSS) i Cross-Site Request Forgery (CSRF) jest dzisiaj praktycznie niezbędne dla każdego systemu uwierzytelniania. Do tego dochodzi nam zabezpieczenie przed kradzieżą tokenów i atakami typu [replay](https://www.youtube.com/watch?v=ai6qS13gKRo).
 
-Niestety nie ma tutaj miejsca na kompromisy
+Niestety nie ma tutaj miejsca na kompromisy.
 
 ## Znaczenie uwierzytelniania
 
-Uwierzytelnianie użytkownika pełni w naszych aplikacjach podwójną rolę. Z jednej strony, jest to pierwsza linia obrony przed nieautoryzowanym dostępem do zasobów i danych. Z drugiej strony, sposób, w jaki użytkownicy są uwierzytelniani, ma bezpośredni wpływ na ich doświadczenia (UX) podczas korzystania z aplikacji. Skuteczne systemy uwierzytelniania muszą znaleźć równowagę między rygorystycznym bezpieczeństwem a płynnością i prostotą użytkowania.
+Uwierzytelnienie oraz autoryzacja użytkownika pełni w naszych aplikacjach podwójną rolę. Z jednej strony, jest to pierwsza linia obrony przed nieautoryzowanym dostępem do zasobów i danych. Z drugiej strony, sposób, w jaki użytkownicy są uwierzytelniani, ma bezpośredni wpływ na ich doświadczenia (UX) podczas korzystania z aplikacji. Skuteczne systemy uwierzytelniania muszą znaleźć równowagę między rygorystycznym bezpieczeństwem a płynnością i prostotą użytkowania.
 
 ### Uwierzytelnianie po stronie klienta i serwera
 
@@ -32,7 +48,7 @@ Tradycyjnie, uwierzytelnianie realizowane było po stronie serwera, gdzie aplika
 
 ### Tokeny i sesje
 
-Tokeny (np. `JWT` ([_JSON Web Tokens_](https://jwt.io/))) i sesje są dwoma dominującymi metodami zarządzania stanem uwierzytelnienia w aplikacjach webowych.
+Tokeny (np. `JWT` ([_JSON Web Tokens_](https://jwt.io/))) i sesje są dwoma dominującymi metodami zarządzania stanem uwierzytelnienia oraz autoryzacji w aplikacjach webowych.
 
 Tokeny JWT, przechowywane po stronie klienta, oferują sposób na bezstanową weryfikację i autoryzację użytkownika. Z drugiej strony, sesje, zarządzane po stronie serwera, tradycyjnie wykorzystują ciasteczka do przechowywania identyfikatorów sesji. Wybór między tokenami a sesjami zależy od wielu czynników, w tym wymagań bezpieczeństwa, skalowalności aplikacji i doświadczenia użytkownika.
 
@@ -54,7 +70,7 @@ Pozwoli nam to nie tylko tworzyć bezpieczne i efektywne rozwiązania, ale takż
 
 ### OpenID Connect
 
-[OpenID Connect](https://openid.net/developers/how-connect-works/) (OIDC) działa na bazie OAuth 2.0 i dodaje warstwę uwierzytelniania do procesu autoryzacji. Pozwala klientom na weryfikację tożsamości użytkownika końcowego na podstawie uwierzytelnienia przeprowadzonego przez serwer autoryzacji.
+[OpenID Connect](https://openid.net/developers/how-connect-works/) (OIDC) działa na bazie OAuth 2.0 i dodaje warstwę uwierzytelniania do procesu autoryzacji. Pozwala klientom na weryfikację tożsamości użytkownika końcowego na podstawie przeprowadzonego uwierzytelnienia.
 
 [What is OpenID Connect?](https://www.youtube.com/watch?v=CHczpasUEIc)
 
@@ -64,7 +80,7 @@ Jak można zauważyć, OAuth i OIDC są często używane razem w architekturze s
 
 OAuth 2.0 jest protokołem autoryzacji, który umożliwia aplikacjom uzyskanie ograniczonego dostępu do zasobów użytkownika na innym serwerze. Jest to realizowane za pomocą tokenu dostępu, który aplikacja może użyć do żądania zasobów w imieniu użytkownika bez konieczności poznawania jego danych uwierzytelniających. OAuth 2.0 jest szeroko stosowany do delegowania uprawnień, umożliwiając użytkownikom udzielanie aplikacjom dostępu do swoich danych bez dzielenia się swoimi hasłami.
 
-OpenID Connect, zbudowany na fundamencie OAuth 2.0, dodaje warstwę uwierzytelniania do procesu autoryzacji. OIDC umożliwia klientom (aplikacjom) weryfikację tożsamości użytkownika końcowego oraz uzyskanie podstawowych informacji o profilu użytkownika na podstawie uwierzytelnienia przeprowadzonego przez serwer autoryzacji. OIDC wprowadza pojęcie _ID tokenu_, który zawiera informacje o tożsamości użytkownika oraz jest podpisany przez serwer autoryzacji, co umożliwia jego weryfikację przez aplikację.
+OpenID Connect, zbudowany na fundamencie OAuth 2.0, dodaje warstwę uwierzytelniania do procesu autoryzacji. OIDC umożliwia klientom (aplikacjom) weryfikację tożsamości użytkownika końcowego oraz uzyskanie podstawowych informacji o profilu użytkownika na podstawie przeprowadzonego uwierzytelnienia. OIDC wprowadza pojęcie _ID tokenu_, który zawiera informacje o tożsamości użytkownika oraz jest podpisany przez serwer autoryzacji, co umożliwia jego weryfikację przez aplikację.
 
 - **OAuth 2.0** zajmuje się bezpiecznym delegowaniem dostępu do zasobów, umożliwiając aplikacjom działanie w imieniu użytkownika bez konieczności poznawania jego danych uwierzytelniających.
 - **OpenID Connect** dodaje funkcjonalność uwierzytelniania, umożliwiając aplikacjom weryfikację tożsamości użytkownika i uzyskanie informacji o jego profilu.
@@ -145,7 +161,7 @@ MFA znacząco zwiększa bezpieczeństwo poprzez wymaganie od użytkownika potwie
 
 Projektowanie systemów uwierzytelniania, które są jednocześnie bezpieczne i łatwe w obsłudze, jest nie lada wyzwaniem. Poniżej umieściłem kilka głównych zasad pomagających w tworzeniu rozwiązań, które nie tylko chronią przed potencjalnymi atakami, ale także zapewniają płynność i intuicyjność użytkowania.
 
-- **Prostota i intuicyjność**: Interfejsy uwierzytelniania powinny być proste i intuicyjne, aby maksymalnie ułatwić użytkownikom proces autoryzacji. Kompleksowe formularze i procesy mogą zniechęcać i prowadzić do błędów, które z kolei mogą wpływać na bezpieczeństwo.
+- **Prostota i intuicyjność**: Interfejsy uwierzytelniania powinny być proste i intuicyjne, aby maksymalnie ułatwić użytkownikom proces uwierzytelniania. Kompleksowe formularze i procesy mogą zniechęcać i prowadzić do błędów, które z kolei mogą wpływać na bezpieczeństwo.
 - **Komunikaty o błędach**: Jasne i pomocne komunikaty o błędach mogą znacząco poprawić doświadczenie użytkownika. Komunikaty te powinny być dostatecznie informacyjne, aby użytkownik wiedział, jak poprawić błąd, ale bez ujawniania informacji, które mogłyby zostać wykorzystane przez potencjalnych atakujących. _Ups, coś poszło nie tak..._ nie wystarczy 😉
 - **Dostępność**: Projektując systemy uwierzytelniania, należy wziąć pod uwagę dostępność, aby osoby z różnymi potrzebami mogły bez problemu korzystać z aplikacji. Obejmuje to czytelność tekstu, kontrast kolorów, wsparcie dla czytników ekranu i możliwość nawigacji za pomocą klawiatury.
 
@@ -176,7 +192,7 @@ System SSO składa się z kilku kluczowych elementów:
 
 Rodzaje SSO:
 
-- **Federated SSO**: Użytkownik autoryzuje się za pośrednictwem swojego domowego IdP, który następnie udziela autoryzacji dla różnych aplikacji, nawet jeśli są one hostowane przez różne organizacje.
+- **Federated SSO**: Użytkownik uwierzytelnia się za pośrednictwem swojego domowego IdP, który następnie udziela autoryzacji dla różnych aplikacji, nawet jeśli są one hostowane przez różne organizacje.
 - **Enterprise SSO**: W tym przypadku IdP jest zarządzany wewnętrznie przez organizację i udziela autoryzacji dla aplikacji w ramach tej samej infrastruktury IT.
 
 ### Implementacja SSO
@@ -281,7 +297,7 @@ Kontrola dostępu jest nieodłącznym elementem systemów uwierzytelniania, zape
 
 ## Popularne narzędzia i usługi
 
-Autoryzacja jest kluczowym elementem większości aplikacji, dlatego też bardzo często będziemy korzystać z gotowych, sprawdzonych w boju rozwiązań.
+Uwierzytelnianie użytkowników jest kluczowym elementem większości aplikacji, dlatego też bardzo często będziemy korzystać z gotowych, sprawdzonych w boju rozwiązań.
 
 Teraz gdy mamy już solidne podstawy wiedzy na temat uwierzytelniania, będziemy w stanie dużo świadomiej podchodzić do wyboru narzędzi i usług, które będą spełniały nasze wymagania biznesowe i techniczne.
 

@@ -6,6 +6,9 @@ import { npmClient } from "./clients/npm";
 import { columns } from "./table/columns";
 import { DataTable } from "./table/DataTable";
 import { getFilenames } from "../utils/getFilenames";
+import { PageHeader } from "@/app/components/headers/Headers";
+import { toolsNames } from "../dictionary";
+import Link from "next/link";
 
 export const revalidate = 86400; // Refresh data every 24h
 
@@ -27,9 +30,17 @@ export default async function LibPage({ params }: Props) {
   const toolsWitData = await getLibsData(tools);
 
   return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={toolsWitData} />
-    </div>
+    <main>
+      <div className="m-12 text-center">
+        <Link className="text-white" href="/biblioteki">
+          Biblioteki
+        </Link>{" "}
+        <h2 className="text-5xl mt-4">{toolsNames[params.slug]} </h2>
+      </div>
+      <div className="container mx-auto py-10 animate-in fade-in slide-in-from-bottom-10 duration-500">
+        <DataTable columns={columns} data={toolsWitData} />
+      </div>
+    </main>
   );
 }
 

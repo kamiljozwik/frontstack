@@ -1,178 +1,145 @@
 [
   {
-    "github": "https://github.com/chancejs/chancejs",
-    "website": "http://chancejs.com/",
-    "npm": "chance"
+    "github": "https://github.com/airbnb/lottie",
+    "website": "http://airbnb.io/lottie/"
   },
   {
-    "github": "https://github.com/typicode/json-server",
-    "npm": "json-server"
+    "github": "https://github.com/chenglou/react-motion",
+    "npm": "react-motion"
   },
   {
-    "github": "https://github.com/sinonjs/sinon",
-    "website": "https://sinonjs.org/",
-    "npm": "sinon"
+    "website": "https://greensock.com/",
+    "npm": "gsap"
   },
   {
-    "github": "https://github.com/nock/nock",
-    "npm": "nock"
+    "github": "https://github.com/juliangarnier/anime/",
+    "website": "https://animejs.com/",
+    "npm": "animejs"
   },
   {
-    "github": "https://github.com/testing-library/react-testing-library",
-    "website": "https://testing-library.com/docs/react-testing-library/intro",
-    "npm": "@testing-library/react"
+    "github": "https://github.com/maxwellito/vivus",
+    "website": "http://maxwellito.github.io/vivus/",
+    "npm": "vivus"
   },
   {
-    "github": "https://github.com/faker-js/faker",
-    "website": "https://fakerjs.dev/",
-    "npm": "@faker-js/faker"
+    "github": "https://github.com/react-spring/react-spring",
+    "website": "https://www.react-spring.io/",
+    "npm": "react-spring"
   },
   {
-    "github": "https://github.com/facebook/jest",
-    "website": "https://jestjs.io/",
-    "npm": "jest"
+    "github": "https://github.com/scrollreveal/scrollreveal",
+    "website": "https://scrollrevealjs.org/",
+    "npm": "scrollreveal"
   },
   {
-    "github": "https://github.com/mochajs/mocha",
-    "website": "https://mochajs.org/",
-    "npm": "mocha"
+    "github": "https://github.com/julianshapiro/velocity",
+    "website": "http://velocityjs.org/",
+    "npm": "velocity-animate"
   },
   {
-    "github": "https://github.com/jasmine/jasmine",
-    "website": "https://jasmine.github.io",
-    "npm": "jasmine"
+    "github": "https://github.com/michalsnik/aos",
+    "website": "http://michalsnik.github.io/aos/",
+    "npm": "aos"
   },
   {
-    "github": "https://github.com/airbnb/enzyme",
-    "website": "https://airbnb.io/enzyme/",
-    "npm": "enzyme"
+    "github": "https://github.com/matthieua/WOW",
+    "website": "https://www.delac.io/wow/",
+    "npm": "wowjs"
   },
   {
-    "github": "https://github.com/cypress-io/cypress",
-    "website": "https://www.cypress.io",
-    "npm": "cypress"
+    "github": "https://github.com/bluebill1049/react-simple-animate",
+    "website": "https://react-simple-animate.now.sh/",
+    "npm": "react-simple-animate"
   },
   {
-    "github": "https://github.com/qunitjs/qunit",
-    "website": "https://qunitjs.com/",
-    "npm": "qunit"
+    "github": "https://github.com/nearform/react-animation",
+    "website": "https://nearform.github.io/react-animation/",
+    "npm": "@nearform/react-animation"
   },
   {
-    "github": "https://github.com/avajs/ava",
-    "npm": "ava"
+    "github": "https://github.com/framer/motion",
+    "website": "https://www.framer.com/motion/",
+    "npm": "framer-motion"
   },
   {
-    "github": "https://github.com/chaijs/chai",
-    "website": "https://www.chaijs.com",
-    "npm": "chai"
+    "github": "https://github.com/Popmotion/popmotion",
+    "website": "https://popmotion.io/popcorn/",
+    "npm": "@popmotion/popcorn"
   },
   {
-    "github": "https://github.com/Raathigesh/majestic/",
-    "npm": "majestic"
+    "github": "https://github.com/reactjs/react-transition-group",
+    "website": "https://reactcommunity.org/react-transition-group/",
+    "npm": "react-transition-group"
   },
   {
-    "github": "https://github.com/testing-library/react-hooks-testing-library",
-    "website": "https://react-hooks-testing-library.com/",
-    "npm": "@testing-library/react-hooks"
+    "github": "https://github.com/alexmacarthur/typeit",
+    "website": "https://typeitjs.com/",
+    "npm": "typeit"
   },
   {
-    "github": "https://github.com/dmitry-zaets/redux-mock-store",
-    "npm": "redux-mock-store"
+    "github": "https://github.com/ant-design/ant-motion/",
+    "website": "https://motion.ant.design/"
   },
   {
-    "github": "https://github.com/timkindberg/jest-when",
-    "npm": "jest-when"
+    "github": "https://github.com/rnosov/react-reveal",
+    "website": "https://www.react-reveal.com/",
+    "npm": "react-reveal"
   },
   {
-    "github": "https://github.com/testing-library/dom-testing-library",
-    "website": "https://testing-library.com",
-    "npm": "@testing-library/dom"
+    "github": "https://github.com/toorshia/justgage",
+    "npm": "justgage"
   },
   {
-    "github": "https://github.com/jsdom/jsdom",
-    "npm": "jsdom"
+    "github": "https://github.com/franciscop/ola/",
+    "npm": "ola"
   },
   {
-    "github": "https://github.com/bahmutov/start-server-and-test",
-    "npm": "start-server-and-test"
+    "github": "https://github.com/davidhu2000/react-spinners",
+    "website": "https://www.react-spinners.com/",
+    "npm": "react-spinners"
   },
   {
-    "github": "https://github.com/puppeteer/puppeteer",
-    "website": "https://pptr.dev/",
-    "npm": "puppeteer"
+    "github": "https://github.com/webkul/micron",
+    "website": "https://webkul.github.io/micron/",
+    "npm": "webkul-micron"
   },
   {
-    "github": "https://github.com/dequelabs/axe-core",
-    "website": "https://www.deque.com/axe/",
-    "npm": "axe-core"
+    "github": "https://github.com/a-jie/Proton",
+    "website": "http://a-jie.github.io/Proton/",
+    "npm": "proton-engine"
   },
   {
-    "github": "https://github.com/stryker-mutator/stryker",
-    "website": "https://stryker-mutator.io/",
-    "npm": "@stryker-mutator/core"
+    "github": "https://github.com/popperjs/popper-core",
+    "website": "https://popper.js.org/",
+    "npm": "@popperjs/core"
   },
   {
-    "github": "https://github.com/wheresrhys/fetch-mock",
-    "website": "http://www.wheresrhys.co.uk/fetch-mock/",
-    "npm": "fetch-mock"
+    "github": "https://github.com/daybrush/scenejs",
+    "website": "https://daybrush.com/scenejs/",
+    "npm": "scenejs"
   },
   {
-    "github": "https://github.com/testing-library/jest-dom",
-    "website": "https://testing-library.com/docs/ecosystem-jest-dom",
-    "npm": "@testing-library/jest-dom"
+    "github": "https://github.com/jeremyckahn/shifty",
+    "website": "https://jeremyckahn.github.io/shifty/doc/",
+    "npm": "shifty"
   },
   {
-    "github": "https://github.com/jsonmaur/namor",
-    "npm": "namor"
+    "github": "https://github.com/ingram-projects/animxyz",
+    "website": "https://animxyz.com/",
+    "npm": "@animxyz/core"
   },
   {
-    "github": "https://github.com/microsoft/playwright",
-    "website": "https://playwright.dev/",
-    "npm": "playwright"
+    "github": "https://github.com/mojs/mojs",
+    "website": "https://mojs.github.io/",
+    "npm": "@mojs/core"
   },
   {
-    "github": "https://github.com/mswjs/msw",
-    "website": "https://mswjs.io/",
-    "npm": "msw"
+    "github": "https://github.com/theatre-js/theatre",
+    "website": "https://www.theatrejs.com/",
+    "npm": "@theatre/core"
   },
   {
-    "github": "https://github.com/dubzzz/fast-check",
-    "website": "https://dubzzz.github.io/fast-check.github.com/",
-    "npm": "fast-check"
-  },
-  {
-    "github": "https://github.com/open-source-labs/spearmint",
-    "website": "https://www.spearmintjs.com/"
-  },
-  {
-    "github": "https://github.com/cucumber/cucumber-js",
-    "website": "https://cucumber.io/",
-    "npm": "@cucumber/cucumber"
-  },
-  {
-    "github": "https://github.com/http-party/http-server",
-    "npm": "http-server"
-  },
-  {
-    "github": "https://github.com/ctimmerm/axios-mock-adapter",
-    "npm": "axios-mock-adapter"
-  },
-  {
-    "github": "https://github.com/jest-community/jest-extended",
-    "npm": "jest-extended"
-  },
-  {
-    "github": "https://github.com/SeleniumHQ/selenium",
-    "website": "https://www.selenium.dev/",
-    "npm": "selenium-webdriver"
-  },
-  {
-    "github": "https://github.com/Netflix/pollyjs",
-    "website": "https://netflix.github.io/pollyjs",
-    "npm": "@pollyjs/core"
-  },
-  {
-    "github": "https://github.com/sorry-cypress/sorry-cypress",
-    "website": "https://sorry-cypress.dev/"
+    "website": "https://motion.dev/",
+    "npm": "motion"
   }
 ]

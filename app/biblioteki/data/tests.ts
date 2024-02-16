@@ -74,10 +74,6 @@ export const tools: Tool[] = [
     npm: "@testing-library/react-hooks",
   },
   {
-    github: "https://github.com/dmitry-zaets/redux-mock-store",
-    npm: "redux-mock-store",
-  },
-  {
     github: "https://github.com/timkindberg/jest-when",
     npm: "jest-when",
   },

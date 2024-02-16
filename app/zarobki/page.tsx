@@ -18,10 +18,6 @@ const Zarobki = () => {
       <Rules />
       <Insight />
       <ReportTable />
-      <section>
-        <h2>4. Liczba ofert pracy w popularnych job boardach:</h2>
-        <p>Coming soon... ⌛</p>
-      </section>
     </main>
   );
 };

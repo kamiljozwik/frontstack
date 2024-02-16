@@ -1,5 +1,5 @@
 export const toolsNames: { [key: string]: string } = {
-  frameworks: "Frameworki UI",
+  frameworks: "Frameworki",
   tests: "Testowanie",
   auth: "Uwierzytelnianie",
   charts: "Wykresy",

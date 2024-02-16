@@ -5,13 +5,16 @@ import { toolsNames } from "./dictionary";
 import { ToolsCard } from "./components/ToolsCard";
 import { PageHeader } from "../components/headers/Headers";
 
-const Bibloteki = () => {
-  const tools = getFilenames();
+const Bibloteki = async () => {
+  const tools = [...new Set(["frameworks", ...getFilenames()])];
 
   return (
     <main>
-      <PageHeader desc="Lorem ipsum" className="mb-12">
-        Biblioteki
+      <PageHeader
+        desc="Tylko sprawdzone w boju rozwiązania 💪"
+        className="mb-20"
+      >
+        Biblioteki i frameworki frontendowe
       </PageHeader>
       <section className="flex gap-6 flex-wrap animate-in fade-in duration-300">
         {tools.map((tool) =>
@@ -19,9 +22,9 @@ const Bibloteki = () => {
             <Link
               href={`biblioteki/${tool}`}
               key={tool}
-              className="hover:no-underline"
+              className="hover:no-underline w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3333%-1rem)]"
             >
-              <ToolsCard title={toolsNames[tool]} />
+              <ToolsCard tool={tool} />
             </Link>
           ) : null
         )}

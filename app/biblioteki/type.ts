@@ -39,4 +39,5 @@ export type NpmData = {
   start: string;
   end: string;
   package: string;
+  lastReleaseDate: string;
 };

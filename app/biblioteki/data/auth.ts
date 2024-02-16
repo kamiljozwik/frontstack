@@ -4,7 +4,7 @@ export const tools: Tool[] = [
   {
     name: "Auth0",
     github: "https://github.com/auth0/auth0-spa-js",
-    npm: "auth0-spa-js",
+    npm: "@auth0/auth0-spa-js",
     website: "https://auth0.com/",
   },
   {

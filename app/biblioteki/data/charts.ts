@@ -2,17 +2,9 @@ import { Tool } from "../type";
 
 export const tools: Tool[] = [
   {
-    website: "https://developers.google.com/chart/",
-  },
-  {
     github: "https://github.com/d3/d3",
     website: "https://d3js.org/",
     npm: "d3",
-  },
-  {
-    github: "https://github.com/c3js/c3",
-    website: "https://c3js.org/",
-    npm: "c3",
   },
   {
     github: "https://github.com/chartjs/Chart.js",
@@ -25,11 +17,6 @@ export const tools: Tool[] = [
     npm: "plottable",
   },
   {
-    github: "https://github.com/d3fc/d3fc",
-    website: "https://d3fc.io/",
-    npm: "d3fc",
-  },
-  {
     github: "https://github.com/recharts/recharts",
     website: "http://recharts.org/en-US/",
     npm: "recharts",
@@ -40,19 +27,9 @@ export const tools: Tool[] = [
     npm: "nivo",
   },
   {
-    github: "https://github.com/uber/react-vis",
-    website: "http://uber.github.io/react-vis/",
-    npm: "react-vis",
-  },
-  {
     github: "https://github.com/apexcharts/apexcharts.js",
     website: "https://apexcharts.com/",
     npm: "apexcharts",
-  },
-  {
-    github: "https://github.com/metricsgraphics/metrics-graphics",
-    website: "https://metricsgraphicsjs.org/",
-    npm: "metrics-graphics",
   },
   {
     github: "https://github.com/bvaughn/react-virtualized",
@@ -63,10 +40,6 @@ export const tools: Tool[] = [
     github: "https://github.com/bvaughn/react-window",
     website: "https://react-window.now.sh/",
     npm: "react-window",
-  },
-  {
-    website: "https://www.webdatarocks.com/",
-    npm: "webdatarocks",
   },
   {
     github: "https://github.com/olifolkerd/tabulator",
@@ -88,11 +61,6 @@ export const tools: Tool[] = [
     npm: "react-table",
   },
   {
-    github: "https://github.com/timqian/chart.xkcd",
-    website: "https://timqian.com/chart.xkcd/",
-    npm: "chart.xkcd",
-  },
-  {
     github: "https://github.com/zcreativelabs/react-simple-maps",
     website: "https://www.react-simple-maps.io/",
     npm: "react-simple-maps",
@@ -106,14 +74,6 @@ export const tools: Tool[] = [
     github: "https://github.com/riccardoscalco/textures",
     website: "http://riccardoscalco.github.io/textures/",
     npm: "textures",
-  },
-  {
-    github: "https://github.com/hshoff/vx",
-    website: "https://vx-demo.now.sh/",
-  },
-  {
-    github: "https://github.com/dc-js/dc.js",
-    npm: "dc",
   },
   {
     github: "https://github.com/FormidableLabs/victory",
@@ -146,11 +106,6 @@ export const tools: Tool[] = [
     npm: "ag-grid-community",
   },
   {
-    github: "https://github.com/GriddleGriddle/Griddle",
-    website: "http://griddlegriddle.github.io/Griddle/",
-    npm: "griddle-react",
-  },
-  {
     github: "https://github.com/gregnb/mui-datatables",
     website: "https://www.material-ui-datatables.com/",
     npm: "mui-datatables",
@@ -175,16 +130,6 @@ export const tools: Tool[] = [
     github: "https://github.com/apache/incubator-echarts",
     website: "https://echarts.apache.org/en/index.html",
     npm: "echarts",
-  },
-  {
-    github: "https://github.com/mbrn/material-table",
-    website: "https://material-table.com/#/",
-    npm: "material-table",
-  },
-  {
-    github: "https://github.com/shutterstock/rickshaw",
-    website: "https://tech.shutterstock.com/rickshaw/",
-    npm: "rickshaw",
   },
   {
     github: "https://github.com/tannerlinsley/react-virtual",
@@ -219,11 +164,6 @@ export const tools: Tool[] = [
     npm: "deck.gl",
   },
   {
-    github: "https://github.com/williamngan/pts",
-    website: "https://ptsjs.org/",
-    npm: "pts",
-  },
-  {
     github: "https://github.com/petyosi/react-virtuoso",
     website: "https://virtuoso.dev/",
     npm: "react-virtuoso",
@@ -232,10 +172,6 @@ export const tools: Tool[] = [
     github: "https://github.com/jbetancur/react-data-table-component",
     website: "https://react-data-table-component.netlify.app/",
     npm: "react-data-table-component",
-  },
-  {
-    github: "https://github.com/jwilber/roughViz",
-    npm: "rough-viz",
   },
   {
     github: "https://github.com/Happy-Coding-Clans/vue-easytable",

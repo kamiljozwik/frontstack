@@ -1,0 +1,73 @@
+export const meta = {
+  title: "npm i Node.js, nauki płynące od juniorów, centrowanie w CSS, LLRT",
+  date: "2024-02-18",
+  period: "12.02.2024 - 18.02.2024",
+};
+
+## `npm` pożegna się z Node.js?
+
+W społeczności Node.js rozgorzała gorąca debata dotycząca propozycji domyślnego włączenia [Corepack](https://nodejs.org/api/corepack.html), co rodzi pytania o możliwość odłączenia `npm` od binarnych wersji Node.js.
+
+Corepack pozwala na używanie `yarn`, `npm` i `pnpm` bez konieczności ich instalacji, jednakże obecnie deweloperzy muszą aktywować Corepack, aby zainstalować `yarn` i `pnpm`.
+
+Z jednej strony, zwolennicy Corepack argumentują, że ułatwiłoby to zarządzanie wersjami menedżerów pakietów i promowało równość szans dla alternatywnych menedżerów pakietów. Z drugiej strony, `npm` wyraźnie sprzeciwia się dystrybucji poprzez Corepack, podnosząc szereg technicznych problemów.
+
+Kwestia ta skłoniła Node.js do rozważenia, czy Corepack powinien być włączony domyślnie, co brzmi jak krok do usunięcia `npm` z binarnych wersji Node.js Wywołuje to jednak nieco kontrowersji i zapewne doprowadzi do głębszej dyskusji o przyszłości i roli `npm` w ekosystemie Node.js.
+
+Źródło:
+[socket.dev/blog/node-community-debates-enabling-corepack-unbundling-npm](https://socket.dev/blog/node-community-debates-enabling-corepack-unbundling-npm)
+
+## Czego możemy nauczyć się od juniorów?
+
+Bardzo fajny artykuł na Smashing Magazine, który przedstawia doświadczenia autora związane z nauczaniem frontendu osób początkujących.
+
+Autor opisuje, jak wrócił do nauki web developmentu, aby odświeżyć swoje spojrzenie na ten kierunek i zaskoczył się wartością pytań zadawanych przez niedoświadczonych kursantów. Studenci zadają ciekawe pytania dotyczące znaczenia semantycznego elementów HTML, obsługi różnych języków i dostępności, co skłania do ponownej refleksji nad dotychczasowo stosowanymi praktykami w naszej branży.
+
+Autor podkreśla, że początkujące osoby wnoszą świeże perspektywy i zadają pytania na tematy, które doświadczeni deweloperzy mogą przeoczyć (albo o nich już zapomnieć), co jest przypomnieniem o tym jak ważne są podstawy i otwartość na nowe podejścia w edukacji. I praktyce web developmentu 🙂
+
+<small>
+  Źródło:
+  [www.smashingmagazine.com/2024/02/frequently-heard-beginning-front-end-web-development-class](https://www.smashingmagazine.com/2024/02/frequently-heard-beginning-front-end-web-development-class)
+</small>
+
+## Jak wyśrodkować element w CSS?
+
+Nie spodziewałem się, że w 2024 roku będę poruszał takie tematy na tym blogu, ale nigdy nie można mówić nigdy 😉
+
+Josh Comeau w swoim przewodniku "How To Center a Div" odkrywa różne metody centrowania elementów w CSS, co historycznie było zadaniem zaskakująco trudnym. Przedstawia strategie wykorzystujące `margin`, `flexbox`, `CSS Grid` oraz wiele innych, wskazując na ich zalety i zastosowania w różnych kontekstach.
+
+Oprócz tradycyjnych metod omawia on również nowoczesne podejścia, takie jak wykorzystanie właściwości `fit-content` czy pozycjonowanie względem `viewportu`.
+
+Bardzo dobrze czytający się i przystępny artykuł, który warto przeczytać, nawet jeśli uważasz, że znasz wszystkie sposoby centrowania elementów w CSS.
+
+<small>
+  Źródło:
+  [www.joshwcomeau.com/css/center-a-div](https://www.joshwcomeau.com/css/center-a-div)
+</small>
+
+## Nowy `runtime` dla JavaScript
+
+LLRT (Low Latency Runtime) to eksperymentalne środowisko uruchomieniowe JavaScript stworzone przez AWS Labs, które wyróżnia się niezwykle szybkim startem i efektywnością kosztową, zaprojektowane z myślą o aplikacjach typu serverless.
+
+Dzięki wykorzystaniu [Rusta](https://www.rust-lang.org/) i silnika [QuickJS](https://bellard.org/quickjs/) LLRT oferuje do 10 razy szybsze uruchamianie i do 2 razy niższe koszty w porównaniu z innymi środowiskami uruchomieniowymi JavaScript na AWS Lambda.
+
+LLRT jest pakietem eksperymentalnym i (na razie) nie zastępuje Node.js, ale oferuje alternatywę dla aplikacji krytycznych pod względem wydajności. LLRT wspiera ES2020, ale wymaga dostosowania zależności i kodu do swojej specyfiki. Projekt dostarcza również narzędzi do testowania zgodności kodu z LLRT, co nieco ułatwia adaptację istniejących rozwiązań.
+
+<small>
+  Źródło: [github.com/awslabs/llrt](https://github.com/awslabs/llrt)
+</small>
+
+## Next.js - trochę dobrych słów
+
+W kilku ostatnich frontendówkach wspominałem głównie o negatywnych aspektach związanych z Next.js (nie było to celowe, po prostu na takie materiały trafiałem), więc teraz czas na trochę pozytywnych informacji.
+
+W artykule opublikowanym przez Hardcover, autor dzieli się swoim doświadczeniem zwiększenia aż dwudziestokrotnie ruchu z wyszukiwarek w ciągu czterech miesięcy, dzięki zastosowaniu `app router`.
+
+Autor szczegółowo opisuje, jak początkowe błędy w rozwoju aplikacji React.js i Next.js mogły negatywnie wpłynąć na indeksowanie przez Google, a także jak strategiczne decyzje dotyczące wydajności i SEO przyczyniły się do znaczącej poprawy.
+
+W artykule podkreślono znaczenie szybkości strony, optymalizacji ładowania komponentów oraz serwowania treści, co miało bezpośredni wpływ na lepsze pozycjonowanie w wynikach wyszukiwania. Omówione rozwiązania techniczne, w tym renderowanie po stronie serwera, zoptymalizowane ładowanie czcionek oraz inteligentne zarządzanie danymi użytkownika, pokazują, jak kompleksowe podejście do wydajności może przynieść konkretne korzyści SEO.
+
+<small>
+  Źródło:
+  [hardcover.app/blog/next-js-app-router-seo](https://hardcover.app/blog/next-js-app-router-seo)
+</small>

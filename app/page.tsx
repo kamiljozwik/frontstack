@@ -16,23 +16,23 @@ export default function Home() {
       <Hero />
       <main className={styles.main}>
         <section className="w-[60vw]">
-          <h2>NAJNOWSZE WPISY</h2>
+          <h2 className="font-bold">Najnowsze wpisy</h2>
           {allPosts.slice(0, 5).map((post) => (
             <PostLink key={post.slug} post={post} />
           ))}
           <div className={styles.seeAllPosts}>
-            <Button asChild>
+            <Button asChild variant="secondary">
               <Link href="/blog">Zobacz wszystkie wpisy</Link>
             </Button>
           </div>
         </section>
         <div className={styles.side}>
           <section>
-            <h2>KATEGORIE</h2>
+            <h2 className="mb-0">Kategorie</h2>
             <Tags />
           </section>
           <section className="mt-4">
-            <h2>FRONTENDÓWKA</h2>
+            <h2 className="mb-0">Frontendówka</h2>
             <ul className="list-none p-0">
               {news.map((news) => (
                 <li key={news.date} className="flex flex-col mt-2">

@@ -1,5 +1,6 @@
-import { Button } from "../button/Button";
+import { Button } from "@/components/ui/button";
 import styles from "./hero.module.scss";
+import { ExternalLink } from "../externalLink/ExternalLink";
 
 export const Hero = () => {
   return (
@@ -12,14 +13,10 @@ export const Hero = () => {
             <span className={styles.courseTitle}>kursy i szkolenia</span>
           </p>
           <div className="animate-bounce">
-            <Button
-              as="a"
-              href="https://kursy.frontstack.pl"
-              size="sm"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Zobacz więcej
+            <Button asChild>
+              <ExternalLink href="https://kursy.frontstack.pl">
+                Zobacz więcej
+              </ExternalLink>
             </Button>
           </div>
         </div>

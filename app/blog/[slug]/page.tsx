@@ -57,7 +57,7 @@ const PostPage = async ({ params }: { params: PostMeta }) => {
             ))}
           </div>
         </div>
-        <h1 className="text-3xl md:text-5xl mb-12">{meta?.title}</h1>
+        <h1 className="text-3xl md:text-5xl mb-12 font-bold">{meta?.title}</h1>
         <CourseBanner />
       </header>
       <div className="flex gap-2">

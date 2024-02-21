@@ -3,11 +3,18 @@
 import { PropsWithChildren } from "react";
 import { Column, ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+import { Info } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { roundNumber } from "@/utils/numbers";
 import { GithubReleases, Tool } from "../../type";
 import { ExternalLink } from "@/app/components/externalLink/ExternalLink";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 export const columns: ColumnDef<Tool>[] = [
   {
@@ -16,27 +23,16 @@ export const columns: ColumnDef<Tool>[] = [
       originalRow.name ?? originalRow.githubData?.name,
     header: "Name",
     cell: ({ row }) => {
-      const lg = row.original.githubData?.language ?? "";
+      const logo = row.original.githubData?.owner?.avatar_url;
       return (
-        <div>
-          <ExternalLink
-            href={
-              row.original.website ?? row.original.github ?? row.original.npm
-            }
-            className="text-white"
-          >
-            {row.getValue("name")}
-          </ExternalLink>
-          <div
-            className={`text-xs text-gray-400 ${
-              ["JavaScript", "TypeScript"].includes(lg)
-                ? undefined
-                : "text-red-400"
-            }`}
-          >
-            {lg}
-          </div>
-        </div>
+        <ExternalLink
+          href={row.original.website ?? row.original.github ?? row.original.npm}
+          className="text-white flex gap-2"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {logo && <img src={logo} alt="logo" width={20} />}
+          {row.getValue("name")}
+        </ExternalLink>
       );
     },
   },
@@ -123,7 +119,24 @@ export const columns: ColumnDef<Tool>[] = [
       return getLastRelease(originalRow.githubData?.releases)?.published_at;
     },
     header: ({ column }) => {
-      return <SortingBtn column={column}>Last release</SortingBtn>;
+      return (
+        <div className="flex items-center">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info size={18} className="mr-1" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <>
+                  Data ostatniego releasu pobierana jest z GitHuba, więc czasami
+                  może nie pokrywać się z informacją w npm. Pracuję nad tym 🛠️
+                </>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <SortingBtn column={column}>Last release</SortingBtn>
+        </div>
+      );
     },
     cell: ({ row }) => {
       const lastRelease = row.getValue("releases") as string | undefined;

@@ -1,12 +1,10 @@
 import { NpmData } from "../../type";
+import { isLocal } from "./utils";
 
 export const npmClient = async (npm?: string) => {
   if (!npm) return undefined;
 
-  if (
-    process.env.NODE_ENV !== "production" ||
-    process.env.VERCEL_ENV !== "production"
-  ) {
+  if (isLocal()) {
     return {
       downloads: Math.floor(Math.random() * 1000),
     } as NpmData;

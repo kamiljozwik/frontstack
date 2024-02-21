@@ -12,7 +12,7 @@ export const ToolsCard = async ({ tool }: Props) => {
   const { tools }: { tools: Tool[] } = await import(`../data/${tool}.ts`);
 
   return (
-    <Card className="">
+    <Card>
       <CardHeader>
         <CardTitle className="text-center">
           <span className="relative">

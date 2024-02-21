@@ -6,4 +6,5 @@ export const toolsNames: { [key: string]: string } = {
   animations: "Animacje",
   state: "Stan aplikacji",
   cssinjs: "CSS in JS",
+  build: "Build",
 };

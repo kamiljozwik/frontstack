@@ -2,6 +2,10 @@ import { Tool } from "../type";
 
 export const tools: Tool[] = [
   {
+    github: "https://github.com/reduxjs/redux",
+    npm: "redux",
+  },
+  {
     github: "https://github.com/reduxjs/react-redux",
     npm: "react-redux",
   },
@@ -60,5 +64,17 @@ export const tools: Tool[] = [
   {
     github: "https://github.com/redux-saga/redux-saga/",
     npm: "redux-saga",
+  },
+  {
+    github: "https://github.com/vuejs/pinia",
+    npm: "pinia",
+  },
+  {
+    github: "https://github.com/beekai-oss/little-state-machine",
+    npm: "little-state-machine",
+  },
+  {
+    github: "https://github.com/preactjs/signals",
+    npm: "@preact/signals-core",
   },
 ];

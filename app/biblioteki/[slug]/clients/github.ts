@@ -1,4 +1,5 @@
 import { GithubReleases, GithubRepoData } from "../../type";
+import { isLocal } from "./utils";
 
 export const githubClient = async (url?: string) => {
   if (!url) return undefined;
@@ -9,10 +10,7 @@ export const githubClient = async (url?: string) => {
   const owner = splitted[length - 2];
   const name = splitted[length - 1];
 
-  if (
-    process.env.NODE_ENV !== "production" ||
-    process.env.VERCEL_ENV !== "production"
-  ) {
+  if (isLocal()) {
     return mockData(name);
   }
 

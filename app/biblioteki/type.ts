@@ -15,6 +15,9 @@ export type GithubRepoData = {
   homepage?: string;
   language: string;
   open_issues_count: number;
+  owner?: {
+    avatar_url?: string;
+  };
   license?: {
     key: string;
     name?: string;

@@ -1,9 +1,9 @@
-import React from "react";
 import Link from "next/link";
 import { getFilenames } from "./utils/getFilenames";
 import { toolsNames } from "./dictionary";
 import { ToolsCard } from "./components/ToolsCard";
 import { PageHeader } from "../components/headers/Headers";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Bibloteki = async () => {
   const tools = [...new Set(["frameworks", ...getFilenames()])];
@@ -28,6 +28,11 @@ const Bibloteki = async () => {
             </Link>
           ) : null
         )}
+        <Card className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3333%-1rem)]">
+          <CardContent className="flex justify-center h-full items-center text-2xl  text-center">
+            Kolejne kategorie już niebawem ⌛
+          </CardContent>
+        </Card>
       </section>
     </main>
   );

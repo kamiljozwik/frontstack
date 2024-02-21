@@ -3,8 +3,8 @@
 import { useRef, useState } from "react";
 
 import styles from "./Bio.module.scss";
-import { Button } from "@/app/components/button/Button";
 import { ExternalLink } from "@/app/components/externalLink/ExternalLink";
+import { Button } from "@/components/ui/button";
 
 export const Bio = () => {
   const bio = useRef<HTMLDivElement>(null);

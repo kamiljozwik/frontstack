@@ -1,5 +1,5 @@
 export const Table = () => (
-  <table>
+  <table className="table-simple">
     <thead>
       <tr>
         <th>Nazwa usługi</th>

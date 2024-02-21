@@ -56,7 +56,7 @@ const NewsPage = ({
     <main className="mt-12 md:mt-8">
       <div className="m-0 mb-2 text-sm">
         <div className="mb-2 text-base">📅 {meta?.period}</div>
-        <h1 className="text-2xl md:text-5xl mt-4">
+        <h1 className="text-2xl md:text-5xl mt-4 font-semibold">
           Frontendówka <span className="gradient-text">#</span>
           {params.slug}
         </h1>

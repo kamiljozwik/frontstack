@@ -15,25 +15,11 @@
 
 .post {
   padding-right: 8px;
-  h1 {
-    padding: 10px 0;
-    display: inline-block;
-    font-size: 3rem;
-    line-height: 1.25;
-
-    @media screen and (max-width: 480px) {
-      & {
-        text-align: center;
-        font-size: 2rem;
-      }
-    }
-  }
 
   h2 {
     margin-top: 60px;
     font-size: 2rem;
     line-height: 2.25rem;
-    margin-bottom: 24px;
     padding-bottom: 4px;
     letter-spacing: -0.03rem;
     &::after {
@@ -56,6 +42,7 @@
     margin-top: 36px;
     margin-bottom: 24px;
     letter-spacing: -0.01rem;
+    font-weight: 600;
 
     a {
       @include tocLink;
@@ -64,10 +51,6 @@
 
   img {
     margin-bottom: 24px;
-  }
-
-  ul li {
-    font-size: 18px;
   }
 }
 

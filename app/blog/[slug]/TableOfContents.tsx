@@ -4,7 +4,7 @@ const renderChildren = (children: any) => {
   return children.map((child: any, index: any) => {
     if (child.type === "list") {
       return (
-        <ul className="mb-2 pl-6" key={index}>
+        <ul className="mb-2 pl-6 list-[circle]" key={index}>
           {renderChildren(child.children)}
         </ul>
       );
@@ -15,7 +15,7 @@ const renderChildren = (children: any) => {
     } else if (child.type === "link") {
       return (
         <a
-          className="text-gray-400 hover:text-gray-300"
+          className="text-gray-400 hover:text-gray-300 text-base "
           key={index}
           href={child.url}
         >
@@ -51,7 +51,7 @@ export const TableOfContents = ({ mdxContent }: { mdxContent?: any }) => {
 
   return (
     <div className="px-4 sticky top-2 overflow-auto max-h-screen scrollbar">
-      <h2 className="text-2xl">Spis treści</h2>
+      <h2 className="text-2xl font-semibold mb-4">Spis treści</h2>
       <ul className="pl-5">{renderChildren(tableOfContent)}</ul>
     </div>
   );

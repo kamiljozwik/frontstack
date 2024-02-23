@@ -28,7 +28,7 @@ const Bibloteki = async () => {
             </Link>
           ) : null
         )}
-        <Card className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3333%-1rem)]">
+        <Card className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3333%-1rem)] h-[246px]">
           <CardContent className="flex justify-center h-full items-center text-2xl  text-center">
             Kolejne kategorie już niebawem ⌛
           </CardContent>

@@ -7,4 +7,5 @@ export const toolsNames: { [key: string]: string } = {
   state: "Stan aplikacji",
   cssinjs: "CSS in JS",
   build: "Build",
+  mobile: "Mobile",
 };

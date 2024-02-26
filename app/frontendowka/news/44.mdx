@@ -1,0 +1,107 @@
+export const meta = {
+  title: "Zmiany oraz trendy w React, SPA w Remix, Dax, RSD i JSR",
+  date: "2024-02-25",
+  period: "19.02.2024 - 25.02.2024",
+};
+
+## React 19
+
+React Labs przedstawiło postępy i plany w projektach związanych z Reactem, w tym m.in. finalizację _React Compiler_, który teraz napędza `instagram.com` w produkcji (zobacz również [React Will Be Compiled](https://reacttraining.com/blog/react-19-will-be-compiled)).
+
+_Compiler_ ma za zadanie automatycznie optymalizować re-renderowanie UI, zachowując jednocześnie podstawowe założenia Reacta. Wprowadzono również _"Actions"_, ułatwiające przesyłanie danych z klienta na serwer, oraz szereg nowych funkcji w wersji Canary Reacta. Nadchodząca nowa wersja, React 19, obiecuje integrację wielu długo oczekiwanych usprawnień oraz wsparcie dla `Web Components`.
+
+<small>
+  Źródło:
+  [https://react.dev/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024](https://react.dev/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024)
+</small>
+
+## Vite stabilny w Remix
+
+Wsparcie dla Vite w Remix osiągnęło stabilność w wersji 2.7.0. Zespół Remix podkreśla również wprowadzenie presetów, ułatwiających dostosowywanie zachowania Vite. Kluczowe ulepszenia obejmują wsparcie dla budowania statycznych stron internetowych (SPA).
+
+Dodano również wsparcie dla Cloudflare Pages, ulepszenia w separacji kodu serwera i klienta oraz nową opcję `basename`.
+
+To tylko niektóre z nowości, więc osoby pracujące z Remixem na co dzień, powinny zdecydowanie zapoznać się z notką releasową.
+
+<small>
+  Źródło:
+  [https://remix.run/blog/remix-vite-stable](https://remix.run/blog/remix-vite-stable)
+</small>
+
+## React trends
+
+W artykule "React Trends in 2024" Robin Wieruch omawia najnowsze trendy w ekosystemie Reacta.
+
+Autor skupił się na kilku kluczowych obszarach, takich jak rosnąca popularność `Astro` jako następcy `Gatsby` dla stron statycznych i aplikacji webowych, nowe podejścia do autentykacji z wykorzystaniem narzędzi takich jak `Supabase`, `Clerk`, czy `Lucia`, oraz rozwój `tRPC` dla aplikacji fullstackowych.
+
+Robin podkreśla również znaczenie _React Server Components_ i `Next.js` w przesuwaniu granic rozwoju aplikacji webowych, a także sugeruje `TanStack Router` jako nową, _type safe_ opcję dla routingu aplikacji SPA.
+
+Możemy również spotkać dwa słowa na temat `Vercela`, który popycha React na _Edge_, oraz tematykę bundlerów, takich jak `Turbopack` kontra `Vite`. W artykule nie zabrakło również wzmianki o wspominanym już tutaj wcześniej _React Compiler_ i nowych trendach w UI, w tym bibliotekach bezinterfejsowych.
+
+Solidna pigułka ciekawej wiedzy 💪
+
+<small>
+  Źródło:
+  [www.robinwieruch.de/react-trends/](https://www.robinwieruch.de/react-trends/)
+</small>
+
+## Dax - narzędzie skryptowe dla Node.js
+
+David Sherret przedstawia `dax` - zestaw narzędzi skryptowych dla Node.js, inspirowany `zx`, ale zbudowany z myślą o większej kompatybilności międzyplatformowej.
+
+`dax` umożliwia tworzenie skryptów w JavaScript, które działają jednolicie na różnych systemach operacyjnych, eliminując potrzebę oddzielnego zarządzania zależnościami czy folderem `node_modules`. Teraz, dzięki ulepszeniom w Node.js i narzędziu [dnt](https://github.com/denoland/dnt) stworzonym przez Sherreta, `dax` jest dostępny również dla użytkowników Node.js.
+
+Autor podkreśla, że integracja `dax` bezpośrednio z runtime'em (np. Deno) nie jest długoterminowo korzystna z powodów takich jak sprzężenie z runtime'em czy ryzyko vendor-lockingu.
+
+<small>
+  Źródło:
+  [david.deno.dev/posts/dax-node-js/](https://david.deno.dev/posts/dax-node-js/)
+</small>
+
+## React Strict DOM (RSD)
+
+_React Strict DOM_ (`RSD`) to innowacyjne podejście do tworzenia stylowanych komponentów React, zarówno dla web, jak i natywnych platform.
+
+Projekt ten jest eksperymentalną integracją `React DOM` i `StyleX`, mającą na celu usprawnienie i unifikację rozwoju komponentów. `RSD` zwiększa szybkość i efektywność tworzenia aplikacji React bez kompromisów w zakresie wydajności, niezawodności czy jakości.
+
+Cechą wyróżniającą RSD jest wsparcie dla natywnych platform poprzez wykorzystanie licznych standardowych API i wykorzystanie nowych możliwości webowych, które pojawią się w React Native, takich jak API do przeglądania DOM i model przetwarzania pętli zdarzeń. Kompatybilność z React Native jest ciągle rozwijana, ale projekt zachęca do śledzenia kolejnych postępów prac.
+
+<small>
+  Źródło:
+  [https://github.com/facebook/react-strict-dom](https://github.com/facebook/react-strict-dom)
+</small>
+
+## JavaScript Package Registry (JSR)
+
+W świecie JavaScript pojawił się nowy gracz na rynku rejestrów pakietów - [JSR](https://jsr.io), stworzony przez zespół Deno, z zamiarem rozwiązania ograniczeń `npm` i uniknięcia fragmentacji ekosystemu.
+
+`JSR` wprowadza środowisko priorytetowo obsługujące TypeScript, zintegrowane przestrzenie robocze, bezpieczne moduły dostępne przez HTTPS i jest tworzony z myślą o współpracy społeczności. Zaprojektowany, by być bardziej niż zamiennikiem `npm`, `JSR` umożliwia korzystanie z pakietów `npm` w swoich projektach, dążąc do stworzenia zgodności między npm/Node a nowym systemem.
+
+Mimo obaw o podział społeczności `JSR` ma szansę wpłynąć na przyspieszenie modernizacji ekosystemu JavaScript, oferując wsparcie TypeScript i kompatybilność z `npm` jako kluczowe cechy wyróżniające.
+
+<small>
+  Źródło:
+  [https://socket.dev/blog/jsr-new-javascript-package-registry](https://socket.dev/blog/jsr-new-javascript-package-registry)
+</small>
+
+## Migracja do Next.js 14
+
+Myślę, że temat migracji starszych projektów typu `CRA` oraz tych już napisanych w Next.js, ale cały czas niekorzystających z `app router` to dość często poruszany temat w wielu organizacjach, więc gdy tylko uda mi się trafić na jakiś fajnych artykuł na ten temat, to staram się go umieszczać w frontendówce.
+
+Tym razem weźmiemy na tapetę migrację przeprowadzoną przez developerów _Medusa_. Skupiając się na wyzwaniach związanych z dynamiką e-commerce i potrzebą szybkiego reagowania na interakcje użytkowników, Medusa odkryła zalety nowych narzędzi Next.js, takich jak _Server Components_ i _Server Actions_, które upraszczają zarządzanie stanem.
+
+Przejście to wymagało zmiany sposobu myślenia o budowaniu aplikacji Reactowej, z naciskiem na bardziej efektywne wykorzystanie cachowania i przetwarzania danych po stronie serwera, co z kolei poprawia responsywność i wydajność frontendu. Ponadto, wprowadzenie stanu do URL jako metody zarządzania stanem aplikacji w Next.js 14 ukazuje praktyczne podejście do obsługi globalnego stanu w renderowaniu po stronie serwera.
+
+Więcej ciekawych spostrzeżeń znajdziecie pod poniższym linkiem.
+
+Źródło:
+[medusajs.com/blog/client-server-transition-learnings-nextjs-14-server-components](https://medusajs.com/blog/client-server-transition-learnings-nextjs-14-server-components/)
+
+## Maskotka Node.js
+
+Twórcy Node.js chyba nieco zazdroszczą językowi `Go` przywileju posiadania maskotki, więc postanowili stworzyć własną 🙂
+
+<small>
+  Źródło:
+  [https://twitter.com/nodejs/status/1759953849849167878](https://twitter.com/nodejs/status/1759953849849167878)
+</small>

@@ -1,0 +1,67 @@
+export const meta = {
+  title: "Next.js vs. Remix, Deno roadmap, Jco 1.0, JSR - pierwsze wrażenia",
+  date: "2024-03-03",
+  period: "26.02.2024 - 03.03.2024",
+};
+
+## Next.js vs. Remix
+
+Wybór pomiędzy `Next.js` a `Remix` stanowi istotne rozważanie dla deweloperów.
+
+`Next.js`, będący jednym z najpopularniejszych frameworków do renderowania po stronie serwera, oferuje bogate doświadczenie deweloperskie (DX) i jest dobrze ugruntowany na rynku.
+
+Z kolei `Remix`, jako nowszy gracz, promuje podejście głównie fullstack i wprowadza innowacyjne funkcje.
+
+Podlinkowany artykuł dość dokładnie porównuje oba frameworki pod kątem routingu, pobierania danych, mutacji danych, obsługi błędów, wsparcia społeczności, krzywej uczenia się oraz wdrożenia. Oba mają swoje mocne strony, ale ostateczny wybór zależy od specyficznych potrzeb projektu.
+
+Dla dużych projektów `Next.js` może być lepszym wyborem, podczas gdy `Remix` może przewyższać w projektach z naciskiem na wydajność i nowoczesne podejście.
+
+<small>
+  Źródło:
+  [https://blog.saeloun.com/2024/02/21/next.js-vs-remix/](https://blog.saeloun.com/2024/02/21/next.js-vs-remix/)
+</small>
+
+## Deno roadmap
+
+Zespół Deno niedawno podzielił się wynikami ankiety i planem na rok 2024, oferując ciekawy wgląd w przyszłość tego środowiska uruchomieniowego.
+
+Ponad 700 odpowiedzi ujawniło, że kompatybilność z `Node`/`npm` znacznie się poprawiła, co dla developerów jest bardzo ważne. W ankiecie poruszono także tematykę kompatybilności z zewnętrznymi frameworkami, łatwość hostowania projektów Deno w chmurze, oraz ulepszenia w zarządzaniu zależnościami.
+
+Celem jest sprawienie, by każdy moduł `npm` działał z Deno, poprawa współpracy z frameworkami takimi jak Next.js, oraz zapewnienie łatwiejszego hostowania w różnych środowiskach chmurowych.
+
+Zespół Deno bardzo aktywnie pracuje przed dużym wydaniem Deno 2.
+
+<small>
+  Źródło:
+  [https://deno.com/blog/2024-survey-results-and-roadmap](https://deno.com/blog/2024-survey-results-and-roadmap)
+</small>
+
+## Jco 1.0
+
+Bytecode Alliance ogłosiło wydanie `Jco` 1.0, nowoczesnego narzędzia i środowiska uruchomieniowego JavaScript `WebAssembly` zaprojektowanego dla komponentów WebAssembly i [WASI 0.2](https://bytecodealliance.org/articles/WASI-0.2).
+
+`Jco` umożliwia natywne uruchamianie komponentów `Wasm` w `Node.js`, co ułatwia wykorzystanie bibliotek napisanych w różnych językach programowania za pomocą środowiska uruchomieniowego `Node.js`.
+
+Dzięki pełnej implementacji interfejsu API WASI 0.2, komponenty mogą uzyskać dostęp do sieci, systemu plików oraz innych systemowych API dostępnych w `Node.js`. `Jco` stanowi kompleksowe rozwiązanie dla operacji związanych z komponentami napisanymi w JavaScript, stabilizując środowisko uruchomieniowe `Node.js` dla komponentów Wasm oraz narzędzia umożliwiające importowanie komponentów Wasm napisanych w innych językach do JavaScript.
+
+Projekt `Jco` jest częścią Bytecode Alliance i ma na celu dalsze stabilizowanie i rozwijanie nowych funkcji.
+
+<small>
+  Źródło:
+  [bytecodealliance.org/articles/jco-1.0](https://bytecodealliance.org/articles/jco-1.0)
+</small>
+
+## JSR - pierwsze wrażenia
+
+`JSR`, czyli JavaScript Registry (wspominałem o nim w poprzedniej frontendówce, ale w ciągu ostatniego tygodniu projekt w końcu trafił do użytkowników), zapowiada się jako ciekawe narzędzie dla ekosystemu JavaScript, oferując wsparcie zarówno dla Deno, jak i Node.js.
+
+Jego kluczową cechą jest natywne wsparcie dla TypeScript, co pozwala na publikowanie i importowanie pakietów TypeScript bez konieczności kompilacji czy dodatkowych plików `.d.ts`.
+
+`JSR` wprowadza również ścisłą współpracę z modułami ECMAScript, co jest krokiem naprzód w porównaniu z obecnymi rozwiązaniami.
+
+Ciekawostką jest tutaj integracja z GitHubem, umożliwiająca łatwą publikację i dokumentację pakietów. Autor poniższego artykułu podkreśla, że choć `JSR` ma szansę na znaczące wpływanie na przyszłość ekosystemu JavaScript, nie jest pewne, czy zdoła całkowicie zastąpić `npm`. Niemniej jednak, inicjatywa ta może przyspieszyć modernizację Node.js oraz `npm`, szczególnie w kontekście lepszego wsparcia dla ESM i TypeScript.
+
+<small>
+  Źródło:
+  [https://dbushell.com/2024/02/16/jsr-first-impression/](https://dbushell.com/2024/02/16/jsr-first-impression/)
+</small>

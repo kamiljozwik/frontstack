@@ -1,0 +1,127 @@
+export const meta = {
+  title:
+    "TypeScript 5.4, Tailwind 4 alpha, TansStack framework, Eloquent JavaScript 2024, Good Web Design",
+  date: "2024-03-10",
+  period: "04.03.2024 - 10.03.2024",
+};
+
+## TypeScript 5.4
+
+Microsoft właśnie ogłosił wydanie TypeScript 5.4.
+
+Nowa wersja zapewnia lepszą analizę typów w funkcjach, wprowadza narzędzie `NoInfer` do precyzyjniejszego kontrolowania inferencji typów, oraz oferuje wsparcie dla `Object.groupBy` i `Map.groupBy`.
+
+Dodatkowo, TypeScript 5.4 usprawnia wsparcie dla `require()` w kontekście nowych opcji konfiguracyjnych, wprowadza sprawdzanie atrybutów importu oraz nowe rozwiązania dla brakujących parametrów w funkcjach.
+
+Zainteresowanych zachęcam do zapoznania się z pełnymi szczegółami na blogu Microsoft.
+
+<small>
+  Źródło:
+  [devblogs.microsoft.com/typescript/announcing-typescript-5-4/](https://devblogs.microsoft.com/typescript/announcing-typescript-5-4/)
+</small>
+
+## Tailwind CSS v4.0
+
+Twórcy Tailwind CSS ogłosili pierwsze publiczne wydanie alpha wersji 4.0.
+
+Nowa wersja charakteryzuje się przepisanym od podstaw silnikiem, zapewniającym do 10-krotnie szybszą kompilację i użycie Rusta w kluczowych częściach.
+
+Wersja 4.0 staje się kompleksowym narzędziem do przetwarzania CSS, z wbudowanym wsparciem dla `@import`, automatycznym prefixowaniem i obsługą zagnieżdżania.
+
+Ulepszono też integrację z nowoczesnymi funkcjami CSS, takimi jak `cascade layers` i `container queries`, wprowadzając jednocześnie bardziej natywne podejście do konfiguracji za pomocą zmiennych CSS.
+
+<small>
+  Źródło:
+  [tailwindcss.com/blog/tailwindcss-v4-alpha](https://tailwindcss.com/blog/tailwindcss-v4-alpha)
+</small>
+
+## Standaryzacja `package.json`
+
+OpenJS Foundation rozpoczęła nową inicjatywę, mającą na celu usprawnienie interoperacyjności metadanych pakietów JavaScript poprzez prace nad nieformalną standaryzacją pliku `package.json`.
+
+Ta inicjatywa ma na celu ułatwienie pracy deweloperów aplikacji poprzez ujednolicenie i usprawnienie narzędzi korzystających z metadanych pakietów. Działanie to jest realizowane przez grupę branżową o nazwie _Package Metadata Interoperability Collab Space_, która zamierza opracować wspólny _framework techniczny_, niebędący formalnym standardem, lecz zbiorem najlepszych praktyk.
+
+<small>
+  Źródło:
+  [socket.dev/blog/openjs-improve-interoperability-of-javascript-package-metadata](https://socket.dev/blog/openjs-improve-interoperability-of-javascript-package-metadata)
+</small>
+
+## Interaction to Next Paint (INP) w Core Web Vitals
+
+Od 12 marca Interaction to Next Paint (`INP`) staje się kluczowym wskaźnikiem w programie Core Web Vitals, zastępując First Input Delay (`FID`).
+
+`INP` mierzy interaktywność użytkownika z witryną, koncentrując się na szybkości reakcji. Przejście na `INP` pozwoli na dokładniejsze śledzenie i optymalizację UX.
+
+Możecie sprawdzić, czy wasza strona spełnia kryteria "dobrego" `INP`, korzystając z [PageSpeed Insights](https://pagespeed.web.dev/) lub danych [Real User Monitoring](https://en.wikipedia.org/wiki/Real_user_monitoring) (`RUM`).
+
+<small>
+  Źródło: [web.dev/blog/inp-cwv-march-12](https://web.dev/blog/inp-cwv-march-12)
+</small>
+
+## TanStack framework
+
+Stało się. Po serii wielu świetnych narzędzi zbudowanych dla społeczności Reacta, Tanner Linsley ogłosił wydanie kompleksowego frameworka do budowania aplikacji webowych.
+
+Informacji na temat same frameworka jest jeszcze niewiele, ale zdecydowanie warto się temu przedsięwzięciu bacznie przyglądać.
+
+<small>
+  Źródło:
+  [twitter.com/tannerlinsley/status/1765120904370307438](https://twitter.com/tannerlinsley/status/1765120904370307438)
+</small>
+
+## React 19 != Compiler
+
+Potwierdzenie informacji o tym, że React 19 nie będzie jeszcze posiadał kompilara, o którym dość sporo mówiło się w ostatnim czasie.
+
+<small>
+  Źródło:
+  [twitter.com/en_JS/status/1760433969118769654](https://twitter.com/en_JS/status/1760433969118769654)
+</small>
+
+## Nowy hook - `useActionState`
+
+W repo Reacta pojawił się nowy PR z propozycjż dodania nowego hooka `React.useActionState`, mającego na celu zastąpienie i ulepszenie istniejącego hooka `useFormState`.
+
+Nowy hook ma na celu rozwiązanie pewnych ograniczeń i zamieszania wokół `useFormState`, pozwalając na lepsze śledzenie stanu i wartości zwracanej przez funkcje (akcje).
+
+Co więcej, został on przeniesiony do pakietu `react` z `ReactDOM`, co czyni go bardziej uniwersalnym i użytecznym w różnych środowiskach renderowania, nie tylko w `react-dom`.
+
+<small>
+  Źródło:
+  [github.com/facebook/react/pull/28491](https://github.com/facebook/react/pull/28491)
+</small>
+
+## Eloquent JavaScript 2024
+
+Bardzo dobrze znana i ceniona w świecie developerów JavaScript książka "Eloquent JavaScript" doczekała się nowego wydania 🎉
+
+<small>Źródło: [eloquentjavascript.net](https://eloquentjavascript.net/)</small>
+
+## Good Web Design
+
+Polacy nie gęsi, swoje świetne materiały edukacyjne również mają 💪
+
+_"zbiór moich przemyśleń i refleksji na temat tego, jak powinno dzisiaj wyglądać odpowiedzialne tworzenie stron WWW"_ - tak o <s>swojej książce</s> swoim eseju hipertekstowym mówi autor, dobrze znany polskim deweloperom frontendowym, [Comandeer](https://blog.comandeer.pl/).
+
+Gorąco zachęcam do zapoznania się z tym materiałem, bo czegoś podobnego na polskim rynku jeszcze nie mieliśmy 👏
+
+<small>Źródło: [gwd.comandeer.pl](https://gwd.comandeer.pl/)</small>
+
+## Zarobki w open source
+
+Radosław Miernik opisuje swoją podróż przez świat open source i różne modele finansowania, z którymi się spotkał, pracując nad projektami takimi jak `uniforms` czy `Meteor`.
+
+Jego doświadczenie pokazuje, jak pracując w firmie Vazco, z czasem przeszedł od tworzenia projektów otwartoźródłowych jako części pracy zawodowej, przez dedykowane godziny na rozwój `uniforms`, po otrzymywanie dodatkowych dochodów z konsultacji, partnerstw i sponsorów.
+
+Miernik podkreśla, że zarabianie na życie wyłącznie z open source jest trudne bez wsparcia firmy lub organizacji, ale pasja i chęć dzielenia się z innymi pozostają motywujące.
+
+<small>
+  Źródło:
+  [https://radekmie.dev/blog/on-getting-paid-for-open-source/](https://radekmie.dev/blog/on-getting-paid-for-open-source/)
+</small>
+
+## Serverless Horrors
+
+Jeżeli planujecie budować swoje startupy korzystając z usług serverlessowych, warto wiedzieć, że nie zawsze jest to tak kolorowe rozwiązanie, jak widać na stronach marketingowych 😉
+
+<small>Źródło: [serverlesshorrors.com](https://serverlesshorrors.com/)</small>

@@ -1,0 +1,91 @@
+export const meta = {
+  title:
+    "Storybook 8, Astro DB, Package Metadata, Przyszłość frontendu, Porównanie frameworków JS",
+  date: "2024-03-17",
+  period: "11.03.2024 - 17.03.2024",
+};
+
+## Storybook 8
+
+Storybook 8 wydany.
+
+Wersja ta wprowadza zmiany, skupiające się na usprawnieniu testowania, wydajności i kompatybilności. Wśród najważniejszych nowości znajduje się wbudowane testowanie wizualne, wsparcie dla React Server Component, ulepszone automatyczne generowanie kontrolek dla React i Vue oraz przeprojektowane wsparcie dla Vite wraz z integracją z Vitest.
+
+Ponadto, Storybook 8 przyspiesza budowanie testów 2-4 razy, wprowadza odświeżony interfejs użytkownika na desktopach i urządzeniach mobilnych, a także eliminuje zależność od Reacta.
+
+Więcej info do znalezienia w poniższym źródle.
+
+<small>
+  Źródło:
+  [https://storybook.js.org/blog/storybook-8/](https://storybook.js.org/blog/storybook-8/)
+</small>
+
+## Astro DB
+
+Astro właśnie wprowadziło **Astro DB** (_Early Preview_), nową platformę baz danych SQL zaprojektowaną specjalnie dla projektów Astro.
+
+Znajdziemy w niej takie dobrodziejstwa jak TypeScriptowy ORM ([Drizzle](https://orm.drizzle.team/)), zarządzanie schematem, automatyczne migracje, lekkie środowisko lokalne oraz oczywiście w pełni hostowaną, produkcyjną bazę danych SQL.
+
+Astro DB jest w pełni zintegrowane z Astro, oferując bezproblemową współpracę i efektywność.
+
+<small>Źródło: [https://astro.build/db](https://astro.build/db)</small>
+
+## Kompatybilność pakietów
+
+W ramach OpenJS Foundation powstała grupa „Package Metadata Interoperability Collab Space”, która ma na celu standaryzację i ulepszenie interoperacyjności metadanych pakietów JavaScript, koncentrując się na pliku `package.json`.
+
+Ten plik jest kluczowym punktem wejścia dla prawie wszystkich aplikacji JavaScript, zawierającym zarówno opisowe, jak i funkcjonalne metadane projektu. Grupa dąży do stworzenia bardziej jednolitego i szeroko akceptowanego standardu, który nie będzie zależał wyłącznie od `Node.js` i `npm`, ale będzie wspierał szeroką społeczność. Inicjatywa ta ma na celu ułatwienie twórcy narzędzi współpracę oraz wsparcie zróżnicowanego ekosystemu, uniezależniając się od nieformalnych standardów ustanowionych przez `npm`.
+
+<small>
+  Źródło:
+  [openjsf.org/blog/package-metadata-interoperability-collab-space-intro](https://openjsf.org/blog/package-metadata-interoperability-collab-space-intro)
+</small>
+
+## To przecież tylko frontend
+
+Josh Collinsworth zastanawia się nad trendem, który zauważył w świecie web developmentu - stopniowym deprecjonowaniem roli `frontend` deweloperów.
+
+Opisuje to jako powszechną tendencję do umniejszania znaczenia i wyzwań związanych z pracą nad `frontendem`. Zauważa, że języki takie jak CSS i HTML często są traktowane zarówno jako zbyt skomplikowane, jak i zbyt proste, aby być brane na poważnie jako prawdziwe języki programowania. Collinsworth argumentuje, że takie podejście może mieć głębsze przyczyny a także może doprowadzić do tego, że praca nad `frontendem` będzie coraz częściej postrzegana jako mniej ważna lub mniej wymagająca. Podkreśla, że zarówno CSS, jak i HTML mają ogromny wpływ na UX i sukces oprogramowania, zastanawiając się, dlaczego ich rola jest tak często pomniejszana.
+
+<small>
+  Źródło:
+  [https://joshcollinsworth.com/blog/devaluing-frontend](https://joshcollinsworth.com/blog/devaluing-frontend)
+</small>
+
+## Przyszłość frontendu
+
+Świat frontendu ewoluuje z niespotykaną szybkością, a artykuł na Frontend Mastery rzuca światło na przyszłość tej dynamicznie zmieniającej się dziedziny.
+
+Autorzy zagłębiają się w nowoczesne meta-frameworki JavaScript, wyjaśniając, jak radzą sobie z fundamentalnymi ograniczeniami sieci i przeglądarek. Artykuł podkreśla znaczenie zrozumienia podstawowych koncepcji takich jak kompilacja, routing, ładowanie danych, caching, czy invalidacja.
+
+Przegląd ten nie tylko pokazuje konwergencję różnych frameworków, ale także wyposaża czytelników w wiedzę o trwałych koncepcjach, które pozostają aktualne pomimo zmieniających się narzędzi.
+
+Artykuł jest fajnym przewodnikiem dla każdego, kto chce zrozumieć, dokąd zmierza ekosystem frontendu i jak najlepiej nawigować po jego złożoności.
+
+<small>
+  Źródło:
+  [frontendmastery.com/posts/navigating-the-future-of-frontend/](https://frontendmastery.com/posts/navigating-the-future-of-frontend/)
+</small>
+
+## Speedometer 3.0
+
+Speedometer 3.0 to nowa odsłona popularnego narzędzia do testowania wydajności przeglądarek, opracowana przez wspólny wysiłek gigantów technologicznych takich jak Apple, Google, Microsoft i Mozilla.
+
+Ta wersja wprowadza ulepszone metody pomiaru wydajności, obejmujące szerszy zakres scenariuszy użytkowania, od renderowania wykresów po edycję kodu i czytanie stron z wiadomościami, co lepiej odzwierciedla współczesny Web.
+
+Kluczowym celem Speedometer 3.0 jest zapewnienie, by poprawa wyników w benchmarku przekładała się na rzeczywiste usprawnienia w przeglądaniu stron internetowych przez użytkowników. Dzięki temu narzędziu, inżynierowie mogą dokładniej optymalizować przeglądarki, co przynosi korzyści każdemu, kto korzysta z internetu.
+
+<small>
+  Źródło:
+  [browserbench.org/announcements/speedometer3/](https://browserbench.org/announcements/speedometer3/)
+</small>
+
+## Porównanie frameworków JavaScript
+
+Na sam koniec dwa bardzo fajne materiały, skupiające się na porównaniu współczesnych frameworków JS.
+
+Solidna pigułka wiedzy dla osób, które chcą zrozumieć różnice między Reactem, Angularem, Vue i częściowo Svelte, a także zastanowić się nad wyborem odpowiedniego narzędzia do swojego projektu.
+
+👉 [Comparing JavaScript Frameworks part 1: templates](https://www.maartenhus.nl/blog/comparing-javascript-frameworks-part-1-templates/)
+
+👉 [The Framework Field Guide](https://unicorn-utterances.com/collections/framework-field-guide-fundamentals)

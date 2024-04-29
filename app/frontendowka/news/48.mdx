@@ -1,0 +1,202 @@
+export const meta = {
+  title:
+    "React 19 Beta, Node 22, JS + Signals, TS 5.5 Beta, VitePress, Learn JavaScript i więcej",
+  date: "2024-04-29",
+  period: "18.03.2024 - 29.04.2024",
+};
+
+## React 19 Beta
+
+Beta dla `React 19` już jest dostępna.
+
+Wprowadza ona kilka kluczowych usprawnień, które znacznie ułatwią życie deweloperom. Nowością są tzw. `Actions`, które automatyzują zarządzanie stanem podczas asynchronicznych operacji. Wprowadzono także `useOptimistic` do optymistycznego aktualizowania UI, oraz `useActionState` do zarządzania stanem formularza.
+
+Do tego `React 19` ułatwia zarządzanie metadanymi dokumentu, stylami i skryptami wewnątrz komponentów.
+
+Co z tego trafi do produkcji - czas pokaże 🙂
+
+[YT overview](https://www.youtube.com/watch?v=sFeu_aK8cB8)
+
+<small>
+  Źródło:
+  [react.dev/blog/2024/04/25/react-19](https://react.dev/blog/2024/04/25/react-19)
+</small>
+
+## Node.js 22
+
+Node.js 22 wprowadza wiele ciekawych zmian, w tym eksperymentalne wsparcie dla `require()` w `ESM`, dodanie klienta `WebSocket` oraz stabilizację funkcji `node --watch`, która automatycznie odświeża serwer przy zmianach w określonych plikach.
+
+Silnik `V8` został zaktualizowany do wersji `12.4`, co zapewnia znacznie lepszą wydajność.
+
+Node.js 22 będzie wersją bieżącą przez najbliższe 6 miesięcy, po czym przejdzie do fazy wsparcia długoterminowego.
+
+<small>
+  Źródło:
+  [openjsf.org/blog/nodejs-22-available](https://openjsf.org/blog/nodejs-22-available)
+</small>
+
+## TypeScript 5.5 Beta
+
+Beta TS 5.5 przynosi kilka istotnych usprawnień i nowych funkcji. Wśród nich znajdują się m.in. inferowane predykaty typów (_Inferred Type Predicates_), które usprawniają analizę przepływu typów w kodzie, a także ulepszenia w dedukcji typów dla stałych indeksów dostępu do obiektów.
+
+TypeScript 5.5 wprowadza również wsparcie dla importów typów w `JSDoc`. Kolejną nowością jest dodanie sprawdzania składni wyrażeń regularnych (_RegEx_). Wprowadzono również "izolowane deklaracje" oraz nową zmienną `${configDir}`, która usprawnia zarządzanie konfiguracją w projektach.
+
+<small>
+  Źródło:
+  [devblogs.microsoft.com/typescript/announcing-typescript-5-5-beta](https://devblogs.microsoft.com/typescript/announcing-typescript-5-5-beta/)
+</small>
+
+## AnalogJS 1.0
+
+AnalogJS to nowy meta-framework oparty na Angularze, wzbogacony przez `Vite` i `Nitro`.
+
+Wersja `1.0` wprowadza stabilne środowisko ze wsparciem dla ekosystemu Vite, a także wsparcie dla plików `markdown`, `server routes`, `SSR/SSG`, oraz integrację z `tRPC`.
+
+Ważnym dodatkiem jest wprowadzenie nowego formatu jednoplikowego komponentu `hello.analog`, który ma na celu uproszczenie procesu tworzenia komponentów. AnalogJS zbiera już pozytywne opinie i przyciąga społeczność developerów, zdobywając miejsce w [GitHub Accelerator Cohort](https://accelerator.github.com/).
+
+<small>
+  Źródło:
+  [dev.to/analogjs/announcing-analogjs-10-19an](https://dev.to/analogjs/announcing-analogjs-10-19an)
+</small>
+
+## Runtime compatibility
+
+Ciekawe narzędzie do sprawdzania kompatybilności różnych środowiskach uruchomieniowych JavaScript (`Node.js`, `Bun`, `Deno` itd.).
+
+⚙️ [runtime-compat.unjs.io](https://runtime-compat.unjs.io/)
+
+## VitePress 1.0
+
+VitePress 1.0 został wreszcie wydany, dostarczając wydajne i łatwe w obsłudze narzędzie do tworzenia stron internetowych.
+
+Jest to generator stron statycznych (`SSG`) oparty na `Vite` i `Vue`, przeznaczony do szybkiego tworzenia dokumentacji, blogów oraz stron marketingowych.
+
+VitePress umożliwia łatwą integrację z pluginami `Vite`, oferując przy tym wsparcie dla formatu Markdown i komponentów `Vue` w treściach statycznych.
+
+<small>
+  Źródło:
+  [blog.vuejs.org/posts/vitepress-1.0](https://blog.vuejs.org/posts/vitepress-1.0)
+</small>
+
+## Bun 1.1
+
+Najnowsza aktualizacja narzędzia `Bun`, oznaczona numerem `1.1`, przynosi szereg istotnych usprawnień i nowości, w tym pełne wsparcie dla systemu Windows.
+
+Umożliwia to użytkownikom Windows korzystanie z funkcji takich jak zarządzanie pakietami, `bundling` czy szybsze uruchamianie skryptów, przy zachowaniu wysokiej kompatybilności z `Node.js`.
+
+Ważnym aspektem aktualizacji jest także wprowadzenie nowego formatu pliku `.bunx`, który zapewnia szybsze działanie niż tradycyjne skrypty `npm` na systemach Windows. Zaktualizowano także obsługę API `Node.js`, dodając nowe funkcje i optymalizując te istniejące.
+
+Nowością jest również `Bun Shell`, cross-platformowa powłoka, która ułatwia pisanie skryptów w środowiskach wieloplatformowych.
+
+<small>Źródło: [bun.sh/blog/bun-v1.1](https://bun.sh/blog/bun-v1.1)</small>
+
+## Signals i JavaScript
+
+`TC39` pracuje nad wprowadzeniem do JavaScript nowego typu abstrakcji danych - sygnałów (ang. _signals_), które mają na celu ułatwienie zarządzania stanem aplikacji i interakcji między danymi a widokiem w aplikacjach.
+
+Sygnały, podobne do `Promises`, mają na celu stworzenie jednolitej podstawy dla reaktywnego programowania, z naciskiem na interoperacyjność między różnymi frameworkami. Sygnały umożliwiają zarządzanie stanem aplikacji w bardziej deklaratywny sposób, co może znacznie upraszczać kod i poprawiać jego czytelność. Propozycja obejmuje również wstępne prototypowanie i integrację z istniejącymi frameworkami w celu oceny użyteczności i wydajności sygnałów.
+
+<small>
+  Źródło:
+  [github.com/tc39/proposal-signals](https://github.com/tc39/proposal-signals)
+</small>
+
+## Next.js runtime w Netlify
+
+Netlify przedstawił nową wersję swojego środowiska uruchomieniowego dla `Next.js`, które oferuje znaczące usprawnienia w zakresie niezawodności i wydajności.
+
+Nowe środowisko jest dostosowane do najnowszych wersji `Next.js`, wspiera takie funkcjonalności jak `app router`, regenerację treści na żądanie (`ISR`), optymalizacja grafik itd.
+
+Aby skorzystać z nowych możliwości, deweloperzy muszą używać `Next.js` w wersji `13.5+` oraz `Node.js 18+`.
+
+<small>
+  Źródło:
+  [netlify.com/blog/introducing-the-new-next-js-runtime](https://www.netlify.com/blog/introducing-the-new-next-js-runtime)
+</small>
+
+## ESLint 9
+
+Wydano `ESLint v9.0.0`, wprowadzając wiele znaczących zmian i ulepszeń. Nowa wersja deprecjonuje niektóre starsze funkcje, takie jak `eslintrc` na rzecz nowego domyślnego formatu konfiguracji o nazwie `flat config`.
+
+Wprowadzono także nową regułę `no-useless-assignment` mającą na celu eliminację niepotrzebnych przypisań wartości, które nigdy nie są używane.
+
+Dodatkowo, zmniejszono wsparcie dla `Node.js` do wersji `v18.18.0` i zrezygnowano ze wsparcia dla `Node v19`.
+
+`ESLint` wprowadza również narzędzie `ESLint Config Inspector`, które oferuje wizualne przedstawienie konfiguracji ESLint🎉.
+
+Jest to odpowiedź na wyzwania związane ze zrozumieniem aktywnych i nieaktywnych reguł w skomplikowanych lub złożonych konfiguracjach.
+
+Narzędzie to umożliwia interaktywne wizualizacje lokalnych plików konfiguracyjnych. Użytkownicy mogą przeglądać i edytować reguły, wtyczki oraz konfiguracje językowe bezpośrednio przez przeglądarkę, co znacząco upraszcza zarządzanie i diagnostykę konfiguracji. Jest ono dostępne jako polecenie CLI i może być uruchomione nawet bez zainstalowanego ESLint, dzięki wykorzystaniu `npx`.
+
+<small>
+🚀 [eslint.org/blog/2024/04/eslint-v9.0.0-released](https://eslint.org/blog/2024/04/eslint-v9.0.0-released/)
+
+📈 [eslint.org/blog/2024/04/eslint-config-inspector](https://eslint.org/blog/2024/04/eslint-config-inspector)
+
+</small>
+
+## The V8 Sandbox
+
+`V8`, silnik JavaScript używany w Chrome, wprowadza nową funkcję zwaną `V8 Sandbox`, aby poprawić bezpieczeństwo poprzez izolację pamięci wykorzystywanej przez skrypty.
+
+Dzięki temu błędy w `V8` nie wpłyną na resztę procesu systemowego. Sandbox to odpowiedź na ograniczenia obecnych technologii bezpieczeństwa pamięci, które nie radzą sobie z subtelniejszymi błędami logiki w `V8`.
+
+Choć V8 Sandbox nadal jest w fazie rozwoju i wymaga dodatkowych testów, już teraz został włączony do programu nagród za znajdowanie luk w Chrome (_Vulnerability Reward Program_), co świadczy o jego potencjale i dużym znaczeniu dla Google.
+
+<small>Źródło: [v8.dev/blog/sandbox](https://v8.dev/blog/sandbox)</small>
+
+## pnpm 9
+
+W najnowszej aktualizacji `pnpm` znaleziono wiele istotnych zmian, które mogą wpłynąć na developerów korzystających z tej popularnej alternatywy dla `npm`.
+
+Z najważniejszych zmian, warto zwrócić uwagę na zaprzestanie wsparcia dla Node.js w wersjach `16` i `17`, co oznacza, że `pnpm` będzie teraz działać z własną wersją `Node.js`, niezależnie od zainstalowanej przez użytkownika.
+
+Dodano także kompatybilność z `Corepack`, a zmiany w konfiguracji obejmują m.in. automatyczne "deduplikowanie" zależności oraz zmiany w zarządzaniu pakietami w przestrzeni roboczej.
+
+Zaktualizowano również format `lockfile` do wersji `9`, co powinno przynieść lepszą czytelność i mniejsze ryzyko konfliktów w systemie kontroli wersji.
+
+<small>
+  Źródło:
+  [github.com/pnpm/pnpm/releases/tag/v9.0.0](https://github.com/pnpm/pnpm/releases/tag/v9.0.0)
+</small>
+
+## Electron 30
+
+`Electron 30` to ważne wydanie dla twórców aplikacji desktopowych. Wprowadza ono aktualizacje kluczowych komponentów jak Chromium `124.0.6367.49`, V8 `12.4` oraz Node.js `20.11.1`.
+
+Najciekawsze nowości to wsparcie dla `ASAR Integrity` na Windowsie, co zapewnia lepszą ochronę zawartości aplikacji, oraz nowe moduły procesu głównego: `WebContentsView` i `BaseWindow`, które zastępują `BrowserView`.
+
+Dodano także wsparcie dla `File System API`, co umożliwia bardziej zaawansowane operacje na plikach.
+
+Wydanie to stanowi też koniec wsparcia dla wersji `27.x.y`.
+
+<small>
+  Źródło:
+  [electronjs.org/blog/electron-30-0](https://www.electronjs.org/blog/electron-30-0)
+</small>
+
+## Vercel rezygnuje z edge
+
+Vercel podjął decyzję o cofnięciu wszystkich funkcji `edge rendering` do środowiska Node.js, rezygnując z wcześniejszych eksperymentów. Lee, osoba odpowiedzialna za rozwój tych funkcji, przyznaje, że pierwotna koncepcja wydawała się obiecująca — uruchamianie procesów bliżej użytkownika miało zwiększać wydajność. Jednak rzeczywistość okazała się mniej optymistyczna, głównie z powodu ograniczeń związanych z lokalizacją danych i zasobów.
+
+Podczas testów z `@v0` wyszło na jaw, że tradycyjne funkcje Node.js startują szybciej, a także mogą być tańsze w niektórych przypadkach, mimo wcześniejszych przewidywań dotyczących korzystniejszego modelu cenowego dla obliczeń wykonywanych na `edge`. To wszystko przyczyniło się do rezygnacji z `edge` na rzecz bardziej tradycyjnych metod, takich jak Server-Side Rendering (`SSR`) i streaming, które okazały się być szybsze.
+
+Jak widać, nie wszystko złoto, co się świeci 🙂
+
+[Omówienie video](https://www.youtube.com/watch?v=lAGE-k1Zfrg)
+
+<small>
+  Źródło: [@leeerob](https://twitter.com/leeerob/status/1780705942734331983)
+</small>
+
+## Learn JavaScript
+
+Fajny i darmowy nowy kurs JavaScript dostępny na platformie `web.dev` 👌
+
+🔗 [web.dev/blog/introducing-learn-javascript](https://web.dev/blog/introducing-learn-javascript)
+
+## [Bonus] Onboarding roulette
+
+Jeżeli w waszej organizacji kuleje proces onboardingu, to może warto zainspirować się podejściem firmy Graphite 😉
+
+🎲 [Onboarding Roulette](https://graphite.dev/blog/onboarding-roulette)

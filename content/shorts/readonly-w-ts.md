@@ -17,4 +17,4 @@ let p: Point = { x: 10, y: 20 };
 p.x = 5; // Error: Cannot assign to 'x' because it is a read-only property
 ```
 
-W powyższym kodzie `x` i `y` w `Point` są właściwościami tylko do odczytu 💪.
+W powyższym kodzie `x` i `y` w `Point` są właściwościami tylko do odczytu 💪

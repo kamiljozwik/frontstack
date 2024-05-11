@@ -1,15 +1,13 @@
 import { Codeblock } from "@/components/codeblock/Codeblock";
-import client from "@/tina/__generated__/client";
 import { Metadata } from "next";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { getShort, getShorts } from "../utils";
+
+export const revalidate = 60; // Refresh data every 60 sec
 
 export async function generateStaticParams() {
-  const shortsResponse = await client.queries.shortConnection();
-  const slugs = shortsResponse?.data.shortConnection.edges?.map((short) => {
-    return { slug: short?.node?._sys.filename };
-  });
-
-  return slugs ?? [];
+  const shorts = await getShorts();
+  return shorts;
 }
 
 export async function generateMetadata({
@@ -19,9 +17,7 @@ export async function generateMetadata({
     slug: string;
   };
 }): Promise<Metadata> {
-  const resp = await client.queries.short({
-    relativePath: `${params.slug}.md`,
-  });
+  const resp = await getShort(params.slug);
   return { title: resp.data.short.title };
 }
 
@@ -32,9 +28,7 @@ const ShortDetails = async ({
     slug: string;
   };
 }) => {
-  const resp = await client.queries.short({
-    relativePath: `${params.slug}.md`,
-  });
+  const resp = await getShort(params.slug);
 
   const components = {
     code_block: (props: any) => {

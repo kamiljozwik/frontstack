@@ -37,3 +37,5 @@ next-env.d.ts
 # firestore
 ui-debug.log
 firestore-debug.log
+node_modules
+.env

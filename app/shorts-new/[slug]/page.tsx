@@ -1,6 +1,29 @@
 import { Codeblock } from "@/components/codeblock/Codeblock";
 import client from "@/tina/__generated__/client";
+import { Metadata } from "next";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
+
+export async function generateStaticParams() {
+  const shortsResponse = await client.queries.shortConnection();
+  const slugs = shortsResponse?.data.shortConnection.edges?.map((short) => {
+    return { slug: short?.node?._sys.filename };
+  });
+
+  return slugs ?? [];
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    slug: string;
+  };
+}): Promise<Metadata> {
+  const resp = await client.queries.short({
+    relativePath: `${params.slug}.md`,
+  });
+  return { title: resp.data.short.title };
+}
 
 const ShortDetails = async ({
   params,

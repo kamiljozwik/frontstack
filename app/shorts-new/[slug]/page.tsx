@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { getShort, getShorts } from "../utils";
 
-export const revalidate = 60; // Refresh data every 60 sec
+export const revalidate = 43200; // Refresh data every 12h
 
 export async function generateStaticParams() {
   const shorts = await getShorts();

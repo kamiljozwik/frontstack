@@ -3,7 +3,7 @@ import style from "./shorts.module.scss";
 import Link from "next/link";
 import { getShorts } from "./utils";
 
-export const revalidate = 60; // Refresh data every 60 sec
+export const revalidate = 43200; // Refresh data every 12h
 
 export const metadata = {
   title: "Frontend - użyteczne informacje",

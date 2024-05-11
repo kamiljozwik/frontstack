@@ -15,7 +15,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   };
 }
 
-const AnchorLink = ({ href, children }: HTMLProps<HTMLAnchorElement>) => {
+export const AnchorLink = ({
+  href,
+  children,
+}: HTMLProps<HTMLAnchorElement>) => {
   switch (true) {
     case href?.startsWith("#"):
       return <a href={href}>{children}</a>;

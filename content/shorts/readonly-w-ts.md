@@ -1,8 +1,7 @@
 ---
 title: Readonly w TS
 date: 2024-05-11T08:53:04.738Z
-tags:
-  - ts
+category: ts
 ---
 
 W języku TypeScript można użyć modyfikatora `readonly`, aby wskazać, że właściwość klasy lub interfejsu jest tylko do odczytu, co oznacza, że po przypisaniu do niej wartości nie można jej zmienić. Oto krótki przykład:

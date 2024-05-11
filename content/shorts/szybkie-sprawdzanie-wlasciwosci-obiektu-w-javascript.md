@@ -1,11 +1,12 @@
 ---
-title: Szybkie sprawdzanie właściwości obiektu w JavaScript
+title: Sprawdzanie właściwości obiektu JS
 date: 2024-05-11T09:13:12.912Z
-tags:
-  - js
+category: js
 ---
 
-Czy wiedziałeś, że możesz sprawdzić, czy obiekt ma daną właściwość używając operatora `in`? Oto jak to zrobić:
+Czy wiedziałeś, że możesz sprawdzić, czy obiekt ma daną właściwość używając operatora `in`?
+
+Oto jak to zrobić:
 
 ```javascript
 const myObject = { foo: "bar" };

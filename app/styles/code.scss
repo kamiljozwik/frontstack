@@ -13,6 +13,10 @@ code[data-theme] {
   overflow-x: auto;
 }
 
+pre code {
+  border: none;
+}
+
 // inline code
 code {
   font-size: 0.9em;

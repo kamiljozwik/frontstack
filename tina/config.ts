@@ -55,10 +55,9 @@ export default defineConfig({
             required: true,
           },
           {
-            name: "tags",
-            label: "Tags",
             type: "string",
-            list: true,
+            name: "category",
+            label: "Category",
             required: true,
             options: [
               {
@@ -73,7 +72,22 @@ export default defineConfig({
                 value: "misc",
                 label: "Other",
               },
+              {
+                value: "tailwind",
+                label: "Tailwind",
+              },
+              {
+                value: "node",
+                label: "Node.js",
+              },
+              {
+                value: "react",
+                label: "React",
+              },
             ],
+            ui: {
+              component: "select",
+            },
           },
           {
             type: "rich-text",

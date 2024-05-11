@@ -1,10 +1,8 @@
 ---
 title: Selekcja zależności w npm
-date: '2024-05-11T05:35:47.928Z'
-tags:
-  - misc
+date: 2024-05-11T05:35:47.928Z
+category: misc
 ---
-
 
 Czy wiesz, że dzięki komendzie `npm query` oraz selektorom zależności, opartych na znanej składni CSS możesz szybkio i elastycznie filtrować zależności w projekcie Node.js?
 

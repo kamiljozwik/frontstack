@@ -1,8 +1,7 @@
 ---
-title: unknown vs. any w TypeScript
+title: '"unknown" vs. "any" w TypeScript'
 date: 2024-05-11T09:47:01.727Z
-tags:
-  - ts
+category: ts
 ---
 
 W TypeScript typ `unknown` jest bezpieczniejszym odpowiednikiem typu `any`. Podczas gdy `any` pozwala nam na wszystko, `unknown` wymusza sprawdzanie typu przed wykonaniem operacji.

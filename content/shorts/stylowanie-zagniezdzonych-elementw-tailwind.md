@@ -1,8 +1,7 @@
 ---
 title: Stylowanie zagnieżdżonych elementów w Tailwind CSS
 date: 2024-05-11T05:31:35.021Z
-tags:
-  - misc
+category: tailwind
 ---
 
 Czy wiesz, że w Tailwind CSS możesz stylować zagnieżdżone elementy w sposób bardziej zbliżony do tradycyjnego CSS? To możliwe dzięki tzw. [arbitrary variants](https://tailwindcss.com/docs/hover-focus-and-other-states#using-arbitrary-variants). Pozwalają one na tworzenie niestandardowych selektorów.
@@ -24,9 +23,9 @@ Oto jak to zrobimy w Tailwind:
 
 Ta składnia Tailwind, `[&_svg]:open:-rotate-180`, jest interpretowana następująco:
 
-* `&` odnosi się do bieżącego selektora, czyli w tym przypadku do `details`.
-* `_svg` wskazuje, że chcemy stylować elementy SVG wewnątrz `details`.
-* `:open:-rotate-180` dodaje obrót o 180 stopni, gdy `details` jest w stanie `open`.
+- `&` odnosi się do bieżącego selektora, czyli w tym przypadku do `details`.
+- `_svg` wskazuje, że chcemy stylować elementy SVG wewnątrz `details`.
+- `:open:-rotate-180` dodaje obrót o 180 stopni, gdy `details` jest w stanie `open`.
 
 Dzięki temu możemy tworzyć złożone i zaawansowane selektory w sposób zbliżony do klasycznego CSS, jednocześnie korzystając z tego, co daje nam Tailwind CSS.
 

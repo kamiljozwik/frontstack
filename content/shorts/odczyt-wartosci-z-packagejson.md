@@ -1,6 +1,6 @@
 ---
 title: Odczyt wartości z package.json
-date: 2024-05-11T17:38:56.197Z
+date: 2024-05-11T10:19:00.000Z
 category: node
 ---
 

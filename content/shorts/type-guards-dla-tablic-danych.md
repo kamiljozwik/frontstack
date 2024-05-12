@@ -1,10 +1,10 @@
 ---
 title: '"type guards" dla tablic danych'
-date: 2024-05-11T19:07:47.724Z
+date: 2024-05-11T10:00:00.000Z
 category: ts
 ---
 
-Mając tablicę danych, która może zawierać różne typy (czyli np. nie jesteśmy pewni odpowiedzi z API), to możemy użyć [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) i metodę `.every()` zamiast `if-ów`, żeby zawęzić sobie typowanie.
+Mając tablicę danych, która może zawierać różne typy (czyli np. nie jesteśmy pewni odpowiedzi z API), możemy użyć [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) i metodę `.every()` zamiast `if-ów`, żeby zawęzić sobie typowanie.
 
 ```ts
 // type guard z użyciem słowa kluczowego "is"

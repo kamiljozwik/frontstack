@@ -1,7 +1,7 @@
 ---
 title: document.designMode
-date: 2024-05-11T18:48:37.939Z
-category: misc
+date: 2024-05-11T10:16:00.000Z
+category: devtools
 ---
 
 Tryb projektowania jest tą funkcjonalnością w przeglądarce, która pozwala nam bezpośrednio edytować dokument (czyli zawartość tekstową strony internetowej). Domyślnie ta właściwość jest oczywiście wyłączona, ale aby uruchomić ten feature, wystarczy otworzyć DevToolsy a następnie wpisać w konsoli:

@@ -1,6 +1,6 @@
 ---
 title: Loose Autocomplete w TypeScript
-date: 2024-05-11T18:57:35.675Z
+date: 2024-05-11T10:13:00.000Z
 category: ts
 ---
 

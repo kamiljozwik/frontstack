@@ -1,6 +1,6 @@
 ---
 title: Typowanie 'process.env' w TypeScript
-date: 2024-05-11T18:56:23.752Z
+date: 2024-05-11T10:14:00.000Z
 category: ts
 ---
 

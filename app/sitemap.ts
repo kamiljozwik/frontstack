@@ -1,10 +1,12 @@
 import { MetadataRoute } from "next";
 import { getPostsMeta } from "./utils/blog";
 import { getNewsMeta } from "./utils/news";
+import { getShorts } from "./shorts/utils";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPosts = getPostsMeta();
   const allNews = getNewsMeta();
+  const shorts = await getShorts();
 
   const postsMap = allPosts.map((p) => ({
     url: `https://frontstack.pl/blog/${p.slug}`,
@@ -13,6 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const newsMap = allNews.map((p) => ({
     url: `https://frontstack.pl/frontendowka/${p.slug}`,
+    lastModified: p.date,
+  }));
+
+  const shortsMap = shorts.map((p) => ({
+    url: `https://frontstack.pl/shorts/${p.slug}`,
     lastModified: p.date,
   }));
 
@@ -25,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...postsMap,
     ...newsMap,
+    ...shortsMap,
     {
       url: `https://frontstack.pl/shorts`,
     },

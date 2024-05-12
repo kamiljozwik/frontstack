@@ -1,10 +1,12 @@
 import { Codeblock } from "@/components/codeblock/Codeblock";
 import { Metadata } from "next";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { getShort, getShorts, tagToName } from "../utils";
+import { getShort, getShorts, valueToLabel } from "../utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { AnchorLink } from "@/mdx-components";
+import { CategoryBadge } from "../components/CategoryBadge";
+import { Badge } from "@/components/ui/badge";
 
 export const revalidate = 43200; // Refresh data every 12h
 
@@ -57,12 +59,22 @@ const ShortDetails = async ({
     ),
   };
 
+  const category = valueToLabel(resp.data.short.category);
+
   return (
     <main className="mt-8">
-      <span className="mr-1">📅</span>
-      <time dateTime={resp.data.short.date}>
-        {new Date(resp.data.short.date).toLocaleDateString("pl-PL")}
-      </time>
+      <div className="flex gap-2">
+        <Badge variant="secondary">
+          <time dateTime={resp.data.short.date} className="font-medium text-xs">
+            {new Date(resp.data.short.date).toLocaleDateString("pl-PL", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </time>
+        </Badge>
+        <CategoryBadge category={resp.data.short.category} />
+      </div>
       <header>
         <h1 className="text-3xl font-bold mt-4 mb-6">
           {resp.data.short.title}
@@ -74,12 +86,10 @@ const ShortDetails = async ({
 
       <div className="flex gap-4 mt-12">
         <Button asChild variant="secondary">
-          <Link href={`/shorts-new/${randomSlug}`}>Losowy short</Link>
+          <Link href={`/shorts/${randomSlug}`}>Losowy short</Link>
         </Button>
         <Button asChild variant="secondary">
-          <Link href={`/shorts-new/${nextSlug}`}>
-            Kolejny short: {tagToName(resp.data.short.category)}
-          </Link>
+          <Link href={`/shorts/${nextSlug}`}>Kolejny short: {category}</Link>
         </Button>
       </div>
     </main>

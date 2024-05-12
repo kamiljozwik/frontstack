@@ -1,6 +1,6 @@
 ---
 title: Typy warunkowe w TypeScript
-date: 2024-05-11T19:03:55.786Z
+date: 2024-05-11T10:08:00.000Z
 category: ts
 ---
 

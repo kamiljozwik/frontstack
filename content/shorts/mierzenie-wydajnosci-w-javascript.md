@@ -1,6 +1,6 @@
 ---
 title: Mierzenie wydajności w JavaScript
-date: 2024-05-11T17:40:25.555Z
+date: 2024-05-11T10:18:00.000Z
 category: js
 ---
 

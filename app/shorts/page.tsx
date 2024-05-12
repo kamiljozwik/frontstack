@@ -1,7 +1,9 @@
-import Content from "./content.mdx";
 import { PageHeader } from "../components/headers/Headers";
-import style from "./shorts.module.scss";
-import { ExternalLink } from "../components/externalLink/ExternalLink";
+import Link from "next/link";
+import { getShorts } from "./utils";
+import { CategoryBadge } from "./components/CategoryBadge";
+
+export const revalidate = 43200; // Refresh data every 12h
 
 export const metadata = {
   title: "Frontend - użyteczne informacje",
@@ -9,27 +11,31 @@ export const metadata = {
     "Krótkie informacje / sztuczki / rozwiązania, które mogą Ci się przydać w codziennej pracy",
 };
 
-const Shorts = () => {
-  const sections = Content({}).props.children.filter(
-    (c: any) => c.type === "section"
-  );
+const Shorts = async () => {
+  const shorts = await getShorts();
 
   return (
-    <main
-      className={style.root}
-      style={{ counterReset: `section ${sections.length + 1}` }}
-    >
+    <main>
       <PageHeader desc="Krótkie informacje / sztuczki / rozwiązania, które mogą Ci się przydać w codziennej pracy 😉">
         Shorts
       </PageHeader>
-      <div className="p-3 bg-gray-800 rounded-lg">
-        Masz pomysł na nietypowego i pomocnego Shorta? Daj mi o tym znać na{" "}
-        <ExternalLink href="https://discord.gg/Jg9aSAuxpP">
-          Discordzie
-        </ExternalLink>
-        🔗
+      <div className="grid gap-x-4 gap-y-6 grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+        {shorts?.map((el) => (
+          <Link
+            key={el.slug}
+            href={`/shorts/${el.slug}`}
+            className="hover:no-underline hover:bg-gray-800 transition-colors border rounded-md border-gray-500 text-white"
+          >
+            <div className="p-4 relative">
+              <CategoryBadge
+                category={el.category}
+                className="absolute top-[-0.8rem]"
+              />
+              <span>{el.title}</span>
+            </div>
+          </Link>
+        ))}
       </div>
-      <Content />
     </main>
   );
 };

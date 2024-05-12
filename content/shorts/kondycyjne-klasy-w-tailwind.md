@@ -1,6 +1,6 @@
 ---
 title: Kondycyjne klasy w Tailwind
-date: 2024-05-11T18:47:27.463Z
+date: 2024-05-11T10:17:00.000Z
 category: tailwind
 ---
 

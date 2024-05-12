@@ -1,16 +1,12 @@
 ---
 title: '"extends keyof" vs. "in keyof" w TypeScript'
-date: 2024-05-11T19:00:29.247Z
+date: 2024-05-11T10:11:00.000Z
 category: ts
 ---
 
 Czy zdarzyło Ci się czasami trochę pogubić lub nie do końca rozumieć różnicę pomiędzy `extends keyof` i `in keyof` w TypeScript?
 
-Oto krótkie wyjaśnienie:
-
 `extends keyof` jest używane w TypeScript dla typów generycznych. Wskazuje, że typ generyczny musi być kluczem określonego obiektu.
-
-Oto prosty przykład:
 
 ```typescript
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {

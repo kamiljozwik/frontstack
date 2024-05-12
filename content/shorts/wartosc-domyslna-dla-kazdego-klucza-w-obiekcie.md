@@ -1,6 +1,6 @@
 ---
 title: Wartość domyślna dla każdego klucza w obiekcie
-date: 2024-05-11T19:06:06.601Z
+date: 2024-05-11T10:03:00.000Z
 category: js
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Sprawdzanie właściwości obiektu JS
-date: 2024-05-11T09:13:12.912Z
+date: 2024-05-11T10:02:00.000Z
 category: js
 ---
 

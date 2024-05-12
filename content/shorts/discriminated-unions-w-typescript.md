@@ -1,6 +1,6 @@
 ---
 title: Discriminated Unions w TypeScript
-date: 2024-05-11T19:01:38.772Z
+date: 2024-05-11T10:10:00.000Z
 category: ts
 ---
 

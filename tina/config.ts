@@ -1,4 +1,5 @@
 import { defineConfig } from "tinacms";
+import { categoriesShort } from "./dictionaries";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -59,32 +60,7 @@ export default defineConfig({
             name: "category",
             label: "Category",
             required: true,
-            options: [
-              {
-                value: "js",
-                label: "JavaScript",
-              },
-              {
-                value: "ts",
-                label: "TypeScript",
-              },
-              {
-                value: "misc",
-                label: "Other",
-              },
-              {
-                value: "tailwind",
-                label: "Tailwind",
-              },
-              {
-                value: "node",
-                label: "Node.js",
-              },
-              {
-                value: "react",
-                label: "React",
-              },
-            ],
+            options: categoriesShort,
             ui: {
               component: "select",
             },

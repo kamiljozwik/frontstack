@@ -1,10 +1,10 @@
 ---
 title: Aliasy podczas importów w TS
-date: 2024-05-11T19:05:33.051Z
+date: 2024-05-11T10:06:00.000Z
 category: ts
 ---
 
-Macie już dość *kropkowania* podczas importów? [Aliasy](https://www.typescriptlang.org/tsconfig#paths) w TS mogą nam tutaj znacznie uprościć życie. Do pliku `tsconfig.json` wystarczy dodać następującą konfigurację:
+Macie już dość _kropkowania_ podczas importów? [Aliasy](https://www.typescriptlang.org/tsconfig#paths) w TS mogą nam tutaj znacznie uprościć życie. Do pliku `tsconfig.json` wystarczy dodać następującą konfigurację:
 
 ```json
 {

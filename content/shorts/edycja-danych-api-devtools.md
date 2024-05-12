@@ -1,7 +1,7 @@
 ---
 title: Edycja danych z API w DevTools
-date: 2024-05-11T05:30:01.807Z
-category: misc
+date: 2024-05-11T10:23:00.000Z
+category: devtools
 ---
 
 W Chrome DevTools możemy edytować zapytania `fetch` i `XHR` 😲

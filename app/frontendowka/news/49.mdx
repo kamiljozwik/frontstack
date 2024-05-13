@@ -1,0 +1,104 @@
+export const meta = {
+  title:
+    "React 18.3.0, Svelte 5, cachowanie na dysku w Node.js, Popover API i celowe blokowanie renderowania HTML",
+  date: "2024-05-13",
+  period: "30.04.2024 - 13.05.2024",
+};
+
+## React 18.3.0
+
+Wszyscy cały czas żyjemy Reactem 19, tymczasem pojawiła się kolejna wersja minorowa, która pod kątem funkcjonalności jest identyczna do wersji `18.2.0`, ale dodaje ostrzeżenia w miejscach, gdzie React 19 może potencjalnie popsuć naszą aplikację.
+
+Przed migracją do wersji `19.X`, warto więc w pierwszej kolejności bezpiecznie zmigrować się do wersji `18.3.0`.
+
+<small>
+  Źródło:
+  [https://github.com/facebook/react/releases/tag/v18.3.0](https://https://github.com/facebook/react/releases/tag/v18.3.0)
+</small>
+
+## Svelte 5 Release Candidate
+
+Svelte 5 wchodzi w fazę _Release Candidate_.
+
+Nowa wersja wprowadza całkowicie przeprojektowane API reaktywności, o nazwie `runes`.
+
+Udoskonalono obsługę zdarzeń, zwiększając elastyczność i redukując boilerplate. Istotnym udogodnieniem jest także lepsza kompozycja komponentów oraz natywne wsparcie dla TypeScript. Zmiany te mają na celu zwiększenie szybkości, łatwości użycia i niezawodności frameworka.
+
+Komponenty napisane dla Svelte 4 będą kompatybilne z nową wersją, z nielicznymi wyjątkami.
+
+Jak wielki fan tego frameworka, z niecierpliwością wyczekuję finalnego releasu. ⌛
+
+<small>
+  Źródło:
+  [svelte.dev/blog/svelte-5-release-candidate](https://svelte.dev/blog/svelte-5-release-candidate)
+</small>
+
+## Effect 3.0
+
+Po pięciu latach intensywnej pracy i trzech latach testów produkcyjnych, nowa wersja biblioteki TypeScript, która skupia się na rozwiązaniu problemów związanych z pisaniem "aplikacji biznesowych", jest już dostępna.
+
+Nowością w Effect 3.0 jest przede wszystkim wprowadzenie pełnej zgodności z wersjonowaniem semantycznym, co ułatwi zarządzanie zależnościami. Biblioteka próbuje w łatwy sposób rozwiązać wiele istotnych problemów, takich jak zarządzanie błędami, iniekcja zależności oraz modelowanie danych, oferując bardziej deklaratywne podejście do kodowania i lepszą skalowalność w TypeScript.
+
+<small>
+  Źródło:
+  [effect.website/blog/effect-3.0](https://effect.website/blog/effect-3.0)
+</small>
+
+## Node 22.1.0 i cache na dysku
+
+Wersja Node.js 22.1.0 wprowadza kilka interesujących zmian i ulepszeń. Nowością jest wprowadzenie `NODE_COMPILE_CACHE`, które pozwala na automatyczne przechowywanie kompilowanego kodu na dysku, co zwiększa szybkość ponownego ładowania modułów, jeśli ich zawartość się nie zmieni.
+
+Ta funkcja może znacząco przyspieszyć procesy deweloperskie, zwłaszcza przy użyciu TypeScript czy dużych bibliotek.
+
+Ponadto, wersja ta zawiera liczne drobne poprawki i usprawnienia w modułach takich jak `buffer` i `dns`, jak również nowe opcje dla komend CLI i stabilizację pewnych API.
+
+<small>Źródło: [nodejs.org](https://nodejs.org/en/blog/release/v22.1.0)</small>
+
+## Vercel AI SDK 3.1
+
+Vercel ogłosił wydanie AI SDK 3.1, które przynosi kluczową nowość: integrację z ModelFusion, rozszerzając tym samym możliwości tworzenia aplikacji AI w TypeScript.
+
+Wersja 3.1 skupia się na trzech głównych obszarach:
+
+- `AI SDK Core`, oferującym zunifikowane API do generowania tekstu i obiektów;
+- `AI SDK UI`, zapewniającym prostsze budowanie interfejsów typu "chat";
+- `AI SDK RSC`, umożliwiającym strumieniowanie interfejsów użytkownika z użyciem _React Server Components_.
+
+Współpraca z głównymi dostawcami modeli AI, takimi jak OpenAI czy Google, pozwala nam tutaj na łatwą integrację i rozbudowę funkcjonalności.
+
+<small>
+  Źródło:
+  [vercel.com/blog/vercel-ai-sdk-3-1-modelfusion-joins-the-team](https://vercel.com/blog/vercel-ai-sdk-3-1-modelfusion-joins-the-team)
+</small>
+
+## Render-blocking
+
+Render-blocking w HTML tradycyjnie jest zjawiskiem, którego programiści starają się unikać, aby przyspieszyć ładowanie stron.
+
+Jednak najnowsza specyfikacja HTML wprowadza atrybut `blocking`, umożliwiający celowe blokowanie renderowania, aż do załadowania określonych zasobów. Ten nowy atrybut pomaga w świadomym zarządzaniu zależnościami krytycznymi, które muszą być załadowane przed wyświetleniem jakiejkolwiek treści na stronie.
+
+Przykłady użycia obejmują skrypty, arkusze stylów i linki w sekcji `<head>`. Atrybut `blocking` można łączyć z `defer` lub `async`, co zwiększa elastyczność w kontrolowaniu ładowania zasobów, jednocześnie blokując renderowanie do momentu ich załadowania.
+
+<small>
+  Źródło:
+  [fullystacked.net/render-blocking-on-purpose](https://fullystacked.net/render-blocking-on-purpose/)
+</small>
+
+## Popover API
+
+Popover API ułatwia tworzenie dynamicznych, _niemodalnych_ popupów, które nie wymagają obsługi na poziomie DOM. W przeciwieństwie do `<dialog>`, elementy Popover nie blokują interakcji z pozostałą częścią strony, co zwiększa ich użyteczność i elastyczność w różnych scenariuszach użytkowania.
+
+Chociaż nowa API jest już dostępna, wciąż oczekuje się na wsparcie dla Anchor Positioning API, które rozszerzyłoby możliwości, takie jak tworzenie zaawansowanych tooltipów czy menu.
+
+Podlinkowany artykuł zawiera praktyczne przykłady użycia tej technologii, w tym proste integracje HTML i CSS, podkreślając ich łatwość implementacji.
+
+<small>
+  Źródło:
+  [frontendmasters.com/blog/popover-api-is-here](https://frontendmasters.com/blog/popover-api-is-here)
+</small>
+
+## Why `react-query`?
+
+Bardzo fajny artykuł wyjaśniający jakie problemy rozwiązuje nam bardzo popularna biblioteka `react-query` oraz skąd ta popularność się się wzięła.
+
+<small>Źródło: [ui.dev/why-react-query](https://ui.dev/why-react-query)</small>

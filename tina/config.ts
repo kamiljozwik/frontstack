@@ -1,5 +1,5 @@
 import { defineConfig } from "tinacms";
-import { categoriesShort } from "./dictionaries";
+import { categoriesNews, categoriesShort } from "./dictionaries";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -26,6 +26,59 @@ export default defineConfig({
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
     collections: [
+      {
+        name: "news",
+        label: "News",
+        path: "content/news",
+        defaultItem: () => {
+          return {
+            date: new Date(),
+          };
+        },
+        ui: {
+          filename: {
+            readonly: false,
+            slugify: (values) => slug(values.title),
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "category",
+            label: "Category",
+            required: true,
+            options: categoriesNews,
+            ui: {
+              component: "select",
+            },
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true,
+          },
+          {
+            type: "string",
+            name: "links",
+            label: "Links",
+            list: true,
+          },
+        ],
+      },
       {
         name: "short",
         label: "Shorts",

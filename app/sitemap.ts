@@ -37,6 +37,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `https://frontstack.pl/shorts`,
     },
     {
+      url: `https://frontstack.pl/news/2024`,
+    },
+    {
       url: `https://frontstack.pl/zarobki`,
     },
     {

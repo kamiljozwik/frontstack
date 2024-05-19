@@ -76,6 +76,7 @@ export default defineConfig({
             name: "links",
             label: "Links",
             list: true,
+            required: true,
           },
         ],
       },

@@ -10,7 +10,7 @@ import { cn } from "@/utils";
 const links = [
   { href: "/blog", label: "Posty" },
   { href: "/shorts", label: "Shorts" },
-  { href: "/frontendowka", label: "Newsy" },
+  { href: "/news", label: "Newsy" },
   { href: "/biblioteki", label: "Biblioteki" },
   { href: "/zarobki", label: "Zarobki" },
   { href: "https://kursy.frontstack.pl/", label: "Kursy🎉" },

@@ -4,12 +4,27 @@ import { PostLink } from "./components/postLink/PostLink";
 import styles from "./page.module.scss";
 import { getPostsMeta } from "./utils/blog";
 import Link from "next/link";
-import { getNewsMeta } from "./utils/news";
 import { Button } from "@/components/ui/button";
+import client from "@/tina/__generated__/client";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { AnchorLink } from "@/mdx-components";
+import { formatDate } from "@/utils/date";
 
-export default function Home() {
+export const revalidate = 43200; // Refresh data every 12h
+
+export default async function Home() {
   const allPosts = getPostsMeta();
-  const news = getNewsMeta().slice(0, 3);
+
+  const { data } = await client.queries.newsConnection({
+    sort: "date",
+    filter: {
+      category: {
+        eq: "news",
+      },
+    },
+    last: 3,
+  });
+  const news = data.newsConnection.edges;
 
   return (
     <div className={styles.root}>
@@ -32,20 +47,30 @@ export default function Home() {
             <Tags />
           </section>
           <section className="mt-4">
-            <h2 className="mb-0">Frontendówka</h2>
-            <ul className="list-none p-0">
-              {news.map((news) => (
-                <li key={news.date} className="flex flex-col mt-2">
-                  <small className="text-gray-400">{news.period}</small>
-                  <Link
-                    className="text-white"
-                    href={`/frontendowka/${news.slug}`}
-                  >
-                    {news.title}
-                  </Link>
+            <h2 className="mb-0">Newsy</h2>
+            <ul className="list-none p-0 m-0">
+              {news?.map((n) => (
+                <li key={n?.cursor} className="flex flex-col">
+                  <small className="text-gray-400">
+                    {formatDate(n?.node?.date)}
+                  </small>
+                  <h3>{n?.node?.title}</h3>
+                  <TinaMarkdown
+                    content={n?.node?.body}
+                    components={{
+                      a: (props: any) => (
+                        <AnchorLink href={props.url}>
+                          {props.children}
+                        </AnchorLink>
+                      ),
+                    }}
+                  />
                 </li>
               ))}
             </ul>
+            <Button asChild variant="secondary" className="">
+              <Link href="/news">Zobacz wszystkie newsy</Link>
+            </Button>
           </section>
         </div>
       </main>

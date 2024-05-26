@@ -3,6 +3,7 @@ title: React Router 7 = Remix 3
 date: 2024-05-14T22:00:00.000Z
 category: news
 links:
+  - 'https://remix.run/blog/incremental-path-to-react-19'
   - 'https://remix.run/blog/merging-remix-and-react-router'
 ---
 

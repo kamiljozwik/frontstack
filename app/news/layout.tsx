@@ -1,7 +1,5 @@
 import { PageHeader } from "../components/headers/Headers";
 
-export const revalidate = 43200; // Refresh data every 12h
-
 export const metadata = {
   title: "Wiadomości oraz ciekawe artykuły",
   description:

@@ -3,8 +3,6 @@ import Link from "next/link";
 import { getShorts } from "./utils";
 import { CategoryBadge } from "./components/CategoryBadge";
 
-export const revalidate = 43200; // Refresh data every 12h
-
 export const metadata = {
   title: "Frontend - użyteczne informacje",
   description:

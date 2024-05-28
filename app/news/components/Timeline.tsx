@@ -1,4 +1,3 @@
-import client from "@/tina/__generated__/client";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { formatDate } from "@/utils/date";
 import { AnchorLink } from "@/mdx-components";
@@ -7,6 +6,7 @@ import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getNews } from "../utils";
 
 type Props = {
   year: string;
@@ -33,7 +33,7 @@ export const Timeline = async ({ year, type }: Props) => {
     redirect("/news");
   }
 
-  const { data } = await client.queries.newsConnection({
+  const edges = await getNews({
     sort: "date",
     filter: {
       category: type
@@ -48,10 +48,10 @@ export const Timeline = async ({ year, type }: Props) => {
     },
   });
 
-  type Edges = typeof data.newsConnection.edges;
+  type Edges = typeof edges;
 
   const allNewsByMonth =
-    data.newsConnection.edges?.reverse().reduce((acc, curr) => {
+    edges?.reverse().reduce((acc, curr) => {
       const month = new Intl.DateTimeFormat("pl-PL", { month: "long" }).format(
         new Date(curr?.node?.date ?? "")
       );

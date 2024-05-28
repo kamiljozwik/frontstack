@@ -8,8 +8,6 @@ import { AnchorLink } from "@/mdx-components";
 import { CategoryBadge } from "../components/CategoryBadge";
 import { Badge } from "@/components/ui/badge";
 
-export const revalidate = 43200; // Refresh data every 12h
-
 export async function generateStaticParams() {
   const shorts = await getShorts();
   return shorts;

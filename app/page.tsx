@@ -5,17 +5,15 @@ import styles from "./page.module.scss";
 import { getPostsMeta } from "./utils/blog";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import client from "@/tina/__generated__/client";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { AnchorLink } from "@/mdx-components";
 import { formatDate } from "@/utils/date";
-
-export const revalidate = 43200; // Refresh data every 12h
+import { getNews } from "./news/utils";
 
 export default async function Home() {
   const allPosts = getPostsMeta();
 
-  const { data } = await client.queries.newsConnection({
+  const news = await getNews({
     sort: "date",
     filter: {
       category: {
@@ -24,7 +22,6 @@ export default async function Home() {
     },
     last: 3,
   });
-  const news = data.newsConnection.edges;
 
   return (
     <div className={styles.root}>

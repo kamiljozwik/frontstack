@@ -1,20 +1,17 @@
 import { Button } from "@/components/ui/button";
-import styles from "./hero.module.scss";
 import { ExternalLink } from "../externalLink/ExternalLink";
 
 export const Hero = () => {
   return (
-    <section className={styles.root}>
-      <h1>Blog frontstack.pl</h1>
-      <div className={styles.course}>
+    <section className="mb-12">
+      <h1 className="invisible">Blog Frontstack</h1>
+      <div className="">
         <div>
-          <p className="mt-6 md:mt-0">
-            <span className={styles.courseSubTitle}>Sprawdź również moje</span>
-            <span className={styles.courseTitle}>kursy i szkolenia</span>
-          </p>
-          <div className="animate-bounce">
+          <p className="m-0 text-gray-300">Web Development</p>
+          <p className="m-0 text-5xl uppercase font-bold">Vademecum 🎈</p>
+          <div className="animate-bounce mt-6">
             <Button asChild>
-              <ExternalLink href="https://kursy.frontstack.pl">
+              <ExternalLink href="https://vademecum.frontstack.pl">
                 Zobacz więcej
               </ExternalLink>
             </Button>

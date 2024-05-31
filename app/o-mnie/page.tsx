@@ -90,13 +90,13 @@ const About = () => {
           </p>
         </section>
         <section>
-          <h2>Kursy i szkolenia</h2>
+          <h2>WebDev Vademecum</h2>
           <p>
-            W międzyczasie, tworzę również kursy online dotyczące technologii
-            frontendowych. Lista tych kursów jest regularnie powiększana i można
-            je znaleźć pod adresem{" "}
-            <ExternalLink href="https://kursy.frontstack.pl">
-              kursy.frontstack.pl
+            W międzyczasie, tworzę również darmowe vademecum online dotyczące
+            technologii frontendowych. Lista dostępnych tam kursów jest
+            regularnie powiększana i można je znaleźć pod adresem{" "}
+            <ExternalLink href="https://vademecum.frontstack.pl">
+              https://vademecum.frontstack.pl
             </ExternalLink>
             .
           </p>

@@ -13,14 +13,14 @@ const links = [
   { href: "/news", label: "Newsy" },
   { href: "/biblioteki", label: "Biblioteki" },
   { href: "/zarobki", label: "Zarobki" },
-  { href: "https://kursy.frontstack.pl/", label: "Kursy🎉" },
+  { href: "https://vademecum.frontstack.pl/", label: "Vademecum" },
 ];
 
 export const Header = () => {
   const pathname = usePathname();
 
   return (
-    <header className="mt-6 md:mt-0 h-24 flex flex-col md:flex-row items-center gap-6 md:gap-12 justify-between">
+    <header className="mt-6 md:mt-0 h-24 flex flex-col md:flex-row items-center gap-4 md:justify-between">
       <div className="">
         <Link href="/">
           <Logo />

@@ -27,7 +27,7 @@ export default async function Home() {
     <div className={styles.root}>
       <Hero />
       <main className={styles.main}>
-        <section className="w-[60vw]">
+        <section className="w-full md:w-[60vw]">
           <h2 className="font-bold">Najnowsze wpisy</h2>
           {allPosts.slice(0, 5).map((post) => (
             <PostLink key={post.slug} post={post} />

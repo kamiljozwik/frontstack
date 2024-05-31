@@ -8,8 +8,8 @@ type Props = {
 export const CourseBanner = ({ variant = "default" }: Props) => {
   return (
     <div className={`${styles.root} ${styles[variant]}`}>
-      <ExternalLink href="https://kursy.frontstack.pl/">
-        <p>Sprawdź również moje kursy i szkolenia 🙂</p>
+      <ExternalLink href="https://vademecum.frontstack.pl/">
+        <p>Vademecum Web Developmentu już dostępne!</p>
       </ExternalLink>
     </div>
   );

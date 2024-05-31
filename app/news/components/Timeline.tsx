@@ -121,7 +121,7 @@ export const Timeline = async ({ year, type }: Props) => {
                       {edge?.node?.category === "news" ? "News" : "Artykuł"}
                     </Badge>
                   </div>
-                  <article className="row-start-3 col-start-2 pt-2 pb-8">
+                  <article className="row-start-3 col-start-2 pt-2 pb-8 overflow-hidden">
                     <h2 className="mb-0">{edge?.node?.title}</h2>
                     <div className="text-gray-300">
                       <TinaMarkdown
@@ -142,9 +142,22 @@ export const Timeline = async ({ year, type }: Props) => {
                           : `https://${link}`;
 
                         return url ? (
-                          <div key={url}>
+                          <div key={url} className="truncate">
                             <AnchorLink href={url}>
-                              {url.replace("https://", "").replace("www.", "")}
+                              <div className="flex gap-1 items-center active:border">
+                                {url.includes("youtube.com") ? null : (
+                                  <Image
+                                    width={12}
+                                    height={12}
+                                    src="/assets/icons/external-link.svg"
+                                    alt=""
+                                    className="ml-1"
+                                  />
+                                )}
+                                {url
+                                  .replace("https://", "")
+                                  .replace("www.", "")}
+                              </div>
                             </AnchorLink>
                           </div>
                         ) : null;

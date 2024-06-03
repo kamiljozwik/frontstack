@@ -1,5 +1,5 @@
 ---
-title: Odczyt wartości z package.json
+title: Odczyt wartości z `package.json`
 date: 2024-05-11T10:19:00.000Z
 category: node
 ---

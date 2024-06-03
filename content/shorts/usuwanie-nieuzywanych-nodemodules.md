@@ -1,5 +1,5 @@
 ---
-title: Usuwanie nieużywanych "node_modules"
+title: Usuwanie nieużywanych `node_modules`
 date: 2024-05-11T10:15:00.000Z
 category: node
 ---

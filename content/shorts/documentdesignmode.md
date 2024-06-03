@@ -1,5 +1,5 @@
 ---
-title: document.designMode
+title: Prototypowanie z `document.designMode`
 date: 2024-05-11T10:16:00.000Z
 category: devtools
 ---

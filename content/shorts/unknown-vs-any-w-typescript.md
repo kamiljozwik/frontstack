@@ -1,5 +1,5 @@
 ---
-title: '"unknown" vs. "any" w TypeScript'
+title: "`unknown` vs. `any` w TypeScript"
 date: 2024-05-11T10:07:00.000Z
 category: ts
 ---

@@ -1,12 +1,10 @@
 ---
 title: Jak pokolorować scrollbar w różnych przeglądarkach
 date: 2024-06-01T16:43:19.978Z
-category: misc
+category: css
 ---
 
 Dziś nauczymy się, jak dostosować kolor paska przewijania, aby działał we wszystkich przeglądarkach 🎨
-
-### CSS dla Chrome, Edge, Safari
 
 ```css
 /* Firefox */

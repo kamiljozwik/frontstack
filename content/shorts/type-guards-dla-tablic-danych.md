@@ -1,5 +1,5 @@
 ---
-title: '"type guards" dla tablic danych'
+title: "`type guards` dla tablic danych"
 date: 2024-05-11T10:00:00.000Z
 category: ts
 ---

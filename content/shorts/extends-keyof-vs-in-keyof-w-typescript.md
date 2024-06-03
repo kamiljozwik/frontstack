@@ -1,5 +1,5 @@
 ---
-title: '"extends keyof" vs. "in keyof" w TypeScript'
+title: "`extends keyof` vs. `in keyof` w TypeScript"
 date: 2024-05-11T10:11:00.000Z
 category: ts
 ---

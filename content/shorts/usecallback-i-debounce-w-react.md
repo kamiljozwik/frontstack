@@ -1,5 +1,5 @@
 ---
-title: '"useCallback" i "debounce" w React'
+title: "`useCallback` i `debounce` w React"
 date: 2024-05-11T10:12:00.000Z
 category: react
 ---

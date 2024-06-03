@@ -1,5 +1,5 @@
 ---
-title: Typ warunkowy "infer" w TS
+title: Typ warunkowy `infer` w TS
 date: 2024-05-11T10:09:00.000Z
 category: ts
 ---

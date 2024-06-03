@@ -1,6 +1,6 @@
 import { PageHeader } from "../components/headers/Headers";
 import Link from "next/link";
-import { getShorts } from "./utils";
+import { getShorts, parseBackticks } from "./utils";
 import { CategoryBadge } from "./components/CategoryBadge";
 
 export const metadata = {
@@ -29,7 +29,9 @@ const Shorts = async () => {
                 category={el.category}
                 className="absolute top-[-0.8rem]"
               />
-              <span>{el.title}</span>
+              <span
+                dangerouslySetInnerHTML={{ __html: parseBackticks(el.title) }}
+              />
             </div>
           </Link>
         ))}

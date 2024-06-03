@@ -1,5 +1,5 @@
 ---
-title: Loose Autocomplete w TypeScript
+title: '"Loose Autocomplete" w TypeScript'
 date: 2024-05-11T10:13:00.000Z
 category: ts
 ---

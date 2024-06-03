@@ -1,12 +1,12 @@
 ---
-title: Typ "never" i obsługa błędów
+title: Typ `never` i obsługa błędów
 date: 2024-06-01T16:52:18.398Z
 category: ts
 ---
 
 Typ `never` w TypeScript reprezentuje zbiór pusty – oznacza, że żadna wartość nie może być tego typu. Używany jest do modelowania stanów, które nigdy nie powinny się wydarzyć, np. w kontekście obsługi błędów lub wyczerpywania przypadków w strukturach typu `switch`.
 
-### Przykład zastosowania w funkcjach
+## Przykład zastosowania w funkcjach
 
 Typ `never` może być szczególnie użyteczny w funkcjach, aby upewnić się, że wszystkie możliwe przypadki zostały obsłużone.
 
@@ -37,7 +37,7 @@ function area(s: Shape): number {
 
 W powyższym przykładzie, funkcja `assertNever` rzuca błąd, jeśli otrzyma wartość, która nie jest jednym z oczekiwanych typów (`Circle`, `Square`, `Rectangle`). Dzięki temu TypeScript podpowie nam, jeśli w przyszłości dodamy nowy typ do unii `Shape`, a zapomnimy zaktualizować funkcję `area` 👏
 
-### Obsługa błędów za pomocą unii dyskryminowanych (`discriminated union`)
+## Obsługa błędów za pomocą unii dyskryminowanych (`discriminated union`)
 
 Innym sposobem na bardziej elegancką obsługę błędów w TypeScript jest wykorzystanie typów unii dyskryminowanych.
 
@@ -75,4 +75,4 @@ W tym przypadku, funkcja `divide` zwraca typ `Result<number>`, który może być
 
 Zobacz również:
 
-* [The `never` type and error handling in TypeScript](https://fettblog.eu/typescript-never-and-error-handling/)
+- [The `never` type and error handling in TypeScript](https://fettblog.eu/typescript-never-and-error-handling/)

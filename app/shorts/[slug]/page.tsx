@@ -1,7 +1,7 @@
 import { Codeblock } from "@/components/codeblock/Codeblock";
 import { Metadata } from "next";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { getShort, getShorts, valueToLabel } from "../utils";
+import { getShort, getShorts, parseBackticks, valueToLabel } from "../utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { AnchorLink } from "@/mdx-components";
@@ -55,6 +55,9 @@ const ShortDetails = async ({
     a: (props: any) => (
       <AnchorLink href={props.url}>{props.children}</AnchorLink>
     ),
+    h2: (props: any) => (
+      <h2 className="font-semibold mt-6 mb-2">{props.children}</h2>
+    ),
   };
 
   const category = valueToLabel(resp.data.short.category);
@@ -74,9 +77,13 @@ const ShortDetails = async ({
         <CategoryBadge category={resp.data.short.category} />
       </div>
       <header>
-        <h1 className="text-3xl font-bold mt-4 mb-6">
-          {resp.data.short.title}
-        </h1>
+        <h1
+          className="text-4xl font-bold mt-6 mb-6"
+          dangerouslySetInnerHTML={{
+            __html: parseBackticks(resp.data.short.title),
+          }}
+        />
+        <hr className="mb-6 border-red-500" />
       </header>
       <div className="[&_p]:mb-2 [&_pre]:!p-2 [&_pre]:!mt-6 [&_pre]:!mb-8">
         <TinaMarkdown content={resp.data.short.body} components={components} />

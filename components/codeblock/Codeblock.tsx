@@ -1,5 +1,5 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import atomOneDark from "react-syntax-highlighter/dist/cjs/styles/prism/material-dark";
+import oneDark from "react-syntax-highlighter/dist/cjs/styles/prism/one-dark";
 
 type Props = {
   language?: string;
@@ -9,7 +9,7 @@ type Props = {
 const Codeblock = ({ children, language }: Props) => {
   return (
     // @ts-expect-error
-    <SyntaxHighlighter language={language || "tsx"} style={atomOneDark}>
+    <SyntaxHighlighter language={language || "tsx"} style={oneDark}>
       {children}
     </SyntaxHighlighter>
   );

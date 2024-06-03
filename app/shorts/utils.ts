@@ -46,3 +46,8 @@ export const valueToLabel = (value = "") => {
 
   return typeof cat !== "string" ? cat?.label ?? def : def;
 };
+
+export const parseBackticks = (content?: string) => {
+  const codeRegex = /`([^`]+)`/g;
+  return content?.replace(codeRegex, "<code>$1</code>") ?? "";
+};

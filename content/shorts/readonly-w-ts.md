@@ -1,5 +1,5 @@
 ---
-title: Readonly w TS
+title: "`readonly` w TS"
 date: 2024-05-11T10:01:00.000Z
 category: ts
 ---

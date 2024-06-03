@@ -29,6 +29,14 @@ export const categoriesShort: Option[] = [
     value: "devtools",
     label: "DevTools",
   },
+  {
+    value: "css",
+    label: "CSS",
+  },
+  {
+    value: "html",
+    label: "HTML",
+  },
 ];
 
 export const categoriesNews: Option[] = [

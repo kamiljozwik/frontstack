@@ -1,6 +1,6 @@
 ---
 title: Vitest v2
-date: 2024-07-18T04:24:26.632Z
+date: 2024-07-07T22:00:00.000Z
 category: news
 links:
   - 'https://github.com/vitest-dev/vitest/releases/tag/v2.0.0'

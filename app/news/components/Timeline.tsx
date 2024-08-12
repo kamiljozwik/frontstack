@@ -35,6 +35,7 @@ export const Timeline = async ({ year, type }: Props) => {
 
   const edges = await getNews({
     sort: "date",
+    first: 9999,
     filter: {
       category: type
         ? {

@@ -90,8 +90,9 @@ export const Timeline = async ({ year, type }: Props) => {
       <div>
         {allNewsByMonth.map((group) => (
           <div key={group.month}>
-            <div className="inline-block uppercase py-2 px-4 border-2 border-gray-500 rounded-lg ">
-              {group.month}
+            <div className="inline-flex gap-2 uppercase py-2 px-4 border-2 border-gray-500 rounded-lg ">
+              <span>{group.month}</span>
+              <Badge variant="outline">{group.news?.length}</Badge>
             </div>
             <section className="">
               {group.news?.map((edge, i) => (

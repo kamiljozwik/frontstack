@@ -10,10 +10,10 @@ import { cn } from "@/utils";
 const links = [
   { href: "/blog", label: "Posty" },
   { href: "/shorts", label: "Shorts" },
-  { href: "/news", label: "Newsy" },
+  // { href: "/news", label: "Newsy" },
+  { href: "https://vademecum.frontstack.pl/", label: "Vademecum" },
   { href: "/biblioteki", label: "Biblioteki" },
   { href: "/zarobki", label: "Zarobki" },
-  { href: "https://vademecum.frontstack.pl/", label: "Vademecum" },
 ];
 
 export const Header = () => {
